@@ -4,12 +4,10 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import dev.ioc.JarIocLoader;
-
 @SuppressWarnings("resource")
 public class T2 {
 	public static void main(String[] args) throws Throwable {
-		new JarIocLoader().getBeans();
+
 	}
 
 	public static void test2() throws Throwable {
