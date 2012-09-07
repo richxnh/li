@@ -17,11 +17,6 @@ public class MemberActionTest extends BaseActionTest {
 	}
 
 	@Test
-	public void test404() {
-		memberAction.test404();
-	}
-
-	@Test
 	public void test1() {
 		// memberAction.test1(context);
 	}
@@ -38,9 +33,4 @@ public class MemberActionTest extends BaseActionTest {
 		// memberAction.testVelocity(context);
 	}
 
-	@Test
-	public void test4() {
-		setRequestURL("thread-12-9.htm", "GET");
-		memberAction.test4();
-	}
 }
