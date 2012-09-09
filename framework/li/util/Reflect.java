@@ -128,7 +128,7 @@ public class Reflect {
 	}
 
 	/**
-	 * 探测一个属性的类型,按照优先顺序从Field,Getter,Setter
+	 * 探测一个属性的类型,按照优先顺序从Field,Getter
 	 */
 	public static Class<?> fieldType(Class<?> targetType, String fieldName) {
 		Field field = getField(targetType, fieldName);
@@ -140,15 +140,6 @@ public class Reflect {
 		if (null != getter) {// 从getter方法探测
 			return getter.getReturnType();
 		}
-		try { // 从setter方法探测
-			for (Method setter : targetType.getMethods()) {// 使用getMethods()获取所有公开方法
-				if (Verify.endWith(setter.getName(), fieldName)) {
-					return setter.getParameterTypes()[0];
-				}
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(String.format("Reflect.fieldType() not found field,getter or setter , targetType:%s fieldName:%s", targetType, fieldName), e);
-		}
 		return null;
 	}
 
@@ -156,9 +147,9 @@ public class Reflect {
 	 * 返回target的名为fieldName的属性的值,优先采用Getter方法,Field字段其次
 	 */
 	public static Object get(Object target, String fieldName) {
-		String method = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-		Method getter = getMethod(target.getClass(), method);
 		try {
+			String method = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+			Method getter = getMethod(target.getClass(), method);
 			return getter.invoke(target);// 使用Getter方法
 		} catch (Exception e) {
 			try {
@@ -177,9 +168,9 @@ public class Reflect {
 	 * 设置 target的名为 fieldName 的属性的值为 value,优先采用Setter方法,field字段其次
 	 */
 	public static void set(Object target, String fieldName, Object value) {
-		String method = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-		Method setter = getMethod(target.getClass(), method, fieldType(target.getClass(), fieldName));
 		try {
+			String method = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+			Method setter = getMethod(target.getClass(), method, fieldType(target.getClass(), fieldName));
 			setter.invoke(target, value);// 使用Setter方法
 		} catch (Exception e) {// 没有匹配的Setter方法
 			try {
