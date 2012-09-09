@@ -7,7 +7,8 @@
 
 by li
 * QQ:416133823
-* 群:254860190
+* Q群:254860190
 
-* JAR及文档下载   http://code.google.com/p/liz/downloads/list
+* doc and jar   http://code.google.com/p/liz/downloads/list
 * 提问&讨论   https://github.com/limingwei/li/issues
+* 更新记录   https://github.com/limingwei/li/wiki/changelog
