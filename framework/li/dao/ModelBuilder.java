@@ -71,14 +71,14 @@ public class ModelBuilder {
 	 * @param next 读取前是否 resultSet.next()
 	 * @param close 是否于读取后关闭resultSet
 	 */
-	public Object value(String column, Boolean next, Boolean close) {
+	public String value(String column, Boolean next, Boolean close) {
 		try {
 			if (null != resultSet && next) { // 若next==true,则resultSet.next()
 				if (resultSet.next()) { // 若resultSet.next()返回true,则从resultSet中读值
-					return resultSet.getObject(column);
+					return resultSet.getString(column);
 				}
 			} else if (null != resultSet && !next) { // 若next==false,则直接从resultSet中取值
-				return resultSet.getObject(column);
+				return resultSet.getString(column);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("Exception at li.dao.ModelBuilder.value()", e);

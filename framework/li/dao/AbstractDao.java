@@ -73,22 +73,21 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @see li.dao.QueryRunner
 	 */
 	protected Connection getConnection() {
-		Connection connection = null;
 		try {
 			if (null == Trans.CONNECTION_MAP.get()) {// 如果未进入事务
-				connection = this.getDataSource().getConnection();// 则简单获取一个connection
+				return this.getDataSource().getConnection();// 则简单获取一个connection
 			} else { // 如果已经进入事务
-				connection = Trans.CONNECTION_MAP.get().get(getClass()); // 从connectionMap中得到缓存的connection
+				Connection connection = Trans.CONNECTION_MAP.get().get(getClass()); // 从connectionMap中得到缓存的connection
 				if (null == connection || connection.isClosed()) { // 没有缓存这个Dao的connection或已被关闭
 					connection = this.getDataSource().getConnection(); // 获取一个新的connection
 					connection.setAutoCommit(false); // 设置为不自动提交
 					Trans.CONNECTION_MAP.get().put(getClass(), connection); // 缓存connection
 				}
+				return connection; // 返回这个connection
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("error to connect to the database", e);
 		}
-		return connection; // 返回这个connection
 	}
 
 	/**
@@ -111,7 +110,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 		ResultSet resultSet = queryRunner.executeQuery(sql);
 		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
-		return Integer.valueOf(modelBuilder.value("COUNT(*)", true, true) + "");
+		return new Integer(modelBuilder.value("COUNT(*)", true, true));
 	}
 
 	/**
