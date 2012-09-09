@@ -12,10 +12,10 @@ public class AccountTest extends BaseTest {
 	Account account;
 
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(account);
 	}
-	
+
 	@Test
 	public void testList() {
 	}

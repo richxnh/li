@@ -12,10 +12,10 @@ public class MemberTest extends BaseTest {
 	Member member;
 
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(member);
 	}
-	
+
 	@Test
 	public void testList() {
 	}

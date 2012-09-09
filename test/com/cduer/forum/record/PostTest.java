@@ -10,9 +10,9 @@ import org.junit.Test;
 public class PostTest extends BaseTest {
 	@Inject
 	Post post;
-	
+
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(post);
 	}
 

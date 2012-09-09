@@ -12,10 +12,10 @@ public class PostActionTest extends BaseActionTest {
 	PostAction postAction;
 
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(postAction);
 	}
-	
+
 	@Test
 	public void testList() {
 	}

@@ -12,10 +12,10 @@ public class ForumTest extends BaseTest {
 	Forum forum;
 
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(forum);
 	}
-	
+
 	@Test
 	public void testList() {
 	}

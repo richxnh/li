@@ -14,9 +14,9 @@ import org.junit.Test;
 public class ThreadTest extends BaseTest {
 	@Inject
 	Thread thread;
-	
+
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(thread);
 	}
 

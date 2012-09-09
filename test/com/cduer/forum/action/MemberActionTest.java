@@ -12,10 +12,10 @@ public class MemberActionTest extends BaseActionTest {
 	MemberAction memberAction;
 
 	@Before
-	public void before(){
+	public void before() {
 		assertNotNull(memberAction);
 	}
-	
+
 	@Test
 	public void find() {
 		memberAction.find(1);
