@@ -50,7 +50,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 */
 	protected QueryBuilder getQueryBuilder() {
 		if (null == this.queryBuilder) {
-			this.queryBuilder = new QueryBuilder();
+			this.queryBuilder = new QueryBuilder(Bean.getMeta(getDataSource(), getType()));
 		}
 		return this.queryBuilder;
 	}
@@ -95,7 +95,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 返回对象对应的表中的总记录数
 	 */
 	public Integer count() {
-		return count(getQueryBuilder().count(getDataSource(), getType()));
+		return count(getQueryBuilder().count());
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public Integer count(String sql, Object... args) {
-		sql = getQueryBuilder().count(getDataSource(), getType(), sql, args);
+		sql = getQueryBuilder().count(sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		ResultSet resultSet = queryRunner.executeQuery(sql);
@@ -118,7 +118,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 根据ID查询一条记录
 	 */
 	public T find(Integer id) {
-		return find(getQueryBuilder().find(getDataSource(), getType(), id));
+		return find(getQueryBuilder().find(id));
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 根据分页对象进行分页查询,如果page不为NULL,他会被自动设置总记录数
 	 */
 	public List<T> list(Page page) {
-		return list(page, getQueryBuilder().list(getDataSource(), getType(), page));
+		return list(page, getQueryBuilder().list(page));
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public List<T> list(Page page, String sql, Object... args) {
-		sql = getQueryBuilder().list(getDataSource(), getType(), page, sql, args);
+		sql = getQueryBuilder().list(page, sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		ResultSet resultSet = queryRunner.executeQuery(sql);
@@ -163,7 +163,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 向数据库中插入一条记录,save方法完成后,对象的ID将会被设置
 	 */
 	public Boolean save(T t) {
-		String sql = getQueryBuilder().save(getDataSource(), t, getType());
+		String sql = getQueryBuilder().save(t);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		Integer updateCount = queryRunner.executeUpdate(sql);
@@ -182,7 +182,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @return 受影响的行数
 	 */
 	public Integer update(String sql, Object... args) {
-		sql = getQueryBuilder().update(getDataSource(), getType(), sql, args);
+		sql = getQueryBuilder().update(sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return queryRunner.executeUpdate(sql);
@@ -192,7 +192,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 更新一个对象,根据ID得到对象,然后更新其他属性值
 	 */
 	public Boolean update(T t) {
-		String sql = getQueryBuilder().update(getDataSource(), t, getType());
+		String sql = getQueryBuilder().update(t);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return 1 == queryRunner.executeUpdate(sql);
@@ -202,7 +202,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 删除ID等于传入参数的一条记录,如果存在的话
 	 */
 	public Boolean delete(Integer id) {
-		String sql = getQueryBuilder().delete(getDataSource(), getType(), id);
+		String sql = getQueryBuilder().delete(id);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return 1 == queryRunner.executeUpdate(sql);
@@ -216,7 +216,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @return 受影响的行数
 	 */
 	public Integer delete(String sql, Object... args) {
-		sql = getQueryBuilder().delete(getDataSource(), getType(), sql, args);
+		sql = getQueryBuilder().delete(sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return queryRunner.executeUpdate(sql);

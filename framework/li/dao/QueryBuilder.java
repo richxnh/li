@@ -3,8 +3,6 @@ package li.dao;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.sql.DataSource;
-
 import li.model.Bean;
 import li.model.Field;
 import li.util.Reflect;
@@ -18,11 +16,22 @@ import li.util.Verify;
  */
 public class QueryBuilder {
 	/**
+	 * 私有类变量,表示对象结构的beanMeta
+	 */
+	private Bean beanMeta;
+
+	/**
+	 * 初始化方法
+	 */
+	public QueryBuilder(Bean beanMeta) {
+		this.beanMeta = beanMeta;
+	}
+
+	/**
 	 * 根据传入的ID,构建一个用于删除单条记录的SQL
 	 */
-	public String delete(DataSource dataSource, Class<?> type, Integer id) {
-		Bean iocBean = Bean.getMeta(dataSource, type);
-		return String.format("DELETE FROM %s WHERE %s=%s", iocBean.table, iocBean.getId().column, id);
+	public String delete(Integer id) {
+		return String.format("DELETE FROM %s WHERE %s=%s", beanMeta.table, beanMeta.getId().column, id);
 	}
 
 	/**
@@ -32,9 +41,9 @@ public class QueryBuilder {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String delete(DataSource dataSource, Class<?> type, String sql, Object[] args) {
+	public String delete(String sql, Object[] args) {
 		if (!Verify.startWith(sql, "DELETE")) {
-			sql = String.format("DELETE FROM %s %s", Bean.getMeta(dataSource, type).table, sql);
+			sql = String.format("DELETE FROM %s %s", beanMeta.table, sql);
 		}
 		return setArgs(sql, args);// 处理args
 	}
@@ -42,18 +51,17 @@ public class QueryBuilder {
 	/**
 	 * 根据传入的对象构建一个用于插入记录的SQL
 	 */
-	public String update(DataSource dataSource, Object object, Class<?> type) {
-		Bean iocBean = Bean.getMeta(dataSource, type);
+	public String update(Object object) {
 		String sets = "";
-		for (Field field : iocBean.fields) {
+		for (Field field : beanMeta.fields) {
 			Object fieldValue = Reflect.get(object, field.name);
 			if (!field.isId && null != fieldValue) {
 				sets += String.format("%s='%s',", field.column, fieldValue);
 			}
 		}
-		Object id = Reflect.get(object, iocBean.getId().name);
+		Object id = Reflect.get(object, beanMeta.getId().name);
 		sets = sets.substring(0, sets.length() - 1);
-		return String.format("UPDATE %s SET %s WHERE %s=%s", iocBean.table, sets, iocBean.getId().column, id);
+		return String.format("UPDATE %s SET %s WHERE %s=%s", beanMeta.table, sets, beanMeta.getId().column, id);
 	}
 
 	/**
@@ -63,9 +71,9 @@ public class QueryBuilder {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String update(DataSource dataSource, Class<?> type, String sql, Object[] args) {
+	public String update(String sql, Object[] args) {
 		if (Verify.startWith(sql, "SET")) {
-			return String.format("UPDATE %s %s", Bean.getMeta(dataSource, type).table, sql);
+			return String.format("UPDATE %s %s", beanMeta.table, sql);
 		}
 		return setArgs(sql, args);// 处理args
 	}
@@ -73,10 +81,9 @@ public class QueryBuilder {
 	/**
 	 * 根据传入的对象构建一个插入的SQL
 	 */
-	public String save(DataSource dataSource, Object object, Class<?> type) {
-		Bean iocBean = Bean.getMeta(dataSource, type);
+	public String save(Object object) {
 		String columns = "", values = "";
-		for (Field field : iocBean.fields) {
+		for (Field field : beanMeta.fields) {
 			if (!field.isId) {
 				Object fieldValue = Reflect.get(object, field.name);
 				columns += field.column + ",";
@@ -85,14 +92,14 @@ public class QueryBuilder {
 		}
 		columns = columns.substring(0, columns.length() - 1);
 		values = values.substring(0, values.length() - 1);
-		return String.format("INSERT INTO %s (%s) VALUES (%s)", iocBean.table, columns, values);
+		return String.format("INSERT INTO %s (%s) VALUES (%s)", beanMeta.table, columns, values);
 	}
 
 	/**
 	 * 构造一默认的COUNT(*)查询的SQL,查询表中的总记录数
 	 */
-	public String count(DataSource dataSource, Class<?> type) {
-		return String.format("SELECT COUNT(*) FROM %s", Bean.getMeta(dataSource, type).table);
+	public String count() {
+		return String.format("SELECT COUNT(*) FROM %s", beanMeta.table);
 	}
 
 	/**
@@ -102,9 +109,9 @@ public class QueryBuilder {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String count(DataSource dataSource, Class<?> type, String sql, Object[] args) {
+	public String count(String sql, Object[] args) {
 		if (!Verify.startWith(sql, "SELECT")) {
-			sql = String.format("SELECT COUNT(*) FROM %s %s", Bean.getMeta(dataSource, type).table, sql);
+			sql = String.format("SELECT COUNT(*) FROM %s %s", beanMeta.table, sql);
 		} else if (!Verify.contain(sql, "COUNT(*)")) {
 			sql = String.format("SELECT COUNT(*) FROM %s", sql.substring(sql.toUpperCase().indexOf("FROM") + 4, sql.length()).trim());
 		}
@@ -117,9 +124,8 @@ public class QueryBuilder {
 	/**
 	 * 使用传入的ID,构造一个用于查询一条记录的SQL
 	 */
-	public String find(DataSource dataSource, Class<?> type, Integer id) {
-		Bean iocBean = Bean.getMeta(dataSource, type);
-		return String.format("SELECT * FROM %s WHERE %s=%s LIMIT 1", iocBean.table, iocBean.getId().column, id);
+	public String find(Integer id) {
+		return String.format("SELECT * FROM %s WHERE %s=%s LIMIT 1", beanMeta.table, beanMeta.getId().column, id);
 	}
 
 	/**
@@ -127,8 +133,8 @@ public class QueryBuilder {
 	 * 
 	 * @param page page如果为空,则使用new Page()
 	 */
-	public String list(DataSource dataSource, Class<?> type, Page page) {
-		return list(dataSource, type, page, String.format("SELECT * FROM %s", Bean.getMeta(dataSource, type).table), null);
+	public String list(Page page) {
+		return list(page, String.format("SELECT * FROM %s", beanMeta.table), null);
 	}
 
 	/**
@@ -140,11 +146,11 @@ public class QueryBuilder {
 	 * @see li.dao.QueryBuilder#setPage(String, Page)
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String list(DataSource dataSource, Class<?> type, Page page, String sql, Object[] args) {
+	public String list(Page page, String sql, Object[] args) {
 		if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
-			sql = String.format("SELECT * FROM %s %s", Bean.getMeta(dataSource, type).table, sql);
+			sql = String.format("SELECT * FROM %s %s", beanMeta.table, sql);
 		}
-		return setPage(setArgs(setAlias(dataSource, sql), args), page);// 先处理别名,再处理args,最后处理page
+		return setPage(setArgs(setAlias(sql), args), page);// 先处理别名,再处理args,最后处理page
 	}
 
 	/**
@@ -195,7 +201,7 @@ public class QueryBuilder {
 	/**
 	 * 处理批量别名,将类似 SELECT t_account.#,t_member.# AS member_# FROM t_account,t_member的SQL转换为标准SQL
 	 */
-	public String setAlias(DataSource dataSource, String sql) {
+	public String setAlias(String sql) {
 		int index = sql.indexOf(".#");
 		if (index > 5) {// 如果有替换字符,则开始处理,否则直接返回
 			int end = index + 2;// end为第一个#的位置
@@ -211,7 +217,7 @@ public class QueryBuilder {
 			String toreplace = sql.substring(start, toreplaceEnd);// 求出被替换部分字符串
 			String table = sql.substring(start, end - 2);// 求得表名
 
-			for (Field field : Field.list(dataSource, table)) {// 构造替换字符串
+			for (Field field : beanMeta.fields) {// 构造替换字符串
 				if (asIndex > 0 && asIndex - end < 3) {// 如果有AS
 					String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如ASmember_
 					replacement = replacement + (table + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS
@@ -223,7 +229,7 @@ public class QueryBuilder {
 			// 替换,去掉最后一个逗号
 			String result = sql.replaceFirst(toreplace, replacement.substring(0, replacement.length() - 1));
 
-			return setAlias(dataSource, result);// 处理下一个
+			return setAlias(result);// 处理下一个
 		}
 		return sql;// 如果SQL中不包含#,则直接返回
 	}
