@@ -99,8 +99,7 @@ public class Files {
 			if (null == propertyFiles) {
 				String PROPERTIES_REGEX = "^.*.properties$";// 搜索以.properties结尾的文件
 				propertyFiles = Files.list(Files.root(), PROPERTIES_REGEX, true);
-				Log.put("PROPERTIE_FILES", propertyFiles); // 将 PROPERTIES
-															// 文件列表缓存
+				Log.put("PROPERTIE_FILES", propertyFiles); // 将 PROPERTIES文件列表缓存
 				log.info(String.format("Found %s properties files , at %s", propertyFiles.size(), Files.root()));
 			}
 
