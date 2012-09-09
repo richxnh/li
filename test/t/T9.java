@@ -15,8 +15,6 @@ import li.model.Action;
 import li.mvc.ActionContext;
 import li.util.Convert;
 
-import org.apache.catalina.startup.Embedded;
-
 import com.cduer.forum.record.Account;
 
 public class T9 {
@@ -26,11 +24,6 @@ public class T9 {
 		Set<?> set = new HashSet<>(list);
 
 		System.out.println(set);
-	}
-
-	public static void main11(String[] args) throws Exception {
-		Embedded embedded = new Embedded();
-		embedded.start();
 	}
 
 	public static void main10(String[] args) {

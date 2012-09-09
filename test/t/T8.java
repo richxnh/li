@@ -1,10 +1,6 @@
 package t;
 
-import javax.sql.DataSource;
-
 import li.dao.AbstractDao;
-import li.dao.Page;
-import li.dao.QueryBuilder;
 import li.dao.Record;
 import li.dao.Trans;
 import li.ioc.Ioc;
@@ -23,23 +19,9 @@ public class T8 {
 	}
 
 	class BaseDao<T> extends AbstractDao<T> {
-		// protected QueryBuilder getQueryBuilder() {
-		// return new QueryBuilder();
-		// }
 	}
 
 	@SuppressWarnings({ "rawtypes" })
 	class BaseModel<T extends BaseModel> extends Record<T> {
-		// protected QueryBuilder getQueryBuilder() {
-		// return new QueryBuilder() {
-		// public String setPage(String sql, Page page) {
-		// return super.setPage(sql, page);
-		// }
-		//
-		// public String update(DataSource dataSource, Object object, Class<?> type) {
-		// return super.update(dataSource, object, type);
-		// }
-		// };
-		// }
 	}
 }

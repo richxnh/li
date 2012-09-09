@@ -1,8 +1,5 @@
 package t;
 
-import javax.sql.DataSource;
-
-import li.dao.QueryBuilder;
 import li.ioc.Ioc;
 
 import com.cduer.forum.record.Thread;

@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import li.annotation.Inject;
 import li.dao.Page;
 import li.ioc.Ioc;
+import li.util.Log;
 import li.util.Reflect;
 
 /**
@@ -14,6 +15,8 @@ import li.util.Reflect;
  * @version 0.1.1 (2012-07-21)
  */
 public class BaseTest {
+	private Log log = Log.init();
+
 	/**
 	 * 模拟的 li.dao.Page
 	 */

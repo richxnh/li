@@ -8,15 +8,20 @@ import li.annotation.Inject;
 import li.test.BaseTest;
 import li.util.Convert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ThreadTest extends BaseTest {
 	@Inject
 	Thread thread;
+	
+	@Before
+	public void before(){
+		assertNotNull(thread);
+	}
 
 	@Test
 	public void testList() {
-		assertNotNull(thread);
 	}
 
 	@Test

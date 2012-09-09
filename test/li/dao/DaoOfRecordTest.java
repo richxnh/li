@@ -15,9 +15,7 @@ public class DaoOfRecordTest extends BaseTest {
 	public void test1() {
 		new Trans() {
 			public void run() {
-				// User user = userDao.find(1).set("id", null).set("username",
-				// "u-4-1" + System.currentTimeMillis());
-				// userDao.save(user);
+				System.out.println("啥都没做");
 			}
 		};
 	}
@@ -26,9 +24,7 @@ public class DaoOfRecordTest extends BaseTest {
 	public void test2() {
 		new Trans() {
 			public void run() {
-				// User user = userDao.find(1).set("id", null).set("username",
-				// "u-4-1" + System.currentTimeMillis());
-				// userDao.save(user);
+				System.out.println("啥都没做");
 			}
 		};
 	}

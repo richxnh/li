@@ -9,12 +9,18 @@ import li.ioc.Ioc;
 import li.model.Bean;
 import li.test.BaseTest;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cduer.forum.record.Account;
 
 public class QueryBuilderTest extends BaseTest {
-	private static final QueryBuilder QUERY_BUILDER = new QueryBuilder(Bean.getMeta(Ioc.get(DataSource.class), Account.class));
+	private QueryBuilder QUERY_BUILDER;
+
+	@Before
+	public void before() {
+		QUERY_BUILDER = new QueryBuilder(Bean.getMeta(Ioc.get(DataSource.class), Account.class));
+	}
 
 	@Test
 	public void testSetArgs2() {
