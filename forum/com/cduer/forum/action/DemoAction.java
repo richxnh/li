@@ -7,9 +7,6 @@ import java.io.FileOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cduer.forum.record.Account;
-import com.cduer.forum.record.Member;
-
 import li.annotation.Arg;
 import li.annotation.At;
 import li.annotation.Bean;
@@ -18,6 +15,9 @@ import li.dao.Page;
 import li.mvc.AbstractAction;
 import li.mvc.Context;
 
+import com.cduer.forum.record.Account;
+import com.cduer.forum.record.Member;
+
 @Bean
 public class DemoAction extends AbstractAction {
 	@Inject
@@ -25,6 +25,15 @@ public class DemoAction extends AbstractAction {
 
 	@Inject
 	Account accountDao;
+
+	/**
+	 * 可以使用继承AbstractAction和Context中静态方法，两者提供一一对应的方法
+	 */
+	@At("testcaa")
+	public void testContextAndAbstractAction() {
+		super.write("用li.mvc.AbstractAction.write(String)展示视图");
+		Context.write("用li.mvc.Context.write(String)展示视图");
+	}
 
 	/**
 	 * 用正则表达式配置Action路径
@@ -94,7 +103,7 @@ public class DemoAction extends AbstractAction {
 	}
 
 	/**
-	 * 这个跳过
+	 * 这个跳过,研究文件上传的
 	 */
 	@At(value = "upload", method = "POST")
 	public void testUpload() {
