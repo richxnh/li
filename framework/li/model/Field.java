@@ -1,5 +1,6 @@
 package li.model;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -88,15 +89,15 @@ public class Field {
 	 * @param dataSource 数据源,用于执行desc tableName语句得到数据表结构
 	 * @param table 需要探测表结构的数据表名称
 	 */
-	public static List<Field> list(DataSource dataSource, String table) {
+	public static List<Field> list(Connection connection, String table) {
 		List<Field> fields = FIELDS_MAP.get("table#" + table);
-		if (null == fields && null != dataSource) { // 如果缓存中没有
+		if (null == fields && null != connection) { // 如果缓存中没有
 			log.info(String.format("Field.list() by table %s", table));
 			try {
 				fields = new ArrayList<Field>();
 				String sql = String.format("DESC %s", table);
 
-				QueryRunner queryRunner = new QueryRunner(dataSource.getConnection());
+				QueryRunner queryRunner = new QueryRunner(connection);
 				ResultSet resultSet = queryRunner.executeQuery(sql);
 
 				while (null != resultSet && resultSet.next()) {

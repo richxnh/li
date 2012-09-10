@@ -1,5 +1,6 @@
 package li.model;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,14 +81,14 @@ public class Bean {
 	 * @param dataSource 通过desc tableName解析表结构时候需要用到的数据源
 	 * @param type 目标类型
 	 */
-	public static Bean getMeta(DataSource dataSource, Class<?> type) {
+	public static Bean getMeta(Connection connection, Class<?> type) {
 		Bean bean = BEAN_MAP.get(type);
 		if (null == bean) {
 			log.info(String.format("Bean.getMeta(%s) ", type.getName()));
 			bean = new Bean();
 			Table table = type.getAnnotation(Table.class);
 			bean.table = (null == table || Verify.isEmpty(table.value())) ? type.getSimpleName() : table.value();
-			bean.fields = Record.class.isAssignableFrom(type) ? Field.list(dataSource, bean.table) : Field.list(type, true);// 若type为Record的子类型,则使用DESC方式,否则使用扫描注解方式
+			bean.fields = Record.class.isAssignableFrom(type) ? Field.list(connection, bean.table) : Field.list(type, true);// 若type为Record的子类型,则使用DESC方式,否则使用扫描注解方式
 			BEAN_MAP.put(type, bean);
 		}
 		return bean;
