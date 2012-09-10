@@ -17,4 +17,9 @@ public class ContextTest extends BaseActionTest {
 	public void getRequest() {
 		assertNotNull(Context.getRequest());
 	}
+
+	@Test
+	public void getResponse() {
+		assertNotNull(Context.getResponse());
+	}
 }
