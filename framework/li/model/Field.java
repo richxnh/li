@@ -86,7 +86,7 @@ public class Field {
 	/**
 	 * 通过 DESC tableName 的方式得到一个类型（表）的属性（字段）列表 List<Field>,根据表名缓存
 	 * 
-	 * @param dataSource 数据源,用于执行desc tableName语句得到数据表结构
+	 * @param connection 通过desc tableName解析表结构时候需要用到的数据库连接
 	 * @param table 需要探测表结构的数据表名称
 	 */
 	public static List<Field> list(Connection connection, String table) {

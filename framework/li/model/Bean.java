@@ -78,7 +78,7 @@ public class Bean {
 	/**
 	 * 根据注解等方式得到一个类型的结构,其中包含属性列表和tableName等,根据类名缓存
 	 * 
-	 * @param dataSource 通过desc tableName解析表结构时候需要用到的数据源
+	 * @param connection 通过desc tableName解析表结构时候需要用到的数据库连接
 	 * @param type 目标类型
 	 */
 	public static Bean getMeta(Connection connection, Class<?> type) {
