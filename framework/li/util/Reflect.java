@@ -171,14 +171,14 @@ public class Reflect {
 		try {
 			String method = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 			Method setter = getMethod(target.getClass(), method, fieldType(target.getClass(), fieldName));
-			setter.invoke(target, value);// 使用Setter方法
+			setter.invoke(target, value);// 使用Setter方法,这里没做类型转换
 		} catch (Exception e) {// 没有匹配的Setter方法
 			try {
 				Field field = getField(target.getClass(), fieldName);
-				field.set(target, Convert.toType(field.getType(), value));// 通过属性访问
+				field.set(target, Convert.toType(field.getType(), value));// 通过属性访问,这里有做类型转换
 			} catch (Exception ex) {
 				if (target instanceof Record<?>) {
-					((Record<?>) target).set(fieldName, value);// 通过Record.set()方法
+					((Record<?>) target).set(fieldName, value);// 通过Record.set()方法,这里也没做类型转换
 				} else {
 					throw new RuntimeException(String.format("Reflect.set() target=%s,fieldName=%s,value=%s", target, fieldName, value));
 				}
