@@ -1,12 +1,13 @@
 package com.cduer.forum;
 
-import li.FrameworkTest;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.cduer.forum.service.UserServiceTest;
+
 @RunWith(Suite.class)
-@SuiteClasses({ FrameworkTest.class, AllActionTest.class, AllRecordTest.class, AllServiceTest.class })
-public class AllTest {
+@SuiteClasses({ UserServiceTest.class })
+public class AllServiceTest {
+
 }
