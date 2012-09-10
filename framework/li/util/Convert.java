@@ -41,7 +41,7 @@ public class Convert {
 			}
 		} else {// 不是Record，按照POJO处理
 			for (Field field : Field.list(target.getClass(), true)) {// POJO的每个属性
-				json += "\"" + field.name + "\":\"" + Reflect.get(target, field.value) + "\",";
+				json += "\"" + field.name + "\":\"" + Reflect.get(target, field.name) + "\",";
 			}
 		}
 		return json.substring(0, json.length() - 1) + "}";
