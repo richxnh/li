@@ -26,6 +26,11 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	private Class<T> modelType;
 
 	/**
+	 * 存储数据对象结构
+	 */
+	private Bean beanMeta;
+
+	/**
 	 * QueryBuilder,你可以通过IOC配置
 	 */
 	private QueryBuilder queryBuilder;
@@ -45,12 +50,19 @@ public class AbstractDao<T> implements IBaseDao<T> {
 		return this.modelType;
 	}
 
+	protected Bean getBeanMeta() {
+		if (null == this.beanMeta) {
+			this.beanMeta = Bean.getMeta(getConnection(), getType());
+		}
+		return this.beanMeta;
+	}
+
 	/**
 	 * 得到SQL构造器,你可以通过覆盖这个方法来配置QueryBuilder
 	 */
 	protected QueryBuilder getQueryBuilder() {
 		if (null == this.queryBuilder) {
-			this.queryBuilder = new QueryBuilder(Bean.getMeta(getDataSource(), getType()));
+			this.queryBuilder = new QueryBuilder(getBeanMeta());
 		}
 		return this.queryBuilder;
 	}
@@ -154,8 +166,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 		if (null != resultSet && null != page) {
 			page.setRecordCount(count(sql));
 		}
-		Bean bean = Bean.getMeta(getDataSource(), getType());
-		return modelBuilder.list(getType(), bean.fields, (null == page ? 18 : page.getPageSize()), true);
+		return modelBuilder.list(getType(), getBeanMeta().fields, (null == page ? 18 : page.getPageSize()), true);
 	}
 
 	/**
@@ -167,8 +178,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		Integer updateCount = queryRunner.executeUpdate(sql);
 
-		Bean bean = Bean.getMeta(getDataSource(), getType());
-		Reflect.set(t, bean.getId().name, queryRunner.LAST_INSERT_ID);// 设置对象ID为最后主键值
+		Reflect.set(t, getBeanMeta().getId().name, queryRunner.LAST_INSERT_ID);// 设置对象ID为最后主键值
 
 		return 1 == updateCount;
 	}
