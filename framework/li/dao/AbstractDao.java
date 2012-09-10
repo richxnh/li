@@ -50,6 +50,9 @@ public class AbstractDao<T> implements IBaseDao<T> {
 		return this.modelType;
 	}
 
+	/**
+	 * 得到当前Dao所操作的数据对象的结构
+	 */
 	protected Bean getBeanMeta() {
 		if (null == this.beanMeta) {
 			this.beanMeta = Bean.getMeta(getConnection(), getType());
