@@ -70,9 +70,9 @@ public class QueryRunner {
 				count = preparedStatement.executeUpdate();
 
 				ResultSet generatedKeys = preparedStatement.getGeneratedKeys();// 获得主键结果集
-				Object lastInsertId = new ModelBuilder(null, generatedKeys).value("GENERATED_KEY", true, false);// 获得最后更新的主键的值
+				String lastInsertId = new ModelBuilder(null, generatedKeys).value("GENERATED_KEY", true, false);// 获得最后更新的主键的值
 				generatedKeys.close();// 关闭主键结果集,方法返回前关闭链接
-				this.LAST_INSERT_ID = Integer.valueOf(lastInsertId + "");
+				this.LAST_INSERT_ID = Integer.valueOf(lastInsertId);
 			} catch (Exception e) {
 				Trans.EXCEPTION.set(e); // 出现异常,记录起来
 				log.error(e);
