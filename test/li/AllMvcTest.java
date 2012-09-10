@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ContextTest.class})
+@SuiteClasses({ ContextTest.class })
 public class AllMvcTest {
 
 }

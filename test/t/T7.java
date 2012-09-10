@@ -5,7 +5,8 @@ import li.ioc.Ioc;
 import com.cduer.forum.record.Thread;
 
 public class T7 {
-	// static QueryBuilder queryBuilder = new QueryBuilder(Ioc.get(DataSource.class));
+	// static QueryBuilder queryBuilder = new
+	// QueryBuilder(Ioc.get(DataSource.class));
 
 	public static void main(String[] args) {
 
@@ -18,9 +19,12 @@ public class T7 {
 
 		String sql4 = "SELECT t_thread.#,t_member.# AS member_# FROM t_thread,t_member";
 		// System.out.println(queryBuilder.setAlias(sql1));
-		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class), sql2));
-		// System.out.println(queryBuilder.setAlias(Ioc.get(DataSource.class), sql3));
-		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class), sql4));
+		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
+		// sql2));
+		// System.out.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
+		// sql3));
+		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
+		// sql4));
 
 		threadDao.find(sql1);
 		threadDao.find(sql2);

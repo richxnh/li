@@ -18,8 +18,8 @@ public class QueryBuilderTest extends BaseTest {
 	private QueryBuilder QUERY_BUILDER;
 
 	@Before
-	public void before() {
-		QUERY_BUILDER = new QueryBuilder(Bean.getMeta(Ioc.get(DataSource.class), Account.class));
+	public void before() throws Exception {
+		QUERY_BUILDER = new QueryBuilder(Bean.getMeta(Ioc.get(DataSource.class).getConnection(), Account.class));
 	}
 
 	@Test
