@@ -19,6 +19,8 @@ public class ConvertTest {
 		java.sql.Date date2 = Convert.toType(java.sql.Date.class, "2012-02-11");
 		java.sql.Time time = Convert.toType(java.sql.Time.class, "17:30:00");
 		java.sql.Timestamp timestamp = Convert.toType(java.sql.Timestamp.class, "2012-02-11 17:30:00");
+
+		System.err.println(timestamp + "\t" + date2 + "\t" + time + "\t" + date1);
 	}
 
 	@Test
