@@ -3,9 +3,9 @@
     <wb-module deploy-name="framework">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ext"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/forum"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/framework"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/demo"/>
         <property name="context-root" value="framework"/>
         <property name="java-output-path" value="/framework/build/classes"/>
     </wb-module>

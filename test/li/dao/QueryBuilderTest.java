@@ -12,7 +12,7 @@ import li.test.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cduer.forum.record.Account;
+import demo.record.Account;
 
 public class QueryBuilderTest extends BaseTest {
 	private QueryBuilder QUERY_BUILDER;

@@ -15,7 +15,7 @@ import li.model.Action;
 import li.mvc.ActionContext;
 import li.util.Convert;
 
-import com.cduer.forum.record.Account;
+import demo.record.Account;
 
 public class T9 {
 	public static void main(String[] args) {

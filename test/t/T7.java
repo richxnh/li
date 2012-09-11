@@ -2,7 +2,7 @@ package t;
 
 import li.ioc.Ioc;
 
-import com.cduer.forum.record.Thread;
+import demo.record.Thread;
 
 public class T7 {
 	// static QueryBuilder queryBuilder = new

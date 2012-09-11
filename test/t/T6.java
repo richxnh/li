@@ -3,7 +3,7 @@ package t;
 import li.dao.Page;
 import li.ioc.Ioc;
 
-import com.cduer.forum.record.Thread;
+import demo.record.Thread;
 
 public class T6 {
 	public static void main(String[] args) {

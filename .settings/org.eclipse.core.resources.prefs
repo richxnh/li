@@ -1,8 +1,8 @@
 eclipse.preferences.version=1
+encoding//demo/beetl.properties=UTF-8
+encoding//demo/config.properties=UTF-8
+encoding//demo/freemarker.properties=UTF-8
+encoding//demo/lang_en_US.properties=UTF-8
+encoding//demo/lang_zh_CN.properties=UTF-8
+encoding//demo/velocity.properties=UTF-8
 encoding//ext/li/ext/IocExporter.java=UTF-8
-encoding//forum/beetl.properties=UTF-8
-encoding//forum/config.properties=UTF-8
-encoding//forum/freemarker.properties=UTF-8
-encoding//forum/lang_en_US.properties=UTF-8
-encoding//forum/lang_zh_CN.properties=UTF-8
-encoding//forum/velocity.properties=UTF-8

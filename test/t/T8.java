@@ -5,7 +5,7 @@ import li.dao.Record;
 import li.dao.Trans;
 import li.ioc.Ioc;
 
-import com.cduer.forum.record.Account;
+import demo.record.Account;
 
 public class T8 {
 	public static void main(String[] args) throws Throwable {

@@ -5,7 +5,7 @@ import li.test.BaseTest;
 
 import org.junit.Test;
 
-import com.cduer.forum.record.Account;
+import demo.record.Account;
 
 public class TransTest extends BaseTest {
 	@Inject
