@@ -32,7 +32,7 @@ public abstract class Trans {
 	private Map<String, Object> map = new HashMap<String, Object>();
 
 	/**
-	 * 类变量,标记当前Trans是否被其他Trans包裹
+	 * 实例变量,标记当前Trans是否被其他Trans包裹
 	 */
 	public Boolean inTrans = false;
 
