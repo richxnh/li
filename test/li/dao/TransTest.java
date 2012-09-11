@@ -12,6 +12,17 @@ public class TransTest extends BaseTest {
 	Account accountDao;
 
 	@Test
+	public void testTrans2() {
+		new Trans() {
+			public void run() {
+				System.err.println("trans 4 start");
+				accountDao.list(null);
+				System.err.println("trans 4 end");
+			}
+		};
+	}
+
+	@Test
 	public void testTrans() {
 		new Trans() {
 			public void run() {
