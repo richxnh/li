@@ -7,6 +7,9 @@ import li.annotation.Bean;
 import li.dao.AbstractDao;
 import li.util.Convert;
 
+/**
+ * 你的Dao可以继承自泛型的AbstractDao并扩展更多的方法
+ */
 @Bean
 public class UserDaoImpl extends AbstractDao<User> implements IUserDao {
 	public User findByEmail(String email) {

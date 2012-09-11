@@ -8,6 +8,9 @@ import li.annotation.Bean;
 import li.annotation.Inject;
 import li.service.AbstractService;
 
+/**
+ * 你的Service可以继承自泛型的AbstractService,AbstractService中已经存在的几个方法使用的Dao是通过泛型参数匹配查找的,如需更改可覆盖getDao方法
+ */
 @Bean
 public class UserServiceImpl extends AbstractService<User> implements IUserService {
 	@Inject
