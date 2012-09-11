@@ -32,6 +32,11 @@ public abstract class Trans {
 	private Map<String, Object> map = new HashMap<String, Object>();
 
 	/**
+	 * 类变量,标记当前Trans是否被其他Trans包裹
+	 */
+	public Boolean inTrans = false;
+
+	/**
 	 * 定义一个事务,并执行run()中包裹的数据方法
 	 */
 	public Trans() {
@@ -111,20 +116,22 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 开始事务,初始化一些值
+	 * 开始事务,初始化CONNECTION_MAP,或者标记这个事务已被其他事务包裹融化
 	 */
 	private void begin() {
 		if (null == CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			log.info("Trans.begin()");
 			CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
+		} else {
+			this.inTrans = true;
 		}
 	}
 
 	/**
-	 * 捆绑提交当前事务中所有Connection中的事务
+	 * 捆绑提交当前事务中所有Connection中的事务,如果这个事务未在其他事务中的话
 	 */
 	private void commit() throws Exception {
-		if (null != CONNECTION_MAP.get()) {
+		if (!inTrans && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().commit();
 				log.debug(String.format("Trans.commit() %s", connection.getValue()));
@@ -133,10 +140,10 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 回滚,捆绑回滚当前事务中所有Connection中的事务
+	 * 回滚,捆绑回滚当前事务中所有Connection中的事务,如果这个事务未在其他事务中的话
 	 */
 	private void rollback() throws Exception {
-		if (null != CONNECTION_MAP.get()) {
+		if (!inTrans && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().rollback();
 				log.error(String.format("Trans.rollback() %s", connection.getValue()));
@@ -145,10 +152,10 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 结束事务,并关闭当前事务中的所有Connection
+	 * 结束事务,并关闭当前事务中的所有Connection,如果这个事务未在其他事务中的话
 	 */
 	private void end() throws Exception {
-		if (null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
+		if (!inTrans && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			for (Entry<Class<?>, Connection> entry : CONNECTION_MAP.get().entrySet()) {
 				entry.getValue().close();
 				log.debug(String.format("Closing %s@%s", entry.getValue().getClass().getName(), Integer.toHexString(entry.getValue().hashCode())));
