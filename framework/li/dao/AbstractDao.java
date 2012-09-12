@@ -55,7 +55,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 */
 	protected Bean getBeanMeta() {
 		if (null == this.beanMeta) {
-			this.beanMeta = Bean.getMeta(getConnection(), getType());
+			this.beanMeta = Bean.getMeta(getDataSource(), getType());
 		}
 		return this.beanMeta;
 	}
@@ -65,7 +65,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 */
 	protected QueryBuilder getQueryBuilder() {
 		if (null == this.queryBuilder) {
-			this.queryBuilder = new QueryBuilder(getConnection(), getBeanMeta());
+			this.queryBuilder = new QueryBuilder(getDataSource(), getBeanMeta());
 		}
 		return this.queryBuilder;
 	}

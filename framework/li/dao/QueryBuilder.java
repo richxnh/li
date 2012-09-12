@@ -1,8 +1,11 @@
 package li.dao;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.sql.DataSource;
 
 import li.model.Bean;
 import li.model.Field;
@@ -21,15 +24,15 @@ public class QueryBuilder {
 	 */
 	private Bean beanMeta;
 	/**
-	 * 私有实例变量,数据库连接,用以探测数据表结构
+	 * 私有实例变量,数据源,用以探测数据表结构
 	 */
-	private Connection connection;
+	private DataSource dataSource;
 
 	/**
 	 * 初始化方法
 	 */
-	public QueryBuilder(Connection connection, Bean beanMeta) {
-		this.connection = connection;
+	public QueryBuilder(DataSource dataSource, Bean beanMeta) {
+		this.dataSource = dataSource;
 		this.beanMeta = beanMeta;
 	}
 
@@ -207,7 +210,7 @@ public class QueryBuilder {
 	/**
 	 * 处理批量别名,将类似 SELECT t_account.#,t_member.# AS member_# FROM t_account,t_member的SQL转换为标准SQL
 	 */
-	public String setAlias(String sql) {
+	public String setAlias(final String sql) {
 		int index = sql.indexOf(".#");
 		if (index > 5) {// 如果有替换字符,则开始处理,否则直接返回
 			int end = index + 2;// end为第一个#的位置
@@ -221,9 +224,8 @@ public class QueryBuilder {
 			String replacement = "";// 申明替换部分字符串
 			int toreplaceEnd = (asIndex > 0 && asIndex - end < 3) ? sql.indexOf("#", asIndex) + 1 : end;// 如果有AS,截取到AS后的第一个#,如果没有AS,截取到end
 			String toreplace = sql.substring(start, toreplaceEnd);// 求出被替换部分字符串
-			String table = sql.substring(start, end - 2);// 求得表名
-
-			for (Field field : Field.list(connection, table)) {// 构造替换字符串
+			final String table = sql.substring(start, end - 2);// 求得表名
+			for (Field field : Field.list(dataSource, table)) {// 构造替换字符串
 				if (asIndex > 0 && asIndex - end < 3) {// 如果有AS
 					String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如ASmember_
 					replacement = replacement + (table + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS

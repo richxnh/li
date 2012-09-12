@@ -1,12 +1,15 @@
 package li.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import li.dao.QueryRunner;
 import li.util.Log;
@@ -84,18 +87,18 @@ public class Field {
 	/**
 	 * 通过 DESC tableName 的方式得到一个类型（表）的属性（字段）列表 List<Field>,根据表名缓存
 	 * 
-	 * @param connection 通过desc tableName解析表结构时候需要用到的数据库连接
+	 * @param dataSource 通过desc tableName解析表结构时候需要用到的数据源
 	 * @param table 需要探测表结构的数据表名称
 	 */
-	public static List<Field> list(Connection connection, String table) {
+	public static List<Field> list(DataSource dataSource, String table) {
 		List<Field> fields = FIELDS_MAP.get("table#" + table);
-		if (null == fields && null != connection) { // 如果缓存中没有
+		if (null == fields && null != dataSource) { // 如果缓存中没有
 			log.info(String.format("Field.list() by table %s", table));
 			try {
 				fields = new ArrayList<Field>();
 				String sql = String.format("DESC %s", table);
 
-				QueryRunner queryRunner = new QueryRunner(connection);
+				QueryRunner queryRunner = new QueryRunner(dataSource.getConnection());
 				ResultSet resultSet = queryRunner.executeQuery(sql);
 
 				while (null != resultSet && resultSet.next()) {
@@ -105,7 +108,7 @@ public class Field {
 					fields.add(attribute);
 				}
 				resultSet.close();// 关闭resultSet
-				queryRunner.close();// 关闭queryRunner
+				queryRunner.close();// 关闭PreparedStatement,这里没有关闭Connection因为此方法的调用者必然还要用这个Connection
 				FIELDS_MAP.put("table#" + table, fields); // 加入缓存
 			} catch (Exception e) {
 				throw new RuntimeException("Exception in li.model.Field.list(DataSource, String)", e);
