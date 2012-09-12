@@ -135,7 +135,7 @@ public abstract class Trans {
 	 */
 	private void commit() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (!inTrans && null != CONNECTION_MAP.get()) {
+		if (!this.inTrans && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().commit();
 				log.debug(String.format("Trans.commit() %s in %s.%s()  #%s", connection.getValue(), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
@@ -148,7 +148,7 @@ public abstract class Trans {
 	 */
 	private void rollback() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (!inTrans && null != CONNECTION_MAP.get()) {
+		if (!this.inTrans && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().rollback();
 				log.error(String.format("Trans.rollback() %s in %s.%s()  #%s", connection.getValue(), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
@@ -161,7 +161,7 @@ public abstract class Trans {
 	 */
 	private void end() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (!inTrans && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
+		if (!this.inTrans && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			for (Entry<Class<?>, Connection> entry : CONNECTION_MAP.get().entrySet()) {
 				entry.getValue().close();
 				log.debug(String.format("Closing %s@%s in %s.%s()  #%s", entry.getValue().getClass().getName(), Integer.toHexString(entry.getValue().hashCode()), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
