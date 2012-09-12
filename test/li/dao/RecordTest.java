@@ -11,6 +11,29 @@ public class RecordTest extends BaseTest {
 	@Inject
 	User userDao;
 
+	@Inject
+	UserDao userDao2;
+
+	User user = new User().set("id", 1).set("username", "u-4-1" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1");
+
+	@Test
+	public void test1() {
+		new Trans() {
+			public void run() {
+				System.out.println("啥都没做");
+			}
+		};
+	}
+
+	@Test
+	public void test2() {
+		new Trans() {
+			public void run() {
+				System.out.println("啥都没做");
+			}
+		};
+	}
+
 	@Test
 	public void testRecord() {
 		// List<User> records = userDao.list(page,

@@ -11,6 +11,20 @@ public class TransTest extends BaseTest {
 	@Inject
 	Account accountDao;
 
+	@Inject
+	User userDao;
+
+	@Test
+	public void test1() {
+		System.out.println(new Trans() {
+			public void run() {
+				userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+				userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+				set("haha", "123");
+			}
+		}.go().get("haha"));
+	}
+
 	@Test
 	public void testTrans2() {
 		new Trans() {

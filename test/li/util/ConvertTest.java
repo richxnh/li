@@ -69,4 +69,9 @@ public class ConvertTest {
 
 		assertEquals(json, json2);
 	}
+
+	@Test
+	public void toMap() {
+
+	}
 }
