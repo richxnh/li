@@ -1,10 +1,6 @@
 package t;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -14,16 +10,10 @@ import li.ioc.Ioc;
 import li.model.Action;
 import li.mvc.ActionContext;
 import li.util.Convert;
-
 import demo.record.Account;
 
 public class T9 {
 	public static void main(String[] args) {
-		Collection<Object> list = new ArrayList<>();
-
-		Set<?> set = new HashSet<>(list);
-
-		System.out.println(set);
 	}
 
 	public static void main10(String[] args) {

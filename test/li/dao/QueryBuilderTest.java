@@ -1,5 +1,6 @@
 package li.dao;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,9 @@ public class QueryBuilderTest extends BaseTest {
 
 	@Before
 	public void before() throws Exception {
-		QUERY_BUILDER = new QueryBuilder(Bean.getMeta(Ioc.get(DataSource.class).getConnection(), Account.class));
+		Connection connection = Ioc.get(DataSource.class).getConnection();
+
+		QUERY_BUILDER = new QueryBuilder(connection, Bean.getMeta(connection, Account.class));
 	}
 
 	@Test

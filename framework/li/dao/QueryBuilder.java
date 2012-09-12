@@ -1,5 +1,6 @@
 package li.dao;
 
+import java.sql.Connection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -16,14 +17,19 @@ import li.util.Verify;
  */
 public class QueryBuilder {
 	/**
-	 * 私有类变量,表示对象结构的beanMeta
+	 * 私有实例变量,表示对象结构的beanMeta
 	 */
 	private Bean beanMeta;
+	/**
+	 * 私有实例变量,数据库连接,用以探测数据表结构
+	 */
+	private Connection connection;
 
 	/**
 	 * 初始化方法
 	 */
-	public QueryBuilder(Bean beanMeta) {
+	public QueryBuilder(Connection connection, Bean beanMeta) {
+		this.connection = connection;
 		this.beanMeta = beanMeta;
 	}
 
@@ -217,7 +223,7 @@ public class QueryBuilder {
 			String toreplace = sql.substring(start, toreplaceEnd);// 求出被替换部分字符串
 			String table = sql.substring(start, end - 2);// 求得表名
 
-			for (Field field : beanMeta.fields) {// 构造替换字符串
+			for (Field field : Field.list(connection, table)) {// 构造替换字符串
 				if (asIndex > 0 && asIndex - end < 3) {// 如果有AS
 					String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如ASmember_
 					replacement = replacement + (table + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS
