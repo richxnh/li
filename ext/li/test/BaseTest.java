@@ -15,8 +15,6 @@ import li.util.Reflect;
  * @version 0.1.1 (2012-07-21)
  */
 public class BaseTest {
-	private Log log = Log.init();
-
 	/**
 	 * 模拟的 li.dao.Page
 	 */
