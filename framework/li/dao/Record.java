@@ -38,13 +38,12 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		ResultSet resultSet = queryRunner.executeQuery(sql);
-
+		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 		List<Field> fields = Field.list(resultSet);
+
 		if (null != resultSet && null != page) {
 			page.setRecordCount(count(sql));
 		}
-
-		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
 		return modelBuilder.list(getType(), fields, (null == page ? 18 : page.getPageSize()), true);
 	}

@@ -19,17 +19,17 @@ public abstract class Trans {
 	/**
 	 * 存储当前事务中使用到的Connection,为空意味不在事务中
 	 */
-	public static ThreadLocal<Map<Class<?>, Connection>> CONNECTION_MAP = new ThreadLocal<Map<Class<?>, Connection>>();
+	public static final ThreadLocal<Map<Class<?>, Connection>> CONNECTION_MAP = new ThreadLocal<Map<Class<?>, Connection>>();
 
 	/**
 	 * 存储数据操作异常,不为null则代表出错,需要回滚
 	 */
-	public static ThreadLocal<Exception> EXCEPTION = new ThreadLocal<Exception>();
+	public static final ThreadLocal<Exception> EXCEPTION = new ThreadLocal<Exception>();
 
 	/**
 	 * 实例变量,用于存放一些值,可用于Trans内外通信
 	 */
-	private Map<Object, Object> map = new HashMap<Object, Object>();
+	private final Map<Object, Object> map = new HashMap<Object, Object>();
 
 	/**
 	 * 实例变量,标记当前Trans是否被其他Trans包裹
