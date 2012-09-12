@@ -81,21 +81,21 @@ public class RecordTest extends BaseTest {
 
 	@Test
 	public void save() {
-		userDao.save(new User().set("username", "u-2" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+		userDao.save(new User().set("username", "u-2" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
 	}
 
 	@Test
 	public void save2() {
-		userDao.save(new User().set("id", null).set("username", "u-3" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+		userDao.save(new User().set("id", null).set("username", "u-3" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
 	}
 
 	@Test
 	public void update() {
-		userDao.update(userDao.set("id", 1).set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+		userDao.update(userDao.set("id", 1).set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
 	}
 
 	@Test
 	public void update2() {
-		userDao.update(userDao.set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+		userDao.update(userDao.set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
 	}
 }
