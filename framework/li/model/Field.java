@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import li.dao.QueryRunner;
 import li.util.Log;
 import li.util.Verify;
@@ -103,14 +101,14 @@ public class Field {
 				while (null != resultSet && resultSet.next()) {
 					Field attribute = new Field();
 					attribute.name = attribute.column = resultSet.getString("Field");
-					attribute.isId = resultSet.getString("Key").equals("PRI");// Key的值为PRI的字段即为ID字段
+					attribute.isId = resultSet.getString("Key").toUpperCase().equals("PRI");// Key的值为PRI的字段即为ID字段
 					fields.add(attribute);
 				}
-				FIELDS_MAP.put("table#" + table, fields); // 加入缓存
 				resultSet.close();// 关闭resultSet
 				queryRunner.close();// 关闭queryRunner
+				FIELDS_MAP.put("table#" + table, fields); // 加入缓存
 			} catch (Exception e) {
-				throw new RuntimeException("Exception at li.model.Field.list(DataSource, String)", e);
+				throw new RuntimeException("Exception in li.model.Field.list(DataSource, String)", e);
 			}
 		}
 		return fields;
@@ -129,7 +127,7 @@ public class Field {
 				fields.add(attribute);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Exception at li.model.Field.list(ResultSet)", e);
+			throw new RuntimeException("Exception in li.model.Field.list(ResultSet)", e);
 		}
 		return fields;
 	}
