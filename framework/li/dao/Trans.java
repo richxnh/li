@@ -120,10 +120,11 @@ public abstract class Trans {
 	 */
 	private void begin() {
 		if (null == CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
-			log.info("Trans.begin()");
+			log.debug(String.format("Trans.begin()  in %s.%s()  #%s", Thread.currentThread().getStackTrace()[5].getClassName(), Thread.currentThread().getStackTrace()[5].getMethodName(), Thread.currentThread().getStackTrace()[5].getLineNumber()));
 			CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
 		} else {
 			this.inTrans = true;
+			log.debug(String.format("Trans at %s.%s() #%s is melt", Thread.currentThread().getStackTrace()[5].getClassName(), Thread.currentThread().getStackTrace()[5].getMethodName(), Thread.currentThread().getStackTrace()[5].getLineNumber()));
 		}
 	}
 
@@ -134,7 +135,7 @@ public abstract class Trans {
 		if (!inTrans && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().commit();
-				log.debug(String.format("Trans.commit() %s", connection.getValue()));
+				log.debug(String.format("Trans.commit() %s  in %s.%s()  #%s", connection.getValue(), Thread.currentThread().getStackTrace()[5].getClassName(), Thread.currentThread().getStackTrace()[5].getMethodName(), Thread.currentThread().getStackTrace()[5].getLineNumber()));
 			}
 		}
 	}
@@ -146,7 +147,7 @@ public abstract class Trans {
 		if (!inTrans && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().rollback();
-				log.error(String.format("Trans.rollback() %s", connection.getValue()));
+				log.error(String.format("Trans.rollback() %s  in %s.%s()  #%s", connection.getValue(), Thread.currentThread().getStackTrace()[5].getClassName(), Thread.currentThread().getStackTrace()[5].getMethodName(), Thread.currentThread().getStackTrace()[5].getLineNumber()));
 			}
 		}
 	}
@@ -161,7 +162,7 @@ public abstract class Trans {
 				log.debug(String.format("Closing %s@%s", entry.getValue().getClass().getName(), Integer.toHexString(entry.getValue().hashCode())));
 			}
 			CONNECTION_MAP.set(null);
-			log.debug("Trans.end()");
+			log.debug(String.format("Trans.end()  in %s.%s()  #%s", Thread.currentThread().getStackTrace()[5].getClassName(), Thread.currentThread().getStackTrace()[5].getMethodName(), Thread.currentThread().getStackTrace()[5].getLineNumber()));
 		}
 	}
 }
