@@ -34,7 +34,7 @@ public abstract class Trans {
 	/**
 	 * 实例变量,标记当前Trans是否被其他Trans包裹
 	 */
-	public Boolean inTrans = false;
+	private Boolean inTrans = false;
 
 	/**
 	 * 定义一个事务,并执行run()中包裹的数据方法
