@@ -29,7 +29,7 @@ public abstract class Trans {
 	/**
 	 * 实例变量,用于存放一些值,可用于Trans内外通信
 	 */
-	private Map<String, Object> map = new HashMap<String, Object>();
+	private Map<Object, Object> map = new HashMap<Object, Object>();
 
 	/**
 	 * 实例变量,标记当前Trans是否被其他Trans包裹
@@ -88,16 +88,16 @@ public abstract class Trans {
 	/**
 	 * 可以调用这个方法,向当前Trans的map中存入一些值
 	 */
-	public Trans set(String key, Object value) {
-		map.put(key, value);
+	public Trans set(Object key, Object value) {
+		this.map.put(key, value);
 		return this;
 	}
 
 	/**
 	 * 批量设置map,采用putAll方式
 	 */
-	public Trans set(Map<String, Object> map) {
-		map.putAll(map);
+	public Trans set(Map<Object, Object> map) {
+		this.map.putAll(map);
 		return this;
 	}
 
@@ -111,7 +111,7 @@ public abstract class Trans {
 	/**
 	 * 返回当前Trans的map
 	 */
-	public Map<String, Object> get() {
+	public Map<Object, Object> get() {
 		return map;
 	}
 
