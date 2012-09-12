@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import li.annotation.Inject;
+import li.model.Bean;
 import li.util.Files;
 import li.util.Log;
 import li.util.Reflect;
@@ -21,7 +22,7 @@ public class AnnotationIocLoader {
 	/**
 	 * 扫描 Source Floder 下的所有类文件, 将其中加了@Bean注解的类返回,然后被加入到IocContext
 	 */
-	public List<li.model.Bean> getBeans() {
+	public List<Bean> getBeans() {
 		String CLASS_REGEX = "^.*.class$";
 		List<String> fileList = Files.list(Files.root(), CLASS_REGEX, true);
 		log.info(String.format("Found %s class files, at %s", fileList.size(), Files.root()));

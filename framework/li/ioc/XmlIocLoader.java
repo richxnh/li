@@ -1,7 +1,6 @@
 package li.ioc;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.xml.xpath.XPathConstants;
@@ -26,7 +25,7 @@ public class XmlIocLoader {
 	/**
 	 * 解析 Source Floder下搜索到的所有 文件名以config.xml结尾的文件,将其中配置的Bean返回,然后被加入到 IocContext
 	 */
-	public Collection<? extends Bean> getBeans() {
+	public List<Bean> getBeans() {
 		String XML_CONFIG_REGEX = "^.*config.xml$";// 搜索以config.xml结尾的文件
 		List<String> fileList = Files.list(Files.root(), XML_CONFIG_REGEX, true);
 		log.info(String.format("Found %s Xml config files,at %s", fileList.size(), Files.root()));
