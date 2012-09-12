@@ -23,7 +23,7 @@ public abstract class AbstractService<T> implements IBaseService<T> {
 	private IBaseDao<T> dao;
 
 	/**
-	 * 你可以覆盖这个方法,如果不的话,框架会寻找 一个继承AbstractDao,泛型类型为 T 的Bean
+	 * 你可以覆盖这个方法,如果不的话,框架会寻找 一个继承AbstractDao,泛型类型为 T的Bean
 	 * 
 	 * @see li.ioc.Ioc#get(Class, Type)
 	 */
