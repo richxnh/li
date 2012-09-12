@@ -123,6 +123,7 @@ public abstract class Trans {
 		if (null == CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			log.debug(String.format("Trans.begin()  in %s.%s()  #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
 			CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
+			EXCEPTION.set(null);
 		} else {
 			this.inTrans = true;
 			log.debug(String.format("Trans is melted in %s.%s() #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
