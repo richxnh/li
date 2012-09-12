@@ -19,9 +19,9 @@ public abstract class Log {
 				Object logger = Class.forName("org.apache.log4j.Logger").getMethod("getLogger", Class.class).invoke(null, type);
 
 				protected void log(String method, Object msg) {
-					StackTraceElement trace = Thread.currentThread().getStackTrace()[3];
 					try {
-						logger.getClass().getMethod(method, Object.class).invoke(logger, trace.getMethodName() + "() #" + trace.getLineNumber() + " " + msg);
+						StackTraceElement trace = Thread.currentThread().getStackTrace()[3];
+						logger.getClass().getMethod(method, Object.class).invoke(logger, String.format("%s() #%s %s", trace.getMethodName(), trace.getLineNumber(), msg));
 					} catch (Exception e) {
 						throw new RuntimeException("Exception at li.util.Log.init().new Log() {}.log(String, Object)", e);
 					}
@@ -31,7 +31,11 @@ public abstract class Log {
 			return new Log() {// 返回ConsoleLog
 				protected void log(String method, Object msg) {
 					StackTraceElement trace = Thread.currentThread().getStackTrace()[3];
-					System.out.println("CONSOLE:" + method.toUpperCase() + ": " + type.getName() + " " + trace.getMethodName() + "() #" + trace.getLineNumber() + " " + msg);
+					if (method.toUpperCase().equals("ERROR") || method.toUpperCase().equals("FATAL")) {
+						System.err.println(String.format("%s: %s.%s() #%s %s", method.toUpperCase(), type.getName(), trace.getMethodName(), trace.getLineNumber(), msg));
+					} else {
+						System.out.println(String.format("%s: %s.%s() #%s %s", method.toUpperCase(), type.getName(), trace.getMethodName(), trace.getLineNumber(), msg));
+					}
 				}
 			};
 		}
