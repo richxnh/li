@@ -19,6 +19,7 @@ public abstract class Log {
 				Object logger = Class.forName("org.apache.log4j.Logger").getMethod("getLogger", Class.class).invoke(null, type);
 
 				protected void log(String method, Object msg) {
+					msg = Thread.currentThread().getStackTrace()[3].getMethodName() + "()  #" + Thread.currentThread().getStackTrace()[3].getLineNumber() + "  " + msg;
 					try {
 						logger.getClass().getMethod(method, Object.class).invoke(logger, msg);
 					} catch (Exception e) {
@@ -29,6 +30,7 @@ public abstract class Log {
 		} catch (Exception e) {
 			return new Log() {// 返回ConsoleLog
 				protected void log(String method, Object msg) {
+					msg = Thread.currentThread().getStackTrace()[3].getMethodName() + "()  #" + Thread.currentThread().getStackTrace()[3].getLineNumber() + "  " + msg;
 					System.out.println("CONSOLE:" + method.toUpperCase() + ": " + type.getName() + " " + msg);
 				}
 			};
