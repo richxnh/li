@@ -213,11 +213,11 @@ public class QueryBuilder {
 	public String setAlias(final String sql) {
 		int index = sql.indexOf(".#");
 		if (index > 5) {// 如果有替换字符,则开始处理,否则直接返回
-			int end = index + 2;// end为第一个#的位置
+			final int end = index + 2;// end为第一个#的位置
 
 			int s1 = sql.substring(0, end).lastIndexOf(" ") + 1;// #之前最后一个空格的位置
 			int s2 = sql.substring(0, end).lastIndexOf(",") + 1;// #之前最后一个,的位置
-			int start = s1 > s2 ? s1 : s2;// table.#部分部分开始位置
+			final int start = s1 > s2 ? s1 : s2;// table.#部分部分开始位置
 
 			int asIndex = sql.toUpperCase().indexOf(" AS ", end);// end之后第一个AS的位置
 
