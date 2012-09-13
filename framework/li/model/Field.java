@@ -108,7 +108,7 @@ public class Field {
 					fields.add(attribute);
 				}
 				resultSet.close();// 关闭resultSet
-				queryRunner.close();// 关闭PreparedStatement,这里没有关闭Connection因为此方法的调用者必然还要用这个Connection
+				queryRunner.close();// 关闭QueryRunner
 				FIELDS_MAP.put("table#" + table, fields); // 加入缓存
 			} catch (Exception e) {
 				throw new RuntimeException("Exception in li.model.Field.list(DataSource, String)", e);
