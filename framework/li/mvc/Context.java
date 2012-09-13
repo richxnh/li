@@ -69,7 +69,7 @@ public class Context {
 	};
 
 	/**
-	 * 从request中取出Attributes转为Map
+	 * 从request,sesstion,servletContext中取出Attributes转为Map
 	 */
 	private static Map<String, Object> getAttributes() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -103,7 +103,7 @@ public class Context {
 	}
 
 	/**
-	 * 初始化方法,会将request response action 分别存入ThreadLocal
+	 * 初始化方法,会将request,response,action分别存入ThreadLocal
 	 */
 	public static AbstractAction init(ServletRequest request, ServletResponse response, Action action) {
 		REQUEST.set((HttpServletRequest) request);
@@ -162,7 +162,7 @@ public class Context {
 	}
 
 	/**
-	 * 返回数组参数,for基本类型
+	 * 返回基本类型的数组参数
 	 */
 	public static <T> T[] getArray(Class<T> type, String key) {
 		return Convert.toType(type, getRequest().getParameterValues(key));
@@ -193,7 +193,7 @@ public class Context {
 	}
 
 	/**
-	 * 路径中对应于 url 正则表达式的可变部分的值的数组
+	 * 路径中对应于Action的url正则表达式的可变部分的值的数组
 	 * 
 	 * @see li.annotation.At
 	 */
@@ -220,7 +220,7 @@ public class Context {
 	}
 
 	/**
-	 * 从 request 的 Parameters 中得到数据组装成一个 type 类型的对象
+	 * 从 request 的 parameters中得到数据组装成一个type类型的对象
 	 * 
 	 * @param type 对象类型
 	 * @param prefix 查询 Parameters 时候的 key 的前缀
@@ -237,7 +237,7 @@ public class Context {
 	}
 
 	/**
-	 * 将QueryString中对应key的参数设置到 request里面
+	 * 将QueryString中对应key的参数设置到request里面
 	 */
 	public static AbstractAction passParams(String... keys) {
 		for (String key : keys) {
@@ -261,7 +261,7 @@ public class Context {
 	}
 
 	/**
-	 * 主视图方法,以冒号分割前缀表示视图类型,支持 forward:路径 redirect:路径 write:内容 freemarker:路径 velocity:路径 beetl:路径
+	 * 主视图方法,以冒号分割前缀表示视图类型,支持 forward:路径,redirect:路径,write:内容,freemarker:路径,velocity:路径,beetl:路径
 	 * 
 	 * @see #forward(String)
 	 * @see #redirect(String)
@@ -311,7 +311,7 @@ public class Context {
 	}
 
 	/**
-	 * 返回JSP视图
+	 * 返回forward视图
 	 */
 	public static String forward(String path) {
 		log.info("forward to " + path);
@@ -324,7 +324,7 @@ public class Context {
 	}
 
 	/**
-	 * 返回Velocity视图
+	 * 返回velocity视图
 	 */
 	public static String velocity(String path) {
 		try {
@@ -359,8 +359,7 @@ public class Context {
 			if (null == configuration) { // 缓存中没有
 				log.debug("freemarker initializing ..");
 				configuration = new Configuration(); // 初始化freemarkerTemplate
-				// 设置模板加载跟路径
-				configuration.setServletContextForTemplateLoading(getServletContext(), "/");
+				configuration.setServletContextForTemplateLoading(getServletContext(), "/");// 设置模板加载跟路径
 				Properties properties = new Properties();// 默认的参数设置
 				properties.put("default_encoding", "UTF-8");
 				properties.putAll(Files.load("freemarker.properties"));// freemarker.properties中的参数设置
@@ -381,31 +380,24 @@ public class Context {
 	 */
 	public static String beetl(String path) {
 		try {
-			// 从缓存中查找GroupTemplate
-			GroupTemplate groupTemplate = (GroupTemplate) Log.get("groupTemplate");
+			GroupTemplate groupTemplate = (GroupTemplate) Log.get("groupTemplate");// 从缓存中查找GroupTemplate
 			if (null == groupTemplate) {
 				log.debug("beetl initializing ...");
-				// 加载默认配置
-				Config config = new Config();
+				Config config = new Config();// 加载默认配置
 				config.put("TEMPLATE_ROOT", getServletContext().getRealPath("/"));
 				config.put("TEMPLATE_CHARSET", "UTF-8");
-				// 加载自定义配置,覆盖默认
-				Properties properties = Files.load("beetl.properties");
+				Properties properties = Files.load("beetl.properties");// 加载自定义配置,覆盖默认
 				for (Entry<Object, Object> entry : properties.entrySet()) {
 					config.put(entry.getKey().toString(), entry.getValue().toString());
 				}
-				// 生成GroupTemplate,并缓存之
-				groupTemplate = config.createGroupTemplate();
+				groupTemplate = config.createGroupTemplate();// 生成GroupTemplate,并缓存之
 				Log.put("groupTemplate", groupTemplate);
 			}
-			// 生成模板
-			org.bee.tl.core.Template template = groupTemplate.getFileTemplate(path);
-			// 设置变量
+			org.bee.tl.core.Template template = groupTemplate.getFileTemplate(path);// 生成模板
 			for (Entry<String, Object> entry : getAttributes().entrySet()) {
-				template.set(entry.getKey(), entry.getValue());
+				template.set(entry.getKey(), entry.getValue());// 设置变量
 			}
-			// merge 模板和模型，将内容输出到Writer里
-			template.getText(getResponse().getWriter());
+			template.getText(getResponse().getWriter());// merge 模板和模型，将内容输出到Writer里
 			log.info("forword to beetl: " + path);
 		} catch (Exception e) {
 			throw new RuntimeException("forword to beetl failed: ", e);
@@ -414,7 +406,7 @@ public class Context {
 	}
 
 	/**
-	 * 把 content 写到页面上
+	 * 把 content写到页面上
 	 */
 	public static AbstractAction write(String content) {
 		final String JSON_REGEX = "^[\\[]*[{]+.*[}]+[]]*$", XML_REGEX = "^<.*>$";

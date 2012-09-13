@@ -9,7 +9,7 @@ import li.util.Log;
 import li.util.Reflect;
 
 /**
- * 工具类,从ResultSet中读取数据并组装对象
+ * Dao辅助类,从ResultSet中读取数据并组装对象
  * 
  * @author li (limw@w.cn)
  * @version 0.1.5 (2012-05-08)
@@ -19,7 +19,7 @@ public class ModelBuilder {
 	private static final Log log = Log.init();
 
 	/**
-	 * 保存当前查询的QueryRunner,为了回调以关闭链接
+	 * 保存当前查询的QueryRunner,为了回调以关闭Connection
 	 */
 	private QueryRunner queryRunner;
 
@@ -37,10 +37,11 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * 从ResultSet中提取数据组装成 type 类型的对象的 List
+	 * 从ResultSet中提取数据组装成type类型的对象的 List
 	 * 
 	 * @param type 对象类型
 	 * @param fields 对象属性列表
+	 * @param count 组装对象最大个数
 	 * @param close 是否于读取后关闭resultSet
 	 */
 	public <T> List<T> list(Class<T> type, List<Field> fields, Integer count, Boolean close) {
@@ -65,7 +66,7 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * 辅助方法,封装后的resultSet.getObject(column);
+	 * 辅助方法,封装后的resultSet.getString(column);
 	 * 
 	 * @param column 数据所在的列名
 	 * @param next 读取前是否 resultSet.next()

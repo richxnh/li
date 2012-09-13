@@ -18,9 +18,9 @@ public class Action {
 	public String path;
 
 	/**
-	 * HTTP 请求类型
+	 * HTTP请求类型
 	 */
-	public String HTTPMethod;
+	public String httpMethod;
 
 	/**
 	 * Action类的实例

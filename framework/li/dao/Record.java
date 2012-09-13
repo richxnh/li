@@ -23,15 +23,7 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 	private Map<String, Object> fields = new HashMap<String, Object>();
 
 	/**
-	 * 设置名为key的属性的值为value
-	 */
-	public T set(String key, Object value) {
-		fields.put(key, value);
-		return (T) this;
-	}
-
-	/**
-	 * 重写AbstractDao中的list方法,使 Record 的 find 和 list 方法 支持多表查询
+	 * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
 	 */
 	public List<T> list(Page page, String sql, Object... args) {
 		sql = getQueryBuilder().list(page, sql, args);
@@ -53,6 +45,21 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 	 */
 	public Object get(Object key) {
 		return fields.get(key);
+	}
+
+	/**
+	 * 设置名为key的属性的值为value
+	 */
+	public Object put(String key, Object value) {
+		return fields.put(key, value);
+	}
+
+	/**
+	 * 设置名为key的属性的值为value
+	 */
+	public T set(String key, Object value) {
+		fields.put(key, value);
+		return (T) this;
 	}
 
 	/**
@@ -84,13 +91,6 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 	}
 
 	/**
-	 * 设置名为key的属性的值为value
-	 */
-	public Object put(String key, Object value) {
-		return fields.put(key, value);
-	}
-
-	/**
 	 * 移除名为key的属性
 	 */
 	public Object remove(Object key) {
@@ -112,21 +112,21 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 	}
 
 	/**
-	 * 返回属性集合
+	 * 返回属性的Set集合
 	 */
 	public Set<String> keySet() {
 		return fields.keySet();
 	}
 
 	/**
-	 * 返回属性值得集合
+	 * 返回属性值得Collection集合
 	 */
 	public Collection<Object> values() {
 		return fields.values();
 	}
 
 	/**
-	 * 返回属性值的set
+	 * 返回属性值的Set集合
 	 */
 	public Set<Entry<String, Object>> entrySet() {
 		return fields.entrySet();

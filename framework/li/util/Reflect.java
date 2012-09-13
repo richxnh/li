@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import li.dao.Record;
 
 /**
- * 封装了一些反射方法
+ * 反射工具类,封装了一些反射方法
  * 
  * @author li (limw@w.cn)
  * @version 0.1.4 (2012-05-08)
@@ -61,7 +61,7 @@ public class Reflect {
 	}
 
 	/**
-	 * 得到一个方法对象,根据宿主对象类型,方法名和参数类型列表
+	 * 得到一个方法,根据对象类型,方法名和参数类型列表
 	 */
 	public static Method getMethod(Class<?> targetType, String methodName, Class<?>... argTypes) {
 		try {
@@ -94,7 +94,7 @@ public class Reflect {
 	/**
 	 * 执行target的methodName方法,args为参数列表,不可以为null
 	 * 
-	 * @param args 可以没有,表示方法无参数,不可以为null,不然就不能探测到参数类型了
+	 * @param args 可以没有,表示方法无参数,不可以为null
 	 */
 	public static Object invoke(Object target, String methodName, Object... args) {
 		return invoke(target, getMethod(target.getClass(), methodName, typesOf(args)), args);
@@ -128,7 +128,7 @@ public class Reflect {
 	}
 
 	/**
-	 * 探测一个属性的类型,按照优先顺序从Field,Getter
+	 * 探测一个属性的类型,从Field或者Getter
 	 */
 	public static Class<?> fieldType(Class<?> targetType, String fieldName) {
 		Field field = getField(targetType, fieldName);
@@ -151,7 +151,7 @@ public class Reflect {
 			String method = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 			Method getter = getMethod(target.getClass(), method);
 			return getter.invoke(target);// 使用Getter方法
-		} catch (Exception e) {
+		} catch (Exception e) {// 没有匹配的Getter方法
 			try {
 				return getField(target.getClass(), fieldName).get(target);// 通过属性访问
 			} catch (Exception ex) {
@@ -165,7 +165,7 @@ public class Reflect {
 	}
 
 	/**
-	 * 设置 target的名为 fieldName 的属性的值为 value,优先采用Setter方法,field字段其次
+	 * 设置 target的名为fieldName的属性的值为 value,优先采用Setter方法,Field字段其次
 	 */
 	public static void set(Object target, String fieldName, Object value) {
 		try {

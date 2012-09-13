@@ -22,7 +22,7 @@ import li.util.Reflect;
 import li.util.Verify;
 
 /**
- * MVC 的 Filter,负责分发HTTP请求
+ * MVC的Filter,负责分发HTTP请求
  * 
  * @author li (limw@w.cn)
  * @version 0.1.3 (2012-05-08)
@@ -36,10 +36,8 @@ public class ActionFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 		// 默认的环境变量
 		config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");
-
 		// 根据Locale.getDefault()初始化国际化,存到servletContext
 		config.getServletContext().setAttribute("lang", Files.load(Locale.getDefault().toString()));
-
 		log.info(String.format("Setting default language as %s", Locale.getDefault()));
 	}
 
@@ -84,7 +82,7 @@ public class ActionFilter implements Filter {
 					args[i] = Context.getPage(key);
 				} else if (Field.list(action.argTypes[i], false).size() > 0 || Record.class.isAssignableFrom(action.argTypes[i])) {
 					key = (null == action.argAnnotations[i]) ? action.argNames[i] + "." : action.argAnnotations[i].value();
-					args[i] = Context.get(action.argTypes[i], key);// 数据对象,POJO,如果没加@Par注解,则key为参数名+"."
+					args[i] = Context.get(action.argTypes[i], key);// 数据对象,POJO,如果没加@Arg注解,则key为参数名+"."
 				}
 			}
 

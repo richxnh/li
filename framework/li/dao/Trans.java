@@ -17,7 +17,7 @@ public abstract class Trans {
 	private static final Log log = Log.init();
 
 	/**
-	 * 存储当前事务中使用到的Connection,为空意味不在事务中
+	 * 存储当前事务中使用到的Connection,为null意味不在事务中
 	 */
 	public static final ThreadLocal<Map<Class<?>, Connection>> CONNECTION_MAP = new ThreadLocal<Map<Class<?>, Connection>>();
 
@@ -37,14 +37,14 @@ public abstract class Trans {
 	private Boolean inTrans = false;
 
 	/**
-	 * 定义一个事务,并执行run()中包裹的数据方法
+	 * 定义一个事务,并执行run()中包裹的数据操作方法
 	 */
 	public Trans() {
 		go();
 	}
 
 	/**
-	 * 定义一个事务,可以指定是否自动执行,如果不,可以定义后调用go()以执行
+	 * 定义一个事务,可以指定是否自动执行,如果不,则定义后调用go()以执行
 	 * 
 	 * @param auto_run 标记此事务是否自动执行
 	 */
@@ -52,37 +52,6 @@ public abstract class Trans {
 		if (auto_run) {
 			go();
 		}
-	}
-
-	/**
-	 * 执行这个事务,自动执行的Trans不需调用这个方法
-	 */
-	public Trans go() {
-		try {
-			begin(); // 开始事务
-			run(); // 执行事务内方法
-			if (null == EXCEPTION.get()) { // 如果没有出现错误
-				commit(); // 提交事务
-			} else {// 如果出现错误
-				rollback(); // 回滚事务
-			}
-			end(); // 结束事务
-		} catch (Exception e) {
-			throw new RuntimeException("Exception in trans", e);
-		}
-		return this;
-	}
-
-	/**
-	 * 抽象方法,包裹需要事务控制的Dao方法
-	 */
-	public abstract void run();
-
-	/**
-	 * 返回事务执行成功与否的标记
-	 */
-	public Boolean success() {
-		return null == EXCEPTION.get();
 	}
 
 	/**
@@ -116,6 +85,37 @@ public abstract class Trans {
 	}
 
 	/**
+	 * 返回事务执行成功与否的标记
+	 */
+	public Boolean success() {
+		return null == EXCEPTION.get();
+	}
+
+	/**
+	 * 抽象方法,包裹需要事务控制的Dao方法
+	 */
+	public abstract void run();
+
+	/**
+	 * 执行这个事务,自动执行的Trans不需调用这个方法
+	 */
+	public Trans go() {
+		try {
+			begin(); // 开始事务
+			run(); // 执行事务内方法
+			if (null == EXCEPTION.get()) { // 如果没有出现错误
+				commit(); // 提交事务
+			} else {// 如果出现错误
+				rollback(); // 回滚事务
+			}
+			end(); // 结束事务
+		} catch (Exception e) {
+			throw new RuntimeException("Exception in trans", e);
+		}
+		return this;
+	}
+
+	/**
 	 * 开始事务,初始化CONNECTION_MAP,或者标记这个事务已被其他事务包裹融化
 	 */
 	private void begin() {
@@ -131,7 +131,7 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 捆绑提交当前事务中所有Connection中的事务,如果这个事务未在其他事务中的话
+	 * 捆绑提交当前事务中所有Connection的事务,如果这个事务未在其他事务中的话
 	 */
 	private void commit() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
@@ -144,7 +144,7 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 回滚,捆绑回滚当前事务中所有Connection中的事务,如果这个事务未在其他事务中的话
+	 * 捆绑回滚当前事务中所有Connection中的事务,如果这个事务未在其他事务中的话
 	 */
 	private void rollback() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
@@ -157,7 +157,7 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 结束事务,并关闭当前事务中的所有Connection,如果这个事务未在其他事务中的话
+	 * 结束事务,关闭当前事务中的所有Connection,如果这个事务未在其他事务中的话
 	 */
 	private void end() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];

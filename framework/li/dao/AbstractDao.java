@@ -21,7 +21,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	private static final Log log = Log.init();
 
 	/**
-	 * 泛型参数的实际类型
+	 * 泛型参数的实际类型,即是数据对象类型
 	 */
 	private Class<T> modelType;
 
@@ -31,12 +31,12 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	private Bean beanMeta;
 
 	/**
-	 * QueryBuilder,你可以通过IOC配置
+	 * QueryBuilder,你可以通过Ioc配置
 	 */
 	private QueryBuilder queryBuilder;
 
 	/**
-	 * 当前Dao的DataSource,你可以通过IOC配置
+	 * 当前Dao的DataSource,可以通过Ioc配置
 	 */
 	private DataSource dataSource;
 
@@ -61,7 +61,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 得到SQL构造器,你可以通过覆盖这个方法来配置QueryBuilder
+	 * 得到SQL构造器,可以覆盖这个方法来配置QueryBuilder
 	 */
 	protected QueryBuilder getQueryBuilder() {
 		if (null == this.queryBuilder) {
@@ -71,7 +71,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 如果还Dao没有被注入dataSource,则尝试次从Ioc中搜索DataSource类型的Bean, 你也可通过覆盖这个方法来配置DataSource
+	 * 如果还没有注入dataSource,则尝试次从Ioc中搜索DataSource类型的Bean, 可覆盖这个方法来配置DataSource
 	 */
 	protected DataSource getDataSource() {
 		if (null == this.dataSource) {
@@ -106,7 +106,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 返回对象对应的表中的总记录数
+	 * 查询对象对应的表的总记录数
 	 */
 	public Integer count() {
 		return count(getQueryBuilder().count());
@@ -136,7 +136,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 根据SQL条件查询,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+	 * 根据SQL条件查询一条记录,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
@@ -173,7 +173,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 向数据库中插入一条记录,save方法完成后,对象的ID将会被设置
+	 * 向数据库中插入一条记录,save方法完成后,对象的ID将会被设值
 	 */
 	public Boolean save(T t) {
 		String sql = getQueryBuilder().save(t);
@@ -221,7 +221,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 根据SQL条件删除一条或多条数据,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+	 * 根据SQL条件删除若干条数据,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map

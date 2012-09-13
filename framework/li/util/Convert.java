@@ -33,8 +33,7 @@ public class Convert {
 			}
 			return json.substring(0, json.length() - 1) + "]";// 返回
 		}
-		// 处理单个对象
-		String json = "{";
+		String json = "{";// 处理单个对象
 		if (Record.class.isAssignableFrom(target.getClass())) {// 如果是Record
 			for (Entry<String, Object> entry : ((Record<?>) target).entrySet()) {// Record的每个属性
 				json += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
@@ -59,8 +58,7 @@ public class Convert {
 			}
 			return (List<T>) list;// 返回
 		}
-		// 处理单个对象
-		T one = Reflect.born(type);
+		T one = Reflect.born(type);// 处理单个对象
 		for (String field : json.split(",")) {
 			String[] strs = field.split(":");
 			String key = strs[0].substring(strs[0].indexOf('"') + 1, strs[0].lastIndexOf('"'));

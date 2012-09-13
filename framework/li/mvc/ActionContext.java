@@ -49,14 +49,14 @@ public class ActionContext {
 
 			ACTION_CONTEXT = new ActionContext();
 			for (Bean bean : IocContext.getInstance().BEANS) {
-				for (Method method : bean.type.getMethods()) {
+				for (Method method : bean.type.getDeclaredMethods()) {
 					At at = method.getAnnotation(At.class);
 					if (null != at) {
 						for (String path : at.value()) {
 							Action action = new Action();
 							// Action请求路径,如果不以斜杠开始会被加上斜杠,如果注解value值为空则直接使用方法名
 							action.path = Verify.isEmpty(path) ? "/" + method.getName() : Verify.startWith(path, "/") ? path : "/" + path;
-							action.HTTPMethod = at.method().toUpperCase(); // HTTP请求类型,这里转换为大写
+							action.httpMethod = at.method().toUpperCase(); // HTTP请求类型,这里转换为大写
 							action.actionInstance = bean.instance;
 							action.actionMethod = method;
 							action.argTypes = method.getParameterTypes();
@@ -64,7 +64,7 @@ public class ActionContext {
 							action.argAnnotations = Reflect.getArgAnnotations(method, Arg.class);
 							ACTION_CONTEXT.ACTIONS.add(action);
 
-							log.info(String.format("ADD ACTION: @At(value=\"%s\"%s) %s.%s()", action.path, (action.HTTPMethod.equals(".*") ? "" : ",method=\"" + action.HTTPMethod + "\""), action.actionInstance.getClass().getName(), action.actionMethod.getName()));
+							log.info(String.format("ADD ACTION: @At(value=\"%s\"%s) %s.%s()", action.path, (action.httpMethod.equals(".*") ? "" : ",method=\"" + action.httpMethod + "\""), action.actionInstance.getClass().getName(), action.actionMethod.getName()));
 						}
 					}
 				}
@@ -80,7 +80,7 @@ public class ActionContext {
 	 */
 	public Action getAction(String path, String method) {
 		for (Action action : ACTIONS) {
-			if (Verify.regex(path, "^" + action.path + "$") && Verify.regex(method, "^" + action.HTTPMethod + "$")) {
+			if (Verify.regex(path, "^" + action.path + "$") && Verify.regex(method, "^" + action.httpMethod + "$")) {
 				return action;
 			}
 		}

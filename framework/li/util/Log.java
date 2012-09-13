@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public abstract class Log {
 	/**
-	 * Log初始化方法,自动匹配Log4j
+	 * Log初始化方法,自动适配Log4j或Console
 	 */
 	public static Log init(final Class<?> type) {
 		try {

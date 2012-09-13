@@ -8,7 +8,7 @@ import java.sql.Statement;
 import li.util.Log;
 
 /**
- * 用于构建PreparedStatement,执行SQL查询
+ * Dao的辅助类,用于构建PreparedStatement,执行SQL查询
  * 
  * @author li (limw@w.cn)
  * @version 0.1.6 (2012-05-08)
@@ -53,8 +53,7 @@ public class QueryRunner {
 				log.error(e);
 			}
 		}
-		// 查询类SQL,在ModelBuilder中关闭
-		return resultSet;
+		return resultSet;// 查询类SQL,在ModelBuilder中关闭
 	}
 
 	/**
@@ -70,8 +69,8 @@ public class QueryRunner {
 				count = preparedStatement.executeUpdate();
 
 				ResultSet generatedKeys = preparedStatement.getGeneratedKeys();// 获得主键结果集
-				this.LAST_INSERT_ID = new ModelBuilder(null, generatedKeys).value("GENERATED_KEY", true, false);// 获得最后更新的主键的值
-				generatedKeys.close();// 关闭主键结果集,方法返回前关闭链接
+				this.LAST_INSERT_ID = new ModelBuilder(null, generatedKeys).value("GENERATED_KEY", true, false);// 设置最后更新的主键的值
+				generatedKeys.close();// 关闭主键结果集
 			} catch (Exception e) {
 				Trans.EXCEPTION.set(e); // 出现异常,记录起来
 				log.error(e);

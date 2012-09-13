@@ -23,8 +23,7 @@ public class AnnotationIocLoader {
 	 * 扫描 Source Floder 下的所有类文件, 将其中加了@Bean注解的类返回,然后被加入到IocContext
 	 */
 	public List<Bean> getBeans() {
-		String CLASS_REGEX = "^.*.class$";
-		List<String> fileList = Files.list(Files.root(), CLASS_REGEX, true);
+		List<String> fileList = Files.list(Files.root(), "^.*.class$", true);
 		log.info(String.format("Found %s class files, at %s", fileList.size(), Files.root()));
 
 		List<li.model.Bean> beans = new ArrayList<li.model.Bean>();
@@ -47,7 +46,6 @@ public class AnnotationIocLoader {
 						iocBean.fields.add(attribute);
 					}
 				}
-
 				beans.add(iocBean);
 
 				log.info(String.format("ADD BEAN: @Bean %s %s", type.getName(), iocBean.name));

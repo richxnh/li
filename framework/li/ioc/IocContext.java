@@ -28,7 +28,7 @@ public class IocContext {
 	public final List<Bean> BEANS = new ArrayList<Bean>();
 
 	/**
-	 * IocContext的实例,它会是单例的
+	 * 存储IocContext的实例,它会是单例的
 	 */
 	private static IocContext IOC_CONTEXT = null;
 
@@ -40,7 +40,7 @@ public class IocContext {
 	}
 
 	/**
-	 * 得到一个单例的IocContext对象,包含通过不同方式配置的Bean集合,在List<IocBean> beans里面
+	 * 得到一个单例的IocContext对象,包含通过不同方式配置的Bean集合,在List<Bean> BEANS里面
 	 */
 	public static synchronized IocContext getInstance() {
 		if (IOC_CONTEXT == null) {
@@ -55,8 +55,7 @@ public class IocContext {
 			// STEP-2-处理field.value中得 ${name}
 			Properties properties = Files.load("config.properties");
 			for (Bean bean : IOC_CONTEXT.BEANS) {
-				for (Field field : bean.fields) {
-					// 如果 filed.value 形如 ${name} 则使用 properties 中key为name的值替换
+				for (Field field : bean.fields) {// 如果 filed.value 形如 ${name} 则使用 properties 中key为name的值替换
 					if (field.value.length() > 3 && field.value.startsWith("${") && field.value.endsWith("}")) {
 						field.value = properties.getProperty(field.value.replace("${", "").replace("}", ""));
 					}

@@ -25,12 +25,11 @@ import org.w3c.dom.Document;
  * @author li (limw@w.cn)
  * @version 0.1.5 (2012-05-08)
  */
-
 public class Files {
 	private static final Log log = Log.init();
 
 	/**
-	 * 返回项目的 classes 目录
+	 * 返回项目的classes目录
 	 */
 	public static File root() {
 		return new File(Thread.currentThread().getContextClassLoader().getResource("").getPath());
@@ -46,14 +45,12 @@ public class Files {
 	 */
 	public static List<String> list(File file, String regex, Boolean increase) {
 		List<String> list = new ArrayList<String>();
-		if (file.isDirectory()) {
-			if (increase && null != file.listFiles()) {
-				for (File f : file.listFiles()) {
-					list.addAll(list(f, regex, increase)); // 递归调用本方法
-				}
-			}
-		} else if (file.isFile() && Verify.regex(file.getPath(), regex)) {
+		if (file.isFile() && Verify.regex(file.getPath(), regex)) {
 			list.add(file.getPath());
+		} else if (increase && file.isDirectory() && null != file.listFiles()) {
+			for (File f : file.listFiles()) {
+				list.addAll(list(f, regex, increase)); // 递归调用本方法
+			}
 		}
 		return list;
 	}
@@ -75,7 +72,7 @@ public class Files {
 	}
 
 	/**
-	 * 根据XPATH表达式和returnType从document中读取值
+	 * 根据xpath表达式和returnType从document中读取值
 	 * 
 	 * @param document 被XPath解析的对象,Object类型,可以是Document,NodeList等
 	 * @param returnType XPathConstants枚举中的值,表示返回类型
@@ -90,7 +87,7 @@ public class Files {
 	}
 
 	/**
-	 * 搜索并返回文件名包含 name 的 Properties 的并集,有缓存的
+	 * 搜索并返回文件名包含 name的 Properties的并集,有缓存的
 	 */
 	public static Properties load(String name) {
 		Properties properties = (Properties) Log.get("prop_" + name);// 从缓存中查找properties

@@ -3,7 +3,7 @@ package li.dao;
 import java.util.List;
 
 /**
- * 基础Dao接口,定义了几个基础的方法,用户可以继承并扩展它形成自己的Dao接口,当然,也可以不
+ * 基础Dao接口,定义了几个基础的方法,用户可以继承并扩展它形成自己的Dao接口
  * 
  * @author li (limw@w.cn)
  * @version 0.1.2 (2012-06-26)

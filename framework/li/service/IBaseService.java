@@ -5,7 +5,7 @@ import java.util.List;
 import li.dao.Page;
 
 /**
- * 基础Service接口,用户可以继承并扩展它形成自己的Service接口,当然,也可以不
+ * 基础Service接口,你可以继承并扩展它形成自己的Service接口
  * 
  * @author li (limw@w.cn)
  * @version 0.1.2 (2012-06-26)

@@ -14,7 +14,7 @@ import li.util.Verify;
  */
 public class Ioc {
 	/**
-	 * 若 type 直接匹配一个Bean, 或者匹配到它实现的一个接口,则返回他的实例
+	 * 若一个Bean为type类型或其子类型,则返回他的实例
 	 */
 	public static <T> T get(Class<T> type) {
 		for (Bean bean : IocContext.getInstance().BEANS) {
@@ -41,18 +41,18 @@ public class Ioc {
 	 * 返回名称和类型均符合的Bean,若没有,则返回类型符合的一个Bean
 	 */
 	public static <T> T get(Class<T> type, String name) {
-		if (!Verify.isEmpty(name) && null != type) { // 如果name为空则使用GetByTypeAndName查找
+		if (!Verify.isEmpty(name) && null != type) {
 			for (Bean bean : IocContext.getInstance().BEANS) {
 				if (type.isAssignableFrom(bean.type) && bean.name.equals(name)) {
 					return (T) bean.instance;
 				}
 			}
 		}
-		return get(type);// 如果name为空则使用get by type 查找
+		return get(type);// 如果name为空则使用GetByName查找
 	}
 
 	/**
-	 * 若类型匹配,并且父类泛型参数为genericType,则返回他的实例
+	 * 若类型匹配,且泛型参数的实际类型为genericType,则返回他的实例
 	 * 
 	 * @param genericType Bean泛型类型
 	 */

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  */
 public class Verify {
 	/**
-	 * 判断type是否基本类型,String,Boolean,Number,Date
+	 * 判断type是否基本类型,如String,Boolean,Number,Date
 	 * 
 	 * @see li.util.Reflect#set(Object, String, Object)
 	 */

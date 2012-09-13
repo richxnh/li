@@ -1,7 +1,5 @@
 package li.dao;
 
-import java.sql.Connection;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -13,7 +11,7 @@ import li.util.Reflect;
 import li.util.Verify;
 
 /**
- * 工具类,用以组装SQL
+ * Dao的辅助类,用以组装SQL
  * 
  * @author li (limw@w.cn)
  * @version 0.1.8 (2012-05-08)
@@ -23,6 +21,7 @@ public class QueryBuilder {
 	 * 私有实例变量,表示对象结构的beanMeta
 	 */
 	private Bean beanMeta;
+
 	/**
 	 * 私有实例变量,数据源,用以探测数据表结构
 	 */
@@ -44,7 +43,7 @@ public class QueryBuilder {
 	}
 
 	/**
-	 * 根据传入的SQL,构建一个用于删除的SQL
+	 * 根据传入的SQL,构建一个用于删除若干条记录的SQL
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
@@ -58,7 +57,7 @@ public class QueryBuilder {
 	}
 
 	/**
-	 * 根据传入的对象构建一个用于插入记录的SQL
+	 * 根据传入的对象构建一个用于更新一条记录的SQL
 	 */
 	public String update(Object object) {
 		String sets = "";
@@ -74,7 +73,7 @@ public class QueryBuilder {
 	}
 
 	/**
-	 * 根据传入的SQL,构建一个用于更新的SQL
+	 * 根据传入的SQL,构建一个用于更新若干条记录的SQL
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
@@ -88,7 +87,7 @@ public class QueryBuilder {
 	}
 
 	/**
-	 * 根据传入的对象构建一个插入的SQL
+	 * 根据传入的对象构建一个插入一条记录的SQL
 	 */
 	public String save(Object object) {
 		String columns = "", values = "";
@@ -105,7 +104,7 @@ public class QueryBuilder {
 	}
 
 	/**
-	 * 构造一默认的COUNT(*)查询的SQL,查询表中的总记录数
+	 * 构造默认的COUNT(*)查询的SQL,查询表中的总记录数
 	 */
 	public String count() {
 		return String.format("SELECT COUNT(*) FROM %s", beanMeta.table);
@@ -140,7 +139,7 @@ public class QueryBuilder {
 	/**
 	 * 使用传入的page,构造一个用于分页查询的SQL
 	 * 
-	 * @param page page如果为空,则使用new Page()
+	 * @param page 分页对象
 	 */
 	public String list(Page page) {
 		return list(page, String.format("SELECT * FROM %s", beanMeta.table), null);
@@ -186,7 +185,7 @@ public class QueryBuilder {
 	 * 用Map中的值替换SQL中的具名参数
 	 * 
 	 * @param sql 传入的sql语句,可以包含':name'占位符
-	 * @param argMap 替换sql中 ':name' 的键值Map
+	 * @param argMap 替换sql中 ':key' 的键值Map
 	 */
 	public String setArgs(String sql, Map<?, ?> argMap) {
 		if (null != sql && sql.length() > 0 && null != argMap && argMap.size() > 0) {// 非空判断
@@ -217,7 +216,7 @@ public class QueryBuilder {
 
 			int s1 = sql.substring(0, end).lastIndexOf(" ") + 1;// #之前最后一个空格的位置
 			int s2 = sql.substring(0, end).lastIndexOf(",") + 1;// #之前最后一个,的位置
-			final int start = s1 > s2 ? s1 : s2;// table.#部分部分开始位置
+			final int start = s1 > s2 ? s1 : s2;// table.#部分开始位置
 
 			int asIndex = sql.toUpperCase().indexOf(" AS ", end);// end之后第一个AS的位置
 
@@ -227,7 +226,7 @@ public class QueryBuilder {
 			final String table = sql.substring(start, end - 2);// 求得表名
 			for (Field field : Field.list(dataSource, table)) {// 构造替换字符串
 				if (asIndex > 0 && asIndex - end < 3) {// 如果有AS
-					String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如ASmember_
+					String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如AS member_
 					replacement = replacement + (table + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS
 				} else {
 					replacement = replacement + table + "." + field.column + ",";// 构造一列不加AS

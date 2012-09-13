@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 标记类中与数据库表中一列相对应的一个Field,可继承
+ * 标记类中与数据库中表的一列相对应的一个Field,此注解可继承
  * 
  * @author li (limw@w.cn)
  * @version 0.1.2 (2012-05-08)
@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Field {
 	/**
-	 * 这个Field是不是ID,默认为false
+	 * 此Field是否ID,默认为false
 	 */
 	public boolean id() default false;
 

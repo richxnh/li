@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 注解一个Action方法的参数,参数是基本数据类型,基本数据类型的数组,Page或者 POJO数据对象
+ * 注解一个Action方法的参数,参数是基本数据类型,基本类型数组,Page,Record或者POJO
  * 
  * @author li (limw@w.cn)
  * @version 0.1.1 (2012-07-20)

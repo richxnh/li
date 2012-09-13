@@ -18,7 +18,7 @@ import li.model.Action;
  */
 public abstract class AbstractAction {
 	/**
-	 * 得到Action
+	 * 得到Action引用
 	 */
 	public Action getAction() {
 		return Context.getAction();
@@ -60,31 +60,28 @@ public abstract class AbstractAction {
 	}
 
 	/**
-	 * 从 request 的 Parameters 中得到数据组装成一个 type 类型的对象
-	 * 
-	 * @param type 对象类型
-	 * @param key 查询 Parameters 时候的 key 的前缀
+	 * 从 request的 parameters中得到数据组装成一个 type类型的对象
 	 */
 	public <T> T get(Class<T> type, String key) {
 		return Context.get(type, key);
 	}
 
 	/**
-	 * 返回数组参数for基本类型
+	 * 返回基本类型数组参数
 	 */
 	public <T> T[] getArray(Class<T> type, String key) {
 		return Context.getArray(type, key);
 	}
 
 	/**
-	 * 根据QueryString中的页码参数构建一个Page,或者一个默认的Page
+	 * 根据parameters中的页码参数构建一个Page,或者返回一个默认的Page
 	 */
 	public Page getPage(String pageNumberKey) {
 		return Context.getPage(pageNumberKey);
 	}
 
 	/**
-	 * 返回指定key的QueryString参数
+	 * 返回指定key的parameters参数
 	 */
 	public String getParameter(String key) {
 		return Context.getParameter(key);
@@ -105,14 +102,14 @@ public abstract class AbstractAction {
 	}
 
 	/**
-	 * 将QueryString中对应key的参数设置到 request里面
+	 * 将QueryString中对应key的参数设置到request里面
 	 */
 	public AbstractAction passParams(String... keys) {
 		return Context.passParams(keys);
 	}
 
 	/**
-	 * 路径中对应于 url 正则表达式的可变部分的值的数组
+	 * 路径中对应于url正则表达式的可变部分的值的数组
 	 * 
 	 * @see li.annotation.At
 	 */
@@ -186,7 +183,7 @@ public abstract class AbstractAction {
 	}
 
 	/**
-	 * 把 content 写到页面上
+	 * 把 content写到页面上
 	 */
 	public AbstractAction write(String content) {
 		return Context.write(content);

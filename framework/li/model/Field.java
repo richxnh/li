@@ -1,7 +1,5 @@
 package li.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class Field {
 	private static final Log log = Log.init();
 
 	/**
-	 * Map,用于缓存 对象的属性列表
+	 * Map,用于缓存对象的属性列表
 	 */
 	private static final Map<String, List<Field>> FIELDS_MAP = new HashMap<String, List<Field>>();
 
@@ -45,17 +43,17 @@ public class Field {
 	public String value;
 
 	/**
-	 * 属性对应数据库结构的列名
+	 * 属性对应数据库表的列名
 	 */
 	public String column;
 
 	/**
-	 * 这个属性是否一个ID,有@Field(id=true)注解
+	 * 这个属性是否一个ID
 	 */
 	public Boolean isId;
 
 	/**
-	 * 通过扫描Field或注解的方式得到一个类型的属性列表 List<Field>,根据类名缓存
+	 * 通过扫描对象结构及注解的方式得到一个类型的属性列表 List<Field>,根据类名缓存
 	 * 
 	 * @param targetType 目标对象
 	 * @param annotated 是否只列出有Field注解的字段
@@ -75,7 +73,7 @@ public class Field {
 					fields.add(attribute);
 				}
 			}
-			// 扫描这个类的超类中的Attribute加入到当前类的List<Attribute>中,使@Field注解支持继承
+			// 扫描这个类的超类中的Field加入到当前类的List<Field>中,使@Field注解支持继承
 			if (Object.class != targetType.getSuperclass()) {
 				fields.addAll(list(targetType.getSuperclass(), annotated));
 			}
@@ -85,7 +83,7 @@ public class Field {
 	}
 
 	/**
-	 * 通过 DESC tableName 的方式得到一个类型（表）的属性（字段）列表 List<Field>,根据表名缓存
+	 * 通过 DESC tableName的方式得到一个类型(表)的属性(字段)列表 List<Field>,根据表名缓存
 	 * 
 	 * @param dataSource 通过desc tableName解析表结构时候需要用到的数据源
 	 * @param table 需要探测表结构的数据表名称
@@ -118,7 +116,7 @@ public class Field {
 	}
 
 	/**
-	 * 通过 resultSet.getMetaData()的方式得到一个类型（表）的属性（字段）列表
+	 * 通过 resultSet.getMetaData()的方式得到一个结果集的列的列表
 	 */
 	public static List<Field> list(ResultSet resultSet) {
 		List<Field> fields = new ArrayList<Field>();

@@ -23,11 +23,10 @@ public class XmlIocLoader {
 	private static final Log log = Log.init();
 
 	/**
-	 * 解析 Source Floder下搜索到的所有 文件名以config.xml结尾的文件,将其中配置的Bean返回,然后被加入到 IocContext
+	 * 解析SourceFloder下搜索到的文件名以config.xml结尾的文件,将其中配置的Bean返回
 	 */
 	public List<Bean> getBeans() {
-		String XML_CONFIG_REGEX = "^.*config.xml$";// 搜索以config.xml结尾的文件
-		List<String> fileList = Files.list(Files.root(), XML_CONFIG_REGEX, true);
+		List<String> fileList = Files.list(Files.root(), "^.*config.xml$", true);// 搜索以config.xml结尾的文件
 		log.info(String.format("Found %s Xml config files,at %s", fileList.size(), Files.root()));
 
 		List<Bean> beans = new ArrayList<Bean>();
