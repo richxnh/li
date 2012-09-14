@@ -231,7 +231,7 @@ public class Reflect {
 	/**
 	 * 得到一个方法的参数注解列表
 	 */
-	public static <T extends Annotation> T[] getArgAnnotations(Method method, Class<T> annotation) {
+	public static <T extends Annotation> T[] argAnnotations(Method method, Class<T> annotation) {
 		T[] array = (T[]) Array.newInstance(annotation, method.getParameterTypes().length);// 生成注解数组
 		Annotation[][] ats = method.getParameterAnnotations();// 所有参数注解的二维数组
 		for (int i = 0; i < ats.length; i++) {// 每一个参数的注解数组

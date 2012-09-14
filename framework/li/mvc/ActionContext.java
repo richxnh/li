@@ -61,7 +61,7 @@ public class ActionContext {
 							action.actionMethod = method;
 							action.argTypes = method.getParameterTypes();
 							action.argNames = Reflect.getArgNames(method);
-							action.argAnnotations = Reflect.getArgAnnotations(method, Arg.class);
+							action.argAnnotations = Reflect.argAnnotations(method, Arg.class);
 							ACTION_CONTEXT.ACTIONS.add(action);
 
 							log.info(String.format("ADD ACTION: @At(value=\"%s\"%s) %s.%s()", action.path, (action.httpMethod.equals(".*") ? "" : ",method=\"" + action.httpMethod + "\""), action.actionInstance.getClass().getName(), action.actionMethod.getName()));
