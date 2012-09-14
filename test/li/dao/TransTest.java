@@ -16,13 +16,14 @@ public class TransTest extends BaseTest {
 
 	@Test
 	public void test1() {
-		System.out.println(new Trans() {
+		System.err.println(new Trans(false) {
 			public void run() {
 				userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
 				userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-				set("haha", "123");
+				set("outpar", "outpar");
+				System.err.println(get("inpar"));
 			}
-		}.go().get("haha"));
+		}.set("inpar", "inpar").go().get("outpar"));
 	}
 
 	@Test
