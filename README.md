@@ -9,6 +9,6 @@ by li
 * QQ:416133823
 * Q群:254860190
 
-* doc and jar http://code.google.com/p/liz/downloads/list
+* doc and jar https://github.com/limingwei/li/downloads
 * 提问&讨论   https://github.com/limingwei/li/issues
 * 更新记录   https://github.com/limingwei/li/wiki/changelog
