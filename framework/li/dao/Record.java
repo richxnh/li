@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import li.model.Field;
+import li.util.Page;
 
 /**
  * 你的数据对象类可以继承这个类,以使用ActiveRecord的方式操作数据库

@@ -1,6 +1,6 @@
 package li.mvc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import li.test.BaseActionTest;
 
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package demo.record;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 

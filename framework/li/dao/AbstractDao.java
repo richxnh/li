@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import li.ioc.Ioc;
 import li.model.Bean;
 import li.util.Log;
+import li.util.Page;
 import li.util.Reflect;
 
 /**

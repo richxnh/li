@@ -1,6 +1,6 @@
 package demo.record;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import li.annotation.Inject;
 import li.test.BaseTest;
 

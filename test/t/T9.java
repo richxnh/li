@@ -1,8 +1,8 @@
 package t;
 
-import li.dao.Page;
 import li.dao.Trans;
 import li.ioc.Ioc;
+import li.util.Page;
 import demo.record.Account;
 import demo.record.Thread;
 

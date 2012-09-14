@@ -1,4 +1,4 @@
-package li.dao;
+package li.util;
 
 import static org.junit.Assert.assertEquals;
 

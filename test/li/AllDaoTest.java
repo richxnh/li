@@ -1,11 +1,11 @@
 package li;
 
 import li.dao.AbstractDaoTest;
-import li.dao.PageTest;
 import li.dao.QueryBuilderTest;
 import li.dao.QueryRunnerTest;
 import li.dao.RecordTest;
 import li.dao.TransTest;
+import li.util.PageTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
