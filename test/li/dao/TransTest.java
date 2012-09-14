@@ -2,6 +2,7 @@ package li.dao;
 
 import li.annotation.Inject;
 import li.test.BaseTest;
+import li.util.Convert;
 
 import org.junit.Test;
 
@@ -20,21 +21,21 @@ public class TransTest extends BaseTest {
 			public void run() {
 				userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
 				userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-				set("outpar", "outpar");
-				System.err.println(get("inpar"));
+				map.put("outpar", "outpar");
+				System.err.println(map.get("inpar"));
 			}
-		}.set("inpar", "inpar").go().get("outpar"));
+		}.set(Convert.toMap("inpar", "inpar", "1", "2", "3", "4")).go().map.get("outpar"));
 	}
 
 	@Test
 	public void testTrans2() {
-		new Trans() {
+		new Trans(false) {
 			public void run() {
 				System.err.println("trans 4 start");
 				accountDao.list(null);
 				System.err.println("trans 4 end");
 			}
-		};
+		}.go().go().go().go().go();
 	}
 
 	@Test

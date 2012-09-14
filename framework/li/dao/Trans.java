@@ -29,7 +29,7 @@ public abstract class Trans {
 	/**
 	 * 实例变量,用于存放一些值,可用于Trans内外通信
 	 */
-	private final Map<Object, Object> map = new HashMap<Object, Object>();
+	protected final Map<Object, Object> map = new HashMap<Object, Object>();
 
 	/**
 	 * 定义一个事务,并执行run()中包裹的数据操作方法
@@ -50,15 +50,7 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 向当前Trans的map中存入一些值,保留key,~!@#success,~!@#in_trans
-	 */
-	public Trans set(Object key, Object value) {
-		this.map.put(key, value);
-		return this;
-	}
-
-	/**
-	 * 批量设置map,采用putAll方式
+	 * 批量设置map,采用putAll方式,保留key,~!@#success,~!@#in_trans,~!@#done
 	 */
 	public Trans set(Map<Object, Object> map) {
 		this.map.putAll(map);
@@ -66,24 +58,10 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 可以调用这个方法,获取当前Trans的map中的值.
-	 */
-	public Object get(String key) {
-		return map.get(key);
-	}
-
-	/**
-	 * 返回当前Trans的map
-	 */
-	public Map<Object, Object> get() {
-		return map;
-	}
-
-	/**
 	 * 返回事务执行成功与否的标记
 	 */
 	public Boolean success() {
-		return (Boolean) get("~!@#success");
+		return (Boolean) this.map.get("~!@#success");
 	}
 
 	/**
@@ -95,19 +73,22 @@ public abstract class Trans {
 	 * 执行这个事务,自动执行的Trans不需调用这个方法
 	 */
 	public Trans go() {
-		try {
-			begin(); // 开始事务
-			run(); // 执行事务内方法
-			if (null == EXCEPTION.get()) { // 如果没有出现错误
-				commit(); // 提交事务
-				set("~!@#success", true);
-			} else {// 如果出现错误
-				rollback(); // 回滚事务
-				set("~!@#success", false);
+		if (null == this.map.get("~!@#done")) {// 如果未被执行
+			try {
+				begin(); // 开始事务
+				run(); // 执行事务内方法
+				if (null == EXCEPTION.get()) { // 如果没有出现错误
+					commit(); // 提交事务
+					this.map.put("~!@#success", true);
+				} else {// 如果出现错误
+					rollback(); // 回滚事务
+					this.map.put("~!@#success", false);
+				}
+				end(); // 结束事务
+				this.map.put("~!@#done", true);// 加标记,避免重复执行
+			} catch (Exception e) {
+				throw new RuntimeException("Exception in trans", e);
 			}
-			end(); // 结束事务
-		} catch (Exception e) {
-			throw new RuntimeException("Exception in trans", e);
 		}
 		return this;
 	}
@@ -121,7 +102,7 @@ public abstract class Trans {
 			log.debug(String.format("Trans.begin()  in %s.%s()  #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
 			CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
 		} else {
-			set("~!@#in_trans", true);
+			this.map.put("~!@#in_trans", true);
 			log.debug(String.format("Trans is melted in %s.%s() #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
 		}
 	}
@@ -131,7 +112,7 @@ public abstract class Trans {
 	 */
 	private void end() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (null == get("~!@#in_trans") && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
+		if (null == this.map.get("~!@#in_trans") && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			for (Entry<Class<?>, Connection> entry : CONNECTION_MAP.get().entrySet()) {
 				entry.getValue().close();
 				log.debug(String.format("Closing %s@%s in %s.%s()  #%s", entry.getValue().getClass().getName(), Integer.toHexString(entry.getValue().hashCode()), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
@@ -147,7 +128,7 @@ public abstract class Trans {
 	 */
 	private void commit() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (null == get("~!@#in_trans") && null != CONNECTION_MAP.get()) {
+		if (null == this.map.get("~!@#in_trans") && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().commit();
 				log.debug(String.format("Trans.commit() %s in %s.%s()  #%s", connection.getValue(), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
@@ -160,7 +141,7 @@ public abstract class Trans {
 	 */
 	private void rollback() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (null == get("~!@#in_trans") && null != CONNECTION_MAP.get()) {
+		if (null == this.map.get("~!@#in_trans") && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().rollback();
 				log.error(String.format("Trans.rollback() %s in %s.%s()  #%s", connection.getValue(), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
