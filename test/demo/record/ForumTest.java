@@ -7,8 +7,6 @@ import li.test.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import demo.record.Forum;
-
 public class ForumTest extends BaseTest {
 	@Inject
 	Forum forum;

@@ -6,7 +6,6 @@ import li.annotation.Bean;
 import li.annotation.Inject;
 import li.dao.Page;
 import li.mvc.AbstractAction;
-
 import demo.record.Post;
 
 @Bean

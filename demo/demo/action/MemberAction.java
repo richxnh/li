@@ -4,7 +4,6 @@ import li.annotation.At;
 import li.annotation.Bean;
 import li.annotation.Inject;
 import li.mvc.AbstractAction;
-
 import demo.record.Account;
 import demo.record.Member;
 

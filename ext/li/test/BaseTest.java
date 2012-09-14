@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import li.annotation.Inject;
 import li.dao.Page;
 import li.ioc.Ioc;
-import li.util.Log;
 import li.util.Reflect;
 
 /**

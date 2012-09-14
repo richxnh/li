@@ -1,12 +1,11 @@
 package demo.service;
 
+import li.annotation.Inject;
+import li.test.BaseTest;
+
 import org.junit.Test;
 
 import demo.model.User;
-import demo.service.IUserService;
-
-import li.annotation.Inject;
-import li.test.BaseTest;
 
 public class UserServiceTest extends BaseTest {
 	@Inject

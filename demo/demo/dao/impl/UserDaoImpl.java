@@ -1,11 +1,10 @@
 package demo.dao.impl;
 
-import demo.dao.IUserDao;
-import demo.model.User;
-
 import li.annotation.Bean;
 import li.dao.AbstractDao;
 import li.util.Convert;
+import demo.dao.IUserDao;
+import demo.model.User;
 
 /**
  * 你的Dao可以继承自泛型的AbstractDao并扩展更多的方法

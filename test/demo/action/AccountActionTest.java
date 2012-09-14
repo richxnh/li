@@ -1,14 +1,11 @@
 package demo.action;
 
+import static org.junit.Assert.*;
 import li.annotation.Inject;
 import li.test.BaseActionTest;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import demo.action.AccountAction;
-
-import static org.junit.Assert.*;
 
 public class AccountActionTest extends BaseActionTest {
 	@Inject

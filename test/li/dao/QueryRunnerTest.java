@@ -1,8 +1,8 @@
 package li.dao;
 
-import org.junit.Test;
-
 import li.test.BaseTest;
+
+import org.junit.Test;
 
 public class QueryRunnerTest extends BaseTest {
 	@Test

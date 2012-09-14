@@ -1,11 +1,10 @@
 package li.mvc;
 
+import static org.junit.Assert.*;
 import li.test.BaseActionTest;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class ContextTest extends BaseActionTest {
 	@Before

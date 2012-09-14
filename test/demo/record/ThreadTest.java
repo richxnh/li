@@ -1,6 +1,6 @@
 package demo.record;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
@@ -10,8 +10,6 @@ import li.util.Convert;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import demo.record.Thread;
 
 public class ThreadTest extends BaseTest {
 	@Inject

@@ -7,7 +7,6 @@ import li.annotation.Inject;
 import li.dao.Page;
 import li.mvc.AbstractAction;
 import li.util.Convert;
-
 import demo.record.Account;
 
 @Bean

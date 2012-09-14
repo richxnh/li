@@ -14,7 +14,6 @@ import li.annotation.Inject;
 import li.dao.Page;
 import li.mvc.AbstractAction;
 import li.mvc.Context;
-
 import demo.record.Account;
 import demo.record.Member;
 

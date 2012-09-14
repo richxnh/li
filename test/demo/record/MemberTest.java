@@ -1,13 +1,11 @@
 package demo.record;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import li.annotation.Inject;
 import li.test.BaseTest;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import demo.record.Member;
 
 public class MemberTest extends BaseTest {
 	@Inject
