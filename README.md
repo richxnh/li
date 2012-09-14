@@ -1,7 +1,7 @@
 目录结构：
 * WebRoot -> WebContent
-* 扩展工具 -> ext
 * 示例项目 -> demo
+* 扩展工具 -> ext
 * 框架源码 -> framework
 * 单元测试 -> test
 
