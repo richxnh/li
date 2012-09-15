@@ -11,11 +11,11 @@
 									<xs:sequence>
 										<xs:element name="property" minOccurs="0" maxOccurs="unbounded">
 											<xs:complexType>
-												<xs:attributeGroup ref="property_attr" />
+												<xs:attributeGroup ref="property_attribute" />
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
-									<xs:attributeGroup ref="bean_attr" />
+									<xs:attributeGroup ref="bean_attribute" />
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
@@ -25,12 +25,12 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:attributeGroup name="bean_attr">
+	<xs:attributeGroup name="bean_attribute">
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="class" type="xs:string" use="required" />
 	</xs:attributeGroup>
 
-	<xs:attributeGroup name="property_attr">
+	<xs:attributeGroup name="property_attribute">
 		<xs:attribute name="name" type="xs:string" use="required" />
 		<xs:attribute name="value" type="xs:string" />
 	</xs:attributeGroup>
