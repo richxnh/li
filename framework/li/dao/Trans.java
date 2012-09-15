@@ -29,7 +29,7 @@ public abstract class Trans {
 	/**
 	 * 实例变量,用于存放一些值,可用于Trans内外通信
 	 */
-	protected final Map<Object, Object> map = new HashMap<Object, Object>();
+	private final Map<Object, Object> map = new HashMap<Object, Object>();
 
 	/**
 	 * 定义一个事务,并执行run()中包裹的数据操作方法
@@ -55,6 +55,13 @@ public abstract class Trans {
 	public Trans set(Map<Object, Object> map) {
 		this.map.putAll(map);
 		return this;
+	}
+
+	/**
+	 * 返回map
+	 */
+	public Map<Object, Object> map() {
+		return this.map;
 	}
 
 	/**

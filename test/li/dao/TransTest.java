@@ -21,10 +21,10 @@ public class TransTest extends BaseTest {
 			public void run() {
 				userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
 				userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-				map.put("outpar", "outpar");
-				System.err.println(map.get("inpar"));
+				map().put("outpar", "outpar");
+				System.err.println(map().get("inpar"));
 			}
-		}.set(Convert.toMap("inpar", "inpar", "1", "2", "3", "4")).go().map.get("outpar"));
+		}.set(Convert.toMap("inpar", "inpar", "1", "2", "3", "4")).go().map().get("outpar"));
 	}
 
 	@Test
