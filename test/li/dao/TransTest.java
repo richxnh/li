@@ -24,7 +24,14 @@ public class TransTest extends BaseTest {
 			}
 		}.set(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")).go().map().get("user");
 
-		System.out.println(user);
+		Boolean flag = new Trans() {
+			public void run() {
+				userDao.update("SET email='li@w.cn' WHERE 1=2", map());
+			}
+		}.success();
+
+		System.err.println(user);
+		System.err.println(flag);
 	}
 
 	@Test
