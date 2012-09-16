@@ -60,7 +60,7 @@ public class ActionContext {
 							action.actionInstance = bean.instance;
 							action.actionMethod = method;
 							action.argTypes = method.getParameterTypes();
-							action.argNames = Reflect.getArgNames(method);
+							action.argNames = Reflect.argNames(method);
 							action.argAnnotations = Reflect.argAnnotations(method, Arg.class);
 							ACTION_CONTEXT.ACTIONS.add(action);
 

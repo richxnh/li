@@ -248,7 +248,7 @@ public class Reflect {
 	/**
 	 * 获得传入的方法的形参名列表
 	 */
-	public static String[] getArgNames(Method method) {
+	public static String[] argNames(Method method) {
 		return ParamScaner.getParameterNames(method);
 	}
 }
