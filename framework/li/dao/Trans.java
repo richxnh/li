@@ -50,7 +50,7 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 批量设置map,采用putAll方式,保留key,~!@#success,~!@#in_trans,~!@#done
+	 * 批量设置map,采用putAll方式,保留key:~!@#success,~!@#in_trans,~!@#done
 	 */
 	public Trans set(Map<Object, Object> map) {
 		this.map.putAll(map);
@@ -58,7 +58,7 @@ public abstract class Trans {
 	}
 
 	/**
-	 * 返回map
+	 * 返回map引用,请注意不要操作保留key:~!@#success,~!@#in_trans,~!@#done
 	 */
 	public Map<Object, Object> map() {
 		return this.map;
