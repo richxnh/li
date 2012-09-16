@@ -16,6 +16,18 @@ public class TransTest extends BaseTest {
 	User userDao;
 
 	@Test
+	public void testPassValue() {
+		User user = (User) new Trans(false) {
+			public void run() {
+				userDao.update("SET email=:email WHERE username=:username", map());
+				map().put("user", userDao.find("WHERE username=?", map().get(":username")));
+			}
+		}.set(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")).go().map().get("user");
+
+		System.out.println(user);
+	}
+
+	@Test
 	public void test1() {
 		System.err.println(new Trans(false) {
 			public void run() {

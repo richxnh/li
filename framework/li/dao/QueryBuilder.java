@@ -82,7 +82,7 @@ public class QueryBuilder {
 	 */
 	public String update(String sql, Object[] args) {
 		if (Verify.startWith(sql, "SET")) {
-			return String.format("UPDATE %s %s", beanMeta.table, sql);
+			sql = String.format("UPDATE %s %s", beanMeta.table, sql);
 		}
 		return setArgs(sql, args);// 处理args
 	}
