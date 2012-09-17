@@ -8,6 +8,7 @@ import li.ioc.Ioc;
 import li.model.Bean;
 import li.test.BaseTest;
 import li.util.Convert;
+import li.util.Page;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +48,13 @@ public class QueryBuilderTest extends BaseTest {
 	public void testSetAlias() {
 		String sql = "SELECT t_account.#,t_forum.# as f_#,t_member.#,t_post.# AS p_# FROM t_account";
 		sql = QUERY_BUILDER.setAlias(sql);
+		System.err.println(sql);
+	}
+
+	@Test
+	public void testSetPage() {
+		String sql = "SELECT * FROM t_account";
+		sql = QUERY_BUILDER.setPage(sql, new Page(1, 1));
 		System.err.println(sql);
 	}
 }

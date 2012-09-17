@@ -143,7 +143,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public T find(String sql, Object... args) {
-		List<T> list = list(null, sql, args);// 为了兼容不同的数据库,这里并没有加分页,但你可以自己加
+		List<T> list = list(new Page(1, 1), sql, args);
 		return null != list && list.size() > 0 ? list.get(0) : null;
 	}
 
