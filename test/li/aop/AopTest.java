@@ -24,7 +24,7 @@ public class AopTest extends BaseTest {
 		final Account account = Ioc.get(Account.class);
 		account.list(null);
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			Thread.sleep(300);
 			new Thread() {
 				public void run() {
