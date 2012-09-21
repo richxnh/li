@@ -52,7 +52,7 @@ public class AopInterceptor {
 		// 创建代理
 		Enhancer enhancer = new Enhancer();
 		enhancer.setSuperclass(type);
-		enhancer.setCallback(new MethodInterceptor() {// 设置callback
+		enhancer.setCallback(new MethodInterceptor() {// 设置callback,使用AopChain代理执行方法
 			public Object intercept(Object target, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 				return new AopChain(target, method, args, filtersMap.get(method), proxy).doFilter().getResult();// 使用AopChian代理执行这个方法并返回值
 			}
