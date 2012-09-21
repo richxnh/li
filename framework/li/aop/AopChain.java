@@ -56,14 +56,14 @@ public class AopChain {
 	 * 执行AopChain,执行AopFilter链条或者执行代理方法
 	 */
 	public AopChain doFilter() {
-		try {
-			if (null == filters || index == filters.size()) {// 如果没有AopFilter或者已经经过全部AopFilter
+		if (null == filters || index == filters.size()) {// 如果没有AopFilter或者已经经过全部AopFilter
+			try {
 				this.result = proxy.invokeSuper(target, args);// 则执行目标方法
-			} else {
-				filters.get(index++).doFilter(this);// 执行第index个AopFilter然后i++
+			} catch (Throwable e) {
+				throw new RuntimeException("May be because your AopFilter is not a Bean", e);
 			}
-		} catch (Throwable e) {
-			throw new RuntimeException("May be because your AopFilter is not a Bean", e);
+		} else {
+			filters.get(index++).doFilter(this);// 执行第index个AopFilter然后i++
 		}
 		return this;
 	}
