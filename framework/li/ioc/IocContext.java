@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import li.aop.AopFilter;
+import li.aop.AopInterceptor;
 import li.model.Bean;
 import li.model.Field;
 import li.util.Convert;
@@ -62,12 +64,26 @@ public class IocContext {
 				}
 			}
 
-			// STEP-3-实例化所有的Bean,并缓存之
+			// STEP-3-实例化所有的AopFilter,并缓存之
 			for (Bean bean : IOC_CONTEXT.BEANS) {
-				bean.instance = Reflect.born(bean.type);
+				if (AopFilter.class.isAssignableFrom(bean.type)) {
+					bean.instance = Reflect.born(bean.type);
+				}
 			}
 
-			// STEP-4-给IocContext中的Bean设置属性
+			// STEP-4-实例化并Aop化所有的非AopFilter的Bean,并缓存之
+			for (Bean bean : IOC_CONTEXT.BEANS) {
+				if (!AopFilter.class.isAssignableFrom(bean.type)) {
+					try {
+						bean.instance = AopInterceptor.getInstance(bean.type);
+					} catch (Throwable e) {
+						log.debug("Aop not supported: " + e);
+						bean.instance = Reflect.born(bean.type);
+					}
+				}
+			}
+
+			// STEP-5-给IocContext中的Bean设置属性
 			for (Bean bean : IOC_CONTEXT.BEANS) {
 				for (Field field : bean.fields) {
 					log.info(String.format("SET Field: %s %s -> %s", field.name, field.value, bean.type.getName()));
