@@ -74,9 +74,9 @@ public class IocContext {
 			// STEP-4-实例化并Aop化所有的非AopFilter的Bean,并缓存之
 			for (Bean bean : IOC_CONTEXT.BEANS) {
 				if (!AopFilter.class.isAssignableFrom(bean.type)) {
-					try {
+					try {// 如果有cglib-nodep-2.2.3.jar
 						bean.instance = AopInterceptor.getInstance(bean.type);
-					} catch (Throwable e) {
+					} catch (Throwable e) {// 如没有cglib,则米有Aop功效
 						bean.instance = Reflect.born(bean.type);
 					}
 				}
