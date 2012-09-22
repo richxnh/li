@@ -77,7 +77,6 @@ public class IocContext {
 					try {
 						bean.instance = AopInterceptor.getInstance(bean.type);
 					} catch (Throwable e) {
-						log.debug("Aop not supported: " + e);
 						bean.instance = Reflect.born(bean.type);
 					}
 				}
