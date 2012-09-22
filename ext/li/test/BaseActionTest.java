@@ -1,16 +1,5 @@
 package li.test;
 
-import li.model.Action;
-import li.mvc.ActionContext;
-import li.mvc.Context;
-import li.util.Verify;
-
-//import org.springframework.mock.web.MockHttpServletRequest;
-//import org.springframework.mock.web.MockHttpServletResponse;
-//import org.springframework.mock.web.MockHttpSession;
-//import org.springframework.mock.web.MockServletConfig;
-//import org.springframework.mock.web.MockServletContext;
-
 /**
  * Action测试类的基类，准备内request response等的Mock对象
  * 
@@ -51,12 +40,12 @@ public class BaseActionTest extends BaseTest {
 	}
 
 	protected void setRequestURL(String path, String method) {
-		path = Verify.startWith(path, "/") ? path : "/" + path;
+		// path = Verify.startWith(path, "/") ? path : "/" + path;
 		// request.setRequestURI(path);
 		// request.setMethod(method);
 		// request.setServletPath(path);
 
-		Action action = ActionContext.getInstance().getAction(path, method);
+		// Action action = ActionContext.getInstance().getAction(path, method);
 		// Context.init(request, response, action);
 	}
 }

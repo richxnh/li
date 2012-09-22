@@ -27,7 +27,7 @@ public abstract class Trans {
 	public static final ThreadLocal<Exception> EXCEPTION = new ThreadLocal<Exception>();
 
 	/**
-	 * 实例变量,用于存放一些值,可用于Trans内外通信
+	 * 实例变量,用于存放一些值,可用于Trans内外通信,保留key:~!@#success,~!@#in_trans,~!@#done
 	 */
 	private final Map<Object, Object> map = new HashMap<Object, Object>();
 

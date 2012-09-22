@@ -1,9 +1,9 @@
 package li.aop;
 
-import org.junit.Test;
-
 import li.ioc.Ioc;
 import li.test.BaseTest;
+
+import org.junit.Test;
 
 public class AopTest extends BaseTest {
 

@@ -76,7 +76,7 @@ public class IocContext {
 				if (!AopFilter.class.isAssignableFrom(bean.type)) {
 					try {// 如果有cglib-nodep-2.2.3.jar
 						bean.instance = AopInterceptor.getInstance(bean.type);
-					} catch (Throwable e) {// 如没有cglib,则米有Aop功效
+					} catch (Throwable e) {// 如没有cglib,则没有Aop功效
 						bean.instance = Reflect.born(bean.type);
 					}
 				}

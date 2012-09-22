@@ -2,8 +2,6 @@ package li.aop;
 
 import li.annotation.Bean;
 import li.annotation.Inject;
-import li.aop.AopChain;
-import li.aop.AopFilter;
 
 @Bean
 public class LogFilter implements AopFilter {
