@@ -16,7 +16,7 @@ public class AopTest extends BaseTest {
 	@Test
 	public void testAop2() {
 		User user = Ioc.get(User.class);
-		user.sayHi("abc", "xyz");
+		System.out.println(user.sayHi("abc", "xyz"));
 	}
 
 	public static void main(String[] args) throws Exception {
