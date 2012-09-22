@@ -56,20 +56,6 @@ public class AopChain {
 	}
 
 	/**
-	 * 返回方法上的AopFilter列表
-	 */
-	public List<AopFilter> getFilters() {
-		return this.filters;
-	}
-
-	/**
-	 * 返回方法代理
-	 */
-	public MethodProxy getProxy() {
-		return this.proxy;
-	}
-
-	/**
 	 * 返回方法参数
 	 */
 	public Object[] getArgs() {
