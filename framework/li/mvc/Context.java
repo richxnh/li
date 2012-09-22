@@ -314,9 +314,7 @@ public class Context {
 		try {
 			getResponse().sendRedirect(path);
 		} catch (Exception e) {
-			getResponse().setStatus(500);
-			log.error(e.getMessage());
-			e.printStackTrace();
+			error(e);
 		}
 		return "DONE";
 	}
@@ -329,9 +327,7 @@ public class Context {
 		try {
 			getRequest().getRequestDispatcher(path).forward(getRequest(), getResponse());
 		} catch (Exception e) {
-			getResponse().setStatus(500);
-			log.error(e.getMessage());
-			e.printStackTrace();
+			error(e);
 		}
 		return "DONE";
 	}
