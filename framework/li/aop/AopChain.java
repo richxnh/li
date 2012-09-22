@@ -42,33 +42,6 @@ public class AopChain {
 	private int index = 0;
 
 	/**
-	 * 初始化一个AopChain
-	 */
-	public AopChain(Object target, Method method, Object[] args, List<AopFilter> filters, MethodProxy proxy) {
-		this.target = target;
-		this.method = method;
-		this.args = args;
-		this.filters = filters;
-		this.proxy = proxy;
-	}
-
-	/**
-	 * 执行AopChain,执行AopFilter链条或者执行代理方法
-	 */
-	public AopChain doFilter() {
-		if (null == filters || index == filters.size()) {// 如果没有AopFilter或者已经经过全部AopFilter
-			try {
-				this.result = proxy.invokeSuper(target, args);// 则执行目标方法
-			} catch (Throwable e) {
-				throw new RuntimeException("May be because your AopFilter is not a Bean", e);
-			}
-		} else {
-			filters.get(index++).doFilter(this);// 执行第index个AopFilter然后i++
-		}
-		return this;
-	}
-
-	/**
 	 * 返回被代理方法宿主对象
 	 */
 	public Object getTarget() {
@@ -80,6 +53,20 @@ public class AopChain {
 	 */
 	public Method getMethod() {
 		return this.method;
+	}
+
+	/**
+	 * 返回方法上的AopFilter列表
+	 */
+	public List<AopFilter> getFilters() {
+		return this.filters;
+	}
+
+	/**
+	 * 返回方法代理
+	 */
+	public MethodProxy getProxy() {
+		return this.proxy;
 	}
 
 	/**
@@ -109,6 +96,33 @@ public class AopChain {
 	 */
 	public AopChain setResult(Object result) {
 		this.result = result;
+		return this;
+	}
+
+	/**
+	 * 初始化一个AopChain
+	 */
+	public AopChain(Object target, Method method, Object[] args, List<AopFilter> filters, MethodProxy proxy) {
+		this.target = target;
+		this.method = method;
+		this.args = args;
+		this.filters = filters;
+		this.proxy = proxy;
+	}
+
+	/**
+	 * 执行AopChain,执行AopFilter链条或者执行代理方法
+	 */
+	public AopChain doFilter() {
+		if (null == filters || index == filters.size()) {// 如果没有AopFilter或者已经经过全部AopFilter
+			try {
+				this.result = proxy.invokeSuper(target, args);// 则执行目标方法
+			} catch (Throwable e) {
+				throw new RuntimeException("May be because your AopFilter is not a Bean", e);
+			}
+		} else {
+			filters.get(index++).doFilter(this);// 执行第index个AopFilter然后index++
+		}
 		return this;
 	}
 }
