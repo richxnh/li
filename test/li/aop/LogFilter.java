@@ -14,8 +14,12 @@ public class LogFilter implements AopFilter {
 		System.err.println("log before " + msg);
 		System.err.println(chain.getTarget());
 		System.err.println(chain.getMethod());
-		System.err.println(chain.getArgs());
-		System.err.println(chain.getFilters());
+		for (Object arg : chain.getArgs()) {
+			System.out.println("Arg: " + arg);
+		}
+		for (AopFilter filter : chain.getFilters()) {
+			System.out.println("AopFilter: " + filter);
+		}
 		System.err.println(chain.getProxy());
 		chain.doFilter();
 		System.err.println(chain.getResult());

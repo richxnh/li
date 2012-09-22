@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import li.annotation.Aop;
+import li.annotation.Trans;
 import li.ioc.Ioc;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -22,15 +23,7 @@ public class AopInterceptor {
 	/**
 	 * 内置的TransFilter
 	 */
-	private static final AopFilter TRANS_FILTER = new AopFilter() {
-		public void doFilter(final AopChain chain) {
-			new li.dao.Trans() {
-				public void run() {
-					chain.doFilter();
-				}
-			};
-		}
-	};
+	private static final AopFilter TRANS_FILTER = new TransFilter();
 
 	/**
 	 * Aop包裹一个对象
@@ -44,7 +37,7 @@ public class AopInterceptor {
 			for (int i = 0; null != aop && i < aop.value().length; i++) {// 如果有@Aop注解,对每一个@Aop.value()的值
 				filters.add(Ioc.get(aop.value()[i]));
 			}
-			if (null != method.getAnnotation(li.annotation.Trans.class)) {// 如果有@Trans注解
+			if (null != method.getAnnotation(Trans.class)) {// 如果有@Trans注解
 				filters.add(TRANS_FILTER);
 			}
 			filtersMap.put(method, filters);
