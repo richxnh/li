@@ -7,6 +7,21 @@
 			<property name="username" value="${db.username}" />
 			<property name="password" value="${db.password}" />
 		</bean>
+		<!-- <bean name="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+			<property name="jdbcUrl" value="${db.url}" />
+			<property name="user" value="${db.username}" />
+			<property name="password" value="${db.password}" />
+		</bean> -->
+		<!-- <bean name="dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="url" value="${db.url}" />
+			<property name="username" value="${db.username}" />
+			<property name="password" value="${db.password}" />
+		</bean> -->
+		<!-- <bean name="simple" class="li.dao.SimpleDataSource">
+			<property name="url" value="${db.url}" />
+			<property name="username" value="${db.username}" />
+			<property name="password" value="${db.password}" />
+		</bean> -->
 		<bean class="li.aop.Account">
 			<property name="dataSource" />
 		</bean>
