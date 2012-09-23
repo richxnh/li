@@ -32,13 +32,13 @@ public class ActionFilter implements Filter {
 	/**
 	 * 是否使用国际化
 	 */
-	private static final String I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");
+	private static final String USE_I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");
 
 	/**
 	 * 初始化Filter,设置一些环境变量,只执行一次
 	 */
 	public void init(FilterConfig config) throws ServletException {
-		if ("true".equals(I18N.trim().toLowerCase())) {
+		if ("true".equals(USE_I18N.trim().toLowerCase())) {
 			// 默认的环境变量
 			config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");
 			// 根据Locale.getDefault()初始化国际化,存到servletContext
@@ -58,7 +58,7 @@ public class ActionFilter implements Filter {
 		request.setCharacterEncoding(encoding);
 		response.setCharacterEncoding(encoding);
 
-		if ("true".equals(I18N.trim().toLowerCase())) {
+		if ("true".equals(USE_I18N.trim().toLowerCase())) {
 			// 根据Parameter参数设置国际化,存到session
 			String lang = request.getParameter("lang");
 			if (!Verify.isEmpty(lang)) {
