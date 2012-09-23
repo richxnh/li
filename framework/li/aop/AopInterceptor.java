@@ -20,12 +20,9 @@ import net.sf.cglib.proxy.MethodProxy;
  */
 public class AopInterceptor {
 	/**
-	 * 一个内置的AopFilter,使被包裹的方法在事务中运行
+	 * 内置的AopFilter,用li.dao.Trans包裹执行chain.doFilter,使被包裹的方法在事务中执行
 	 */
 	private static final AopFilter TRANS_FILTER = new AopFilter() {
-		/**
-		 * 用一个li.dao.Trans包裹执行chain.doFilter
-		 */
 		public void doFilter(final AopChain chain) {
 			new li.dao.Trans() {
 				public void run() {
