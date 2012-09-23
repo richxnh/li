@@ -97,7 +97,7 @@ public class AopChain {
 	}
 
 	/**
-	 * 执行AopChain,执行AopFilter链条或者执行代理方法
+	 * 执行AopChain,执行吓一个AopFilter或者执行被代理方法
 	 */
 	public AopChain doFilter() {
 		if (null == filters || index == filters.size()) {// 如果没有AopFilter或者已经经过全部AopFilter
@@ -106,7 +106,7 @@ public class AopChain {
 			} catch (Throwable e) {
 				throw new RuntimeException("May be because your AopFilter is not a Bean", e);
 			}
-		} else {
+		} else {// 还有AopFilter
 			filters.get(index++).doFilter(this);// 执行第index个AopFilter然后index++
 		}
 		return this;
