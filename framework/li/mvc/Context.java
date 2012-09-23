@@ -224,7 +224,7 @@ public class Context {
 			page = new Page();
 		}
 		String pnStr = getParameter(pageNumberKey);
-		page.setPageNumber(Verify.isEmpty(pnStr) ? 1 : Integer.parseInt(pnStr));
+		page.setPageNumber(Verify.isEmpty(pnStr) ? 1 : Integer.valueOf(pnStr));
 		return page;
 	}
 

@@ -126,7 +126,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 		ResultSet resultSet = queryRunner.executeQuery(sql);
 		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
-		return new Integer(modelBuilder.value("COUNT(*)", true, true));
+		return Integer.valueOf(modelBuilder.value("COUNT(*)", true, true));
 	}
 
 	/**
