@@ -115,7 +115,7 @@ public class AopChain {
 		try {
 			this.result = proxy.invokeSuper(target, args);// 则执行目标方法
 		} catch (Throwable e) {
-			throw new RuntimeException("May be because your AopFilter is not a Bean", e);
+			throw new RuntimeException(e);
 		}
 		return this;
 	}
