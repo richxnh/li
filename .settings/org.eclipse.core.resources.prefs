@@ -5,5 +5,5 @@ encoding//demo/freemarker.properties=UTF-8
 encoding//demo/lang_en_US.properties=UTF-8
 encoding//demo/lang_zh_CN.properties=UTF-8
 encoding//demo/velocity.properties=UTF-8
-encoding//ext/li/ext/IocExporter.java=UTF-8
+encoding//more/li/more/IocExporter.java=UTF-8
 encoding/<project>=UTF-8
