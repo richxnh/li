@@ -13,7 +13,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 /**
- * Aop包裹类
+ * Aop增强类生成器,依赖CGLIB
  * 
  * @author li (limw@w.cn)
  * @version 0.1.1 (2012-09-20)
@@ -33,7 +33,7 @@ public class AopEnhancer {
 	};
 
 	/**
-	 * Aop包裹一个对象
+	 * 生成一个Aop增强的对象
 	 */
 	public static Object create(Class<?> type) {
 		// 构造这个类型所有方法的AopFilter的集合
