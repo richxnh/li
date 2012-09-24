@@ -13,10 +13,10 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 	public void addDateHeader(String arg0, long arg1) {
 	}
 
-	public void addHeader(String arg0, String arg1) {
+	public void addHeader(String key, String value) {
 	}
 
-	public void addIntHeader(String arg0, int arg1) {
+	public void addIntHeader(String key, int value) {
 	}
 
 	public boolean containsHeader(String arg0) {
@@ -39,7 +39,7 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 		return null;
 	}
 
-	public String getHeader(String arg0) {
+	public String getHeader(String key) {
 		return null;
 	}
 
@@ -55,10 +55,10 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 		return 0;
 	}
 
-	public void sendError(int arg0) throws IOException {
+	public void sendError(int status) throws IOException {
 	}
 
-	public void sendError(int arg0, String arg1) throws IOException {
+	public void sendError(int status, String arg1) throws IOException {
 	}
 
 	public void sendRedirect(String path) throws IOException {

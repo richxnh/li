@@ -72,8 +72,8 @@ public class MockServletRequest implements ServletRequest {
 		return null;
 	}
 
-	public String getParameter(String arg0) {
-		return null;
+	public String getParameter(String key) {
+		return parameterMap.get(key)[0];
 	}
 
 	public Map<String, String[]> getParameterMap() {
@@ -96,7 +96,7 @@ public class MockServletRequest implements ServletRequest {
 		return null;
 	}
 
-	public String getRealPath(String arg0) {
+	public String getRealPath(String path) {
 		return null;
 	}
 
@@ -152,7 +152,7 @@ public class MockServletRequest implements ServletRequest {
 		request.put(key, value);
 	}
 
-	public void setCharacterEncoding(String arg0) throws UnsupportedEncodingException {
+	public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
 	}
 
 	public AsyncContext startAsync() {

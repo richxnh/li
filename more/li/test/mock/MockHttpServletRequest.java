@@ -36,7 +36,7 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 		return 0;
 	}
 
-	public String getHeader(String arg0) {
+	public String getHeader(String key) {
 		return null;
 	}
 
