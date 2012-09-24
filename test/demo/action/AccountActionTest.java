@@ -18,5 +18,6 @@ public class AccountActionTest extends BaseActionTest {
 
 	@Test
 	public void listTest() {
+		// accountAction.list(null);
 	}
 }

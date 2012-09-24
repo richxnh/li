@@ -18,5 +18,6 @@ public class ThreadActionTest extends BaseActionTest {
 
 	@Test
 	public void testList() {
+		threadAction.list(1, page);
 	}
 }
