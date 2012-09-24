@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import li.aop.AopFilter;
-import li.aop.AopInterceptor;
+import li.aop.AopEnhancer;
 import li.model.Bean;
 import li.model.Field;
 import li.util.Convert;
@@ -75,7 +75,7 @@ public class IocContext {
 			for (Bean bean : IOC_CONTEXT.BEANS) {
 				if (!AopFilter.class.isAssignableFrom(bean.type)) {
 					try {// 如果有cglib-nodep-2.2.3.jar
-						bean.instance = AopInterceptor.getInstance(bean.type);
+						bean.instance = AopEnhancer.create(bean.type);
 					} catch (Throwable e) {// 如没有cglib,则没有Aop功效
 						bean.instance = Reflect.born(bean.type);
 					}

@@ -18,7 +18,7 @@ import net.sf.cglib.proxy.MethodProxy;
  * @author li (limw@w.cn)
  * @version 0.1.1 (2012-09-20)
  */
-public class AopInterceptor {
+public class AopEnhancer {
 	/**
 	 * 内置的AopFilter,用li.dao.Trans包裹执行chain.doFilter,使被包裹的方法在事务中执行
 	 */
@@ -35,7 +35,7 @@ public class AopInterceptor {
 	/**
 	 * Aop包裹一个对象
 	 */
-	public static Object getInstance(Class<?> type) {
+	public static Object create(Class<?> type) {
 		// 构造这个类型所有方法的AopFilter的集合
 		final Map<Method, List<AopFilter>> filtersMap = new HashMap<>();
 		for (Method method : type.getDeclaredMethods()) {// 对每一个方法
