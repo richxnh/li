@@ -11,18 +11,18 @@ import javax.servlet.http.HttpSessionContext;
 
 public class MockHttpSession implements HttpSession {
 	private ServletContext servletContext;
-	private final Map<String, Object> map = new HashMap<String, Object>();
+	private final Map<String, Object> session = new HashMap<String, Object>();
 
 	public MockHttpSession(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
 
 	public Object getAttribute(String key) {
-		return map.get(key);
+		return session.get(key);
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return new Vector(map.keySet()).elements();
+		return new Vector(session.keySet()).elements();
 	}
 
 	public long getCreationTime() {
@@ -50,11 +50,11 @@ public class MockHttpSession implements HttpSession {
 	}
 
 	public Object getValue(String key) {
-		return map.get(key);
+		return session.get(key);
 	}
 
 	public String[] getValueNames() {
-		return map.entrySet().toArray(new String[0]);
+		return session.entrySet().toArray(new String[0]);
 	}
 
 	public void invalidate() {
@@ -65,18 +65,18 @@ public class MockHttpSession implements HttpSession {
 	}
 
 	public void putValue(String key, Object value) {
-		map.put(key, value);
+		session.put(key, value);
 	}
 
 	public void removeAttribute(String key) {
-		map.remove(key);
+		session.remove(key);
 	}
 
 	public void removeValue(String value) {
 	}
 
 	public void setAttribute(String key, Object value) {
-		map.put(key, value);
+		session.put(key, value);
 	}
 
 	public void setMaxInactiveInterval(int arg0) {

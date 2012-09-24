@@ -11,16 +11,13 @@ import java.util.Vector;
 
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class MockServletRequest implements ServletRequest {
 	private MockServletContext servletContext = new MockServletContext();
-
-	private Map<String, Object> map = new HashMap<String, Object>();
-
+	private Map<String, Object> request = new HashMap<String, Object>();
 	private Map<String, String[]> parameterMap = new HashMap<>();
 
 	public AsyncContext getAsyncContext() {
@@ -28,11 +25,11 @@ public class MockServletRequest implements ServletRequest {
 	}
 
 	public Object getAttribute(String key) {
-		return map.get(key);
+		return request.get(key);
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return new Vector<>(map.keySet()).elements();
+		return new Vector<>(request.keySet()).elements();
 	}
 
 	public String getCharacterEncoding() {
@@ -115,8 +112,8 @@ public class MockServletRequest implements ServletRequest {
 		return 0;
 	}
 
-	public RequestDispatcher getRequestDispatcher(String arg0) {
-		return null;
+	public MockRequestDispatcher getRequestDispatcher(String path) {
+		return new MockRequestDispatcher(path);
 	}
 
 	public String getScheme() {
@@ -148,11 +145,11 @@ public class MockServletRequest implements ServletRequest {
 	}
 
 	public void removeAttribute(String key) {
-		map.remove(key);
+		request.remove(key);
 	}
 
 	public void setAttribute(String key, Object value) {
-		map.put(key, value);
+		request.put(key, value);
 	}
 
 	public void setCharacterEncoding(String arg0) throws UnsupportedEncodingException {

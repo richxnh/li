@@ -8,6 +8,7 @@ import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
@@ -22,7 +23,7 @@ import javax.servlet.SessionTrackingMode;
 import javax.servlet.descriptor.JspConfigDescriptor;
 
 public class MockServletContext implements ServletContext {
-	private Map<String, Object> map = new HashMap<String, Object>();
+	private Map<String, Object> servletContext = new HashMap<String, Object>();
 
 	public Dynamic addFilter(String arg0, String arg1) {
 		return null;
@@ -73,11 +74,11 @@ public class MockServletContext implements ServletContext {
 	}
 
 	public Object getAttribute(String key) {
-		return map.get(key);
+		return servletContext.get(key);
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return null;
+		return new Vector(servletContext.keySet()).elements();
 	}
 
 	public ClassLoader getClassLoader() {

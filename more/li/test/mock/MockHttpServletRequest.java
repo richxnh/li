@@ -14,6 +14,7 @@ import javax.servlet.http.Part;
 
 public class MockHttpServletRequest extends MockServletRequest implements HttpServletRequest {
 	private MockHttpSession session = new MockHttpSession(getServletContext());
+	private String method = "GET";
 
 	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
 		return false;
@@ -51,8 +52,12 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 		return 0;
 	}
 
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
 	public String getMethod() {
-		return null;
+		return this.method;
 	}
 
 	public Part getPart(String arg0) throws IOException, IllegalStateException, ServletException {

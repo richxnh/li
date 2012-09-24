@@ -1,5 +1,6 @@
 package li.test;
 
+import li.model.Action;
 import li.mvc.Context;
 import li.test.mock.MockHttpServletRequest;
 import li.test.mock.MockHttpServletResponse;
@@ -39,10 +40,16 @@ public class BaseActionTest extends BaseTest {
 	 */
 	protected MockHttpSession session = request.getSession();
 
+	protected Action action = new Action();
+
 	/**
 	 * 初始化方法，由于不会启动Filter，所以这里为Context ThreadLocal设值
 	 */
 	public BaseActionTest() {
-		Context.init(request, response, null);
+		Context.init(request, response, action);
+	}
+
+	public void setMethod(String method) {
+		request.setMethod(method);
 	}
 }
