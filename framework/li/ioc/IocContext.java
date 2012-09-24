@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import li.aop.AopFilter;
 import li.aop.AopEnhancer;
+import li.aop.AopFilter;
 import li.model.Bean;
 import li.model.Field;
 import li.util.Convert;
