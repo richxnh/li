@@ -101,13 +101,21 @@ public class AopChain {
 	 */
 	public AopChain doFilter() {
 		if (null == filters || index == filters.size()) {// 如果没有AopFilter或者已经经过全部AopFilter
-			try {
-				this.result = proxy.invokeSuper(target, args);// 则执行目标方法
-			} catch (Throwable e) {
-				throw new RuntimeException("May be because your AopFilter is not a Bean", e);
-			}
+			invoke();// 执行目标方法
 		} else {// 还有AopFilter
 			filters.get(index++).doFilter(this);// 执行第index个AopFilter然后index++
+		}
+		return this;
+	}
+
+	/**
+	 * 跳过所有剩下的拦截器,直接调用方法
+	 */
+	public AopChain invoke() {
+		try {
+			this.result = proxy.invokeSuper(target, args);// 则执行目标方法
+		} catch (Throwable e) {
+			throw new RuntimeException("May be because your AopFilter is not a Bean", e);
 		}
 		return this;
 	}
