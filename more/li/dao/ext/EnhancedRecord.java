@@ -1,6 +1,10 @@
 package li.dao.ext;
 
+import java.util.List;
+
+import li.dao.QueryRunner;
 import li.dao.Record;
+import li.util.Page;
 
 /**
  * 
@@ -14,10 +18,13 @@ import li.dao.Record;
  */
 public class EnhancedRecord<K, T extends EnhancedRecord> extends Record<T> {
 	public T find(K id) {
-		return null;
+		List<T> list = list(new Page(1, 1), getQueryBuilder().find(id.toString()));
+		return null != list && list.size() > 0 ? list.get(0) : null;
 	}
 
 	public Boolean delete(K id) {
-		return null;
+		String sql = getQueryBuilder().delete(id.toString());
+		QueryRunner queryRunner = new QueryRunner(getConnection());
+		return 1 == queryRunner.executeUpdate(sql);
 	}
 }
