@@ -7,7 +7,7 @@ import demo.record.Account;
 import demo.record.Thread;
 
 public class T9 {
-	public static void main(String[] args) throws Exception {
+	public static void main4(String[] args) throws Exception {
 		final Account accountDao = Ioc.get(Account.class);
 
 		for (int i = 0; i < 100; i++) {// 开100个线程
@@ -40,7 +40,7 @@ public class T9 {
 		}
 	}
 
-	public static void main12(String[] args) {
+	public static void main2(String[] args) {
 		Thread dao = Ioc.get(Thread.class);
 		Page page = new Page();
 
@@ -74,7 +74,7 @@ public class T9 {
 		dao.list(page, "SELECT t_thread.#," + "t_member.# AS member_# " + "FROM t_thread,t_member " + "WHERE t_thread.forum_id=? " + "AND t_thread.member_id=t_member.id", 1);
 	}
 
-	public static void main11(String[] args) {
+	public static void main3(String[] args) {
 
 		Thread threadDao = Ioc.get(Thread.class);
 
