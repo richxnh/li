@@ -68,7 +68,7 @@ public class Bean {
 				}
 			}
 			if (null == this.id) {
-				throw new RuntimeException(String.format("As a POJO,%s must has a primary key field which types of Integer and annotationed by @Field(id=true)", type));
+				throw new RuntimeException(String.format("As a POJO,%s must has a primary key field which annotationed by @Field(id=true)", type));
 			}
 		}
 		return this.id;

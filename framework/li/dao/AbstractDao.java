@@ -132,8 +132,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	/**
 	 * 根据ID查询一条记录
 	 */
-	public T find(Integer id) {
-		return find(getQueryBuilder().find(id.toString()));
+	public T findById(Object id) {
+		return find(getQueryBuilder().findById(id.toString()));
 	}
 
 	/**
@@ -214,8 +214,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	/**
 	 * 删除ID等于传入参数的一条记录,如果存在的话
 	 */
-	public Boolean delete(Integer id) {
-		String sql = getQueryBuilder().delete(id.toString());
+	public Boolean deleteById(Object id) {
+		String sql = getQueryBuilder().deleteById(id.toString());
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return 1 == queryRunner.executeUpdate(sql);

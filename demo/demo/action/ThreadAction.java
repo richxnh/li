@@ -51,7 +51,7 @@ public class ThreadAction extends AbstractAction {
 
 	@At("thread_delete")
 	public void delete(Integer id, @Arg("forum_id") Integer forumId, Integer pn) {
-		threadDao.delete(id);
+		threadDao.deleteById(id);
 		postDao.deleteByThreadId(id);
 		redirect("forum?id=" + forumId + "&pn=" + pn);
 	}

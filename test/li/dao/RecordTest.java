@@ -60,13 +60,13 @@ public class RecordTest extends BaseTest {
 	@Test
 	public void delete2() {
 		// assertNotNull(userDao.delete("where false"));
-		System.err.println("li.dao.test.ModelTest.delete2()\n" + userDao.delete("where false"));
+		System.err.println("li.dao.test.ModelTest.delete2()\n" + userDao.deleteById("where false"));
 	}
 
 	@Test
 	public void find() {
 		// assertNotNull(userDao.find(1));
-		System.out.println("li.dao.test.ModelTest.find()" + userDao.find(1));
+		System.out.println("li.dao.test.ModelTest.find()" + userDao.findById(1));
 	}
 
 	@Test

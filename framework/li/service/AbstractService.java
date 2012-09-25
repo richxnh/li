@@ -37,15 +37,15 @@ public abstract class AbstractService<T> implements IBaseService<T> {
 	/**
 	 * 删除
 	 */
-	public Boolean delete(Integer id) {
-		return getDao().delete(id);
+	public Boolean deleteById(Object id) {
+		return getDao().deleteById(id);
 	}
 
 	/**
 	 * 查找
 	 */
-	public T find(Integer id) {
-		return getDao().find(id);
+	public T findById(Object id) {
+		return getDao().findById(id);
 	}
 
 	/**

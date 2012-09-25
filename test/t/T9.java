@@ -92,9 +92,9 @@ public class T9 {
 		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
 		// sql4));
 
-		threadDao.find(sql1);
-		threadDao.find(sql2);
-		threadDao.find(sql3);
-		threadDao.find(sql4);
+		threadDao.findById(sql1);
+		threadDao.findById(sql2);
+		threadDao.findById(sql3);
+		threadDao.findById(sql4);
 	}
 }

@@ -39,7 +39,7 @@ public class QueryBuilder {
 	/**
 	 * 根据传入的ID,构建一个用于删除单条记录的SQL
 	 */
-	public String delete(String id) {
+	public String deleteById(String id) {
 		return String.format("DELETE FROM %s WHERE %s=%s", beanMeta.table, beanMeta.getId().column, id);
 	}
 
@@ -133,7 +133,7 @@ public class QueryBuilder {
 	/**
 	 * 使用传入的ID,构造一个用于查询一条记录的SQL
 	 */
-	public String find(String id) {
+	public String findById(String id) {
 		return String.format("SELECT * FROM %s WHERE %s=%s LIMIT 1", beanMeta.table, beanMeta.getId().column, id);
 	}
 

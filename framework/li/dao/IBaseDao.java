@@ -14,12 +14,12 @@ public interface IBaseDao<T> {
 	/**
 	 * 删除
 	 */
-	public Boolean delete(Integer id);
+	public Boolean deleteById(Object id);
 
 	/**
 	 * 查找
 	 */
-	public T find(Integer id);
+	public T findById(Object id);
 
 	/**
 	 * 保存
