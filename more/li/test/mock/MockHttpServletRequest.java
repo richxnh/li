@@ -104,7 +104,7 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 		return this.session;
 	}
 
-	public HttpSession getSession(boolean arg0) {
+	public HttpSession getSession(boolean flag) {
 		return null;
 	}
 
@@ -132,7 +132,7 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 		return false;
 	}
 
-	public void login(String arg0, String arg1) throws ServletException {
+	public void login(String username, String pawssword) throws ServletException {
 	}
 
 	public void logout() throws ServletException {

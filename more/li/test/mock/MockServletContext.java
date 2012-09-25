@@ -33,11 +33,11 @@ public class MockServletContext implements ServletContext {
 		return null;
 	}
 
-	public Dynamic addFilter(String arg0, Class<? extends Filter> arg1) {
+	public Dynamic addFilter(String arg0, Class<? extends Filter> filter) {
 		return null;
 	}
 
-	public void addListener(Class<? extends EventListener> arg0) {
+	public void addListener(Class<? extends EventListener> listener) {
 	}
 
 	public void addListener(String arg0) {
@@ -50,11 +50,11 @@ public class MockServletContext implements ServletContext {
 		return null;
 	}
 
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, Servlet arg1) {
+	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, Servlet servlet) {
 		return null;
 	}
 
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, Class<? extends Servlet> arg1) {
+	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, Class<? extends Servlet> servlet) {
 		return null;
 	}
 
@@ -117,7 +117,7 @@ public class MockServletContext implements ServletContext {
 		return null;
 	}
 
-	public String getInitParameter(String arg0) {
+	public String getInitParameter(String key) {
 		return null;
 	}
 

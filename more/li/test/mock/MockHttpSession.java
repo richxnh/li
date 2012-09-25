@@ -54,7 +54,7 @@ public class MockHttpSession implements HttpSession {
 	}
 
 	public String[] getValueNames() {
-		return session.entrySet().toArray(new String[0]);
+		return session.keySet().toArray(new String[0]);
 	}
 
 	public void invalidate() {
@@ -73,6 +73,7 @@ public class MockHttpSession implements HttpSession {
 	}
 
 	public void removeValue(String value) {
+		//
 	}
 
 	public void setAttribute(String key, Object value) {

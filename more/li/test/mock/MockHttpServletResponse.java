@@ -7,7 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 public class MockHttpServletResponse extends MockServletResponse implements HttpServletResponse {
-	public void addCookie(Cookie arg0) {
+	public void addCookie(Cookie cookie) {
 	}
 
 	public void addDateHeader(String arg0, long arg1) {
