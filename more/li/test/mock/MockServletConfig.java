@@ -8,7 +8,13 @@ import java.util.Vector;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
-public class MockServletConfig implements ServletConfig {
+/**
+ * MockServletConfig
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
+class MockServletConfig implements ServletConfig {
 	private ServletContext servletContext;
 	private Map<String, String> initParameters = new HashMap<String, String>();
 

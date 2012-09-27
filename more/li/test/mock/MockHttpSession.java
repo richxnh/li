@@ -9,6 +9,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
+/**
+ * MockHttpSession
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
 public class MockHttpSession implements HttpSession {
 	private ServletContext servletContext;
 	private final Map<String, Object> session = new HashMap<String, Object>();

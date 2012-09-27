@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+/**
+ * MockHttpServletRequest
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
 public class MockHttpServletRequest extends MockServletRequest implements HttpServletRequest {
 	private MockHttpSession session = new MockHttpSession(getServletContext());
 	private String method = "GET";

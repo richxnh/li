@@ -7,7 +7,13 @@ import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
 
-public class MockServletResponse implements ServletResponse {
+/**
+ * MockServletResponse
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
+class MockServletResponse implements ServletResponse {
 	public void flushBuffer() throws IOException {
 	}
 

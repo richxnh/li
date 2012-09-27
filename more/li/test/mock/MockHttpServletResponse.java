@@ -6,6 +6,12 @@ import java.util.Collection;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * MockHttpServletResponse
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
 public class MockHttpServletResponse extends MockServletResponse implements HttpServletResponse {
 	public void addCookie(Cookie cookie) {
 	}

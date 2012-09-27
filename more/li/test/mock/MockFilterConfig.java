@@ -4,6 +4,12 @@ import java.util.Enumeration;
 
 import javax.servlet.FilterConfig;
 
+/**
+ * MockFilterConfig
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
 public class MockFilterConfig implements FilterConfig {
 	private MockServletContext servletContext;
 

@@ -22,6 +22,12 @@ import javax.servlet.SessionCookieConfig;
 import javax.servlet.SessionTrackingMode;
 import javax.servlet.descriptor.JspConfigDescriptor;
 
+/**
+ * MockServletContext
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
 public class MockServletContext implements ServletContext {
 	private Map<String, Object> servletContext = new HashMap<String, Object>();
 

@@ -15,7 +15,13 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-public class MockServletRequest implements ServletRequest {
+/**
+ * MockServletRequest
+ * 
+ * @author li (limw@w.cn)
+ * @version 0.1.1 (2012-09-27)
+ */
+class MockServletRequest implements ServletRequest {
 	private MockServletContext servletContext = new MockServletContext();
 	private Map<String, Object> request = new HashMap<String, Object>();
 	private Map<String, String[]> parameterMap = new HashMap<>();
