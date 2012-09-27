@@ -18,8 +18,8 @@
 		<h2>welcome</h2>
 		<a href="fm">fm</a>
 		<a href="fm2">fm2</a>
-		<a href="vc">vc</a>
-		<a href="vc2">vc2</a>
+		<a href="vl">vl</a>
+		<a href="vl2">vl2</a>
 		<a href="bt">bt</a>
 		<a href="testjsp">testjsp</a>
 		<a href="404">404</a>
@@ -39,13 +39,9 @@
 		<br/>
 		<a href="account_list">account list</a>
 		<a href="forum_list">forum_list</a>
-		<br/>
-		<h2>test NewFilter</h2>		
+		<br/>	
 		<a href="test_ctx">test_ctx</a>
 		<a href="test_all">test_all</a>
-		<form action="test_new_filter" method="POST">
-			<input type="submit" value="submit"/>
-		</form>
 		<br/>
 		<form action="test_dev_filter" method="POST">
 			<input name="id" value="1"/>
