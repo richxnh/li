@@ -15,7 +15,9 @@ import javax.servlet.ServletContext;
  * @version 0.1.1 (2012-09-27)
  */
 class MockServletConfig implements ServletConfig {
+
 	private ServletContext servletContext;
+
 	private Map<String, String> initParameters = new HashMap<String, String>();
 
 	public MockServletConfig(ServletContext servletContext) {

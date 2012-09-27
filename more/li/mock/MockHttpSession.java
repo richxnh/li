@@ -16,19 +16,50 @@ import javax.servlet.http.HttpSessionContext;
  * @version 0.1.1 (2012-09-27)
  */
 public class MockHttpSession implements HttpSession {
+
 	private ServletContext servletContext;
+
 	private final Map<String, Object> session = new HashMap<String, Object>();
 
 	public MockHttpSession(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
 
+	public ServletContext getServletContext() {
+		return this.servletContext;
+	}
+
 	public Object getAttribute(String key) {
 		return session.get(key);
 	}
 
+	public Object getValue(String key) {
+		return session.get(key);
+	}
+
+	public String[] getValueNames() {
+		return session.keySet().toArray(new String[0]);
+	}
+
 	public Enumeration<String> getAttributeNames() {
 		return new Vector(session.keySet()).elements();
+	}
+
+	public void putValue(String key, Object value) {
+		session.put(key, value);
+	}
+
+	public void removeAttribute(String key) {
+		System.err.println("remove session " + key);
+		session.remove(key);
+	}
+
+	public void setAttribute(String key, Object value) {
+		session.put(key, value);
+	}
+
+	public void removeValue(String value) {
+		//
 	}
 
 	public long getCreationTime() {
@@ -47,20 +78,8 @@ public class MockHttpSession implements HttpSession {
 		return 0;
 	}
 
-	public ServletContext getServletContext() {
-		return this.servletContext;
-	}
-
 	public HttpSessionContext getSessionContext() {
 		return null;
-	}
-
-	public Object getValue(String key) {
-		return session.get(key);
-	}
-
-	public String[] getValueNames() {
-		return session.keySet().toArray(new String[0]);
 	}
 
 	public void invalidate() {
@@ -68,23 +87,6 @@ public class MockHttpSession implements HttpSession {
 
 	public boolean isNew() {
 		return false;
-	}
-
-	public void putValue(String key, Object value) {
-		session.put(key, value);
-	}
-
-	public void removeAttribute(String key) {
-		System.err.println("remove session " + key);
-		session.remove(key);
-	}
-
-	public void removeValue(String value) {
-		//
-	}
-
-	public void setAttribute(String key, Object value) {
-		session.put(key, value);
 	}
 
 	public void setMaxInactiveInterval(int arg0) {

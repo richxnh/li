@@ -22,12 +22,23 @@ import javax.servlet.ServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 class MockServletRequest implements ServletRequest {
+
 	private MockServletContext servletContext = new MockServletContext();
+
 	private Map<String, Object> request = new HashMap<String, Object>();
+
 	private Map<String, String[]> parameterMap = new HashMap<>();
 
-	public AsyncContext getAsyncContext() {
-		return null;
+	public MockServletContext getServletContext() {
+		return this.servletContext;
+	}
+
+	public void removeAttribute(String key) {
+		request.remove(key);
+	}
+
+	public void setAttribute(String key, Object value) {
+		request.put(key, value);
 	}
 
 	public Object getAttribute(String key) {
@@ -36,6 +47,27 @@ class MockServletRequest implements ServletRequest {
 
 	public Enumeration<String> getAttributeNames() {
 		return new Vector<>(request.keySet()).elements();
+	}
+
+	public String getParameter(String key) {
+		String[] params = parameterMap.get(key);
+		return null == params ? null : params[0];
+	}
+
+	public Map<String, String[]> getParameterMap() {
+		return this.parameterMap;
+	}
+
+	public Enumeration<String> getParameterNames() {
+		return new Vector<>(parameterMap.keySet()).elements();
+	}
+
+	public String[] getParameterValues(String key) {
+		return parameterMap.get(key);
+	}
+
+	public AsyncContext getAsyncContext() {
+		return null;
 	}
 
 	public String getCharacterEncoding() {
@@ -78,23 +110,6 @@ class MockServletRequest implements ServletRequest {
 		return null;
 	}
 
-	public String getParameter(String key) {
-		String[] params = parameterMap.get(key);
-		return null == params ? null : params[0];
-	}
-
-	public Map<String, String[]> getParameterMap() {
-		return this.parameterMap;
-	}
-
-	public Enumeration<String> getParameterNames() {
-		return new Vector<>(parameterMap.keySet()).elements();
-	}
-
-	public String[] getParameterValues(String key) {
-		return parameterMap.get(key);
-	}
-
 	public String getProtocol() {
 		return null;
 	}
@@ -135,10 +150,6 @@ class MockServletRequest implements ServletRequest {
 		return 0;
 	}
 
-	public MockServletContext getServletContext() {
-		return this.servletContext;
-	}
-
 	public boolean isAsyncStarted() {
 		return false;
 	}
@@ -149,14 +160,6 @@ class MockServletRequest implements ServletRequest {
 
 	public boolean isSecure() {
 		return false;
-	}
-
-	public void removeAttribute(String key) {
-		request.remove(key);
-	}
-
-	public void setAttribute(String key, Object value) {
-		request.put(key, value);
 	}
 
 	public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {

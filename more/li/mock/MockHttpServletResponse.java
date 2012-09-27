@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 public class MockHttpServletResponse extends MockServletResponse implements HttpServletResponse {
+
+	public void sendRedirect(String path) throws IOException {
+		System.err.println("rederect to : " + path);
+	}
+
 	public void addCookie(Cookie cookie) {
 	}
 
@@ -65,10 +70,6 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 	}
 
 	public void sendError(int status, String arg1) throws IOException {
-	}
-
-	public void sendRedirect(String path) throws IOException {
-		System.err.println("rederect to : " + path);
 	}
 
 	public void setDateHeader(String arg0, long arg1) {

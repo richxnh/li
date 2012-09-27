@@ -14,6 +14,19 @@ import javax.servlet.ServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 class MockServletResponse implements ServletResponse {
+
+	public PrintWriter getWriter() throws IOException {
+		return new PrintWriter(System.err);
+	}
+
+	public ServletOutputStream getOutputStream() throws IOException {
+		return new ServletOutputStream() {
+			public void write(int chr) throws IOException {
+				System.err.println(chr);
+			}
+		};
+	}
+
 	public void flushBuffer() throws IOException {
 	}
 
@@ -31,14 +44,6 @@ class MockServletResponse implements ServletResponse {
 
 	public Locale getLocale() {
 		return null;
-	}
-
-	public ServletOutputStream getOutputStream() throws IOException {
-		return null;
-	}
-
-	public PrintWriter getWriter() throws IOException {
-		return new PrintWriter(System.err);
 	}
 
 	public boolean isCommitted() {

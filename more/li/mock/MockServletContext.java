@@ -29,7 +29,28 @@ import javax.servlet.descriptor.JspConfigDescriptor;
  * @version 0.1.1 (2012-09-27)
  */
 public class MockServletContext implements ServletContext {
+
 	private Map<String, Object> servletContext = new HashMap<String, Object>();
+
+	public Object getAttribute(String key) {
+		return servletContext.get(key);
+	}
+
+	public Enumeration<String> getAttributeNames() {
+		return new Vector(servletContext.keySet()).elements();
+	}
+
+	public void removeAttribute(String key) {
+		servletContext.remove(key);
+	}
+
+	public void setAttribute(String key, Object value) {
+		servletContext.put(key, value);
+	}
+
+	public String getRealPath(String path) {
+		return System.getProperty("user.dir") + "/WebContent/" + path;
+	}
 
 	public Dynamic addFilter(String arg0, String arg1) {
 		return null;
@@ -77,14 +98,6 @@ public class MockServletContext implements ServletContext {
 	}
 
 	public void declareRoles(String... arg0) {
-	}
-
-	public Object getAttribute(String key) {
-		return servletContext.get(key);
-	}
-
-	public Enumeration<String> getAttributeNames() {
-		return new Vector(servletContext.keySet()).elements();
 	}
 
 	public ClassLoader getClassLoader() {
@@ -151,10 +164,6 @@ public class MockServletContext implements ServletContext {
 		return null;
 	}
 
-	public String getRealPath(String path) {
-		return System.getProperty("user.dir") + "/WebContent/" + path;
-	}
-
 	public RequestDispatcher getRequestDispatcher(String arg0) {
 		return null;
 	}
@@ -211,14 +220,6 @@ public class MockServletContext implements ServletContext {
 	}
 
 	public void log(String arg0, Throwable arg1) {
-	}
-
-	public void removeAttribute(String key) {
-		servletContext.remove(key);
-	}
-
-	public void setAttribute(String key, Object value) {
-		servletContext.put(key, value);
 	}
 
 	public boolean setInitParameter(String arg0, String arg1) {

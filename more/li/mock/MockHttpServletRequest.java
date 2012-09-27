@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -19,43 +23,30 @@ import javax.servlet.http.Part;
  * @version 0.1.1 (2012-09-27)
  */
 public class MockHttpServletRequest extends MockServletRequest implements HttpServletRequest {
+
 	private MockHttpSession session = new MockHttpSession(getServletContext());
+
+	private Map<String, List<String>> header = new HashMap<String, List<String>>();
+
 	private String method = "GET";
 
-	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
-		return false;
-	}
-
-	public String getAuthType() {
-		return "getAuthType";
-	}
-
-	public String getContextPath() {
-		return "getContextPath";
-	}
-
-	public Cookie[] getCookies() {
-		return null;
-	}
-
-	public long getDateHeader(String arg0) {
-		return 0;
-	}
-
 	public String getHeader(String key) {
-		return "getHeader";
+		if (null != header.get(key) && header.get(key).size() > 1) {
+			return header.get(key).get(0);
+		}
+		return null;
 	}
 
 	public Enumeration<String> getHeaderNames() {
-		return null;
+		return new Vector(header.keySet()).elements();
 	}
 
-	public Enumeration<String> getHeaders(String arg0) {
-		return null;
+	public Enumeration<String> getHeaders(String key) {
+		return new Vector(header.get(key)).elements();
 	}
 
-	public int getIntHeader(String arg0) {
-		return 0;
+	public int getIntHeader(String key) {
+		return Integer.parseInt(getHeader(key));
 	}
 
 	public void setMethod(String method) {
@@ -66,52 +57,72 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 		return this.method;
 	}
 
-	public Part getPart(String arg0) throws IOException, IllegalStateException, ServletException {
-		return null;
-	}
-
-	public Collection<Part> getParts() throws IOException, IllegalStateException, ServletException {
-		return null;
-	}
-
-	public String getPathInfo() {
-		return "getPathInfo";
-	}
-
-	public String getPathTranslated() {
-		return "getPathTranslated";
-	}
-
-	public String getQueryString() {
-		return "getQueryString";
-	}
-
-	public String getRemoteUser() {
-		return "getRemoteUser";
-	}
-
-	public String getRequestURI() {
-		return "getRequestURI";
-	}
-
-	public StringBuffer getRequestURL() {
-		return new StringBuffer("getRequestURL");
-	}
-
-	public String getRequestedSessionId() {
-		return "getRequestedSessionId";
-	}
-
-	public String getServletPath() {
-		return "getServletPath";
-	}
-
 	public MockHttpSession getSession() {
 		return this.session;
 	}
 
 	public HttpSession getSession(boolean flag) {
 		return this.session;
+	}
+
+	public String getAuthType() {
+		return "li.mock.MockHttpServletRequest.getAuthType()";
+	}
+
+	public String getContextPath() {
+		return "li.mock.MockHttpServletRequest.getContextPath()";
+	}
+
+	public String getPathInfo() {
+		return "li.mock.MockHttpServletRequest.getPathInfo()";
+	}
+
+	public String getPathTranslated() {
+		return "li.mock.MockHttpServletRequest.getPathTranslated()";
+	}
+
+	public String getQueryString() {
+		return "li.mock.MockHttpServletRequest.getQueryString()";
+	}
+
+	public String getRemoteUser() {
+		return "li.mock.MockHttpServletRequest.getRemoteUser()";
+	}
+
+	public String getRequestURI() {
+		return "li.mock.MockHttpServletRequest.getRequestURI()";
+	}
+
+	public StringBuffer getRequestURL() {
+		return new StringBuffer("li.mock.MockHttpServletRequest.getRequestURL()");
+	}
+
+	public String getRequestedSessionId() {
+		return "li.mock.MockHttpServletRequest.getRequestedSessionId()";
+	}
+
+	public String getServletPath() {
+		return "li.mock.MockHttpServletRequest.getServletPath()";
+	}
+
+	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
+		return false;
+	}
+
+	public Cookie[] getCookies() {
+		return null;
+	}
+
+	public long getDateHeader(String arg0) {
+		return 0;
+	}
+
+	public Part getPart(String arg0) throws IOException, IllegalStateException, ServletException {
+		return null;
+	}
+
+	public Collection<Part> getParts() throws IOException, IllegalStateException, ServletException {
+		return null;
 	}
 
 	public Principal getUserPrincipal() {
