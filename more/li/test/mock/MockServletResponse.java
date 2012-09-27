@@ -32,7 +32,7 @@ public class MockServletResponse implements ServletResponse {
 	}
 
 	public PrintWriter getWriter() throws IOException {
-		return null;
+		return new PrintWriter(System.err);
 	}
 
 	public boolean isCommitted() {

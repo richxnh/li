@@ -40,6 +40,9 @@ public class BaseActionTest extends BaseTest {
 	 */
 	protected MockHttpSession session = request.getSession();
 
+	/**
+	 * 模拟Action
+	 */
 	protected Action action = new Action();
 
 	/**

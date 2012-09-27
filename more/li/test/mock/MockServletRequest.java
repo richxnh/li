@@ -73,7 +73,8 @@ public class MockServletRequest implements ServletRequest {
 	}
 
 	public String getParameter(String key) {
-		return parameterMap.get(key)[0];
+		String[] params = parameterMap.get(key);
+		return null == params ? null : params[0];
 	}
 
 	public Map<String, String[]> getParameterMap() {
