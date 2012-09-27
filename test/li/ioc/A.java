@@ -3,7 +3,7 @@ package li.ioc;
 import li.annotation.Bean;
 import li.annotation.Inject;
 
-@Bean
+@Bean("beanA")
 public class A {
 	@Inject
 	public A a;
