@@ -43,12 +43,12 @@ public class QueryRunnerTest extends BaseTest {
 
 	@Test
 	public void countBySql() {
-		assertEquals("SELECT COUNT(*) FROM t_account WHERE id>'1'", queryBuilder.count("WHERE id>?", new Object[] { "1" }));
+		assertEquals("SELECT COUNT(*) FROM t_account WHERE id>'1'", queryBuilder.countBySql("WHERE id>?", new Object[] { "1" }));
 	}
 
 	@Test
 	public void delete() {
-		assertEquals("DELETE FROM t_account WHERE id='1'", queryBuilder.delete("WHERE id=?", new Object[] { "1" }));
+		assertEquals("DELETE FROM t_account WHERE id='1'", queryBuilder.deleteBySql("WHERE id=?", new Object[] { "1" }));
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class QueryRunnerTest extends BaseTest {
 
 	@Test
 	public void listBySql() {
-		assertEquals("SELECT * FROM t_account WHERE id>'1' LIMIT 0,20", queryBuilder.list(page, "WHERE id>?", new Object[] { "1" }));
+		assertEquals("SELECT * FROM t_account WHERE id>'1' LIMIT 0,20", queryBuilder.listBySql(page, "WHERE id>?", new Object[] { "1" }));
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class QueryRunnerTest extends BaseTest {
 	public void setArgMap() {
 		String sql = "SELECT * FROM WHERE id=:id OR username LIKE :username";
 		Map<Object, Object> map = Convert.toMap(":id", 1, ":username", "%li%");
-		assertEquals("SELECT * FROM WHERE id='1' OR username LIKE '%li%'", queryBuilder.setArgs(sql, map));
+		assertEquals("SELECT * FROM WHERE id='1' OR username LIKE '%li%'", queryBuilder.setArgMap(sql, map));
 	}
 
 	@Test
@@ -110,6 +110,6 @@ public class QueryRunnerTest extends BaseTest {
 
 	@Test
 	public void updateBySql() {
-		assertEquals("UPDATE t_account SET email='eml' WHERE id>'3'", queryBuilder.update("SET email=? WHERE id>?", new Object[] { "eml", 3 }));
+		assertEquals("UPDATE t_account SET email='eml' WHERE id>'3'", queryBuilder.updateBySql("SET email=? WHERE id>?", new Object[] { "eml", 3 }));
 	}
 }

@@ -27,7 +27,7 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 	 * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
 	 */
 	public List<T> list(Page page, String sql, Object... args) {
-		sql = getQueryBuilder().list(page, sql, args);
+		sql = getQueryBuilder().listBySql(page, sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		ResultSet resultSet = queryRunner.executeQuery(sql);

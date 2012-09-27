@@ -50,7 +50,7 @@ public class QueryBuilder {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String delete(String sql, Object[] args) {
+	public String deleteBySql(String sql, Object[] args) {
 		if (!Verify.startWith(sql, "DELETE")) {
 			sql = "DELETE FROM " + beanMeta.table + " " + sql;
 		}
@@ -80,7 +80,7 @@ public class QueryBuilder {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String update(String sql, Object[] args) {
+	public String updateBySql(String sql, Object[] args) {
 		if (Verify.startWith(sql, "SET")) {
 			sql = "UPDATE " + beanMeta.table + " " + sql;
 		}
@@ -118,7 +118,7 @@ public class QueryBuilder {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String count(String sql, Object[] args) {
+	public String countBySql(String sql, Object[] args) {
 		if (!Verify.startWith(sql, "SELECT")) {
 			sql = "SELECT COUNT(*) FROM " + beanMeta.table + " " + sql;
 		} else if (!Verify.contain(sql, "COUNT(*)")) {
@@ -144,7 +144,7 @@ public class QueryBuilder {
 	 * @param page 分页对象
 	 */
 	public String list(Page page) {
-		return list(page, "SELECT * FROM " + beanMeta.table, null);
+		return listBySql(page, "SELECT * FROM " + beanMeta.table, null);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class QueryBuilder {
 	 * @see li.dao.QueryBuilder#setPage(String, Page)
 	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
 	 */
-	public String list(Page page, String sql, Object[] args) {
+	public String listBySql(Page page, String sql, Object[] args) {
 		if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
 			sql = "SELECT * FROM " + beanMeta.table + " " + sql;
 		}
@@ -168,13 +168,13 @@ public class QueryBuilder {
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符或者具名参数占位符
 	 * @param args 替换sql中 '?' 或具名参数占位符的值
-	 * @see li.dao.QueryBuilder#setArgs(String, Map)
+	 * @see li.dao.QueryBuilder#setArgMap(String, Map)
 	 */
 	public String setArgs(String sql, Object[] args) {
 		if (null != sql && sql.length() > 0 && null != args && args.length > 0) {// 非空判断
 			for (int i = 0; i < args.length; i++) {
 				if (args[i] instanceof Map<?, ?>) {
-					sql = setArgs(sql, (Map<?, ?>) args[i]);// 替换具名参数
+					sql = setArgMap(sql, (Map<?, ?>) args[i]);// 替换具名参数
 				} else {
 					sql = sql.replaceFirst("[?]", "'" + args[i] + "'");// 为参数加上引号后替换问号
 				}
@@ -189,7 +189,7 @@ public class QueryBuilder {
 	 * @param sql 传入的sql语句,可以包含':name'占位符
 	 * @param argMap 替换sql中 ':key' 的键值Map
 	 */
-	public String setArgs(String sql, Map<?, ?> argMap) {
+	public String setArgMap(String sql, Map<?, ?> argMap) {
 		if (null != sql && sql.length() > 0 && null != argMap && argMap.size() > 0) {// 非空判断
 			for (Entry<?, ?> arg : argMap.entrySet()) {
 				sql = sql.replaceFirst(arg.getKey() + "", "'" + arg.getValue() + "'");// 为参数加上引号后替换问号

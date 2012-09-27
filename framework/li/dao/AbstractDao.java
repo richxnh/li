@@ -120,7 +120,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public Integer count(String sql, Object... args) {
-		sql = getQueryBuilder().count(sql, args);
+		sql = getQueryBuilder().countBySql(sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		ResultSet resultSet = queryRunner.executeQuery(sql);
@@ -161,7 +161,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public List<T> list(Page page, String sql, Object... args) {
-		sql = getQueryBuilder().list(page, sql, args);
+		sql = getQueryBuilder().listBySql(page, sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		ResultSet resultSet = queryRunner.executeQuery(sql);
@@ -195,7 +195,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @return 受影响的行数
 	 */
 	public Integer update(String sql, Object... args) {
-		sql = getQueryBuilder().update(sql, args);
+		sql = getQueryBuilder().updateBySql(sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return queryRunner.executeUpdate(sql);
@@ -229,7 +229,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @return 受影响的行数
 	 */
 	public Integer delete(String sql, Object... args) {
-		sql = getQueryBuilder().delete(sql, args);
+		sql = getQueryBuilder().deleteBySql(sql, args);
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return queryRunner.executeUpdate(sql);

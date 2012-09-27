@@ -39,7 +39,7 @@ public class QueryBuilderTest extends BaseTest {
 	public void testSetArgs2() {
 		String sql = "SELECT * FROM t_account where username=#username";
 		Map<Object, Object> args = Convert.toMap("#username", "uuu");
-		sql = QUERY_BUILDER.setArgs(sql, args);
+		sql = QUERY_BUILDER.setArgMap(sql, args);
 
 		System.out.println(sql);
 	}
