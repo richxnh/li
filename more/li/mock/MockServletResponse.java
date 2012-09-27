@@ -1,4 +1,4 @@
-package li.test.mock;
+package li.mock;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package li.test.mock;
+package li.mock;
 
 import java.io.BufferedReader;
 import java.io.IOException;
