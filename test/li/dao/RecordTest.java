@@ -17,31 +17,6 @@ public class RecordTest extends BaseTest {
 	User user = new User().set("id", 1).set("username", "u-4-1" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1");
 
 	@Test
-	public void test1() {
-		new Trans() {
-			public void run() {
-				System.out.println("啥都没做");
-			}
-		};
-	}
-
-	@Test
-	public void test2() {
-		new Trans() {
-			public void run() {
-				System.out.println("啥都没做");
-			}
-		};
-	}
-
-	@Test
-	public void testRecord() {
-		// List<User> records = userDao.list(page,
-		// "select t_account.username as uname,t_forum.name as fname from t_account,t_forum");
-		// System.out.println(records);
-	}
-
-	@Test
 	public void count() {
 		// assertNotNull(userDao.count());
 		System.out.println("li.dao.test.RecordTest.count()" + userDao.count());
@@ -110,6 +85,31 @@ public class RecordTest extends BaseTest {
 	@Test
 	public void save2() {
 		userDao.save(new User().set("id", null).set("username", "u-3" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
+	}
+
+	@Test
+	public void test1() {
+		new Trans() {
+			public void run() {
+				System.out.println("啥都没做");
+			}
+		};
+	}
+
+	@Test
+	public void test2() {
+		new Trans() {
+			public void run() {
+				System.out.println("啥都没做");
+			}
+		};
+	}
+
+	@Test
+	public void testRecord() {
+		// List<User> records = userDao.list(page,
+		// "select t_account.username as uname,t_forum.name as fname from t_account,t_forum");
+		// System.out.println(records);
 	}
 
 	@Test

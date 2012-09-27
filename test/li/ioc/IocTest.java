@@ -4,10 +4,10 @@ import org.junit.Test;
 
 public class IocTest {
 	@Test
-	public void getByTypeAndName() {
+	public void getByName() {
 	}
 
 	@Test
-	public void getByName() {
+	public void getByTypeAndName() {
 	}
 }

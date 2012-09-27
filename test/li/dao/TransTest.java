@@ -16,6 +16,18 @@ public class TransTest extends BaseTest {
 	User userDao;
 
 	@Test
+	public void test1() {
+		System.err.println(new Trans(false) {
+			public void run() {
+				userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+				userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+				map().put("outpar", "outpar");
+				System.err.println(map().get("inpar"));
+			}
+		}.set(Convert.toMap("inpar", "inpar", "1", "2", "3", "4")).go().map().get("outpar"));
+	}
+
+	@Test
 	public void testMultipleTrans() {
 		userDao.testMultipleTrans2();
 	}
@@ -37,29 +49,6 @@ public class TransTest extends BaseTest {
 
 		System.err.println(user);
 		System.err.println(flag);
-	}
-
-	@Test
-	public void test1() {
-		System.err.println(new Trans(false) {
-			public void run() {
-				userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-				userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-				map().put("outpar", "outpar");
-				System.err.println(map().get("inpar"));
-			}
-		}.set(Convert.toMap("inpar", "inpar", "1", "2", "3", "4")).go().map().get("outpar"));
-	}
-
-	@Test
-	public void testTrans2() {
-		new Trans(false) {
-			public void run() {
-				System.err.println("trans 4 start");
-				accountDao.list(null);
-				System.err.println("trans 4 end");
-			}
-		}.go().go().go().go().go();
 	}
 
 	@Test
@@ -87,5 +76,16 @@ public class TransTest extends BaseTest {
 				System.err.println("trans 1 end");
 			}
 		};
+	}
+
+	@Test
+	public void testTrans2() {
+		new Trans(false) {
+			public void run() {
+				System.err.println("trans 4 start");
+				accountDao.list(null);
+				System.err.println("trans 4 end");
+			}
+		}.go().go().go().go().go();
 	}
 }

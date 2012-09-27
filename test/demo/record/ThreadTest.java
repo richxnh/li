@@ -21,10 +21,6 @@ public class ThreadTest extends BaseTest {
 	}
 
 	@Test
-	public void testList() {
-	}
-
-	@Test
 	public void listByForumId() {
 		thread.listByForumId(1, page);
 	}
@@ -34,5 +30,9 @@ public class ThreadTest extends BaseTest {
 		String sql = "SELECT * FROM t_thread WHERE id=? OR id=:id1 OR id=? OR id=:id2";
 		Map<?, ?> argMap = Convert.toMap(":id1", 11, ":id2", 12);
 		thread.list(page, sql, 1, 2, 3, argMap);
+	}
+
+	@Test
+	public void testList() {
 	}
 }

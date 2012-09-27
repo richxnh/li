@@ -7,18 +7,6 @@ import org.junit.Test;
 
 public class AopTest extends BaseTest {
 
-	@Test
-	public void testAop() {
-		final Account account = Ioc.get(Account.class);
-		account.list(null);
-	}
-
-	@Test
-	public void testAop2() {
-		User user = Ioc.get(User.class);
-		System.out.println(user.sayHi("abc", "xyz"));
-	}
-
 	public static void main(String[] args) throws Exception {
 
 		final Account account = Ioc.get(Account.class);
@@ -35,5 +23,17 @@ public class AopTest extends BaseTest {
 				}
 			}.start();
 		}
+	}
+
+	@Test
+	public void testAop() {
+		final Account account = Ioc.get(Account.class);
+		account.list(null);
+	}
+
+	@Test
+	public void testAop2() {
+		User user = Ioc.get(User.class);
+		System.out.println(user.sayHi("abc", "xyz"));
 	}
 }
