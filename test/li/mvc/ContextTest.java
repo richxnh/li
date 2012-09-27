@@ -1,11 +1,11 @@
 package li.mvc;
 
-import li.test.BaseActionTest;
+import li.test.ActionTest;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class ContextTest extends BaseActionTest {
+public class ContextTest extends ActionTest {
 	@Before
 	public void before() {
 		// Context.init(request, response, null);

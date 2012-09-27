@@ -2,12 +2,12 @@ package demo.action;
 
 import static org.junit.Assert.assertNotNull;
 import li.annotation.Inject;
-import li.test.BaseTest;
+import li.test.ActionTest;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class ForumActionTest extends BaseTest {
+public class ForumActionTest extends ActionTest {
 	@Inject
 	ForumAction forumAction;
 
@@ -18,5 +18,6 @@ public class ForumActionTest extends BaseTest {
 
 	@Test
 	public void list() {
+		forumAction.list(page);
 	}
 }

@@ -2,14 +2,14 @@ package demo.action;
 
 import static org.junit.Assert.assertNotNull;
 import li.annotation.Inject;
-import li.test.BaseActionTest;
+import li.test.ActionTest;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import demo.record.Account;
 
-public class AccountActionTest extends BaseActionTest {
+public class AccountActionTest extends ActionTest {
 	@Inject
 	AccountAction accountAction;
 	private Account account = new Account();
