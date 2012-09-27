@@ -1,7 +1,11 @@
 package li.test;
 
+import javax.servlet.ServletException;
+
 import li.model.Action;
+import li.mvc.ActionFilter;
 import li.mvc.Context;
+import li.test.mock.MockFilterConfig;
 import li.test.mock.MockHttpServletRequest;
 import li.test.mock.MockHttpServletResponse;
 import li.test.mock.MockHttpSession;
@@ -14,7 +18,7 @@ import li.test.mock.MockServletContext;
  * @author li (limw@w.cn)
  * @version 0.1.1 (2012-07-21)
  */
-public class BaseActionTest extends BaseTest {
+public class ActionTest extends BaseTest {
 	/**
 	 * 模拟的request
 	 */
@@ -40,6 +44,8 @@ public class BaseActionTest extends BaseTest {
 	 */
 	protected MockHttpSession session = request.getSession();
 
+	private MockFilterConfig filterConfig = new MockFilterConfig(servletContext);
+
 	/**
 	 * 模拟Action
 	 */
@@ -48,8 +54,13 @@ public class BaseActionTest extends BaseTest {
 	/**
 	 * 初始化方法，由于不会启动Filter，所以这里为Context ThreadLocal设值
 	 */
-	public BaseActionTest() {
+	public ActionTest() {
 		Context.init(request, response, action);
+		try {
+			new ActionFilter().init(filterConfig);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setMethod(String method) {
