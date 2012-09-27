@@ -35,10 +35,14 @@ public class DemoActionTest extends ActionTest {
 
 	@Test
 	public void write() {
-		demoAction.test1();
 	}
 
 	@Test
 	public void view() {
+	}
+
+	@Test
+	public void test404() {
+		demoAction.test404();
 	}
 }

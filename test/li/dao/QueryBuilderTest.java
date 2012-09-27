@@ -77,7 +77,7 @@ public class QueryBuilderTest extends BaseTest {
 	public void setAlias() {
 		String expected = "SELECT t_account.id,t_account.username,t_account.password,t_account.email FROM t_account";
 		String actual = queryBuilder.setAlias("SELECT t_account.# FROM t_account");
-//		assertEquals(expected, actual);
+		// assertEquals(expected, actual);
 	}
 
 	@Test
