@@ -29,6 +29,10 @@ class MockServletRequest implements ServletRequest {
 
 	private Map<String, String[]> parameterMap = new HashMap<>();
 
+	private String encoding;
+
+	private String contentType;
+
 	public MockServletContext getServletContext() {
 		return this.servletContext;
 	}
@@ -66,20 +70,46 @@ class MockServletRequest implements ServletRequest {
 		return parameterMap.get(key);
 	}
 
-	public AsyncContext getAsyncContext() {
-		return null;
+	public void setParameter(Map<String, String[]> parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+
+	public void setParameter(String key, String value) {
+		parameterMap.put(key, new String[] { value });
+	}
+
+	public void setParameter(String key, String[] value) {
+		parameterMap.put(key, value);
 	}
 
 	public String getCharacterEncoding() {
+		return this.encoding;
+	}
+
+	public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
+		System.err.println("set encoding " + encoding);
+		this.encoding = encoding;
+	}
+
+	public String getContentType() {
+		return this.contentType;
+	}
+
+	public void setContentType(String contentType) {
+		System.err.println("set contentType " + contentType);
+		this.contentType = contentType;
+	}
+
+	public MockRequestDispatcher getRequestDispatcher(String path) {
+		return new MockRequestDispatcher(path);
+	}
+
+	public AsyncContext getAsyncContext() {
 		return null;
 	}
 
 	public int getContentLength() {
 		return 0;
-	}
-
-	public String getContentType() {
-		return null;
 	}
 
 	public DispatcherType getDispatcherType() {
@@ -134,10 +164,6 @@ class MockServletRequest implements ServletRequest {
 		return 0;
 	}
 
-	public MockRequestDispatcher getRequestDispatcher(String path) {
-		return new MockRequestDispatcher(path);
-	}
-
 	public String getScheme() {
 		return null;
 	}
@@ -160,9 +186,6 @@ class MockServletRequest implements ServletRequest {
 
 	public boolean isSecure() {
 		return false;
-	}
-
-	public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
 	}
 
 	public AsyncContext startAsync() {
