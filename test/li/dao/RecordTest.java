@@ -44,12 +44,12 @@ public class RecordTest extends BaseTest {
 	@Test
 	public void count() {
 		// assertNotNull(userDao.count());
-		System.out.println("li.dao.test.ModelTest.count()" + userDao.count());
+		System.out.println("li.dao.test.RecordTest.count()" + userDao.count());
 	}
 
 	@Test
 	public void count2() {
-		System.err.println("li.dao.test.ModelTest.count2()\n" + userDao.count("where false"));
+		System.err.println("li.dao.test.RecordTest.count2()\n" + userDao.count("where false"));
 	}
 
 	@Test
@@ -60,44 +60,44 @@ public class RecordTest extends BaseTest {
 	@Test
 	public void delete2() {
 		// assertNotNull(userDao.delete("where false"));
-		System.err.println("li.dao.test.ModelTest.delete2()\n" + userDao.deleteById("where false"));
+		System.err.println("li.dao.test.RecordTest.delete2()\n" + userDao.delete("where false"));
 	}
 
 	@Test
 	public void find() {
 		// assertNotNull(userDao.find(1));
-		System.out.println("li.dao.test.ModelTest.find()" + userDao.findById(1));
+		System.out.println("li.dao.test.RecordTest.find()" + userDao.findById(1));
 	}
 
 	@Test
 	public void find2() {
-		System.out.println("li.dao.test.ModelTest.find2()" + userDao.find("where true limit 1"));
+		System.out.println("li.dao.test.RecordTest.find2()" + userDao.find("where true limit 1"));
 	}
 
 	@Test
 	public void find3() {
-		System.err.println("li.dao.test.ModelTest.find3()");
+		System.err.println("li.dao.test.RecordTest.find3()");
 		userDao = userDao.find("select t_account.username as uname,t_forum.name as fname from t_account,t_forum limit 1");
 		System.out.println(userDao);
 	}
 
 	@Test
 	public void list() {
-		System.err.println("li.dao.test.ModelTest.list()");
+		System.err.println("li.dao.test.RecordTest.list()");
 		// assertNotNull(userDao.list(page));
 		System.out.println(userDao.list(page));
 	}
 
 	@Test
 	public void list2() {
-		System.err.println("li.dao.test.ModelTest.list2()");
+		System.err.println("li.dao.test.RecordTest.list2()");
 		// assertNotNull(userDao.list(page, "where true"));
 		// System.out.println(userDao.list(page, "where true"));
 	}
 
 	@Test
 	public void list3() {
-		System.err.println("li.dao.test.ModelTest.list3()");
+		System.err.println("li.dao.test.RecordTest.list3()");
 		List<User> users = userDao.list(page.setPageSize(5), "select t_account.username as uname,t_forum.name as fname from t_account,t_forum");
 		System.out.println(users);
 	}
