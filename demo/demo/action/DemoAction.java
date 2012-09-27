@@ -147,7 +147,7 @@ public class DemoAction extends AbstractAction {
 		Page page = new Page();
 		setSession("page", page);
 		setRequest("accounts", memberDao.list(page, "select * from t_account"));
-		freemarker("WEB-INF/view2/fm.htm");
+		freemarker("WEB-INF/view_fm/fm.htm");
 	}
 
 	/**
@@ -156,28 +156,28 @@ public class DemoAction extends AbstractAction {
 	@At("fm2")
 	public void testFreemarker2() {
 		setRequest("str1", "床前明月光 testFreemarker").setRequest("accounts", memberDao.list(new Page(), "select * from t_account"));
-		freemarker("WEB-INF/view2/fm.htm");
+		freemarker("WEB-INF/view_fm/fm.htm");
 	}
 
 	/**
 	 * 返回velocity视图
 	 */
-	@At("vc")
+	@At("vl")
 	public void testVelocity() {
 		setRequest("str1", "床前明月光 testVelocity");
 		Page page = new Page();
 		setSession("page", page);
 		setRequest("accounts", memberDao.list(page, "select * from t_account"));
-		velocity("WEB-INF/view2/vl.htm");
+		velocity("WEB-INF/view_vl/vl.htm");
 	}
 
 	/**
 	 * 返回velocity视图
 	 */
-	@At("vc2")
+	@At("vl2")
 	public void testVelocity2() {
 		setRequest("str1", "床前明月光 testVelocity").setRequest("accounts", memberDao.list(new Page(), "select * from t_account"));
-		velocity("WEB-INF/view2/vl.htm");
+		velocity("WEB-INF/view_vl/vl.htm");
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class DemoAction extends AbstractAction {
 	@At("bt")
 	public void testBeetl() {
 		setRequest("str1", "床前明月光 testBeetl").setRequest("accounts", accountDao.list(new Page(), "select * from t_account"));
-		beetl("WEB-INF/view2/bt.htm");
+		beetl("WEB-INF/view_bt/bt.htm");
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class DemoAction extends AbstractAction {
 	@At("testjsp")
 	public void testJSP() {
 		setRequest("str1", "床前明月光 testJSP").setRequest("accounts", accountDao.list(new Page(), "select * from t_account"));
-		forward("WEB-INF/view2/test.jsp");
+		forward("WEB-INF/view_jsp/test.jsp");
 	}
 
 	/**

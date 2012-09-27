@@ -17,13 +17,13 @@ public class AccountAction extends AbstractAction {
 	@At("account_list")
 	public void list(@Arg("pn") Page page) {
 		setSession("page", page).setRequest("accounts", accountDao.list(page));
-		view("account_list");
+		forward("WEB-INF/view_jsp/account_list.jsp");
 	}
 
 	@At("account_add")
 	public void add() {
 		passParams("pn");
-		view("account_add");
+		forward("WEB-INF/view_jsp/account_add.jsp");
 	}
 
 	@At("account_delete")
@@ -41,7 +41,7 @@ public class AccountAction extends AbstractAction {
 	@At("account_edit")
 	public void edit(Integer id) {
 		passParams("pn").setRequest("account", accountDao.findById(id));
-		view("account_edit");
+		forward("WEB-INF/view_jsp/account_edit.jsp");
 	}
 
 	@At(value = "account_update", method = "post")
@@ -52,7 +52,7 @@ public class AccountAction extends AbstractAction {
 
 	@At("account_login")
 	public void login() {
-		view("account_login");
+		forward("WEB-INF/view_jsp/account_login.jsp");
 	}
 
 	@At(value = { "account_login", "login" }, method = "POST")
@@ -66,7 +66,7 @@ public class AccountAction extends AbstractAction {
 
 	@At("account_signup")
 	public void signup() {
-		forward("account_signup");
+		forward("WEB-INF/view_jsp/account_signup.jsp");
 	}
 
 	@At(value = "account_signup", method = "POST")
