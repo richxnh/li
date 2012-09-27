@@ -40,7 +40,7 @@ public class QueryBuilder {
 	 * 根据传入的ID,构建一个用于删除单条记录的SQL
 	 */
 	public String deleteById(String id) {
-		return String.format("DELETE FROM %s WHERE %s=%s", beanMeta.table, beanMeta.getId().column, id);
+		return "DELETE FROM " + beanMeta.table + " WHERE " + beanMeta.getId().column + "=" + id;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class QueryBuilder {
 	 */
 	public String delete(String sql, Object[] args) {
 		if (!Verify.startWith(sql, "DELETE")) {
-			sql = String.format("DELETE FROM %s %s", beanMeta.table, sql);
+			sql = "DELETE FROM " + beanMeta.table + " " + sql;
 		}
 		return setArgs(sql, args);// 处理args
 	}
@@ -61,16 +61,16 @@ public class QueryBuilder {
 	 * 根据传入的对象构建一个用于更新一条记录的SQL
 	 */
 	public String update(Object object) {
-		String sets = "";
+		String sets = " SET ";
 		for (Field field : beanMeta.fields) {
 			Object fieldValue = Reflect.get(object, field.name);
 			if (!field.isId && null != fieldValue) {
-				sets += String.format("%s='%s',", field.column, fieldValue);
+				sets += field.column + "='" + fieldValue + "',";
 			}
 		}
 		Object id = Reflect.get(object, beanMeta.getId().name);
 		sets = sets.substring(0, sets.length() - 1);
-		return String.format("UPDATE %s SET %s WHERE %s=%s", beanMeta.table, sets, beanMeta.getId().column, id);
+		return "UPDATE " + beanMeta.table + sets + " WHERE " + beanMeta.getId().column + "=" + id;
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class QueryBuilder {
 	 */
 	public String update(String sql, Object[] args) {
 		if (Verify.startWith(sql, "SET")) {
-			sql = String.format("UPDATE %s %s", beanMeta.table, sql);
+			sql = "UPDATE " + beanMeta.table + " " + sql;
 		}
 		return setArgs(sql, args);// 处理args
 	}
@@ -91,7 +91,7 @@ public class QueryBuilder {
 	 * 根据传入的对象构建一个插入一条记录的SQL
 	 */
 	public String save(Object object) {
-		String columns = "", values = "";
+		String columns = " (", values = " VALUES (";
 		for (Field field : beanMeta.fields) {
 			if (!field.isId) {
 				Object fieldValue = Reflect.get(object, field.name);
@@ -99,16 +99,16 @@ public class QueryBuilder {
 				values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";
 			}
 		}
-		columns = columns.substring(0, columns.length() - 1);
-		values = values.substring(0, values.length() - 1);
-		return String.format("INSERT INTO %s (%s) VALUES (%s)", beanMeta.table, columns, values);
+		columns = columns.substring(0, columns.length() - 1) + ")";
+		values = values.substring(0, values.length() - 1) + ")";
+		return "INSERT INTO " + beanMeta.table + columns + values;
 	}
 
 	/**
 	 * 构造默认的COUNT(*)查询的SQL,查询表中的总记录数
 	 */
 	public String count() {
-		return String.format("SELECT COUNT(*) FROM %s", beanMeta.table);
+		return "SELECT COUNT(*) FROM " + beanMeta.table;
 	}
 
 	/**
@@ -120,9 +120,9 @@ public class QueryBuilder {
 	 */
 	public String count(String sql, Object[] args) {
 		if (!Verify.startWith(sql, "SELECT")) {
-			sql = String.format("SELECT COUNT(*) FROM %s %s", beanMeta.table, sql);
+			sql = "SELECT COUNT(*) FROM " + beanMeta.table + " " + sql;
 		} else if (!Verify.contain(sql, "COUNT(*)")) {
-			sql = String.format("SELECT COUNT(*) FROM %s", sql.substring(sql.toUpperCase().indexOf("FROM") + 4, sql.length()).trim());
+			sql = "SELECT COUNT(*) FROM " + sql.substring(sql.toUpperCase().indexOf("FROM") + 4, sql.length()).trim();
 		}
 		if (Verify.contain(sql, "LIMIT")) {
 			sql = sql.substring(0, sql.toUpperCase().indexOf("LIMIT"));// 去掉limit部分
@@ -134,7 +134,8 @@ public class QueryBuilder {
 	 * 使用传入的ID,构造一个用于查询一条记录的SQL
 	 */
 	public String findById(String id) {
-		return String.format("SELECT * FROM %s WHERE %s=%s LIMIT 1", beanMeta.table, beanMeta.getId().column, id);
+		String sql = "SELECT * FROM " + beanMeta.table + " WHERE " + beanMeta.getId().column + "=" + id;
+		return setPage(sql, new Page(1, 1));
 	}
 
 	/**
@@ -143,7 +144,7 @@ public class QueryBuilder {
 	 * @param page 分页对象
 	 */
 	public String list(Page page) {
-		return list(page, String.format("SELECT * FROM %s", beanMeta.table), null);
+		return list(page, "SELECT * FROM " + beanMeta.table, null);
 	}
 
 	/**
@@ -157,7 +158,7 @@ public class QueryBuilder {
 	 */
 	public String list(Page page, String sql, Object[] args) {
 		if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
-			sql = String.format("SELECT * FROM %s %s", beanMeta.table, sql);
+			sql = "SELECT * FROM " + beanMeta.table + " " + sql;
 		}
 		return setPage(setArgs(setAlias(sql), args), page);// 先处理别名,再处理args,最后处理page
 	}
@@ -175,7 +176,7 @@ public class QueryBuilder {
 				if (args[i] instanceof Map<?, ?>) {
 					sql = setArgs(sql, (Map<?, ?>) args[i]);// 替换具名参数
 				} else {
-					sql = sql.replaceFirst("[?]", String.format("'%s'", args[i]));// 为参数加上引号后替换问号
+					sql = sql.replaceFirst("[?]", "'" + args[i] + "'");// 为参数加上引号后替换问号
 				}
 			}
 		}
@@ -191,7 +192,7 @@ public class QueryBuilder {
 	public String setArgs(String sql, Map<?, ?> argMap) {
 		if (null != sql && sql.length() > 0 && null != argMap && argMap.size() > 0) {// 非空判断
 			for (Entry<?, ?> arg : argMap.entrySet()) {
-				sql = sql.replaceFirst(arg.getKey() + "", String.format("'%s'", arg.getValue()));// 为参数加上引号后替换问号
+				sql = sql.replaceFirst(arg.getKey() + "", "'" + arg.getValue() + "'");// 为参数加上引号后替换问号
 			}
 		}
 		return sql;
@@ -202,7 +203,7 @@ public class QueryBuilder {
 	 */
 	public String setPage(String sql, Page page) {
 		if (!Verify.contain(sql, "LIMIT") && null != page) {// 分页
-			return sql + String.format(" LIMIT %s,%s", page.getFrom(), page.getPageSize());
+			return sql + " LIMIT " + page.getFrom() + "," + page.getPageSize();
 		}
 		return sql;
 	}
