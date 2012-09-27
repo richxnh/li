@@ -20,4 +20,9 @@ public class ForumActionTest extends ActionTest {
 	public void list() {
 		forumAction.list(page);
 	}
+
+	@Test
+	public void get() {
+		forumAction.get(1, page);
+	}
 }
