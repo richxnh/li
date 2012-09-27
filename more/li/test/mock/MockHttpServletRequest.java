@@ -21,11 +21,11 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 	}
 
 	public String getAuthType() {
-		return null;
+		return "getAuthType";
 	}
 
 	public String getContextPath() {
-		return null;
+		return "getContextPath";
 	}
 
 	public Cookie[] getCookies() {
@@ -37,7 +37,7 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 	}
 
 	public String getHeader(String key) {
-		return null;
+		return "getHeader";
 	}
 
 	public Enumeration<String> getHeaderNames() {
@@ -69,35 +69,35 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 	}
 
 	public String getPathInfo() {
-		return null;
+		return "getPathInfo";
 	}
 
 	public String getPathTranslated() {
-		return null;
+		return "getPathTranslated";
 	}
 
 	public String getQueryString() {
-		return null;
+		return "getQueryString";
 	}
 
 	public String getRemoteUser() {
-		return null;
+		return "getRemoteUser";
 	}
 
 	public String getRequestURI() {
-		return null;
+		return "getRequestURI";
 	}
 
 	public StringBuffer getRequestURL() {
-		return null;
+		return new StringBuffer("getRequestURL");
 	}
 
 	public String getRequestedSessionId() {
-		return null;
+		return "getRequestedSessionId";
 	}
 
 	public String getServletPath() {
-		return null;
+		return "getServletPath";
 	}
 
 	public MockHttpSession getSession() {
@@ -105,7 +105,7 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 	}
 
 	public HttpSession getSession(boolean flag) {
-		return null;
+		return this.session;
 	}
 
 	public Principal getUserPrincipal() {

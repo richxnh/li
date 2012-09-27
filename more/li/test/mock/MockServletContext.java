@@ -145,8 +145,8 @@ public class MockServletContext implements ServletContext {
 		return null;
 	}
 
-	public String getRealPath(String arg0) {
-		return null;
+	public String getRealPath(String path) {
+		return System.getProperty("user.dir") + "/WebContent/" + path;
 	}
 
 	public RequestDispatcher getRequestDispatcher(String arg0) {
