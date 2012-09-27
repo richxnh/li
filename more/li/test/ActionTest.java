@@ -9,7 +9,6 @@ import li.test.mock.MockFilterConfig;
 import li.test.mock.MockHttpServletRequest;
 import li.test.mock.MockHttpServletResponse;
 import li.test.mock.MockHttpSession;
-import li.test.mock.MockServletConfig;
 import li.test.mock.MockServletContext;
 
 /**
@@ -35,15 +34,13 @@ public class ActionTest extends BaseTest {
 	protected MockServletContext servletContext = request.getServletContext();
 
 	/**
-	 * 模拟的servletConfig
-	 */
-	protected MockServletConfig servletConfig = new MockServletConfig(servletContext);
-
-	/**
 	 * 模拟的session
 	 */
 	protected MockHttpSession session = request.getSession();
 
+	/**
+	 * 模拟的FilterConfig
+	 */
 	private MockFilterConfig filterConfig = new MockFilterConfig(servletContext);
 
 	/**
