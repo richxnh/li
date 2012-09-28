@@ -16,15 +16,15 @@ import javax.servlet.ServletResponse;
 class MockServletResponse implements ServletResponse {
 
 	public PrintWriter getWriter() throws IOException {
-		return new PrintWriter(System.err);
+		System.err.println("li.mock.MockServletResponse.getWriter()");
+		return new PrintWriter(System.err) {
+			public void write(char[] buf, int off, int len) {
+			}
+		};
 	}
 
 	public ServletOutputStream getOutputStream() throws IOException {
-		return new ServletOutputStream() {
-			public void write(int chr) throws IOException {
-				System.err.println(chr);
-			}
-		};
+		return null;
 	}
 
 	public void flushBuffer() throws IOException {
