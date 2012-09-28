@@ -16,17 +16,17 @@ import li.util.Reflect;
  * @see li.util.Reflect
  */
 public class ModelBuilder {
-	private static final Log log = Log.init();
+	protected static final Log log = Log.init();
 
 	/**
 	 * 保存当前查询的QueryRunner,为了回调以关闭Connection
 	 */
-	private QueryRunner queryRunner;
+	protected QueryRunner queryRunner;
 
 	/**
 	 * 当前ModelBuilder的结果集
 	 */
-	private ResultSet resultSet;
+	protected ResultSet resultSet;
 
 	/**
 	 * 初始化一个ModelBuilder
@@ -96,7 +96,7 @@ public class ModelBuilder {
 	 * 
 	 * @see li.dao.QueryRunner#close()
 	 */
-	private void close() {
+	protected void close() {
 		try {
 			if (null != resultSet) {
 				resultSet.close();// 关闭ResultSet
