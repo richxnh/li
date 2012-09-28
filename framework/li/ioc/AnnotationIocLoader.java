@@ -24,7 +24,7 @@ public class AnnotationIocLoader {
 	 */
 	public List<Bean> getBeans() {
 		List<String> fileList = Files.list(Files.root(), "^.*.class$", true);
-		log.info(String.format("Found %s class files, at %s", fileList.size(), Files.root()));
+		log.info("Found " + fileList.size() + " class files, at " + Files.root());
 
 		List<li.model.Bean> beans = new ArrayList<li.model.Bean>();
 		for (String classFile : fileList) {
@@ -48,7 +48,7 @@ public class AnnotationIocLoader {
 				}
 				beans.add(iocBean);
 
-				log.info(String.format("ADD BEAN: @Bean %s %s", type.getName(), iocBean.name));
+				log.info("ADD BEAN: @Bean " + type.getName() + " " + iocBean.name);
 			}
 		}
 		return beans;

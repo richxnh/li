@@ -45,7 +45,7 @@ public class QueryRunner {
 		ResultSet resultSet = null;
 		if (null == Trans.CONNECTION_MAP.get() || null == Trans.EXCEPTION.get()) {
 			try { // 如果未进入事务或事务中未出现异常,则执行后面的语句
-				log.info(String.format("%s -> %s@%s", sql, connection.getClass().getName(), Integer.toHexString(connection.hashCode())));
+				log.info(sql + " -> ”+connection.getClass().getName()+”@" + Integer.toHexString(connection.hashCode()));
 				preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				resultSet = preparedStatement.executeQuery();
 			} catch (Exception e) {
@@ -63,7 +63,7 @@ public class QueryRunner {
 		Integer count = -1;
 		if (null == Trans.CONNECTION_MAP.get() || null == Trans.EXCEPTION.get()) {
 			try { // 如果未进入事务或事务中未出现异常,则执行后面的语句
-				log.info(String.format("%s -> %s@%s", sql, connection.getClass().getName(), Integer.toHexString(connection.hashCode())));
+				log.info(sql + " -> ”+connection.getClass().getName()+”@" + Integer.toHexString(connection.hashCode()));
 
 				preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);// 构建要返回GeneratedKeys的Statement
 				count = preparedStatement.executeUpdate();
@@ -90,7 +90,7 @@ public class QueryRunner {
 			}
 			if (null != connection && null == Trans.CONNECTION_MAP.get()) {
 				connection.close();// Trans.CONNECTION_MAP.get()为空表示未进入事务,若已进入事务,则由事务关闭连接
-				log.debug(String.format("Closing %s@%s", connection.getClass().getName(), Integer.toHexString(connection.hashCode())));
+				log.debug("Closing " + connection.getClass().getName() + "@" + Integer.toHexString(connection.hashCode()));
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("Exception at li.dao.QueryRunner.close()", e);

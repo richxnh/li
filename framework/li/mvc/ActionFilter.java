@@ -43,7 +43,7 @@ public class ActionFilter implements Filter {
 			config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");
 			// 根据Locale.getDefault()初始化国际化,存到servletContext
 			config.getServletContext().setAttribute("lang", Files.load(Locale.getDefault().toString()));
-			log.info(String.format("Setting default language as %s", Locale.getDefault()));
+			log.info("Setting default language as " + Locale.getDefault());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class ActionFilter implements Filter {
 			String lang = request.getParameter("lang");
 			if (!Verify.isEmpty(lang)) {
 				((HttpServletRequest) request).getSession().setAttribute("lang", Files.load(lang));
-				log.info(String.format("Setting language for %s", lang));
+				log.info("Setting language for " + lang);
 			}
 		}
 
@@ -72,7 +72,7 @@ public class ActionFilter implements Filter {
 		if (null != action) {
 			// 初始化Context
 			Context.init(request, response, action);
-			log.info(String.format("ACTION FOUND: path=\"%s\",method=\"%s\" action=%s.%s()", Context.getRequest().getServletPath(), Context.getRequest().getMethod(), action.actionInstance.getClass().getName(), action.actionMethod.getName()));
+			log.info("ACTION FOUND: path=\"”+ Context.getRequest().getServletPath()+”\",method=\"”+Context.getRequest().getMethod()+”\" action=“+action.actionInstance.getClass().getName()+”.”+action.actionMethod.getName()+”()");
 
 			// Action方法参数适配
 			Object[] args = new Object[action.argTypes.length]; // Action方法参数值列表
@@ -96,11 +96,11 @@ public class ActionFilter implements Filter {
 
 			// 执行Action方法,根据返回值,处理视图
 			Object result = Reflect.invoke(action.actionInstance, action.actionMethod, args);
-			if (result instanceof String && !result.equals("DONE")) {// 返回值为String且未调用视图方法
+			if (result instanceof String && !result.equals("~!@#DONE")) {// 返回值为String且未调用视图方法
 				Context.view(result.toString());// 则Context.view返回视图
 			}
 		} else {
-			log.info(String.format("ACTION NOT FOUND: path=\"%s\",method=\"%s\"", ((HttpServletRequest) request).getServletPath(), ((HttpServletRequest) request).getMethod()));
+			log.info("ACTION NOT FOUND: path=\"" + ((HttpServletRequest) request).getServletPath() + "\",method=\"" + ((HttpServletRequest) request).getMethod() + "\"");
 			chain.doFilter(request, response);
 		}
 	}

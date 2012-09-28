@@ -18,7 +18,7 @@ import li.util.Reflect;
 
 public abstract class AbstractService<T> implements IBaseService<T> {
 	/**
-	 * dao对象
+	 * Dao对象
 	 */
 	private IBaseDao<T> dao;
 

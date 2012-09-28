@@ -58,53 +58,6 @@ public class QueryBuilder {
 	}
 
 	/**
-	 * 根据传入的对象构建一个用于更新一条记录的SQL
-	 */
-	public String update(Object object) {
-		String sets = " SET ";
-		for (Field field : beanMeta.fields) {
-			Object fieldValue = Reflect.get(object, field.name);
-			if (!field.isId && null != fieldValue) {
-				sets += field.column + "='" + fieldValue + "',";
-			}
-		}
-		Object id = Reflect.get(object, beanMeta.getId().name);
-		sets = sets.substring(0, sets.length() - 1);
-		return "UPDATE " + beanMeta.table + sets + " WHERE " + beanMeta.getId().column + "=" + id;
-	}
-
-	/**
-	 * 根据传入的SQL,构建一个用于更新若干条记录的SQL
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
-	 */
-	public String updateBySql(String sql, Object[] args) {
-		if (Verify.startWith(sql, "SET")) {
-			sql = "UPDATE " + beanMeta.table + " " + sql;
-		}
-		return setArgs(sql, args);// 处理args
-	}
-
-	/**
-	 * 根据传入的对象构建一个插入一条记录的SQL
-	 */
-	public String save(Object object) {
-		String columns = " (", values = " VALUES (";
-		for (Field field : beanMeta.fields) {
-			if (!field.isId) {
-				Object fieldValue = Reflect.get(object, field.name);
-				columns += field.column + ",";
-				values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";
-			}
-		}
-		columns = columns.substring(0, columns.length() - 1) + ")";
-		values = values.substring(0, values.length() - 1) + ")";
-		return "INSERT INTO " + beanMeta.table + columns + values;
-	}
-
-	/**
 	 * 构造默认的COUNT(*)查询的SQL,查询表中的总记录数
 	 */
 	public String count() {
@@ -161,6 +114,53 @@ public class QueryBuilder {
 			sql = "SELECT * FROM " + beanMeta.table + " " + sql;
 		}
 		return setPage(setArgs(setAlias(sql), args), page);// 先处理别名,再处理args,最后处理page
+	}
+
+	/**
+	 * 根据传入的对象构建一个用于更新一条记录的SQL
+	 */
+	public String update(Object object) {
+		String sets = " SET ";
+		for (Field field : beanMeta.fields) {
+			Object fieldValue = Reflect.get(object, field.name);
+			if (!field.isId && null != fieldValue) {
+				sets += field.column + "='" + fieldValue + "',";
+			}
+		}
+		Object id = Reflect.get(object, beanMeta.getId().name);
+		sets = sets.substring(0, sets.length() - 1);
+		return "UPDATE " + beanMeta.table + sets + " WHERE " + beanMeta.getId().column + "=" + id;
+	}
+
+	/**
+	 * 根据传入的SQL,构建一个用于更新若干条记录的SQL
+	 * 
+	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+	 * @see li.dao.QueryBuilder#setArgs(String, Object[])
+	 */
+	public String updateBySql(String sql, Object[] args) {
+		if (Verify.startWith(sql, "SET")) {
+			sql = "UPDATE " + beanMeta.table + " " + sql;
+		}
+		return setArgs(sql, args);// 处理args
+	}
+
+	/**
+	 * 根据传入的对象构建一个插入一条记录的SQL
+	 */
+	public String save(Object object) {
+		String columns = " (", values = " VALUES (";
+		for (Field field : beanMeta.fields) {
+			if (!field.isId) {
+				Object fieldValue = Reflect.get(object, field.name);
+				columns += field.column + ",";
+				values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";
+			}
+		}
+		columns = columns.substring(0, columns.length() - 1) + ")";
+		values = values.substring(0, values.length() - 1) + ")";
+		return "INSERT INTO " + beanMeta.table + columns + values;
 	}
 
 	/**

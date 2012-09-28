@@ -64,13 +64,13 @@ public class ActionContext {
 							action.argAnnotations = Reflect.argAnnotations(method, Arg.class);
 							ACTION_CONTEXT.ACTIONS.add(action);
 
-							log.info(String.format("ADD ACTION: @At(value=\"%s\"%s) %s.%s()", action.path, (action.httpMethod.equals(".*") ? "" : ",method=\"" + action.httpMethod + "\""), action.actionInstance.getClass().getName(), action.actionMethod.getName()));
+							log.info("ADD ACTION: @At(value=\"" + action.path + "\"" + (action.httpMethod.equals(".*") ? "" : ",method=\"" + action.httpMethod + "\"") + ") " + action.actionInstance.getClass().getName() + "." + action.actionMethod.getName() + "()");
 						}
 					}
 				}
 			}
 
-			log.debug(String.format("%s actions started up in %sms", ACTION_CONTEXT.ACTIONS.size(), System.currentTimeMillis() - (Long) Log.get("MVCSTARTUP")));
+			log.debug(ACTION_CONTEXT.ACTIONS.size() + " actions started up in " + (System.currentTimeMillis() - (Long) Log.get("MVCSTARTUP")) + "ms");
 		}
 		return ACTION_CONTEXT;
 	}

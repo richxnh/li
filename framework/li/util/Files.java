@@ -66,7 +66,7 @@ public class Files {
 			documentBuilderFactory.setNamespaceAware(true);
 			return documentBuilderFactory.newDocumentBuilder().parse(path);
 		} catch (Exception e) {
-			log.error(String.format("%s Files.buildDocument() path=%s", e, path));
+			log.error(e + " Files.buildDocument() path=" + path);
 			return null;
 		}
 	}
@@ -81,7 +81,7 @@ public class Files {
 		try {
 			return XPathFactory.newInstance().newXPath().compile(xpath).evaluate(document, returnType);
 		} catch (Exception e) {
-			log.error(String.format("%s Files.evaluateXPath() document:%s xpath:%s returnType:%s", e, document, xpath, returnType));
+			log.error(e + " Files.evaluateXPath() document:" + document + " xpath:" + xpath + " returnType:" + returnType);
 			return null;
 		}
 	}
@@ -97,7 +97,7 @@ public class Files {
 				String PROPERTIES_REGEX = "^.*.properties$";// 搜索以.properties结尾的文件
 				propertyFiles = Files.list(Files.root(), PROPERTIES_REGEX, true);
 				Log.put("PROPERTIE_FILES", propertyFiles); // 将 PROPERTIES文件列表缓存
-				log.info(String.format("Found %s properties files , at %s", propertyFiles.size(), Files.root()));
+				log.info("Found " + propertyFiles.size() + " properties files , at " + Files.root());
 			}
 
 			properties = new Properties();

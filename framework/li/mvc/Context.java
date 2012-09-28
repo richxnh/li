@@ -303,7 +303,7 @@ public class Context {
 		} else {
 			throw new RuntimeException("view error, not supported viewtype: " + viewType);
 		}
-		return "DONE";
+		return "~!@#DONE";
 	}
 
 	/**
@@ -316,7 +316,7 @@ public class Context {
 		} catch (Exception e) {
 			error(e);
 		}
-		return "DONE";
+		return "~!@#DONE";
 	}
 
 	/**
@@ -329,7 +329,7 @@ public class Context {
 		} catch (Exception e) {
 			error(e);
 		}
-		return "DONE";
+		return "~!@#DONE";
 	}
 
 	/**
@@ -356,7 +356,7 @@ public class Context {
 		} catch (Throwable e) {
 			error(e);
 		}
-		return "DONE";
+		return "~!@#DONE";
 	}
 
 	/**
@@ -381,7 +381,7 @@ public class Context {
 		} catch (Throwable e) {
 			error(e);
 		}
-		return "DONE";
+		return "~!@#DONE";
 	}
 
 	/**
@@ -411,7 +411,7 @@ public class Context {
 		} catch (Throwable e) {
 			error(e);
 		}
-		return "DONE";
+		return "~!@#DONE";
 	}
 
 	/**

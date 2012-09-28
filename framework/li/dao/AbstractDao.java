@@ -77,7 +77,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	protected DataSource getDataSource() {
 		if (null == this.dataSource) {
 			this.dataSource = Ioc.get(DataSource.class);
-			log.warn(String.format("DataSource not injected for %s,Tring to search one more time", this));
+			log.warn("DataSource not injected for " + this + ",Tring to search one more time");
 		}
 		return this.dataSource;
 	}

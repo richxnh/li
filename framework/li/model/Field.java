@@ -61,7 +61,7 @@ public class Field {
 	public static List<Field> list(Class<?> targetType, Boolean annotated) {
 		List<Field> fields = FIELDS_MAP.get("class#" + targetType.getName() + "#annotated#" + annotated);
 		if (null == fields) { // 如果缓存中没有
-			log.info(String.format("Field.list() by type %s", targetType.getName()));
+			log.info("Field.list() by type " + targetType.getName());
 			fields = new ArrayList<Field>();
 			for (java.lang.reflect.Field field : targetType.getDeclaredFields()) {
 				li.annotation.Field column = field.getAnnotation(li.annotation.Field.class);
@@ -91,13 +91,11 @@ public class Field {
 	public static List<Field> list(DataSource dataSource, String table) {
 		List<Field> fields = FIELDS_MAP.get("table#" + table);
 		if (null == fields && null != dataSource) { // 如果缓存中没有
-			log.info(String.format("Field.list() by table %s", table));
+			log.info("Field.list() by table " + table);
 			try {
 				fields = new ArrayList<Field>();
-				String sql = String.format("DESC %s", table);
-
 				QueryRunner queryRunner = new QueryRunner(dataSource.getConnection());
-				ResultSet resultSet = queryRunner.executeQuery(sql);
+				ResultSet resultSet = queryRunner.executeQuery("DESC " + table);
 
 				while (null != resultSet && resultSet.next()) {
 					Field attribute = new Field();

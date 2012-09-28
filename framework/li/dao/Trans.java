@@ -106,11 +106,11 @@ public abstract class Trans {
 	private void begin() {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
 		if (null == CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
-			log.debug(String.format("Trans.begin()  in %s.%s()  #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
+			log.debug("Trans.begin() in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
 		} else {
 			this.map.put(hashCode() + "~!@#in_trans", true);
-			log.debug(String.format("Trans is melted in %s.%s() #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
+			log.debug("Trans is melted in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 		}
 	}
 
@@ -122,11 +122,11 @@ public abstract class Trans {
 		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			for (Entry<Class<?>, Connection> entry : CONNECTION_MAP.get().entrySet()) {
 				entry.getValue().close();
-				log.debug(String.format("Closing %s@%s in %s.%s()  #%s", entry.getValue().getClass().getName(), Integer.toHexString(entry.getValue().hashCode()), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
+				log.debug("Closing " + entry.getValue().getClass().getName() + "@" + Integer.toHexString(entry.getValue().hashCode()) + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			}
 			CONNECTION_MAP.set(null);
 			EXCEPTION.set(null);
-			log.debug(String.format("Trans.end() in %s.%s()  #%s", trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
+			log.debug("Trans.end() in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 		}
 	}
 
@@ -138,7 +138,7 @@ public abstract class Trans {
 		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().commit();
-				log.debug(String.format("Trans.commit() %s in %s.%s()  #%s", connection.getValue(), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
+				log.debug("Trans.commit() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			}
 		}
 	}
@@ -151,7 +151,7 @@ public abstract class Trans {
 		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) {
 			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
 				connection.getValue().rollback();
-				log.error(String.format("Trans.rollback() %s in %s.%s()  #%s", connection.getValue(), trace.getClassName(), trace.getMethodName(), trace.getLineNumber()));
+				log.debug("Trans.rollback() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			}
 		}
 	}

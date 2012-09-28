@@ -68,7 +68,7 @@ public class Bean {
 				}
 			}
 			if (null == this.id) {
-				throw new RuntimeException(String.format("As a POJO,%s must has a primary key field which annotationed by @Field(id=true)", type));
+				throw new RuntimeException("As a POJO," + type + " must has a primary key field which annotationed by @Field(id=true)");
 			}
 		}
 		return this.id;
@@ -83,7 +83,7 @@ public class Bean {
 	public static Bean getMeta(DataSource dataSource, Class<?> type) {
 		Bean bean = BEAN_MAP.get(type);
 		if (null == bean) {
-			log.info(String.format("Bean.getMeta(%s) ", type.getName()));
+			log.info("Bean.getMeta() " + type.getName());
 			bean = new Bean();
 			Table table = type.getAnnotation(Table.class);
 			bean.table = (null == table || Verify.isEmpty(table.value())) ? type.getSimpleName() : table.value();

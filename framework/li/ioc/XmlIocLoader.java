@@ -27,7 +27,7 @@ public class XmlIocLoader {
 	 */
 	public List<Bean> getBeans() {
 		List<String> fileList = Files.list(Files.root(), "^.*config.xml$", true);// 搜索以config.xml结尾的文件
-		log.info(String.format("Found %s Xml config files,at %s", fileList.size(), Files.root()));
+		log.info("Found " + fileList.size() + " Xml config files at " + Files.root());
 
 		List<Bean> beans = new ArrayList<Bean>();
 		for (String filePath : fileList) {
@@ -47,7 +47,7 @@ public class XmlIocLoader {
 				}
 				beans.add(iocBean);
 
-				log.info(String.format("ADD BEAN: XML %s %s", iocBean.type.getName(), iocBean.name));
+				log.info("ADD BEAN: Xml " + iocBean.type.getName() + " " + iocBean.name);
 			}
 		}
 		return beans;

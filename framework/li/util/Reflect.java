@@ -158,7 +158,7 @@ public class Reflect {
 				if (target instanceof Record<?>) {
 					return ((Record<?>) target).get(fieldName);// 通过Record.get()方法
 				} else {
-					throw new RuntimeException(String.format("Reflect.get() target=%s,fieldName=%s", target, fieldName));
+					throw new RuntimeException("Reflect.get() target=" + target + ",fieldName=" + fieldName);
 				}
 			}
 		}
@@ -180,7 +180,7 @@ public class Reflect {
 				if (target instanceof Record<?>) {
 					((Record<?>) target).set(fieldName, value);// 通过Record.set()方法,这里也没做类型转换
 				} else {
-					throw new RuntimeException(String.format("Reflect.set() target=%s,fieldName=%s,value=%s", target, fieldName, value));
+					throw new RuntimeException("Reflect.set() target=" + target + ",fieldName=" + fieldName + ",value=" + value);
 				}
 			}
 		}

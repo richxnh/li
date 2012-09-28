@@ -85,7 +85,7 @@ public class IocContext {
 			// STEP-5-给IocContext中的Bean设置属性
 			for (Bean bean : IOC_CONTEXT.BEANS) {
 				for (Field field : bean.fields) {
-					log.info(String.format("SET Field: %s %s -> %s", field.name, field.value, bean.type.getName()));
+					log.info("Set Field: " + field.name + " " + field.value + " -> " + bean.type.getName());
 					if (Verify.basicType(field.type)) {// 基本类型,直接设值
 						Reflect.set(bean.instance, field.name, Convert.toType(field.type, field.value));
 					} else {// 非基本类型,设为相应的bean
@@ -94,7 +94,7 @@ public class IocContext {
 				}
 			}
 
-			log.debug(String.format("%s beans started up in %sms", IOC_CONTEXT.BEANS.size(), System.currentTimeMillis() - (Long) Log.get("IOCSTARTUP")));
+			log.debug(IOC_CONTEXT.BEANS.size() + " beans started up in " + (System.currentTimeMillis() - (Long) Log.get("IOCSTARTUP")) + "ms");
 		}
 		return IOC_CONTEXT;
 	}

@@ -23,7 +23,7 @@ public abstract class Log {
 				protected void log(String method, Object msg) {
 					try {
 						StackTraceElement trace = Thread.currentThread().getStackTrace()[3];
-						logger.getClass().getMethod(method, Object.class).invoke(logger, String.format("%s() #%s %s", trace.getMethodName(), trace.getLineNumber(), msg));
+						logger.getClass().getMethod(method, Object.class).invoke(logger, trace.getMethodName() + "() #" + trace.getLineNumber() + " " + msg);
 					} catch (Exception e) {
 						throw new RuntimeException("Exception at li.util.Log.init().new Log() {}.log(String, Object)", e);
 					}
@@ -34,9 +34,9 @@ public abstract class Log {
 				protected void log(String method, Object msg) {
 					StackTraceElement trace = Thread.currentThread().getStackTrace()[3];
 					if (method.toUpperCase().equals("ERROR") || method.toUpperCase().equals("FATAL")) {
-						System.err.println(String.format("%s: %s.%s() #%s %s", method.toUpperCase(), type.getName(), trace.getMethodName(), trace.getLineNumber(), msg));
+						System.err.println(method.toUpperCase() + ": " + type.getName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber() + " " + msg);
 					} else {
-						System.out.println(String.format("%s: %s.%s() #%s %s", method.toUpperCase(), type.getName(), trace.getMethodName(), trace.getLineNumber(), msg));
+						System.out.println(method.toUpperCase() + ": " + type.getName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber() + " " + msg);
 					}
 				}
 			};
