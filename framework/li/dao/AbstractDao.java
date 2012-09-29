@@ -130,6 +130,30 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
+	 * 删除ID等于传入参数的一条记录,如果存在的话
+	 */
+	public Boolean deleteById(Object id) {
+		String sql = getQueryBuilder().deleteById(id.toString());
+
+		QueryRunner queryRunner = new QueryRunner(getConnection());
+		return 1 == queryRunner.executeUpdate(sql);
+	}
+
+	/**
+	 * 根据SQL条件删除若干条数据,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+	 * 
+	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+	 * @return 受影响的行数
+	 */
+	public Integer delete(String sql, Object... args) {
+		sql = getQueryBuilder().deleteBySql(sql, args);
+
+		QueryRunner queryRunner = new QueryRunner(getConnection());
+		return queryRunner.executeUpdate(sql);
+	}
+
+	/**
 	 * 根据ID查询一条记录
 	 */
 	public T findById(Object id) {
@@ -209,29 +233,5 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 		QueryRunner queryRunner = new QueryRunner(getConnection());
 		return 1 == queryRunner.executeUpdate(sql);
-	}
-
-	/**
-	 * 删除ID等于传入参数的一条记录,如果存在的话
-	 */
-	public Boolean deleteById(Object id) {
-		String sql = getQueryBuilder().deleteById(id.toString());
-
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		return 1 == queryRunner.executeUpdate(sql);
-	}
-
-	/**
-	 * 根据SQL条件删除若干条数据,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 * @return 受影响的行数
-	 */
-	public Integer delete(String sql, Object... args) {
-		sql = getQueryBuilder().deleteBySql(sql, args);
-
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		return queryRunner.executeUpdate(sql);
 	}
 }

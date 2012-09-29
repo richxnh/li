@@ -22,14 +22,14 @@ public interface IBaseDao<T> {
 	public T findById(Object id);
 
 	/**
-	 * 保存
-	 */
-	public Boolean save(T t);
-
-	/**
 	 * 列表
 	 */
 	public List<T> list(Page page);
+
+	/**
+	 * 保存
+	 */
+	public Boolean save(T t);
 
 	/**
 	 * 更新
