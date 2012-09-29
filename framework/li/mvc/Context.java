@@ -83,9 +83,9 @@ public class Context {
 	private static Map<String, Object> getAttributes() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("application", getServletContext());
-		map.put("session", getSession());
 		map.put("request", getRequest());
 		map.put("response", getResponse());
+		map.put("session", getSession());
 
 		// 1. 存入servletContext的值
 		Enumeration<String> servletContextEnumeration = getServletContext().getAttributeNames();
