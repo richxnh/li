@@ -32,14 +32,14 @@ public class AnnotationIocLoader {
 			Class<?> type = Reflect.getType(className);
 			li.annotation.Bean beanAnnotation = (li.annotation.Bean) type.getAnnotation(li.annotation.Bean.class);
 			if (beanAnnotation != null) {
-				li.model.Bean iocBean = new li.model.Bean();
+				li.model.Bean iocBean = new li.model.Bean();// 一个新的Bean
 				iocBean.type = type;
 				iocBean.name = beanAnnotation.value();
 
 				for (Field field : type.getDeclaredFields()) {
 					Inject inject = field.getAnnotation(Inject.class);
 					if (null != inject) {
-						li.model.Field attribute = new li.model.Field();
+						li.model.Field attribute = new li.model.Field();// 一个新的Field
 						attribute.name = field.getName();
 						attribute.type = field.getType();
 						attribute.value = inject.value();
