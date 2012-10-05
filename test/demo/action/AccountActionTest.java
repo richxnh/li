@@ -17,7 +17,7 @@ public class AccountActionTest extends ActionTest {
 	@Before
 	public void before() {
 		assertNotNull(accountAction);
-		account.set("id", "1").set("username", "uname").set("password", "pwd").set("email", "eml");
+		account.set("id", "1").set("username", "uname").set("password", "pwd").set("email", "eml").set("status", 1);
 	}
 
 	@Test
