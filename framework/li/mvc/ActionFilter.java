@@ -72,7 +72,7 @@ public class ActionFilter implements Filter {
 		if (null != action) {
 			// 初始化Context
 			Context.init(request, response, action);
-			log.info("ACTION FOUND: path=\"”+ Context.getRequest().getServletPath()+”\",method=\"”+Context.getRequest().getMethod()+”\" action=“+action.actionInstance.getClass().getName()+”.”+action.actionMethod.getName()+”()");
+			log.info("ACTION FOUND: path=\""+ Context.getRequest().getServletPath()+"\",method=\""+Context.getRequest().getMethod()+"\" action="+action.actionInstance.getClass().getName()+"."+action.actionMethod.getName()+"()");
 
 			// Action方法参数适配
 			Object[] args = new Object[action.argTypes.length]; // Action方法参数值列表
