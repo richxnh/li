@@ -15,7 +15,7 @@ public class Page {
 	/**
 	 * 单页记录数
 	 */
-	private Integer pageSize = 20;
+	private Integer pageSize;
 	/**
 	 * 总记录数
 	 */
@@ -25,6 +25,8 @@ public class Page {
 	 * 默认构造函数
 	 */
 	public Page() {
+		String size = Files.load("config.properties").getProperty("pageSize", "20");
+		this.pageSize = Integer.valueOf(size);
 	}
 
 	/**
