@@ -1,6 +1,7 @@
 package li.mvc;
 
 import java.io.File;
+import java.io.Writer;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -24,17 +25,6 @@ import li.util.Log;
 import li.util.Page;
 import li.util.Reflect;
 import li.util.Verify;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.bee.tl.core.Config;
-import org.bee.tl.core.GroupTemplate;
-
-import freemarker.template.Configuration;
 
 /**
  * 访问HTTP请求上下文的工具类,使用ThreadLocal
@@ -345,13 +335,12 @@ public class Context {
 				properties.put("input.encoding", "UTF-8");
 				properties.put("output.encoding", "UTF-8");
 				properties.putAll(Files.load("velocity.properties"));// velocity.properties中的参数设置
-				Velocity.init(properties);// 初始化Velocity
+				Reflect.call("org.apache.velocity.app.Velocity", "init", properties);// 初始化Velocity
 				Log.put("velocityInitialized", true); // 设置velocityInitialized标记
 			}
-			// velocity值栈
-			VelocityContext context = new VelocityContext(getAttributes());
-			org.apache.velocity.Template template = Velocity.getTemplate(path);// velocity模板
-			template.merge(context, getResponse().getWriter());
+			Object context = Reflect.born("org.apache.velocity.VelocityContext", new Class[] { Map.class }, new Object[] { getAttributes() });// velocity值栈
+			Object template = Reflect.call("org.apache.velocity.app.Velocity", "getTemplate", path);// velocity模板
+			Reflect.invoke(template, "merge", new Class[] { Reflect.getType("org.apache.velocity.context.Context"), Reflect.getType("java.io.Writer") }, new Object[] { context, getResponse().getWriter() });
 			log.info("velocity to: " + path);
 		} catch (Throwable e) {
 			error(e);
@@ -364,19 +353,19 @@ public class Context {
 	 */
 	public static String freemarker(String path) {
 		try {
-			Configuration configuration = (Configuration) Log.get("freemarkerConfiguration"); // 从缓存中查找freemarkerTemplate
+			Object configuration = Log.get("freemarkerConfiguration"); // 从缓存中查找freemarkerTemplate
 			if (null == configuration) { // 缓存中没有
 				log.debug("freemarker initializing ..");
-				configuration = new Configuration(); // 初始化freemarkerTemplate
-				configuration.setServletContextForTemplateLoading(getServletContext(), "/");// 设置模板加载跟路径
+				configuration = Reflect.born("freemarker.template.Configuration"); // 初始化freemarkerTemplate
+				Reflect.invoke(configuration, "setServletContextForTemplateLoading", new Class[] { Object.class, String.class }, new Object[] { getServletContext(), "/" });// 设置模板加载跟路径
 				Properties properties = new Properties();// 默认的参数设置
 				properties.put("default_encoding", "UTF-8");
 				properties.putAll(Files.load("freemarker.properties"));// freemarker.properties中的参数设置
-				configuration.setSettings(properties);
+				Reflect.invoke(configuration, "setSettings", properties);// 加载自定义配置
 				Log.put("freemarkerConfiguration", configuration); // 缓存freemarkerTemplate
 			}
-			freemarker.template.Template template = configuration.getTemplate(path);// 加载模板
-			template.process(getAttributes(), getResponse().getWriter());
+			Object template = Reflect.invoke(configuration, "getTemplate", path);// 加载模板
+			Reflect.invoke(template, "process", new Class[] { Object.class, Writer.class }, new Object[] { getAttributes(), getResponse().getWriter() });
 			log.info("freemarker to: " + path);
 		} catch (Throwable e) {
 			error(e);
@@ -389,24 +378,24 @@ public class Context {
 	 */
 	public static String beetl(String path) {
 		try {
-			GroupTemplate groupTemplate = (GroupTemplate) Log.get("groupTemplate");// 从缓存中查找GroupTemplate
+			Object groupTemplate = Log.get("groupTemplate");// 从缓存中查找GroupTemplate
 			if (null == groupTemplate) {
 				log.debug("beetl initializing ...");
-				Config config = new Config();// 加载默认配置
-				config.put("TEMPLATE_ROOT", getServletContext().getRealPath("/"));
-				config.put("TEMPLATE_CHARSET", "UTF-8");
+				Object config = Reflect.born("org.bee.tl.core.Config");// 加载默认配置
+				Reflect.invoke(config, "put", "TEMPLATE_ROOT", getServletContext().getRealPath("/"));
+				Reflect.invoke(config, "put", "TEMPLATE_CHARSET", "UTF-8");
 				Properties properties = Files.load("beetl.properties");// 加载自定义配置,覆盖默认
 				for (Entry<Object, Object> entry : properties.entrySet()) {
-					config.put(entry.getKey().toString(), entry.getValue().toString());
+					Reflect.invoke(config, "put", entry.getKey().toString(), entry.getValue().toString());
 				}
-				groupTemplate = config.createGroupTemplate();// 生成GroupTemplate,并缓存之
+				groupTemplate = Reflect.invoke(config, "createGroupTemplate");// 生成GroupTemplate,并缓存之
 				Log.put("groupTemplate", groupTemplate);
 			}
-			org.bee.tl.core.Template template = groupTemplate.getFileTemplate(path);// 生成模板
+			Object template = Reflect.invoke(groupTemplate, "getFileTemplate", path);// 生成模板
 			for (Entry<String, Object> entry : getAttributes().entrySet()) {
-				template.set(entry.getKey(), entry.getValue());// 设置变量
+				Reflect.invoke(template, "set", new Class[] { String.class, Object.class }, new Object[] { entry.getKey(), entry.getValue() });// 设置变量
 			}
-			template.getText(getResponse().getWriter());// merge 模板和模型，将内容输出到Writer里
+			Reflect.invoke(template, "getText", new Class[] { Writer.class }, new Object[] { getResponse().getWriter() });// merge 模板和模型，将内容输出到Writer里
 			log.info("forword to beetl: " + path);
 		} catch (Throwable e) {
 			error(e);
@@ -439,12 +428,12 @@ public class Context {
 	 */
 	public static AbstractAction upload(String uploadPath) {
 		try {
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			List<?> fileItems = upload.parseRequest(getRequest());
+			Object factory = Reflect.born("org.apache.commons.fileupload.disk.DiskFileItemFactory");
+			Object upload = Reflect.born("org.apache.commons.fileupload.servlet.ServletFileUpload", new Class[] { Reflect.getType("org.apache.commons.fileupload.FileItemFactory") }, factory);
+			List<?> fileItems = (List<?>) Reflect.invoke(upload, "parseRequest", getRequest());
 			for (Object fileItem : fileItems) {
-				File saveFile = new File(uploadPath, ((FileItem) fileItem).getName());
-				((FileItem) fileItem).write(saveFile);
+				File saveFile = new File(uploadPath, Reflect.invoke(fileItem, "getName").toString());
+				Reflect.invoke(fileItem, "write", saveFile);
 			}
 			log.info("upload success");
 		} catch (Throwable e) {
