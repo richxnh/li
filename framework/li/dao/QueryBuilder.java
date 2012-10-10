@@ -95,6 +95,9 @@ public class QueryBuilder {
 	 * 使用传入的SQL和参数,构造一个用于查询一条记录的SQL
 	 */
 	public String find(String sql, Object[] args) {
+		if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
+			sql = "SELECT * FROM " + beanMeta.table + " " + sql;
+		}
 		return setPage(setArgs(sql, args), new Page(1, 1));// 先处理别名,再处理page
 	}
 
