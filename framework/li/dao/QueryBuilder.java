@@ -92,6 +92,13 @@ public class QueryBuilder {
 	}
 
 	/**
+	 * 使用传入的SQL和参数,构造一个用于查询一条记录的SQL
+	 */
+	public String find(String sql, Object[] args) {
+		return setPage(setArgs(sql, args), new Page(1, 1));// 先处理别名,再处理page
+	}
+
+	/**
 	 * 使用传入的page,构造一个用于分页查询的SQL
 	 * 
 	 * @param page 分页对象
