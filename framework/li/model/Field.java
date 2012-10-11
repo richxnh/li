@@ -103,7 +103,9 @@ public class Field {
 					attribute.isId = resultSet.getString("Key").toUpperCase().equals("PRI");// Key的值为PRI的字段即为ID字段
 					fields.add(attribute);
 				}
-				resultSet.close();// 关闭resultSet
+				if (null != resultSet) {
+					resultSet.close();// 关闭resultSet
+				}
 				queryRunner.close();// 关闭QueryRunner
 				FIELDS_MAP.put("table#" + table, fields); // 加入缓存
 			} catch (Exception e) {
