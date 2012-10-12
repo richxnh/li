@@ -23,34 +23,44 @@ import javax.servlet.ServletResponse;
  */
 class MockServletRequest implements ServletRequest {
 
-	private MockServletContext servletContext = new MockServletContext();
+	private MockServletContext servletContext;
 
-	private Map<String, Object> request = new HashMap<String, Object>();
+	private Map<String, Object> requestMap;
 
-	private Map<String, String[]> parameterMap = new HashMap<>();
+	private Map<String, String[]> parameterMap;
 
 	private String encoding;
 
 	private String contentType;
+
+	public MockServletRequest() {
+		this.servletContext = new MockServletContext();
+		this.requestMap = new HashMap<String, Object>();
+		this.parameterMap = new HashMap<String, String[]>();
+	}
+
+	public MockRequestDispatcher getRequestDispatcher(String path) {
+		return new MockRequestDispatcher(path);
+	}
 
 	public MockServletContext getServletContext() {
 		return this.servletContext;
 	}
 
 	public void removeAttribute(String key) {
-		request.remove(key);
+		requestMap.remove(key);
 	}
 
 	public void setAttribute(String key, Object value) {
-		request.put(key, value);
+		requestMap.put(key, value);
 	}
 
 	public Object getAttribute(String key) {
-		return request.get(key);
+		return requestMap.get(key);
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return new Vector<>(request.keySet()).elements();
+		return new Vector<>(requestMap.keySet()).elements();
 	}
 
 	public String getParameter(String key) {
@@ -98,10 +108,6 @@ class MockServletRequest implements ServletRequest {
 	public void setContentType(String contentType) {
 		System.err.println("set contentType " + contentType);
 		this.contentType = contentType;
-	}
-
-	public MockRequestDispatcher getRequestDispatcher(String path) {
-		return new MockRequestDispatcher(path);
 	}
 
 	public AsyncContext getAsyncContext() {

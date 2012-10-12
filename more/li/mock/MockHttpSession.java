@@ -19,10 +19,11 @@ public class MockHttpSession implements HttpSession {
 
 	private ServletContext servletContext;
 
-	private final Map<String, Object> session = new HashMap<String, Object>();
+	private Map<String, Object> sessionMap;
 
 	public MockHttpSession(ServletContext servletContext) {
 		this.servletContext = servletContext;
+		this.sessionMap = new HashMap<>();
 	}
 
 	public ServletContext getServletContext() {
@@ -30,36 +31,35 @@ public class MockHttpSession implements HttpSession {
 	}
 
 	public Object getAttribute(String key) {
-		return session.get(key);
+		return sessionMap.get(key);
 	}
 
 	public Object getValue(String key) {
-		return session.get(key);
+		return sessionMap.get(key);
 	}
 
 	public String[] getValueNames() {
-		return session.keySet().toArray(new String[0]);
+		return sessionMap.keySet().toArray(new String[0]);
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return new Vector(session.keySet()).elements();
+		return new Vector(sessionMap.keySet()).elements();
 	}
 
 	public void putValue(String key, Object value) {
-		session.put(key, value);
+		sessionMap.put(key, value);
 	}
 
 	public void removeAttribute(String key) {
 		System.err.println("remove session " + key);
-		session.remove(key);
+		sessionMap.remove(key);
 	}
 
 	public void setAttribute(String key, Object value) {
-		session.put(key, value);
+		sessionMap.put(key, value);
 	}
 
 	public void removeValue(String value) {
-		//
 	}
 
 	public long getCreationTime() {

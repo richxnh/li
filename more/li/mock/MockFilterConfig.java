@@ -1,9 +1,6 @@
 package li.mock;
 
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
 
 import javax.servlet.FilterConfig;
 
@@ -17,8 +14,6 @@ public class MockFilterConfig implements FilterConfig {
 
 	private MockServletContext servletContext;
 
-	private Map<String, String> initParameters = new HashMap<String, String>();
-
 	public MockFilterConfig(MockServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
@@ -28,15 +23,14 @@ public class MockFilterConfig implements FilterConfig {
 	}
 
 	public Enumeration<String> getInitParameterNames() {
-		return new Vector(initParameters.keySet()).elements();
+		return null;
 	}
 
 	public String getFilterName() {
-		return "li.mock.MockFilterConfig.getFilterName()";
+		return null;
 	}
 
 	public String getInitParameter(String key) {
-		return "li.mock.MockFilterConfig.getInitParameter(String)";
+		return null;
 	}
-
 }

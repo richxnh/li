@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -24,29 +21,23 @@ import javax.servlet.http.Part;
  */
 public class MockHttpServletRequest extends MockServletRequest implements HttpServletRequest {
 
-	private MockHttpSession session = new MockHttpSession(getServletContext());
+	private String method;
 
-	private Map<String, List<String>> header = new HashMap<String, List<String>>();
+	private MockHttpSession session;
 
-	private String method = "GET";
+	public MockHttpServletRequest() {
+		this.method = "GET";
+		this.session = new MockHttpSession(getServletContext());
+	}
 
-	public String getHeader(String key) {
-		if (null != header.get(key) && header.get(key).size() > 1) {
-			return header.get(key).get(0);
+	public String getQueryString() {
+		String queryString = " ";
+		for (Entry<String, String[]> entry : getParameterMap().entrySet()) {
+			for (String value : entry.getValue()) {
+				queryString += entry.getKey() + "=" + value + "&";
+			}
 		}
-		return null;
-	}
-
-	public Enumeration<String> getHeaderNames() {
-		return new Vector(header.keySet()).elements();
-	}
-
-	public Enumeration<String> getHeaders(String key) {
-		return new Vector(header.get(key)).elements();
-	}
-
-	public int getIntHeader(String key) {
-		return Integer.parseInt(getHeader(key));
+		return queryString.substring(0, queryString.length() - 1).trim();
 	}
 
 	public void setMethod(String method) {
@@ -65,44 +56,56 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
 		return this.session;
 	}
 
+	public int getIntHeader(String key) {
+		return Integer.parseInt(getHeader(key));
+	}
+
+	public String getHeader(String key) {
+		return null;
+	}
+
+	public Enumeration<String> getHeaderNames() {
+		return null;
+	}
+
+	public Enumeration<String> getHeaders(String key) {
+		return null;
+	}
+
 	public String getAuthType() {
-		return "li.mock.MockHttpServletRequest.getAuthType()";
+		return null;
 	}
 
 	public String getContextPath() {
-		return "li.mock.MockHttpServletRequest.getContextPath()";
+		return null;
 	}
 
 	public String getPathInfo() {
-		return "li.mock.MockHttpServletRequest.getPathInfo()";
+		return null;
 	}
 
 	public String getPathTranslated() {
-		return "li.mock.MockHttpServletRequest.getPathTranslated()";
-	}
-
-	public String getQueryString() {
-		return "li.mock.MockHttpServletRequest.getQueryString()";
+		return null;
 	}
 
 	public String getRemoteUser() {
-		return "li.mock.MockHttpServletRequest.getRemoteUser()";
+		return null;
 	}
 
 	public String getRequestURI() {
-		return "li.mock.MockHttpServletRequest.getRequestURI()";
+		return null;
 	}
 
 	public StringBuffer getRequestURL() {
-		return new StringBuffer("li.mock.MockHttpServletRequest.getRequestURL()");
+		return null;
 	}
 
 	public String getRequestedSessionId() {
-		return "li.mock.MockHttpServletRequest.getRequestedSessionId()";
+		return null;
 	}
 
 	public String getServletPath() {
-		return "li.mock.MockHttpServletRequest.getServletPath()";
+		return null;
 	}
 
 	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {

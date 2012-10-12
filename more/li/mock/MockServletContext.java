@@ -30,22 +30,26 @@ import javax.servlet.descriptor.JspConfigDescriptor;
  */
 public class MockServletContext implements ServletContext {
 
-	private Map<String, Object> servletContext = new HashMap<String, Object>();
+	private Map<String, Object> servletContextMap;
+
+	public MockServletContext() {
+		this.servletContextMap = new HashMap<String, Object>();
+	}
 
 	public Object getAttribute(String key) {
-		return servletContext.get(key);
+		return servletContextMap.get(key);
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return new Vector(servletContext.keySet()).elements();
+		return new Vector(servletContextMap.keySet()).elements();
 	}
 
 	public void removeAttribute(String key) {
-		servletContext.remove(key);
+		servletContextMap.remove(key);
 	}
 
 	public void setAttribute(String key, Object value) {
-		servletContext.put(key, value);
+		servletContextMap.put(key, value);
 	}
 
 	public String getRealPath(String path) {

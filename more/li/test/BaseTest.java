@@ -17,12 +17,14 @@ public class BaseTest {
 	/**
 	 * 模拟的 li.dao.Page
 	 */
-	protected Page page = new Page();
+	protected Page page;
 
 	/**
 	 * 初始化时为每一个@Inject注解的属性设值
 	 */
 	public BaseTest() {
+		page = new Page();
+
 		for (Field field : getClass().getDeclaredFields()) {
 			Inject inject = field.getAnnotation(Inject.class);
 			if (null != inject) {
