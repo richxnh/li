@@ -3,9 +3,11 @@
 	<xs:element name="config">
 		<xs:complexType>
 			<xs:sequence>
+
 				<xs:element name="beans">
 					<xs:complexType>
 						<xs:sequence>
+
 							<xs:element name="bean" maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:sequence>
@@ -18,9 +20,11 @@
 									<xs:attributeGroup ref="bean_attribute" />
 								</xs:complexType>
 							</xs:element>
+
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
