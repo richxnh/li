@@ -15,12 +15,12 @@ public class AbstractDaoTest extends BaseTest {
 	Account dao;
 
 	@Inject
-	User userDao;
+	UserDao userDao;
 
 	@Test
 	public void testQuery() {
 		for (Record record : userDao.query(null, "select * from t_account")) {
-			System.out.println(record.get("id"));
+			System.out.println(record.getClass());
 		}
 	}
 
