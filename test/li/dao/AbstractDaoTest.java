@@ -25,6 +25,16 @@ public class AbstractDaoTest extends BaseTest {
 	}
 
 	@Test
+	public void testCount() {
+		System.out.println(userDao.count());
+	}
+
+	@Test
+	public void testCountBySql() {
+		System.out.println(userDao.count("SELECT * FROM t_account WHERE id>'1' LIMIT 2,3", new Object[] {}));
+	}
+
+	@Test
 	public void test() {
 		Map<?, ?> map = Convert.toMap(":uname", "li", ":eml", "li@w.cn");
 		dao.list(page, "WHERE username=:uname OR email=:eml", map);
