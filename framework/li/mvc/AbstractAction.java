@@ -190,6 +190,13 @@ public abstract class AbstractAction {
 	}
 
 	/**
+	 * 把object转成json并写到页面
+	 */
+	public AbstractAction json(Object object) {
+		return Context.json(object);
+	}
+
+	/**
 	 * 上传文件
 	 */
 	public AbstractAction upload(String uploadPath) {

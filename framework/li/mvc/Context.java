@@ -264,10 +264,10 @@ public class Context {
 	 * 
 	 * @see #forward(String)
 	 * @see #redirect(String)
-	 * @see #write(String)
 	 * @see #freemarker(String)
 	 * @see #velocity(String)
 	 * @see #beetl(String)
+	 * @see #write(String)
 	 */
 	public static String view(String path) {
 		// 默认视图类型,如果未在config.properties中配置则为forward
@@ -421,6 +421,13 @@ public class Context {
 			error(e);
 		}
 		return ABSTRACT_ACTION;
+	}
+
+	/**
+	 * 把object转成json并写到页面
+	 */
+	public static AbstractAction json(Object object) {
+		return write(Convert.toJson(object));
 	}
 
 	/**
