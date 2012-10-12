@@ -22,10 +22,10 @@ class MockRequestDispatcher implements RequestDispatcher {
 	}
 
 	public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		System.err.println("forward to : " + path);
+		System.err.println("forward to : " + path + " calling by " + Tool.stackTrace());
 	}
 
 	public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		System.err.println("include : " + path);
+		System.err.println("include : " + path + " calling by " + Tool.stackTrace());
 	}
 }

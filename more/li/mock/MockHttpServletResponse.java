@@ -17,7 +17,7 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 	private Integer status;
 
 	public void sendRedirect(String path) throws IOException {
-		System.err.println("rederect to : " + path);
+		System.err.println("rederect to : " + path + " calling by " + Tool.stackTrace());
 	}
 
 	public int getStatus() {
@@ -26,7 +26,7 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 
 	public void setStatus(int status) {
 		this.status = status;
-		System.err.println("set status " + status);
+		System.err.println("set status " + status + " calling by " + Tool.stackTrace());
 	}
 
 	public void setStatus(int status, String arg1) {

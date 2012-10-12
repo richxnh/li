@@ -97,7 +97,7 @@ class MockServletRequest implements ServletRequest {
 	}
 
 	public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
-		System.err.println("set encoding " + encoding);
+		System.err.println("set encoding " + encoding + " calling by " + Tool.stackTrace());
 		this.encoding = encoding;
 	}
 
@@ -106,7 +106,7 @@ class MockServletRequest implements ServletRequest {
 	}
 
 	public void setContentType(String contentType) {
-		System.err.println("set contentType " + contentType);
+		System.err.println("set contentType " + contentType + " calling by " + Tool.stackTrace());
 		this.contentType = contentType;
 	}
 

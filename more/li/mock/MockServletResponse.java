@@ -16,7 +16,8 @@ import javax.servlet.ServletResponse;
 class MockServletResponse implements ServletResponse {
 
 	public PrintWriter getWriter() throws IOException {
-		System.err.println("li.mock.MockServletResponse.getWriter()");
+		System.err.println("li.mock.MockServletResponse.getWriter() calling by " + Tool.stackTrace());
+
 		return new PrintWriter(System.err) {
 			public void write(char[] buf, int off, int len) {
 			}
