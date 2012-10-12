@@ -66,7 +66,7 @@ public class Files {
 			documentBuilderFactory.setNamespaceAware(true);
 			return documentBuilderFactory.newDocumentBuilder().parse(path);
 		} catch (Exception e) {
-			log.error(e + " Files.buildDocument() path=" + path);
+			log.error(e + " Files.build() path=" + path);
 			return null;
 		}
 	}
@@ -81,7 +81,7 @@ public class Files {
 		try {
 			return XPathFactory.newInstance().newXPath().compile(xpath).evaluate(document, returnType);
 		} catch (Exception e) {
-			log.error(e + " Files.evaluateXPath() document:" + document + " xpath:" + xpath + " returnType:" + returnType);
+			log.error(e + " Files.xpath() document:" + document + " xpath:" + xpath + " returnType:" + returnType);
 			return null;
 		}
 	}
@@ -95,9 +95,9 @@ public class Files {
 			List<?> propertyFiles = (List<?>) Log.get("PROPERTIE_FILES");// 从缓存中查找propertyFiles
 			if (null == propertyFiles) {
 				String PROPERTIES_REGEX = "^.*.properties$";// 搜索以.properties结尾的文件
-				propertyFiles = Files.list(Files.root(), PROPERTIES_REGEX, true);
+				propertyFiles = list(root(), PROPERTIES_REGEX, true);
 				Log.put("PROPERTIE_FILES", propertyFiles); // 将 PROPERTIES文件列表缓存
-				log.info("Found " + propertyFiles.size() + " properties files , at " + Files.root());
+				log.info("Found " + propertyFiles.size() + " properties files , at " + root());
 			}
 
 			properties = new Properties();
@@ -108,7 +108,7 @@ public class Files {
 						prop.load(new InputStreamReader(new BufferedInputStream(new FileInputStream((String) filePath)), "UTF-8"));
 						properties.putAll(prop);
 					} catch (Exception e) {
-						throw new RuntimeException("Exception in li.util.Files.loadProperties(String)", e);
+						throw new RuntimeException("Exception in li.util.Files.load(String)", e);
 					}
 				}
 			}

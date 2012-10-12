@@ -26,7 +26,6 @@ public class QueryBuilderTest extends BaseTest {
 
 	@Before
 	public void before() throws Exception {
-
 		user.setId(1);
 		user.setUsername("username-1");
 		user.setPassword("password-1");
