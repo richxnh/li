@@ -14,6 +14,16 @@ public class AbstractDaoTest extends BaseTest {
 	@Inject
 	Account dao;
 
+	@Inject
+	User userDao;
+
+	@Test
+	public void testQuery() {
+		for (Record record : userDao.query(null, "select * from t_account")) {
+			System.out.println(record.get("id"));
+		}
+	}
+
 	@Test
 	public void test() {
 		Map<?, ?> map = Convert.toMap(":uname", "li", ":eml", "li@w.cn");

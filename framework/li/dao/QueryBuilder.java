@@ -133,7 +133,23 @@ public class QueryBuilder {
 		String sets = " SET ";
 		for (Field field : beanMeta.fields) {
 			Object fieldValue = Reflect.get(object, field.name);
-			if (!field.isId && null != fieldValue) {
+			if (!field.isId) {// 更新所有属性,fieldValue可能为null
+				sets += field.column + "='" + fieldValue + "',";
+			}
+		}
+		Object id = Reflect.get(object, beanMeta.getId().name);
+		sets = sets.substring(0, sets.length() - 1);
+		return "UPDATE " + beanMeta.table + sets + " WHERE " + beanMeta.getId().column + "=" + id;
+	}
+
+	/**
+	 * 根据传入的对象构建一个用于更新一条记录的SQL,忽略对象中值为null的属性
+	 */
+	public String updateIgnoreNull(Object object) {
+		String sets = " SET ";
+		for (Field field : beanMeta.fields) {
+			Object fieldValue = Reflect.get(object, field.name);
+			if (!field.isId && null != fieldValue) {// 不更新fieldValue为null的属性
 				sets += field.column + "='" + fieldValue + "',";
 			}
 		}

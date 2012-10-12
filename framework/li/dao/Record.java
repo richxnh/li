@@ -1,14 +1,12 @@
 package li.dao;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import li.model.Field;
 import li.util.Page;
 
 /**
@@ -27,18 +25,7 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 	 * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
 	 */
 	public List<T> list(Page page, String sql, Object... args) {
-		sql = getQueryBuilder().listBySql(page, sql, args);
-
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		ResultSet resultSet = queryRunner.executeQuery(sql);
-		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
-		List<Field> fields = Field.list(resultSet);
-
-		if (null != resultSet && null != page) {
-			page.setRecordCount(count(sql));
-		}
-
-		return modelBuilder.list(getType(), fields, (null == page ? 18 : page.getPageSize()), true);
+		return (List<T>) query(page, sql, args);
 	}
 
 	/**
