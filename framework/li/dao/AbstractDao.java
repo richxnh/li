@@ -121,7 +121,9 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public Integer count(String sql, Object... args) {
-		return Integer.valueOf((String) this.query(null, getQueryBuilder().countBySql(sql, args)).get(0).get("COUNT(*)"));
+		QueryRunner queryRunner=new QueryRunner(getConnection());
+		ModelBuilder modelBuilder=new ModelBuilder(queryRunner, queryRunner.executeQuery(getQueryBuilder().countBySql(sql, args)));
+		return Integer.valueOf(modelBuilder.value("COUNT(*)", true, true));
 	}
 
 	/**
