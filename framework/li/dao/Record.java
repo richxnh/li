@@ -23,6 +23,8 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
 
 	/**
 	 * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
+	 * 
+	 * @see li.dao.AbstractDao#query(Page, String, Object...)
 	 */
 	public List<T> list(Page page, String sql, Object... args) {
 		return (List<T>) query(page, sql, args);

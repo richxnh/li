@@ -44,6 +44,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 通过泛型参数得到modelType
+	 * 
+	 * @see li.util.Reflect#actualType(Class, Integer)
 	 */
 	protected Class<T> getType() {
 		if (null == this.modelType) {
@@ -54,6 +56,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 得到当前Dao所操作的数据对象的结构
+	 * 
+	 * @see li.model.Bean#getMeta(DataSource, Class)
 	 */
 	protected Bean getBeanMeta() {
 		if (null == this.beanMeta) {
@@ -64,6 +68,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 得到SQL构造器,可以覆盖这个方法来配置QueryBuilder
+	 * 
+	 * @see li.dao.QueryBuilder#QueryBuilder(DataSource, Bean)
 	 */
 	protected QueryBuilder getQueryBuilder() {
 		if (null == this.queryBuilder) {
@@ -109,6 +115,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 查询对象对应的表的总记录数
+	 * 
+	 * @see li.dao.AbstractDao#count(String, Object...)
 	 */
 	public Integer count() {
 		return count(getQueryBuilder().count());
@@ -121,13 +129,15 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 */
 	public Integer count(String sql, Object... args) {
-		QueryRunner queryRunner=new QueryRunner(getConnection());
-		ModelBuilder modelBuilder=new ModelBuilder(queryRunner, queryRunner.executeQuery(getQueryBuilder().countBySql(sql, args)));
+		QueryRunner queryRunner = new QueryRunner(getConnection());
+		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, queryRunner.executeQuery(getQueryBuilder().countBySql(sql, args)));
 		return Integer.valueOf(modelBuilder.value("COUNT(*)", true, true));
 	}
 
 	/**
 	 * 删除ID等于传入参数的一条记录,如果存在的话
+	 * 
+	 * @see li.dao.AbstractDao#delete(String, Object...)
 	 */
 	public Boolean deleteById(Object id) {
 		return 1 == delete(getQueryBuilder().deleteById(id.toString()));
@@ -139,6 +149,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
 	 * @return 受影响的行数
+	 * 
+	 * @see li.dao.AbstractDao#update(String, Object...)
 	 */
 	public Integer delete(String sql, Object... args) {
 		return update(getQueryBuilder().deleteBySql(sql, args));
@@ -146,6 +158,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 根据ID查询一条记录
+	 * 
+	 * @see li.dao.AbstractDao#find(String, Object...)
 	 */
 	public T findById(Object id) {
 		return find(getQueryBuilder().findById(id.toString()));
@@ -156,6 +170,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+	 * 
+	 * @see li.dao.AbstractDao#list(Page, String, Object...)
 	 */
 	public T find(String sql, Object... args) {
 		List<T> list = list(null, getQueryBuilder().find(sql, args));
@@ -164,6 +180,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 根据分页对象进行分页查询,如果page不为NULL,他会被自动设置总记录数
+	 * 
+	 * @see li.dao.AbstractDao#list(Page, String, Object...)
 	 */
 	public List<T> list(Page page) {
 		return list(page, getQueryBuilder().list(page));
@@ -232,6 +250,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 更新一个对象,根据ID得到对象,然后更新其他属性值
+	 * 
+	 * @see li.dao.AbstractDao#update(String, Object...)
 	 */
 	public Boolean update(T t) {
 		return 1 == update(getQueryBuilder().update(t));
@@ -239,6 +259,8 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
 	/**
 	 * 更新一个数据对象,忽略其中值为null的属性
+	 * 
+	 * @see li.dao.AbstractDao#update(String, Object...)
 	 */
 	public Boolean updateIgnoreNull(T t) {
 		return 1 == update(getQueryBuilder().updateIgnoreNull(t));
