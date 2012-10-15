@@ -123,7 +123,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 根据SQL条件查询记录数,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+	 * 根据SQL条件查询记录数
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
@@ -144,7 +144,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 根据SQL条件删除若干条数据,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+	 * 根据SQL条件删除若干条数据
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
@@ -166,7 +166,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 根据SQL条件查询一条记录,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+	 * 根据SQL条件查询一条记录
 	 * 
 	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
 	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
