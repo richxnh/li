@@ -208,7 +208,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	}
 
 	/**
-	 * 执行SQL查询并将结果集封装成List<Record>
+	 * 执行SQL查询并将结果集封装成Record或其子类的List
 	 */
 	public List<Record> query(Page page, String sql, Object... args) {
 		sql = getQueryBuilder().listBySql(page, sql, args);
