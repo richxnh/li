@@ -46,6 +46,7 @@ public class QueryRunner {
 		if (null == Trans.CONNECTION_MAP.get() || null == Trans.EXCEPTION.get()) {
 			try { // 如果未进入事务或事务中未出现异常,则执行后面的语句
 				log.info(sql + "-> " + connection.getClass().getName() + "@" + Integer.toHexString(connection.hashCode()));
+
 				preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				resultSet = preparedStatement.executeQuery();
 			} catch (Exception e) {
