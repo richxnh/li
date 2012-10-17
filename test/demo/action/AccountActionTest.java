@@ -57,7 +57,7 @@ public class AccountActionTest extends ActionTest {
 
 	@Test
 	public void save() {
-		accountAction.save(account);
+		accountAction.save(account.set("username", System.currentTimeMillis()));
 	}
 
 	@Test
