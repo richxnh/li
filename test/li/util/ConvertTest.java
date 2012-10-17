@@ -2,6 +2,8 @@ package li.util;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,17 @@ import li.dao.Record;
 import org.junit.Test;
 
 public class ConvertTest {
+	@Test
+	public void timeConvert() {
+		String[] times = { "19:48", "9:8", "09:8", "9:08", "1:1:1", "12:12:12", "2012-2-1", "2012/02/12", "2012-02-12 19:48", "2012/02/12 19:48", "2012-02-12 19:48:12", "2012/02/12 19:48:12" };
+		for (String time : times) {
+			Convert.toType(java.util.Date.class, time);
+			Convert.toType(java.sql.Date.class, time);
+			Convert.toType(Time.class, time);
+			Convert.toType(Timestamp.class, time);
+		}
+	}
+
 	@Test
 	public void fromJson() {
 		List<Record<?>> list = new ArrayList<>();

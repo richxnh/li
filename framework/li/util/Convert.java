@@ -2,6 +2,10 @@ package li.util;
 
 import java.lang.reflect.Array;
 import java.security.MessageDigest;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -112,34 +116,57 @@ public class Convert {
 	/**
 	 * 把传入的value转换为type类型
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T> T toType(Class<T> type, Object value) {
-		if ((null != type && null != value) && ((type.equals(Integer.TYPE)) || (type.equals(Integer.class)))) { // 两参数均不为空,且type为Integer类型
-			return (T) Integer.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Boolean.TYPE)) || (type.equals(Boolean.class)))) {
-			return (T) Boolean.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Long.TYPE)) || (type.equals(Long.class)))) {
-			return (T) Long.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Float.TYPE)) || (type.equals(Float.class)))) {
-			return (T) Float.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Double.TYPE)) || (type.equals(Double.class)))) {
-			return (T) Double.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Short.TYPE)) || (type.equals(Short.class)))) {
-			return (T) Short.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Byte.TYPE)) || (type.equals(Byte.class)))) {
-			return (T) Byte.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && ((type.equals(Character.TYPE)) || (type.equals(Character.class)))) {
-			return (T) Character.valueOf(value.toString().charAt(0));
-		} else if ((null != type && null != value) && (type.equals(java.util.Date.class))) {
-			return (T) java.sql.Date.valueOf(value.toString().trim());// *****这里也许有更好的处理方式
-		} else if ((null != type && null != value) && (type.equals(java.sql.Date.class))) {
-			return (T) java.sql.Date.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && (type.equals(java.sql.Time.class))) {
-			return (T) java.sql.Time.valueOf(value.toString().trim());
-		} else if ((null != type && null != value) && (type.equals(java.sql.Timestamp.class))) {
-			return (T) java.sql.Timestamp.valueOf(value.toString().trim());
-		} else {
-			return (T) value;
+		if (null != type && null != value) {// 两参数均不为空
+			if (type.equals(Integer.TYPE) || type.equals(Integer.class)) {// 基本类型数据转换
+				return (T) Integer.valueOf(value.toString().trim());
+			} else if (type.equals(Boolean.TYPE) || type.equals(Boolean.class)) {
+				return (T) Boolean.valueOf(value.toString().trim());
+			} else if (type.equals(Long.TYPE) || type.equals(Long.class)) {
+				return (T) Long.valueOf(value.toString().trim());
+			} else if (type.equals(Float.TYPE) || type.equals(Float.class)) {
+				return (T) Float.valueOf(value.toString().trim());
+			} else if (type.equals(Double.TYPE) || type.equals(Double.class)) {
+				return (T) Double.valueOf(value.toString().trim());
+			} else if (type.equals(Short.TYPE) || type.equals(Short.class)) {
+				return (T) Short.valueOf(value.toString().trim());
+			} else if (type.equals(Byte.TYPE) || type.equals(Byte.class)) {
+				return (T) Byte.valueOf(value.toString().trim());
+			} else if (type.equals(Character.TYPE) || type.equals(Character.class)) {
+				return (T) Character.valueOf(value.toString().charAt(0));
+			} else if (type.equals(Time.class)) {
+				return (T) new Time(toType(java.util.Date.class, value).getTime());// 日期时间类型数据转换
+			} else if (type.equals(Timestamp.class)) {
+				return (T) new Timestamp(toType(java.util.Date.class, value).getTime());
+			} else if (type.equals(java.sql.Date.class)) {
+				return (T) new java.sql.Date(toType(java.util.Date.class, value).getTime());
+			} else if (type.equals(java.util.Date.class)) {
+				String pattern = "";
+				if (Verify.regex(value.toString(), "^[0-9]{1,2}:[0-9]{1,2}$")) {// 表达式匹配
+					pattern = "HH:mm";
+				} else if (Verify.regex(value.toString(), "^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$")) {
+					pattern = "HH:mm:ss";
+				} else if (Verify.regex(value.toString(), "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")) {
+					pattern = "yyyy-MM-dd";
+				} else if (Verify.regex(value.toString(), "^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$")) {
+					pattern = "yyyy/MM/dd";
+				} else if (Verify.regex(value.toString(), "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}$")) {
+					pattern = "yyyy-MM-dd HH:mm";
+				} else if (Verify.regex(value.toString(), "^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}$")) {
+					pattern = "yyyy/MM/dd HH:mm";
+				} else if (Verify.regex(value.toString(), "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$")) {
+					pattern = "yyyy-MM-dd HH:mm:ss";
+				} else if (Verify.regex(value.toString(), "^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$")) {
+					pattern = "yyyy/MM/dd HH:mm:ss";
+				}
+				try {// 日期时间转换
+					return (T) new SimpleDateFormat(pattern).parse(value.toString());
+				} catch (ParseException e) {
+				}
+			}
 		}
+		return (T) value;// 缺省的返回方式
 	}
 
 	/**
