@@ -116,7 +116,6 @@ public class Convert {
 	/**
 	 * 把传入的value转换为type类型
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> T toType(Class<T> type, Object value) {
 		if (null != type && null != value) {// 两参数均不为空
 			if (type.equals(Integer.TYPE) || type.equals(Integer.class)) {// 基本类型数据转换
