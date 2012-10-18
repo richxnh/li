@@ -57,7 +57,7 @@ public class Reflect {
 	 * 构造一个新的实例,根据类型名和参数列表
 	 */
 	public static <T> T born(String type, Object... args) {
-		return (T) born(type, typesOf(args), args);
+		return (T) born(getType(type), typesOf(args), args);
 	}
 
 	/**
