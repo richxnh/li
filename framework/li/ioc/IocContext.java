@@ -87,7 +87,7 @@ public class IocContext {
 				for (Field field : bean.fields) {
 					log.info("Set Field: " + field.name + " " + field.value + " -> " + bean.type.getName());
 					if (Verify.basicType(field.type)) {// 基本类型,直接设值
-						Reflect.set(bean.instance, field.name, Convert.toType(field.type, field.value));
+						Reflect.set(bean.instance, field.name, field.value);
 					} else {// 非基本类型,设为相应的bean
 						Reflect.set(bean.instance, field.name, Ioc.get(field.type, field.value));
 					}
