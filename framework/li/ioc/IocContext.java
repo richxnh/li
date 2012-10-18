@@ -8,7 +8,6 @@ import li.aop.AopEnhancer;
 import li.aop.AopFilter;
 import li.model.Bean;
 import li.model.Field;
-import li.util.Convert;
 import li.util.Files;
 import li.util.Log;
 import li.util.Reflect;
