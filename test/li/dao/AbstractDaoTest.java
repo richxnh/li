@@ -45,8 +45,4 @@ public class AbstractDaoTest extends BaseTest {
 		dao.delete("WHERE username=:uname OR email=:eml OR id=?", map, 1);
 		// DELETE FROM t_account WHERE username='li' OR email='li@w.cn' OR id='1'
 	}
-
-	public void test2() {
-		dao.findById("");
-	}
 }

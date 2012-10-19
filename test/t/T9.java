@@ -41,30 +41,6 @@ public class T9 {
 		dao.list(page, "SELECT t_thread.#," + "t_member.# AS member_# " + "FROM t_thread,t_member " + "WHERE t_thread.forum_id=? " + "AND t_thread.member_id=t_member.id", 1);
 	}
 
-	public static void main3(String[] args) {
-
-		Thread threadDao = Ioc.get(Thread.class);
-
-		String sql1 = "SELECT t_thread.# as thread_#,t_member.# AS member_# FROM t_thread,t_member WHERE t_thread.id!=1 AND t_thread.member_id=t_member.id";
-
-		String sql2 = "SELECT t_thread.# FROM t_thread";
-		String sql3 = "SELECT t_thread.# AS thread_# FROM t_thread";
-
-		String sql4 = "SELECT t_thread.#,t_member.# AS member_# FROM t_thread,t_member";
-		// System.out.println(queryBuilder.setAlias(sql1));
-		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
-		// sql2));
-		// System.out.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
-		// sql3));
-		// System.err.println(queryBuilder.setAlias(Ioc.get(DataSource.class),
-		// sql4));
-
-		threadDao.findById(sql1);
-		threadDao.findById(sql2);
-		threadDao.findById(sql3);
-		threadDao.findById(sql4);
-	}
-
 	public static void main4(String[] args) throws Exception {
 		final Account accountDao = Ioc.get(Account.class);
 

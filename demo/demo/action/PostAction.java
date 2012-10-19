@@ -21,7 +21,7 @@ public class PostAction extends AbstractAction {
 
 	@At("post_get")
 	public void get(Integer id) {
-		setRequest("post", postDao.findById(id));
+		setRequest("post", postDao.find(id));
 		view("WEB-INF/view/post_get.jsp");
 	}
 
@@ -33,7 +33,7 @@ public class PostAction extends AbstractAction {
 
 	@At("post_edit")
 	public void edit(Integer id) {
-		setRequest("post", postDao.findById(id));
+		setRequest("post", postDao.find(id));
 		view("WEB-INF/view/post_edit.jsp");
 	}
 
@@ -45,7 +45,7 @@ public class PostAction extends AbstractAction {
 
 	@At("post_delete")
 	public void delete(Integer id, @Arg("thread_id") Integer threadId, Integer pn) {
-		postDao.deleteById(id);
+		postDao.delete(id);
 		redirect("thread?id=" + threadId + "&pn=" + pn);
 	}
 }

@@ -41,7 +41,7 @@ public class RecordTest extends BaseTest {
 	@Test
 	public void find() {
 		// assertNotNull(userDao.find(1));
-		System.out.println("li.dao.test.RecordTest.find()" + userDao.findById(1));
+		System.out.println("li.dao.test.RecordTest.find()" + userDao.find(1));
 	}
 
 	@Test

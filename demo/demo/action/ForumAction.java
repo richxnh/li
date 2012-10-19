@@ -27,7 +27,7 @@ public class ForumAction extends AbstractAction {
 	public void get(Integer id, @Arg("pn") Page page) {
 		setRequest("forums", forumDao.list(page.setPageNumber(1)));
 		setRequest("threads", threadDao.listByForumId(id, page));
-		setRequest("forum", forumDao.findById(id));
+		setRequest("forum", forumDao.find(id));
 		setSession("page", page);
 		view("forum_show");
 	}

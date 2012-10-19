@@ -139,7 +139,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 
 	 * @see li.dao.AbstractDao#delete(String, Object...)
 	 */
-	public Boolean deleteById(Object id) {
+	public Boolean delete(Number id) {
 		return 1 == delete(getQueryBuilder().deleteById(id.toString()));
 	}
 
@@ -161,7 +161,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 	 * 
 	 * @see li.dao.AbstractDao#find(String, Object...)
 	 */
-	public T findById(Object id) {
+	public T find(Number id) {
 		return find(getQueryBuilder().findById(id.toString()));
 	}
 

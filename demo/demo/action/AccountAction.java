@@ -28,7 +28,7 @@ public class AccountAction extends AbstractAction {
 
 	@At("account_delete")
 	public void delete(Integer id) {
-		accountDao.deleteById(id);
+		accountDao.delete(id);
 		redirect("account_list?pn=" + getParameter("pn"));
 	}
 
@@ -40,7 +40,7 @@ public class AccountAction extends AbstractAction {
 
 	@At("account_edit")
 	public void edit(Integer id) {
-		passParams("pn").setRequest("account", accountDao.findById(id));
+		passParams("pn").setRequest("account", accountDao.find(id));
 		forward("WEB-INF/view_jsp/account_edit.jsp");
 	}
 

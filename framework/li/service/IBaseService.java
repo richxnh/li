@@ -14,12 +14,12 @@ public interface IBaseService<T> {
 	/**
 	 * 删除
 	 */
-	public Boolean deleteById(Object id);
+	public Boolean delete(Number id);
 
 	/**
 	 * 查找
 	 */
-	public T findById(Object id);
+	public T find(Number id);
 
 	/**
 	 * 列表
