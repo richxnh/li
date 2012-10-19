@@ -1,6 +1,5 @@
 package li.quartz;
 
-import org.quartz.CronExpression;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -35,6 +34,7 @@ public abstract class Job {
 				public JobKey getKey() {
 					return new JobKey("haha");
 				}
+
 				public Class<? extends org.quartz.Job> getJobClass() {
 					return super.getJobClass();
 				}
