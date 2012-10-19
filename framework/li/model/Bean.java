@@ -83,7 +83,6 @@ public class Bean {
 	public static Bean getMeta(DataSource dataSource, Class<?> type) {
 		Bean bean = BEAN_MAP.get(type);
 		if (null == bean) {
-			log.info("Bean.getMeta() " + type.getName());
 			bean = new Bean();
 			Table table = type.getAnnotation(Table.class);
 			bean.table = (null == table || Verify.isEmpty(table.value())) ? type.getSimpleName() : table.value();

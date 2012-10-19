@@ -110,7 +110,6 @@ public abstract class Trans {
 			CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
 		} else {
 			this.map.put(hashCode() + "~!@#in_trans", true);
-			log.debug("Trans is melted in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 		}
 	}
 
@@ -122,7 +121,6 @@ public abstract class Trans {
 		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
 			for (Entry<Class<?>, Connection> entry : CONNECTION_MAP.get().entrySet()) {
 				entry.getValue().close();
-				log.debug("Closing " + entry.getValue().getClass().getName() + "@" + Integer.toHexString(entry.getValue().hashCode()) + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			}
 			CONNECTION_MAP.set(null);
 			EXCEPTION.set(null);

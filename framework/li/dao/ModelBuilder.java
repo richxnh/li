@@ -54,7 +54,6 @@ public class ModelBuilder {
 				}
 				list.add(t);
 			}
-			log.info("builded " + list.size() + " models, types of " + type.getName());
 		} catch (Exception e) {
 			throw new RuntimeException("Exception at li.dao.ModelBuilder.list()", e);
 		} finally {
