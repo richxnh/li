@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="config">
-		<xs:complexType>
-			<xs:sequence>
+	<!-- Root Element -->
+	<xs:element name="config" type="config_type" />
 
-				<xs:element name="beans">
-					<xs:complexType>
-						<xs:sequence>
+	<xs:complexType name="config_type">
+		<xs:sequence>
+			<xs:element name="beans" type="beans_type" />
+		</xs:sequence>
+	</xs:complexType>
 
-							<xs:element name="bean" maxOccurs="unbounded">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="property" minOccurs="0" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:attributeGroup ref="property_attribute" />
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-									<xs:attributeGroup ref="bean_attribute" />
-								</xs:complexType>
-							</xs:element>
+	<xs:complexType name="beans_type">
+		<xs:sequence>
+			<xs:element name="bean" maxOccurs="unbounded" type="bean_type" />
+		</xs:sequence>
+	</xs:complexType>
 
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+	<xs:complexType name="bean_type">
+		<xs:sequence>
+			<xs:element name="property" minOccurs="0" maxOccurs="unbounded" type="property_type" />
+		</xs:sequence>
+		<xs:attributeGroup ref="bean_attribute" />
+	</xs:complexType>
 
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+	<xs:complexType name="property_type">
+		<xs:attributeGroup ref="property_attribute" />
+	</xs:complexType>
 
 	<xs:attributeGroup name="bean_attribute">
 		<xs:attribute name="name" type="xs:string" />
