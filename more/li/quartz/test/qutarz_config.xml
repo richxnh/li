@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../framework/ioc.xsd">
+  <beans>
+    <bean class="li.quartz.test.HelloJob">
+    	<property name="trigger" value="0/1 * * * * ?"/>
+    </bean>
+    <bean class="li.quartz.test.HahaJob">
+    	<property name="trigger" value="0/1 * * * * ?"/>
+    </bean>
+  </beans>
+</config>
