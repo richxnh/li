@@ -2,10 +2,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../framework/ioc.xsd">
   <beans>
     <bean class="li.quartz.test.HelloJob">
-    	<property name="trigger" value="0/1 * * * * ?"/>
+    	<property name="trigger" value="0/3 * * * * ? *"/>
     </bean>
     <bean class="li.quartz.test.HahaJob">
-    	<property name="trigger" value="0/1 * * * * ?"/>
+    	<property name="trigger" value="0/7 * * * * ? *"/>
     </bean>
   </beans>
 </config>
