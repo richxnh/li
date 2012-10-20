@@ -25,9 +25,9 @@ public class ConvertTest {
 
 	@Test
 	public void fromJson() {
-		List<Record<?>> list = new ArrayList<>();
+		List<Record> list = new ArrayList<Record>();
 		for (int i = 0; i < 3; i++) {
-			Record<?> record = new Record<>();
+			Record record = new Record();
 			record.set("id", 1);
 			record.set("username", "li");
 			record.set("password", "wode");
@@ -37,7 +37,7 @@ public class ConvertTest {
 			System.out.println(Convert.fromJson(Record.class, Convert.toJson(record)));
 		}
 
-		List<List<Record<?>>> list2 = new ArrayList<>();
+		List<List<Record>> list2 = new ArrayList<List<Record>>();
 		list2.add(list);
 		list2.add(list);
 		list2.add(list);
@@ -57,9 +57,9 @@ public class ConvertTest {
 
 	@Test
 	public void toJson() {
-		List<Record<?>> list = new ArrayList<>();
+		List<Record> list = new ArrayList<Record>();
 		for (int i = 0; i < 3; i++) {
-			Record<?> record = new Record<>();
+			Record record = new Record();
 			record.set("id", 1);
 			record.set("username", "li");
 			record.set("password", "wode");

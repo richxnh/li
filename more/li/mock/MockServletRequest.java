@@ -60,7 +60,7 @@ class MockServletRequest implements ServletRequest {
 	}
 
 	public Enumeration<String> getAttributeNames() {
-		return new Vector<>(requestMap.keySet()).elements();
+		return new Vector<String>(requestMap.keySet()).elements();
 	}
 
 	public String getParameter(String key) {
@@ -73,7 +73,7 @@ class MockServletRequest implements ServletRequest {
 	}
 
 	public Enumeration<String> getParameterNames() {
-		return new Vector<>(parameterMap.keySet()).elements();
+		return new Vector<String>(parameterMap.keySet()).elements();
 	}
 
 	public String[] getParameterValues(String key) {

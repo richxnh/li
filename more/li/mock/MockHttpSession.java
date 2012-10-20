@@ -23,7 +23,7 @@ public class MockHttpSession implements HttpSession {
 
 	public MockHttpSession(ServletContext servletContext) {
 		this.servletContext = servletContext;
-		this.sessionMap = new HashMap<>();
+		this.sessionMap = new HashMap<String, Object>();
 	}
 
 	public ServletContext getServletContext() {

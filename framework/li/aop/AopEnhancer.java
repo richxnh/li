@@ -37,9 +37,9 @@ public class AopEnhancer {
 	 */
 	public static Object create(Class<?> type) {
 		// 构造这个类型所有方法的AopFilter的集合
-		final Map<Method, List<AopFilter>> filtersMap = new HashMap<>();
+		final Map<Method, List<AopFilter>> filtersMap = new HashMap<Method, List<AopFilter>>();
 		for (Method method : type.getDeclaredMethods()) {// 对每一个方法
-			List<AopFilter> filters = new ArrayList<>();
+			List<AopFilter> filters = new ArrayList<AopFilter>();
 			Aop aop = method.getAnnotation(Aop.class);
 			for (int i = 0; null != aop && i < aop.value().length; i++) {// 如果有@Aop注解,对每一个@Aop.value()的值
 				filters.add(Ioc.get(aop.value()[i]));
