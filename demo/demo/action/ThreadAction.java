@@ -4,6 +4,7 @@ import li.annotation.Arg;
 import li.annotation.At;
 import li.annotation.Bean;
 import li.annotation.Inject;
+import li.annotation.Trans;
 import li.mvc.AbstractAction;
 import li.util.Page;
 import demo.record.Post;
@@ -50,6 +51,7 @@ public class ThreadAction extends AbstractAction {
 	}
 
 	@At("thread_delete")
+	@Trans
 	public void delete(Integer id, @Arg("forum_id") Integer forumId, Integer pn) {
 		threadDao.delete(id);
 		postDao.deleteByThreadId(id);
