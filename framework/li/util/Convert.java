@@ -142,21 +142,21 @@ public class Convert {
 				return (T) new java.sql.Date(toType(java.util.Date.class, value).getTime());
 			} else if (type.equals(java.util.Date.class)) {
 				String pattern = "";
-				if (Verify.regex(value.toString().trim(), "^[0-9]{1,2}:[0-9]{1,2}$")) {// 表达式匹配
+				if (Verify.regex(value.toString().trim(), "^[0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {// 表达式匹配
 					pattern = "HH:mm";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {
 					pattern = "HH:mm:ss";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-3]{0,1}[0-9]{1}$")) {
 					pattern = "yyyy-MM-dd";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}/[0-1]{0,1}[0-9]{1}/[0-3]{0,1}[0-9]{1}$")) {
 					pattern = "yyyy/MM/dd";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-3]{0,1}[0-9]{1} [0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {
 					pattern = "yyyy-MM-dd HH:mm";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}/[0-1]{0,1}[0-9]{1}/[0-3]{0,1}[0-9]{1} [0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {
 					pattern = "yyyy/MM/dd HH:mm";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-3]{0,1}[0-9]{1} [0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {
 					pattern = "yyyy-MM-dd HH:mm:ss";
-				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}$")) {
+				} else if (Verify.regex(value.toString().trim(), "^[0-9]{4}/[0-1]{0,1}[0-9]{1}/[0-3]{0,1}[0-9]{1} [0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {
 					pattern = "yyyy/MM/dd HH:mm:ss";
 				}
 				try {// 日期时间转换
