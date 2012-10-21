@@ -2,7 +2,7 @@ package li.mail;
 
 import org.apache.commons.mail.SimpleEmail;
 
-public class T {
+public class CommonsMail {
 	private static final String[] MAILS = { "cdusj@qq.com", "154520174@qq.com", "1406678816@qq.com", "767702147@qq.com", "136122073@qq.com", "965245282@qq.com", "1694352061@qq.com", "1029207678@qq.com", "1019265060@qq.com", "821721345@qq.com", "847096360@qq.com", "863314346@qq.com", "55942119@qq.com" };
 
 	public static void main(String[] args) throws Exception {
