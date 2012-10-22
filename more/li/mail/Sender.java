@@ -50,4 +50,11 @@ public class Sender {
 			e.printStackTrace();
 		}
 	}
+
+	public void sendTo(Mail mail, String... to) {
+		for (String address : to) {
+			mail.setTo(address);
+			send(mail);
+		}
+	}
 }
