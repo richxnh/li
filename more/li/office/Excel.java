@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-public class T {
+public class Excel {
 	public static void main(String[] args) throws Exception {
 		File file = new File("F:\\PPS\\人力资源部\\2010会员档案总列表.xls");
 

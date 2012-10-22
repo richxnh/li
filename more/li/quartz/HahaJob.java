@@ -1,8 +1,6 @@
-package li.quartz.test;
+package li.quartz;
 
 import java.util.Date;
-
-import li.quartz.QuartzJob;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

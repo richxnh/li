@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import com.fivestars.interfaces.bbs.client.Client;
 import com.fivestars.interfaces.bbs.util.XMLHelper;
 
-public class T {
+public class Discuz {
 	public static void main(String[] args) throws Exception {
 		login("测试101", "wode");
 	}
