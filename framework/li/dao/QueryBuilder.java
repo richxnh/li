@@ -1,5 +1,6 @@
 package li.dao;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -252,7 +253,8 @@ public class QueryBuilder {
 			int toreplaceEnd = (asIndex > 0 && asIndex - end < 3) ? sql.indexOf("#", asIndex) + 1 : end;// 如果有AS,截取到AS后的第一个#,如果没有AS,截取到end
 			String toreplace = sql.substring(start, toreplaceEnd);// 求出被替换部分字符串
 			final String table = sql.substring(start, end - 2);// 求得表名
-			for (Field field : Field.list(dataSource, table)) {// 构造替换字符串
+			List<Field> fields = Field.list(dataSource, table);
+			for (Field field : fields) {// 构造替换字符串
 				if (asIndex > 0 && asIndex - end < 3) {// 如果有AS
 					String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如AS member_
 					replacement = replacement + (table + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS

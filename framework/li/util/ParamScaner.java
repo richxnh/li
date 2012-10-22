@@ -32,7 +32,8 @@ class ParamScaner {/* default class */
 			StringBuilder key = new StringBuilder();
 			key.append(method.getName()).append(',');
 			key.append('(');
-			for (Class<?> klass : method.getParameterTypes()) {
+			Class<?>[] types = method.getParameterTypes();
+			for (Class<?> klass : types) {
 				getDescriptor(key, klass);
 			}
 			key.append(')');

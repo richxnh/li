@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -199,8 +200,10 @@ public class Context {
 	public static String[] pathParams() {
 		Matcher matcher = Pattern.compile(".*" + getAction().path + ".*").matcher(getRequest().getRequestURL().toString());
 		String[] params = new String[matcher.groupCount()];
-		for (int i = 0; matcher.matches() && i < matcher.groupCount(); i++) {
-			params[i] = matcher.group(i + 1);
+		if (matcher.matches()) {
+			for (int i = 0; i < matcher.groupCount(); i++) {
+				params[i] = matcher.group(i + 1);
+			}
 		}
 		return params;
 	}
@@ -226,7 +229,8 @@ public class Context {
 	 */
 	public static <T> T get(Class<T> type, String prefix) {
 		T t = Reflect.born(type);
-		for (Entry<String, String[]> entry : getRequest().getParameterMap().entrySet()) {// 迭代ParameterMap
+		Set<Entry<String, String[]>> parameterSet = getRequest().getParameterMap().entrySet();
+		for (Entry<String, String[]> entry : parameterSet) {// 迭代ParameterMap
 			if (Verify.isEmpty(prefix) || Verify.startWith(entry.getKey(), prefix)) {// 前缀为空或者参数Key以前缀开头
 				String field = entry.getKey().substring(prefix.length());// 属性名
 				Reflect.set(t, field, entry.getValue()[0]);

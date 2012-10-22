@@ -63,7 +63,8 @@ public class Field {
 		if (null == fields) { // 如果缓存中没有
 			log.info("Field.list() by type " + targetType.getName());
 			fields = new ArrayList<Field>();
-			for (java.lang.reflect.Field field : targetType.getDeclaredFields()) {
+			java.lang.reflect.Field[] declaredFields = targetType.getDeclaredFields();
+			for (java.lang.reflect.Field field : declaredFields) {
 				li.annotation.Field column = field.getAnnotation(li.annotation.Field.class);
 				if (!annotated || null != column) {// 如果不需要Field注解或者Field注解不为空
 					li.model.Field attribute = new li.model.Field();

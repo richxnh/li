@@ -57,13 +57,15 @@ public class Convert {
 		final String JSON_REGEX = "^.*}[]]{0,1},[\\[]{0,1}\\{.*$", JSON_SPLIT = "}[]]{0,1},[\\[]{0,1}\\{";
 		List<T> list = new ArrayList<T>();
 		if (Verify.regex(json, JSON_REGEX)) {// 处理多个对象
-			for (String one : json.split(JSON_SPLIT)) {
+			String[] array = json.split(JSON_SPLIT);
+			for (String one : array) {
 				list.addAll(fromJson(type, one)); // 这里递归调用
 			}
 			return (List<T>) list;// 返回
 		}
 		T one = Reflect.born(type);// 处理单个对象
-		for (String field : json.split(",")) {
+		String[] array = json.split(",");
+		for (String field : array) {
 			String[] strs = field.split(":");
 			String key = strs[0].substring(strs[0].indexOf('"') + 1, strs[0].lastIndexOf('"'));
 			String value = strs[1].substring(strs[1].indexOf('"') + 1, strs[1].lastIndexOf('"'));

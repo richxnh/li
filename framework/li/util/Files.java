@@ -48,7 +48,8 @@ public class Files {
 		if (file.isFile() && Verify.regex(file.getPath(), regex)) {
 			list.add(file.getPath());
 		} else if (increase && file.isDirectory() && null != file.listFiles()) {
-			for (File f : file.listFiles()) {
+			File[] files = file.listFiles();
+			for (File f : files) {
 				list.addAll(list(f, regex, increase)); // 递归调用本方法
 			}
 		}

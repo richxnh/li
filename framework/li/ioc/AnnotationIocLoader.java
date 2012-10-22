@@ -36,7 +36,8 @@ public class AnnotationIocLoader {
 				iocBean.type = type;
 				iocBean.name = beanAnnotation.value();
 
-				for (Field field : type.getDeclaredFields()) {
+				Field[] fields = type.getDeclaredFields();
+				for (Field field : fields) {
 					Inject inject = field.getAnnotation(Inject.class);
 					if (null != inject) {
 						li.model.Field attribute = new li.model.Field();// 一个新的Field

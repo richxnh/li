@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import li.dao.Record;
 
@@ -205,7 +206,8 @@ public class Reflect {
 	 * @return 返回目的对象
 	 */
 	public static <T> T copy(Object src, T dest) {
-		for (li.model.Field attribute : li.model.Field.list(dest.getClass(), false)) {// 迭代目标对象中的每一个属性
+		List<li.model.Field> fields = li.model.Field.list(dest.getClass(), false);
+		for (li.model.Field attribute : fields) {// 迭代目标对象中的每一个属性
 			Field field = getField(src.getClass(), attribute.name);
 			if (null != field && !Modifier.isFinal(field.getModifiers())) {// 如果两个对象中均有此属性,且目标对象中的此属性可写
 				set(dest, attribute.name, get(src, attribute.name));

@@ -49,7 +49,8 @@ public class ActionContext {
 
 			ACTION_CONTEXT = new ActionContext();
 			for (Bean bean : IocContext.getInstance().BEANS) {
-				for (Method method : bean.type.getDeclaredMethods()) {
+				Method[] methods = bean.type.getDeclaredMethods();
+				for (Method method : methods) {
 					At at = method.getAnnotation(At.class);
 					if (null != at) {
 						for (String path : at.value()) {
