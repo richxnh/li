@@ -34,7 +34,7 @@ public abstract class Spider {
 	/**
 	 * down一个页面
 	 */
-	public Element getContent(String url) {
+	public static Element getContent(String url) {
 		System.err.println(url);
 		try {
 			return Jsoup.connect(url).get();

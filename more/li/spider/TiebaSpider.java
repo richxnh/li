@@ -7,8 +7,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class TiebaSpider extends Spider {
+	private static final String URL = "http://tieba.baidu.com";
+
 	public String startUrl() {
-		return "http://tieba.baidu.com/f?kw=%B3%C9%B6%BC%B4%F3%D1%A7";
+		return URL + "/f?kw=%B3%C9%B6%BC%B4%F3%D1%A7";
 	}
 
 	public List<Thread> getThreads(Element content) {
@@ -16,7 +18,7 @@ public class TiebaSpider extends Spider {
 		Elements elements = content.select("a.j_th_tit");
 		for (Element element : elements) {
 			Thread thread = new Thread();
-			thread.setUrl("http://tieba.baidu.com" + element.attr("href"));
+			thread.setUrl(URL + element.attr("href"));
 			thread.setSubject(element.html());
 			threads.add(thread);
 		}
@@ -26,7 +28,7 @@ public class TiebaSpider extends Spider {
 	public String nextThreadsPageUrl(Element content) {
 		Elements elements = content.select("a.next");
 		if (null != elements) {
-			return "http://tieba.baidu.com" + elements.attr("href");
+			return URL + elements.attr("href");
 		}
 		return null;
 	}
@@ -47,7 +49,7 @@ public class TiebaSpider extends Spider {
 		if (null != elements) {
 			for (Element element : elements) {
 				if (element.html().contains("下一页")) {
-					return "http://tieba.baidu.com" + element.attr("href");
+					return URL + element.attr("href");
 				}
 			}
 		}
