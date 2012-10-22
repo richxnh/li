@@ -14,9 +14,11 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class Sender {
-	private Session session = null;
+	private Session session;
+	private String username;
 
 	public Sender(String host, final String username, final String password) {
+		this.username = username;
 		Properties properties = new Properties();
 		properties.put("mail.smtp.host", host);
 		properties.put("mail.smtp.auth", true);
@@ -29,6 +31,9 @@ public class Sender {
 	}
 
 	public void send(Mail mail) {
+		if (null == mail.getFrom() && null != username) {
+			mail.setFrom(username);
+		}
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(mail.getFrom()));
