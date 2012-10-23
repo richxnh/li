@@ -5,4 +5,15 @@
 	<div>例如我们正在举办的活动,兼职招聘信息等</div>
 	<br/>
 	<div>${name} ${date}</div>
+	<div>
+		<%
+			var a = 0;
+			while(a < 9){
+		%>
+				${a},
+		<%
+				a = a + 1;
+			}
+		%>
+	</div>
 </div>
