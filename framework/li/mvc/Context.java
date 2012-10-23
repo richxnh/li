@@ -78,28 +78,24 @@ public class Context {
 		map.put("request", getRequest());
 		map.put("response", getResponse());
 		map.put("session", getSession());
-
 		// 1. 存入servletContext的值
 		Enumeration<String> servletContextEnumeration = getServletContext().getAttributeNames();
 		while (servletContextEnumeration.hasMoreElements()) {
 			String name = servletContextEnumeration.nextElement();
 			map.put(name, getServletContext().getAttribute(name));
 		}
-
 		// 2. 存入session的值
 		Enumeration<String> sessionEnumeration = getSession().getAttributeNames();
 		while (sessionEnumeration.hasMoreElements()) {
 			String name = sessionEnumeration.nextElement();
 			map.put(name, getSession().getAttribute(name));
 		}
-
 		// 3. 存入request的值
 		Enumeration<String> requestEnumeration = getRequest().getAttributeNames();
 		while (requestEnumeration.hasMoreElements()) {// request
 			String name = requestEnumeration.nextElement();
 			map.put(name, getRequest().getAttribute(name));
 		}
-
 		return map;
 	}
 
