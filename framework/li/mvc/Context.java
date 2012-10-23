@@ -397,7 +397,8 @@ public class Context {
 				Log.put("groupTemplate", groupTemplate);
 			}
 			Object template = Reflect.invoke(groupTemplate, "getFileTemplate", path);// 生成模板
-			for (Entry<String, Object> entry : getAttributes().entrySet()) {
+			Set<Entry<String, Object>> attributes = getAttributes().entrySet();
+			for (Entry<String, Object> entry : attributes) {
 				Reflect.invoke(template, "set", new Class[] { String.class, Object.class }, new Object[] { entry.getKey(), entry.getValue() });// 设置变量
 			}
 			Reflect.invoke(template, "getText", new Class[] { Writer.class }, new Object[] { getResponse().getWriter() });// merge 模板和模型，将内容输出到Writer里

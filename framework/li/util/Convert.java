@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import li.dao.Record;
 import li.model.Field;
@@ -39,11 +40,13 @@ public class Convert {
 		}
 		String json = "{";// 处理单个对象
 		if (Record.class.isAssignableFrom(target.getClass())) {// 如果是Record
-			for (Entry<String, Object> entry : ((Record<?>) target).entrySet()) {// Record的每个属性
+			Set<Entry<String, Object>> entries = ((Record<?>) target).entrySet();
+			for (Entry<String, Object> entry : entries) {// Record的每个属性
 				json += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
 			}
 		} else {// 不是Record，按照POJO处理
-			for (Field field : Field.list(target.getClass(), true)) {// POJO的每个属性
+			List<Field> fields = Field.list(target.getClass(), true);
+			for (Field field : fields) {// POJO的每个属性
 				json += "\"" + field.name + "\":\"" + Reflect.get(target, field.name) + "\",";
 			}
 		}

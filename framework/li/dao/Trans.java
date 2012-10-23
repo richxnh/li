@@ -118,8 +118,9 @@ public abstract class Trans {
 	 */
 	private void end() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
-			for (Entry<Class<?>, Connection> entry : CONNECTION_MAP.get().entrySet()) {
+		Map<Class<?>, Connection> connectionMap = CONNECTION_MAP.get();
+		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) { // Trans in Trans 时候不会重复执行
+			for (Entry<Class<?>, Connection> entry : connectionMap.entrySet()) {
 				entry.getValue().close();
 			}
 			CONNECTION_MAP.set(null);
@@ -133,8 +134,9 @@ public abstract class Trans {
 	 */
 	private void commit() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) {
-			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
+		Map<Class<?>, Connection> connectionMap = CONNECTION_MAP.get();
+		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) {
+			for (Entry<Class<?>, Connection> connection : connectionMap.entrySet()) {
 				connection.getValue().commit();
 				log.debug("Trans.commit() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			}
@@ -146,8 +148,9 @@ public abstract class Trans {
 	 */
 	private void rollback() throws Exception {
 		StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != CONNECTION_MAP.get()) {
-			for (Entry<Class<?>, Connection> connection : CONNECTION_MAP.get().entrySet()) {
+		Map<Class<?>, Connection> connectionMap = CONNECTION_MAP.get();
+		if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) {
+			for (Entry<Class<?>, Connection> connection : connectionMap.entrySet()) {
 				connection.getValue().rollback();
 				log.debug("Trans.rollback() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
 			}
