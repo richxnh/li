@@ -73,34 +73,11 @@
 			<input name="account2.username" value="account2.username"/>
 			<input type="submit" value="submit"/>
 		</form>
-		
-		
 		<br/><br/><br/><br/><br/>
-
 		<form action="upload" method="post" enctype="multipart/form-data">
 			<input type="file" name="file_input_name"/>
 			<input type="file" name="file_input_name"/>
 			<input type="submit" value="上传"/>
-		</form>
-			
-
-		<form action="testGet" method="GET">
-			<input type="submit" value="testGet/GET"/>
-		</form>
-		<form action="testGet" method="POST">
-			<input type="submit" value="testGet/POST"/>
-		</form>
-		<form action="testPost" method="GET">
-			<input type="submit" value="testPost/GET"/>
-		</form>
-		<form action="testPost" method="POST">
-			<input type="submit" value="testPost/POST"/>
-		</form>
-		<form action="testAny" method="GET">
-			<input type="submit" value="testAny/GET"/>
-		</form>
-		<form action="testAny" method="POST">
-			<input type="submit" value="testAny/POST"/>
 		</form>
 	</body>
 </html>
