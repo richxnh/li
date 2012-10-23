@@ -31,14 +31,17 @@ public class DemoActionTest extends ActionTest {
 
 	@Test
 	public void redirect() {
+		demoAction.redirect("g.cn");
 	}
 
 	@Test
 	public void write() {
+		demoAction.write("测试写内容到页面");
 	}
 
 	@Test
 	public void view() {
+		demoAction.view("wt:测试view方法");
 	}
 
 	@Test
