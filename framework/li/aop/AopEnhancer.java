@@ -42,7 +42,7 @@ public class AopEnhancer {
 		for (Method method : methods) {// 对每一个方法
 			List<AopFilter> filters = new ArrayList<AopFilter>();
 			Aop aop = method.getAnnotation(Aop.class);
-			for (int i = 0; null != aop && i < aop.value().length; i++) {// 如果有@Aop注解,对每一个@Aop.value()的值
+			for (int length = (null == aop ? -1 : aop.value().length), i = 0; i < length; i++) {// 如果有@Aop注解,对每一个@Aop.value()的值
 				filters.add(Ioc.get(aop.value()[i]));
 			}
 			if (null != method.getAnnotation(li.annotation.Trans.class)) {// 如果有@Trans注解

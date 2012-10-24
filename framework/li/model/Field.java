@@ -123,7 +123,7 @@ public class Field {
 		List<Field> fields = new ArrayList<Field>();
 		try {
 			ResultSetMetaData meta = (null == resultSet ? null : resultSet.getMetaData());
-			for (int i = 1; (null != meta && i <= meta.getColumnCount()); i++) {
+			for (int columnCount = (null == meta ? -1 : meta.getColumnCount()), i = 1; i <= columnCount; i++) {
 				Field attribute = new Field();
 				attribute.name = attribute.column = meta.getColumnLabel(i);
 				fields.add(attribute);

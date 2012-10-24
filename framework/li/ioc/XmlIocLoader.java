@@ -32,13 +32,13 @@ public class XmlIocLoader {
 		List<Bean> beans = new ArrayList<Bean>();
 		for (String filePath : fileList) {
 			NodeList beanNodes = (NodeList) Files.xpath(Files.build(filePath), "//bean", XPathConstants.NODESET);
-			for (int i = 0; null != beanNodes && i < beanNodes.getLength(); i++) {
+			for (int length = (null == beanNodes ? -1 : beanNodes.getLength()), i = 0; i < length; i++) {
 				Bean iocBean = new Bean();// 一个新的Bean
 				iocBean.type = Reflect.getType(Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING).toString());
 				iocBean.name = Files.xpath(beanNodes.item(i), "@name", XPathConstants.STRING).toString();
 
 				NodeList propertyNodes = (NodeList) Files.xpath(beanNodes.item(i), "property", XPathConstants.NODESET);
-				for (int m = 0; null != propertyNodes && m < propertyNodes.getLength(); m++) {
+				for (int len = (null == propertyNodes ? -1 : propertyNodes.getLength()), m = 0; m < len; m++) {
 					Field field = new Field();// 一个新的Field
 					field.name = (String) Files.xpath(propertyNodes.item(m), "@name", XPathConstants.STRING);
 					field.type = Reflect.fieldType(iocBean.type, field.name);
