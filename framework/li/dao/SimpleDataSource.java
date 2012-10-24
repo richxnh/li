@@ -16,41 +16,41 @@ import javax.sql.DataSource;
  * @version 0.1.2 (2012-05-08)
  */
 public class SimpleDataSource implements DataSource {
-	private String url;
-	private String username;
-	private String password;
+    private String url;
+    private String username;
+    private String password;
 
-	public Connection getConnection() throws SQLException {
-		return getConnection(this.username, this.password);
-	}
+    public Connection getConnection() throws SQLException {
+        return getConnection(this.username, this.password);
+    }
 
-	public Connection getConnection(String username, String password) throws SQLException {
-		return DriverManager.getConnection(this.url, username, password);
-	}
+    public Connection getConnection(String username, String password) throws SQLException {
+        return DriverManager.getConnection(this.url, username, password);
+    }
 
-	public int getLoginTimeout() throws SQLException {
-		return 0;
-	}
+    public int getLoginTimeout() throws SQLException {
+        return 0;
+    }
 
-	public PrintWriter getLogWriter() throws SQLException {
-		return new PrintWriter(System.out);
-	}
+    public PrintWriter getLogWriter() throws SQLException {
+        return new PrintWriter(System.out);
+    }
 
-	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		return null;
-	}
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        return null;
+    }
 
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		return false;
-	}
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return false;
+    }
 
-	public void setLoginTimeout(int seconds) throws SQLException {
-	}
+    public void setLoginTimeout(int seconds) throws SQLException {
+    }
 
-	public void setLogWriter(PrintWriter out) throws SQLException {
-	}
+    public void setLogWriter(PrintWriter out) throws SQLException {
+    }
 
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		return null;
-	}
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        return null;
+    }
 }

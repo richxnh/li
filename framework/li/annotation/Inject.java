@@ -14,10 +14,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Inject {
-	/**
-	 * 需要注入的Bean的名称或者基本类型数据的值
-	 * 
-	 * @see li.util.Verify#basicType(Class)
-	 */
-	public String value() default "";
+    /**
+     * 需要注入的Bean的名称或者基本类型数据的值
+     * 
+     * @see li.util.Verify#basicType(Class)
+     */
+    public String value() default "";
 }

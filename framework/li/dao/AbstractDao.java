@@ -20,249 +20,249 @@ import li.util.Reflect;
  * @version 0.1.7 (2012-06-26)
  */
 public class AbstractDao<T> implements IBaseDao<T> {
-	private static final Log log = Log.init();
+    private static final Log log = Log.init();
 
-	/**
-	 * 泛型参数的实际类型,即是数据对象类型
-	 */
-	private Class<T> modelType;
+    /**
+     * 泛型参数的实际类型,即是数据对象类型
+     */
+    private Class<T> modelType;
 
-	/**
-	 * 存储数据对象结构
-	 */
-	private Bean beanMeta;
+    /**
+     * 存储数据对象结构
+     */
+    private Bean beanMeta;
 
-	/**
-	 * QueryBuilder,你可以通过Ioc配置
-	 */
-	private QueryBuilder queryBuilder;
+    /**
+     * QueryBuilder,你可以通过Ioc配置
+     */
+    private QueryBuilder queryBuilder;
 
-	/**
-	 * 当前Dao的DataSource,可以通过Ioc配置
-	 */
-	private DataSource dataSource;
+    /**
+     * 当前Dao的DataSource,可以通过Ioc配置
+     */
+    private DataSource dataSource;
 
-	/**
-	 * 通过泛型参数得到modelType
-	 * 
-	 * @see li.util.Reflect#actualType(Class, Integer)
-	 */
-	protected Class<T> getType() {
-		if (null == this.modelType) {
-			this.modelType = (Class<T>) Reflect.actualType(getClass(), 0); // 通过泛型参数得到modelType
-		}
-		return this.modelType;
-	}
+    /**
+     * 通过泛型参数得到modelType
+     * 
+     * @see li.util.Reflect#actualType(Class, Integer)
+     */
+    protected Class<T> getType() {
+        if (null == this.modelType) {
+            this.modelType = (Class<T>) Reflect.actualType(getClass(), 0); // 通过泛型参数得到modelType
+        }
+        return this.modelType;
+    }
 
-	/**
-	 * 得到当前Dao所操作的数据对象的结构
-	 * 
-	 * @see li.model.Bean#getMeta(DataSource, Class)
-	 */
-	protected Bean getBeanMeta() {
-		if (null == this.beanMeta) {
-			this.beanMeta = Bean.getMeta(getDataSource(), getType());
-		}
-		return this.beanMeta;
-	}
+    /**
+     * 得到当前Dao所操作的数据对象的结构
+     * 
+     * @see li.model.Bean#getMeta(DataSource, Class)
+     */
+    protected Bean getBeanMeta() {
+        if (null == this.beanMeta) {
+            this.beanMeta = Bean.getMeta(getDataSource(), getType());
+        }
+        return this.beanMeta;
+    }
 
-	/**
-	 * 得到SQL构造器,可以覆盖这个方法来配置QueryBuilder
-	 * 
-	 * @see li.dao.QueryBuilder#QueryBuilder(DataSource, Bean)
-	 */
-	protected QueryBuilder getQueryBuilder() {
-		if (null == this.queryBuilder) {
-			this.queryBuilder = new QueryBuilder(getDataSource(), getBeanMeta());
-		}
-		return this.queryBuilder;
-	}
+    /**
+     * 得到SQL构造器,可以覆盖这个方法来配置QueryBuilder
+     * 
+     * @see li.dao.QueryBuilder#QueryBuilder(DataSource, Bean)
+     */
+    protected QueryBuilder getQueryBuilder() {
+        if (null == this.queryBuilder) {
+            this.queryBuilder = new QueryBuilder(getDataSource(), getBeanMeta());
+        }
+        return this.queryBuilder;
+    }
 
-	/**
-	 * 如果还没有注入dataSource,则尝试次从Ioc中搜索DataSource类型的Bean, 可覆盖这个方法来配置DataSource
-	 */
-	protected DataSource getDataSource() {
-		if (null == this.dataSource) {
-			this.dataSource = Ioc.get(DataSource.class);
-			log.warn("DataSource not injected for " + this + ",Tring to search one more time");
-		}
-		return this.dataSource;
-	}
+    /**
+     * 如果还没有注入dataSource,则尝试次从Ioc中搜索DataSource类型的Bean, 可覆盖这个方法来配置DataSource
+     */
+    protected DataSource getDataSource() {
+        if (null == this.dataSource) {
+            this.dataSource = Ioc.get(DataSource.class);
+            log.warn("DataSource not injected for " + this + ",Tring to search one more time");
+        }
+        return this.dataSource;
+    }
 
-	/**
-	 * 得到一个Connection,从Trans或者从Datasource
-	 * 
-	 * @see li.dao.Trans
-	 * @see li.dao.QueryRunner
-	 */
-	protected Connection getConnection() {
-		try {
-			if (null == Trans.CONNECTION_MAP.get()) {// 如果未进入事务
-				return this.getDataSource().getConnection();// 则简单获取一个connection
-			} else { // 如果已经进入事务
-				Connection connection = Trans.CONNECTION_MAP.get().get(getClass()); // 从connectionMap中得到缓存的connection
-				if (null == connection || connection.isClosed()) { // 没有缓存这个Dao的connection或已被关闭
-					connection = this.getDataSource().getConnection(); // 获取一个新的connection
-					connection.setAutoCommit(false); // 设置为不自动提交
-					Trans.CONNECTION_MAP.get().put(getClass(), connection); // 缓存connection
-				}
-				return connection; // 返回这个connection
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("error to connect to the database", e);
-		}
-	}
+    /**
+     * 得到一个Connection,从Trans或者从Datasource
+     * 
+     * @see li.dao.Trans
+     * @see li.dao.QueryRunner
+     */
+    protected Connection getConnection() {
+        try {
+            if (null == Trans.CONNECTION_MAP.get()) {// 如果未进入事务
+                return this.getDataSource().getConnection();// 则简单获取一个connection
+            } else { // 如果已经进入事务
+                Connection connection = Trans.CONNECTION_MAP.get().get(getClass()); // 从connectionMap中得到缓存的connection
+                if (null == connection || connection.isClosed()) { // 没有缓存这个Dao的connection或已被关闭
+                    connection = this.getDataSource().getConnection(); // 获取一个新的connection
+                    connection.setAutoCommit(false); // 设置为不自动提交
+                    Trans.CONNECTION_MAP.get().put(getClass(), connection); // 缓存connection
+                }
+                return connection; // 返回这个connection
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("error to connect to the database", e);
+        }
+    }
 
-	/**
-	 * 查询对象对应的表的总记录数
-	 * 
-	 * @see li.dao.AbstractDao#count(String, Object...)
-	 */
-	public Integer count() {
-		return count(getQueryBuilder().count());
-	}
+    /**
+     * 查询对象对应的表的总记录数
+     * 
+     * @see li.dao.AbstractDao#count(String, Object...)
+     */
+    public Integer count() {
+        return count(getQueryBuilder().count());
+    }
 
-	/**
-	 * 根据SQL条件查询记录数
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 */
-	public Integer count(String sql, Object... args) {
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, queryRunner.executeQuery(getQueryBuilder().countBySql(sql, args)));
-		return Integer.valueOf(modelBuilder.value("COUNT(*)", true, true));
-	}
+    /**
+     * 根据SQL条件查询记录数
+     * 
+     * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+     * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+     */
+    public Integer count(String sql, Object... args) {
+        QueryRunner queryRunner = new QueryRunner(getConnection());
+        ModelBuilder modelBuilder = new ModelBuilder(queryRunner, queryRunner.executeQuery(getQueryBuilder().countBySql(sql, args)));
+        return Integer.valueOf(modelBuilder.value("COUNT(*)", true, true));
+    }
 
-	/**
-	 * 删除ID等于传入参数的一条记录,如果存在的话
-	 * 
-	 * @see li.dao.AbstractDao#delete(String, Object...)
-	 */
-	public Boolean delete(Number id) {
-		return 1 == delete(getQueryBuilder().deleteById(id.toString()));
-	}
+    /**
+     * 删除ID等于传入参数的一条记录,如果存在的话
+     * 
+     * @see li.dao.AbstractDao#delete(String, Object...)
+     */
+    public Boolean delete(Number id) {
+        return 1 == delete(getQueryBuilder().deleteById(id.toString()));
+    }
 
-	/**
-	 * 根据SQL条件删除若干条数据
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 * @return 受影响的行数
-	 * 
-	 * @see li.dao.AbstractDao#update(String, Object...)
-	 */
-	public Integer delete(String sql, Object... args) {
-		return update(getQueryBuilder().deleteBySql(sql, args));
-	}
+    /**
+     * 根据SQL条件删除若干条数据
+     * 
+     * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+     * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+     * @return 受影响的行数
+     * 
+     * @see li.dao.AbstractDao#update(String, Object...)
+     */
+    public Integer delete(String sql, Object... args) {
+        return update(getQueryBuilder().deleteBySql(sql, args));
+    }
 
-	/**
-	 * 根据ID查询一条记录
-	 * 
-	 * @see li.dao.AbstractDao#find(String, Object...)
-	 */
-	public T find(Number id) {
-		return find(getQueryBuilder().findById(id.toString()));
-	}
+    /**
+     * 根据ID查询一条记录
+     * 
+     * @see li.dao.AbstractDao#find(String, Object...)
+     */
+    public T find(Number id) {
+        return find(getQueryBuilder().findById(id.toString()));
+    }
 
-	/**
-	 * 根据SQL条件查询一条记录
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 * 
-	 * @see li.dao.AbstractDao#list(Page, String, Object...)
-	 */
-	public T find(String sql, Object... args) {
-		List<T> list = list(null, getQueryBuilder().find(sql, args));
-		return null != list && list.size() > 0 ? list.get(0) : null;
-	}
+    /**
+     * 根据SQL条件查询一条记录
+     * 
+     * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+     * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+     * 
+     * @see li.dao.AbstractDao#list(Page, String, Object...)
+     */
+    public T find(String sql, Object... args) {
+        List<T> list = list(null, getQueryBuilder().find(sql, args));
+        return null != list && list.size() > 0 ? list.get(0) : null;
+    }
 
-	/**
-	 * 根据分页对象进行分页查询,如果page不为NULL,他会被自动设置总记录数
-	 * 
-	 * @see li.dao.AbstractDao#list(Page, String, Object...)
-	 */
-	public List<T> list(Page page) {
-		return list(page, getQueryBuilder().list(page));
-	}
+    /**
+     * 根据分页对象进行分页查询,如果page不为NULL,他会被自动设置总记录数
+     * 
+     * @see li.dao.AbstractDao#list(Page, String, Object...)
+     */
+    public List<T> list(Page page) {
+        return list(page, getQueryBuilder().list(page));
+    }
 
-	/**
-	 * 根据SQL条件和分页对象进行分页查询,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 */
-	public List<T> list(Page page, String sql, Object... args) {
-		sql = getQueryBuilder().listBySql(page, sql, args);
+    /**
+     * 根据SQL条件和分页对象进行分页查询,SQL语句可以从WHERE开始写,当然也可以是完整的SQL
+     * 
+     * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+     * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+     */
+    public List<T> list(Page page, String sql, Object... args) {
+        sql = getQueryBuilder().listBySql(page, sql, args);
 
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		ResultSet resultSet = queryRunner.executeQuery(sql);
-		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
+        QueryRunner queryRunner = new QueryRunner(getConnection());
+        ResultSet resultSet = queryRunner.executeQuery(sql);
+        ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
-		if (null != resultSet && null != page) {
-			page.setRecordCount(count(sql));
-		}
-		Integer count = null == page ? 18 : page.getPageSize();
-		return modelBuilder.list(getType(), getBeanMeta().fields, count, true);
-	}
+        if (null != resultSet && null != page) {
+            page.setRecordCount(count(sql));
+        }
+        Integer count = null == page ? 18 : page.getPageSize();
+        return modelBuilder.list(getType(), getBeanMeta().fields, count, true);
+    }
 
-	/**
-	 * 执行SQL查询并将结果集封装成Record或其子类的List
-	 */
-	public List<Record> query(Page page, String sql, Object... args) {
-		sql = getQueryBuilder().listBySql(page, sql, args);
+    /**
+     * 执行SQL查询并将结果集封装成Record或其子类的List
+     */
+    public List<Record> query(Page page, String sql, Object... args) {
+        sql = getQueryBuilder().listBySql(page, sql, args);
 
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		ResultSet resultSet = queryRunner.executeQuery(sql);
-		ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
+        QueryRunner queryRunner = new QueryRunner(getConnection());
+        ResultSet resultSet = queryRunner.executeQuery(sql);
+        ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
-		if (null != resultSet && null != page) {
-			page.setRecordCount(count(sql));
-		}
-		Class<?> type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
-		Integer count = null == page ? 18 : page.getPageSize();
-		return (List<Record>) modelBuilder.list(type, Field.list(resultSet), count, true);
-	}
+        if (null != resultSet && null != page) {
+            page.setRecordCount(count(sql));
+        }
+        Class<?> type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
+        Integer count = null == page ? 18 : page.getPageSize();
+        return (List<Record>) modelBuilder.list(type, Field.list(resultSet), count, true);
+    }
 
-	/**
-	 * 向数据库中插入一条记录,save方法完成后,对象的ID将会被设值
-	 */
-	public Boolean save(T t) {
-		QueryRunner queryRunner = new QueryRunner(getConnection());
-		Integer updateCount = queryRunner.executeUpdate(getQueryBuilder().save(t));
+    /**
+     * 向数据库中插入一条记录,save方法完成后,对象的ID将会被设值
+     */
+    public Boolean save(T t) {
+        QueryRunner queryRunner = new QueryRunner(getConnection());
+        Integer updateCount = queryRunner.executeUpdate(getQueryBuilder().save(t));
 
-		Reflect.set(t, getBeanMeta().getId().name, queryRunner.LAST_INSERT_ID);// 设置对象ID为最后主键值
+        Reflect.set(t, getBeanMeta().getId().name, queryRunner.LAST_INSERT_ID);// 设置对象ID为最后主键值
 
-		return 1 == updateCount;
-	}
+        return 1 == updateCount;
+    }
 
-	/**
-	 * 执行更新类的自定义SQL
-	 * 
-	 * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
-	 * @param args 替换sql中占位符的值,或者对应具名占位符的Map
-	 * @return 受影响的行数
-	 */
-	public Integer update(String sql, Object... args) {
-		return new QueryRunner(getConnection()).executeUpdate(getQueryBuilder().updateBySql(sql, args));
-	}
+    /**
+     * 执行更新类的自定义SQL
+     * 
+     * @param sql 传入的sql语句,可以包含'?'占位符和具名占位符
+     * @param args 替换sql中占位符的值,或者对应具名占位符的Map
+     * @return 受影响的行数
+     */
+    public Integer update(String sql, Object... args) {
+        return new QueryRunner(getConnection()).executeUpdate(getQueryBuilder().updateBySql(sql, args));
+    }
 
-	/**
-	 * 更新一个对象,根据ID得到对象,然后更新其他属性值
-	 * 
-	 * @see li.dao.AbstractDao#update(String, Object...)
-	 */
-	public Boolean update(T t) {
-		return 1 == update(getQueryBuilder().update(t));
-	}
+    /**
+     * 更新一个对象,根据ID得到对象,然后更新其他属性值
+     * 
+     * @see li.dao.AbstractDao#update(String, Object...)
+     */
+    public Boolean update(T t) {
+        return 1 == update(getQueryBuilder().update(t));
+    }
 
-	/**
-	 * 更新一个数据对象,忽略其中值为null的属性
-	 * 
-	 * @see li.dao.AbstractDao#update(String, Object...)
-	 */
-	public Boolean updateIgnoreNull(T t) {
-		return 1 == update(getQueryBuilder().updateIgnoreNull(t));
-	}
+    /**
+     * 更新一个数据对象,忽略其中值为null的属性
+     * 
+     * @see li.dao.AbstractDao#update(String, Object...)
+     */
+    public Boolean updateIgnoreNull(T t) {
+        return 1 == update(getQueryBuilder().updateIgnoreNull(t));
+    }
 }

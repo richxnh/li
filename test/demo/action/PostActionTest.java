@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PostActionTest extends ActionTest {
-	@Inject
-	PostAction postAction;
+    @Inject
+    PostAction postAction;
 
-	@Before
-	public void before() {
-		assertNotNull(postAction);
-	}
+    @Before
+    public void before() {
+        assertNotNull(postAction);
+    }
 
-	@Test
-	public void testList() {
-	}
+    @Test
+    public void testList() {
+    }
 }

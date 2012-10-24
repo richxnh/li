@@ -11,24 +11,24 @@ import demo.record.Thread;
 
 @Bean
 public class ForumAction extends AbstractAction {
-	@Inject
-	Forum forumDao;
+    @Inject
+    Forum forumDao;
 
-	@Inject
-	Thread threadDao;
+    @Inject
+    Thread threadDao;
 
-	@At({ "forum_list" })
-	public void list(@Arg("pn") Page page) {
-		setRequest("forums", forumDao.list(page));
-		view("forum_list");
-	}
+    @At({ "forum_list" })
+    public void list(@Arg("pn") Page page) {
+        setRequest("forums", forumDao.list(page));
+        view("forum_list");
+    }
 
-	@At({ "forum" })
-	public void get(Integer id, @Arg("pn") Page page) {
-		setRequest("forums", forumDao.list(page.setPageNumber(1)));
-		setRequest("threads", threadDao.listByForumId(id, page));
-		setRequest("forum", forumDao.find(id));
-		setSession("page", page);
-		view("forum_show");
-	}
+    @At({ "forum" })
+    public void get(Integer id, @Arg("pn") Page page) {
+        setRequest("forums", forumDao.list(page.setPageNumber(1)));
+        setRequest("threads", threadDao.listByForumId(id, page));
+        setRequest("forum", forumDao.find(id));
+        setSession("page", page);
+        view("forum_show");
+    }
 }

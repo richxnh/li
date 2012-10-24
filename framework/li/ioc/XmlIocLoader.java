@@ -20,36 +20,36 @@ import org.w3c.dom.NodeList;
  * @version 0.1.4 (2012-05-08)
  */
 public class XmlIocLoader {
-	private static final Log log = Log.init();
+    private static final Log log = Log.init();
 
-	/**
-	 * 解析SourceFloder下搜索到的文件名以config.xml结尾的文件,将其中配置的Bean返回
-	 */
-	public List<Bean> getBeans() {
-		List<String> fileList = Files.list(Files.root(), "^.*config.xml$", true);// 搜索以config.xml结尾的文件
-		log.info("Found " + fileList.size() + " Xml config files at " + Files.root());
+    /**
+     * 解析SourceFloder下搜索到的文件名以config.xml结尾的文件,将其中配置的Bean返回
+     */
+    public List<Bean> getBeans() {
+        List<String> fileList = Files.list(Files.root(), "^.*config.xml$", true);// 搜索以config.xml结尾的文件
+        log.info("Found " + fileList.size() + " Xml config files at " + Files.root());
 
-		List<Bean> beans = new ArrayList<Bean>();
-		for (String filePath : fileList) {
-			NodeList beanNodes = (NodeList) Files.xpath(Files.build(filePath), "//bean", XPathConstants.NODESET);
-			for (int length = (null == beanNodes ? -1 : beanNodes.getLength()), i = 0; i < length; i++) {
-				Bean iocBean = new Bean();// 一个新的Bean
-				iocBean.type = Reflect.getType(Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING).toString());
-				iocBean.name = Files.xpath(beanNodes.item(i), "@name", XPathConstants.STRING).toString();
+        List<Bean> beans = new ArrayList<Bean>();
+        for (String filePath : fileList) {
+            NodeList beanNodes = (NodeList) Files.xpath(Files.build(filePath), "//bean", XPathConstants.NODESET);
+            for (int length = (null == beanNodes ? -1 : beanNodes.getLength()), i = 0; i < length; i++) {
+                Bean iocBean = new Bean();// 一个新的Bean
+                iocBean.type = Reflect.getType(Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING).toString());
+                iocBean.name = Files.xpath(beanNodes.item(i), "@name", XPathConstants.STRING).toString();
 
-				NodeList propertyNodes = (NodeList) Files.xpath(beanNodes.item(i), "property", XPathConstants.NODESET);
-				for (int len = (null == propertyNodes ? -1 : propertyNodes.getLength()), m = 0; m < len; m++) {
-					Field field = new Field();// 一个新的Field
-					field.name = (String) Files.xpath(propertyNodes.item(m), "@name", XPathConstants.STRING);
-					field.type = Reflect.fieldType(iocBean.type, field.name);
-					field.value = (String) Files.xpath(propertyNodes.item(m), "@value", XPathConstants.STRING);
-					iocBean.fields.add(field);
-				}
-				beans.add(iocBean);
+                NodeList propertyNodes = (NodeList) Files.xpath(beanNodes.item(i), "property", XPathConstants.NODESET);
+                for (int len = (null == propertyNodes ? -1 : propertyNodes.getLength()), m = 0; m < len; m++) {
+                    Field field = new Field();// 一个新的Field
+                    field.name = (String) Files.xpath(propertyNodes.item(m), "@name", XPathConstants.STRING);
+                    field.type = Reflect.fieldType(iocBean.type, field.name);
+                    field.value = (String) Files.xpath(propertyNodes.item(m), "@value", XPathConstants.STRING);
+                    iocBean.fields.add(field);
+                }
+                beans.add(iocBean);
 
-				log.info("ADD BEAN: Xml " + iocBean.type.getName() + " " + iocBean.name);
-			}
-		}
-		return beans;
-	}
+                log.info("ADD BEAN: Xml " + iocBean.type.getName() + " " + iocBean.name);
+            }
+        }
+        return beans;
+    }
 }

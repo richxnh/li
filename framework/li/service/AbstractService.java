@@ -17,55 +17,55 @@ import li.util.Reflect;
  */
 
 public abstract class AbstractService<T> implements IBaseService<T> {
-	/**
-	 * Dao对象
-	 */
-	private IBaseDao<T> dao;
+    /**
+     * Dao对象
+     */
+    private IBaseDao<T> dao;
 
-	/**
-	 * 你可以覆盖这个方法,如果不的话,框架会寻找 一个继承AbstractDao,泛型类型为 T的Bean
-	 * 
-	 * @see li.ioc.Ioc#get(Class, Type)
-	 */
-	protected IBaseDao<T> getDao() {
-		if (null == this.dao) {
-			this.dao = Ioc.get(AbstractDao.class, Reflect.actualType(this.getClass(), 0));
-		}
-		return this.dao;
-	}
+    /**
+     * 你可以覆盖这个方法,如果不的话,框架会寻找 一个继承AbstractDao,泛型类型为 T的Bean
+     * 
+     * @see li.ioc.Ioc#get(Class, Type)
+     */
+    protected IBaseDao<T> getDao() {
+        if (null == this.dao) {
+            this.dao = Ioc.get(AbstractDao.class, Reflect.actualType(this.getClass(), 0));
+        }
+        return this.dao;
+    }
 
-	/**
-	 * 删除
-	 */
-	public Boolean delete(Number id) {
-		return getDao().delete(id);
-	}
+    /**
+     * 删除
+     */
+    public Boolean delete(Number id) {
+        return getDao().delete(id);
+    }
 
-	/**
-	 * 查找
-	 */
-	public T find(Number id) {
-		return getDao().find(id);
-	}
+    /**
+     * 查找
+     */
+    public T find(Number id) {
+        return getDao().find(id);
+    }
 
-	/**
-	 * 列表
-	 */
-	public List<T> list(Page page) {
-		return getDao().list(page);
-	}
+    /**
+     * 列表
+     */
+    public List<T> list(Page page) {
+        return getDao().list(page);
+    }
 
-	/**
-	 * 保存
-	 */
-	public Boolean save(T t) {
-		return getDao().save(t);
-	}
+    /**
+     * 保存
+     */
+    public Boolean save(T t) {
+        return getDao().save(t);
+    }
 
-	/**
-	 * 更新
-	 */
-	public Boolean update(T t) {
-		return getDao().update(t);
-	}
+    /**
+     * 更新
+     */
+    public Boolean update(T t) {
+        return getDao().update(t);
+    }
 }

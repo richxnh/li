@@ -22,4 +22,5 @@ import demo.service.UserServiceTest;
 @RunWith(Suite.class)
 @SuiteClasses({ FrameworkTest.class, DemoActionTest.class, AccountActionTest.class, MemberActionTest.class, ForumActionTest.class, PostActionTest.class, ThreadActionTest.class, UserServiceTest.class, AccountTest.class, ForumTest.class, MemberTest.class, PostTest.class, ThreadTest.class })
 public class AllTest {
+
 }

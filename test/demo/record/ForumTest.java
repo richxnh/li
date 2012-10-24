@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ForumTest extends BaseTest {
-	@Inject
-	Forum forum;
+    @Inject
+    Forum forum;
 
-	@Before
-	public void before() {
-		assertNotNull(forum);
-	}
+    @Before
+    public void before() {
+        assertNotNull(forum);
+    }
 
-	@Test
-	public void testList() {
-	}
+    @Test
+    public void testList() {
+    }
 }

@@ -28,87 +28,87 @@ import li.util.Verify;
  * @version 0.1.3 (2012-05-08)
  */
 public class ActionFilter implements Filter {
-	private static final Log log = Log.init();
-	/**
-	 * 是否使用国际化
-	 */
-	private static final String USE_I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");
+    private static final Log log = Log.init();
+    /**
+     * 是否使用国际化
+     */
+    private static final String USE_I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");
 
-	/**
-	 * 初始化Filter,设置一些环境变量,只执行一次
-	 */
-	public void init(FilterConfig config) throws ServletException {
-		if ("true".equals(USE_I18N.trim().toLowerCase())) {
-			// 默认的环境变量
-			config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");
-			// 根据Locale.getDefault()初始化国际化,存到servletContext
-			config.getServletContext().setAttribute("lang", Files.load(Locale.getDefault().toString()));
-			log.info("Setting default language as " + Locale.getDefault());
-		}
-	}
+    /**
+     * 初始化Filter,设置一些环境变量,只执行一次
+     */
+    public void init(FilterConfig config) throws ServletException {
+        if ("true".equals(USE_I18N.trim().toLowerCase())) {
+            // 默认的环境变量
+            config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");
+            // 根据Locale.getDefault()初始化国际化,存到servletContext
+            config.getServletContext().setAttribute("lang", Files.load(Locale.getDefault().toString()));
+            log.info("Setting default language as " + Locale.getDefault());
+        }
+    }
 
-	/**
-	 * 从ActionContext中查询到符合当前请求路径的Action并执行,或者chain.doFilter()
-	 * 
-	 * @see li.util.Reflect#invoke(Object, String, Object...)
-	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// 设置编码
-		String encoding = Files.load("config.properties").getProperty("servlet.encoding", "UTF-8");
-		request.setCharacterEncoding(encoding);
-		response.setCharacterEncoding(encoding);
+    /**
+     * 从ActionContext中查询到符合当前请求路径的Action并执行,或者chain.doFilter()
+     * 
+     * @see li.util.Reflect#invoke(Object, String, Object...)
+     */
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        // 设置编码
+        String encoding = Files.load("config.properties").getProperty("servlet.encoding", "UTF-8");
+        request.setCharacterEncoding(encoding);
+        response.setCharacterEncoding(encoding);
 
-		if ("true".equals(USE_I18N.trim().toLowerCase())) {
-			// 根据Parameter参数设置国际化,存到session
-			String lang = request.getParameter("lang");
-			if (!Verify.isEmpty(lang)) {
-				((HttpServletRequest) request).getSession().setAttribute("lang", Files.load(lang));
-				log.info("Setting language for " + lang);
-			}
-		}
+        if ("true".equals(USE_I18N.trim().toLowerCase())) {
+            // 根据Parameter参数设置国际化,存到session
+            String lang = request.getParameter("lang");
+            if (!Verify.isEmpty(lang)) {
+                ((HttpServletRequest) request).getSession().setAttribute("lang", Files.load(lang));
+                log.info("Setting language for " + lang);
+            }
+        }
 
-		// 请求路径路由
-		Action action = ActionContext.getInstance().getAction(((HttpServletRequest) request).getServletPath(), ((HttpServletRequest) request).getMethod());
-		if (null != action) {
-			// 初始化Context
-			Context.init(request, response, action);
-			log.info("ACTION FOUND: path=\"" + Context.getRequest().getServletPath() + "\",method=\"" + Context.getRequest().getMethod() + "\" action=" + action.actionInstance.getClass().getName() + "." + action.actionMethod.getName() + "()");
+        // 请求路径路由
+        Action action = ActionContext.getInstance().getAction(((HttpServletRequest) request).getServletPath(), ((HttpServletRequest) request).getMethod());
+        if (null != action) {
+            // 初始化Context
+            Context.init(request, response, action);
+            log.info("ACTION FOUND: path=\"" + Context.getRequest().getServletPath() + "\",method=\"" + Context.getRequest().getMethod() + "\" action=" + action.actionInstance.getClass().getName() + "." + action.actionMethod.getName() + "()");
 
-			// Action方法参数适配
-			Object[] args = new Object[action.argTypes.length]; // Action方法参数值列表
-			for (int i = 0; i < action.argTypes.length; i++) {
-				String key = (null == action.argAnnotations[i]) ? action.argNames[i] : action.argAnnotations[i].value();// ParameterKey
-				if (Verify.basicType(action.argTypes[i]) && !action.argTypes[i].isArray()) { // 单个基本类型
-					args[i] = Convert.toType(action.argTypes[i], Context.getParameter(key));
-				} else if (Verify.basicType(action.argTypes[i]) && action.argTypes[i].isArray()) { // 基本类型的数组
-					args[i] = Context.getArray(action.argTypes[i].getComponentType(), key);
-				} else if (ServletRequest.class.isAssignableFrom(action.argTypes[i])) { // Request
-					args[i] = Context.getRequest();
-				} else if (ServletResponse.class.isAssignableFrom(action.argTypes[i])) { // Response
-					args[i] = Context.getResponse();
-				} else if (Page.class.isAssignableFrom(action.argTypes[i])) { // Page
-					args[i] = Context.getPage(key);
-				} else if (Field.list(action.argTypes[i], false).size() > 0 || Record.class.isAssignableFrom(action.argTypes[i])) {
-					key = (null == action.argAnnotations[i]) ? action.argNames[i] + "." : action.argAnnotations[i].value();
-					args[i] = Context.get(action.argTypes[i], key);// 数据对象,POJO,如果没加@Arg注解,则key为参数名+"."
-				}
-			}
+            // Action方法参数适配
+            Object[] args = new Object[action.argTypes.length]; // Action方法参数值列表
+            for (int i = 0; i < action.argTypes.length; i++) {
+                String key = (null == action.argAnnotations[i]) ? action.argNames[i] : action.argAnnotations[i].value();// ParameterKey
+                if (Verify.basicType(action.argTypes[i]) && !action.argTypes[i].isArray()) { // 单个基本类型
+                    args[i] = Convert.toType(action.argTypes[i], Context.getParameter(key));
+                } else if (Verify.basicType(action.argTypes[i]) && action.argTypes[i].isArray()) { // 基本类型的数组
+                    args[i] = Context.getArray(action.argTypes[i].getComponentType(), key);
+                } else if (ServletRequest.class.isAssignableFrom(action.argTypes[i])) { // Request
+                    args[i] = Context.getRequest();
+                } else if (ServletResponse.class.isAssignableFrom(action.argTypes[i])) { // Response
+                    args[i] = Context.getResponse();
+                } else if (Page.class.isAssignableFrom(action.argTypes[i])) { // Page
+                    args[i] = Context.getPage(key);
+                } else if (Field.list(action.argTypes[i], false).size() > 0 || Record.class.isAssignableFrom(action.argTypes[i])) {
+                    key = (null == action.argAnnotations[i]) ? action.argNames[i] + "." : action.argAnnotations[i].value();
+                    args[i] = Context.get(action.argTypes[i], key);// 数据对象,POJO,如果没加@Arg注解,则key为参数名+"."
+                }
+            }
 
-			// 执行Action方法,根据返回值,处理视图
-			Object result = Reflect.invoke(action.actionInstance, action.actionMethod, args);
-			if (result instanceof String && !result.equals("~!@#DONE")) {// 返回值为String且未调用视图方法
-				Context.view(result.toString());// 则Context.view返回视图
-			}
-		} else {
-			log.info("ACTION NOT FOUND: path=\"" + ((HttpServletRequest) request).getServletPath() + "\",method=\"" + ((HttpServletRequest) request).getMethod() + "\"");
-			chain.doFilter(request, response);
-		}
-	}
+            // 执行Action方法,根据返回值,处理视图
+            Object result = Reflect.invoke(action.actionInstance, action.actionMethod, args);
+            if (result instanceof String && !result.equals("~!@#DONE")) {// 返回值为String且未调用视图方法
+                Context.view(result.toString());// 则Context.view返回视图
+            }
+        } else {
+            log.info("ACTION NOT FOUND: path=\"" + ((HttpServletRequest) request).getServletPath() + "\",method=\"" + ((HttpServletRequest) request).getMethod() + "\"");
+            chain.doFilter(request, response);
+        }
+    }
 
-	/**
-	 * Filter销毁方法
-	 */
-	public void destroy() {
-		log.debug("li.mvc.ActionFilter.destroy()");
-	}
+    /**
+     * Filter销毁方法
+     */
+    public void destroy() {
+        log.debug("li.mvc.ActionFilter.destroy()");
+    }
 }

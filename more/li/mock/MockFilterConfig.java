@@ -12,25 +12,25 @@ import javax.servlet.FilterConfig;
  */
 public class MockFilterConfig implements FilterConfig {
 
-	private MockServletContext servletContext;
+    private MockServletContext servletContext;
 
-	public MockFilterConfig(MockServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
+    public MockFilterConfig(MockServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
 
-	public MockServletContext getServletContext() {
-		return this.servletContext;
-	}
+    public MockServletContext getServletContext() {
+        return this.servletContext;
+    }
 
-	public Enumeration<String> getInitParameterNames() {
-		return null;
-	}
+    public Enumeration<String> getInitParameterNames() {
+        return null;
+    }
 
-	public String getFilterName() {
-		return null;
-	}
+    public String getFilterName() {
+        return null;
+    }
 
-	public String getInitParameter(String key) {
-		return null;
-	}
+    public String getInitParameter(String key) {
+        return null;
+    }
 }

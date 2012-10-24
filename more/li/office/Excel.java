@@ -13,39 +13,39 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class Excel {
-	public static void main(String[] args) throws Exception {
-		File file = new File("F:\\PPS\\人力资源部\\2010会员档案总列表.xls");
+    public static void main(String[] args) throws Exception {
+        File file = new File("F:\\PPS\\人力资源部\\2010会员档案总列表.xls");
 
-		List<List<String>> table = read(file);
+        List<List<String>> table = read(file);
 
-		for (List<String> line : table) {
-			for (String cell : line) {
-				System.out.print(cell + "\t");
-			}
-			System.out.println();
-		}
-	}
+        for (List<String> line : table) {
+            for (String cell : line) {
+                System.out.print(cell + "\t");
+            }
+            System.out.println();
+        }
+    }
 
-	public static List<List<String>> read(File file) {
-		try {
+    public static List<List<String>> read(File file) {
+        try {
 
-			List<List<String>> table = new ArrayList<List<String>>();
+            List<List<String>> table = new ArrayList<List<String>>();
 
-			Workbook workbook = new HSSFWorkbook(new BufferedInputStream(new FileInputStream(file)));
+            Workbook workbook = new HSSFWorkbook(new BufferedInputStream(new FileInputStream(file)));
 
-			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-				Sheet sheet = workbook.getSheetAt(0);
-				for (Row row : sheet) {
-					List<String> line = new ArrayList<String>();
-					for (Cell cell : row) {
-						line.add(cell.toString());
-					}
-					table.add(line);
-				}
-			}
-			return table;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+            for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                Sheet sheet = workbook.getSheetAt(0);
+                for (Row row : sheet) {
+                    List<String> line = new ArrayList<String>();
+                    for (Cell cell : row) {
+                        line.add(cell.toString());
+                    }
+                    table.add(line);
+                }
+            }
+            return table;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

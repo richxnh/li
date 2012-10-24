@@ -5,9 +5,9 @@ import li.annotation.Inject;
 
 @Bean
 public class B {
-	@Inject
-	private A a;
+    @Inject
+    private A a;
 
-	@Inject
-	private B b;
+    @Inject
+    private B b;
 }

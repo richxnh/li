@@ -13,25 +13,25 @@ import javax.servlet.ServletContext;
  */
 class MockServletConfig implements ServletConfig {
 
-	private ServletContext servletContext;
+    private ServletContext servletContext;
 
-	public MockServletConfig(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
+    public MockServletConfig(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
 
-	public ServletContext getServletContext() {
-		return this.servletContext;
-	}
+    public ServletContext getServletContext() {
+        return this.servletContext;
+    }
 
-	public String getInitParameter(String key) {
-		return null;
-	}
+    public String getInitParameter(String key) {
+        return null;
+    }
 
-	public Enumeration<String> getInitParameterNames() {
-		return null;
-	}
+    public Enumeration<String> getInitParameterNames() {
+        return null;
+    }
 
-	public String getServletName() {
-		return null;
-	}
+    public String getServletName() {
+        return null;
+    }
 }

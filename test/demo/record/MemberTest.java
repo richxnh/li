@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class MemberTest extends BaseTest {
-	@Inject
-	Member member;
+    @Inject
+    Member member;
 
-	@Before
-	public void before() {
-		assertNotNull(member);
-	}
+    @Before
+    public void before() {
+        assertNotNull(member);
+    }
 
-	@Test
-	public void testList() {
-	}
+    @Test
+    public void testList() {
+    }
 }

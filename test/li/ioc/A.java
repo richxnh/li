@@ -5,15 +5,15 @@ import li.annotation.Inject;
 
 @Bean("beanA")
 public class A {
-	@Inject
-	public A a;
-	@Inject
-	public B b;
-	@Inject("123")
-	public int num;
+    @Inject
+    public A a;
+    @Inject
+    public B b;
+    @Inject("123")
+    public int num;
 
-	public String sayHi(String name) {
-		System.out.println("方法被执行 \t name=" + name);
-		return "本来的返回值 \t name=" + name;
-	}
+    public String sayHi(String name) {
+        System.out.println("方法被执行 \t name=" + name);
+        return "本来的返回值 \t name=" + name;
+    }
 }

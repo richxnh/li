@@ -5,17 +5,17 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class IocTest {
-	@Test
-	public void getByName() {
-		assertNotNull(Ioc.get("beanA"));
-	}
+    @Test
+    public void getByName() {
+        assertNotNull(Ioc.get("beanA"));
+    }
 
-	@Test
-	public void getByTypeAndName() {
-		assertNotNull(Ioc.get(A.class, "beanA"));
-	}
+    @Test
+    public void getByTypeAndName() {
+        assertNotNull(Ioc.get(A.class, "beanA"));
+    }
 
-	public void getByType() {
-		assertNotNull(Ioc.get(A.class));
-	}
+    public void getByType() {
+        assertNotNull(Ioc.get(A.class));
+    }
 }

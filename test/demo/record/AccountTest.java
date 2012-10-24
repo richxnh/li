@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AccountTest extends BaseTest {
-	@Inject
-	Account account;
+    @Inject
+    Account account;
 
-	@Before
-	public void before() {
-		assertNotNull(account);
-	}
+    @Before
+    public void before() {
+        assertNotNull(account);
+    }
 
-	@Test
-	public void testList() {
-	}
+    @Test
+    public void testList() {
+    }
 }

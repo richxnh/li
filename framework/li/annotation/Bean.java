@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Bean {
-	/**
-	 * 这个Bean的名称,可以留空
-	 */
-	public String value() default "";
+    /**
+     * 这个Bean的名称,可以留空
+     */
+    public String value() default "";
 }

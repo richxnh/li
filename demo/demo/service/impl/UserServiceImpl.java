@@ -12,17 +12,17 @@ import demo.service.IUserService;
  */
 @Bean
 public class UserServiceImpl extends AbstractService<User> implements IUserService {
-	@Inject
-	IUserDao userDao;
+    @Inject
+    IUserDao userDao;
 
-	public Boolean login(User user) {
-		User u = userDao.findByUsername(user.getUsername());
-		if (null == u) {
-			u = userDao.findByEmail(user.getEmail());
-			if (null == u) {
-				return false;
-			}
-		}
-		return user.getPassword().equals(u.getPassword());
-	}
+    public Boolean login(User user) {
+        User u = userDao.findByUsername(user.getUsername());
+        if (null == u) {
+            u = userDao.findByEmail(user.getEmail());
+            if (null == u) {
+                return false;
+            }
+        }
+        return user.getPassword().equals(u.getPassword());
+    }
 }

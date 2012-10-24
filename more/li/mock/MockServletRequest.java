@@ -23,182 +23,182 @@ import javax.servlet.ServletResponse;
  */
 class MockServletRequest implements ServletRequest {
 
-	private MockServletContext servletContext;
+    private MockServletContext servletContext;
 
-	private Map<String, Object> requestMap;
+    private Map<String, Object> requestMap;
 
-	private Map<String, String[]> parameterMap;
+    private Map<String, String[]> parameterMap;
 
-	private String encoding;
+    private String encoding;
 
-	private String contentType;
+    private String contentType;
 
-	public MockServletRequest() {
-		this.servletContext = new MockServletContext();
-		this.requestMap = new HashMap<String, Object>();
-		this.parameterMap = new HashMap<String, String[]>();
-	}
+    public MockServletRequest() {
+        this.servletContext = new MockServletContext();
+        this.requestMap = new HashMap<String, Object>();
+        this.parameterMap = new HashMap<String, String[]>();
+    }
 
-	public MockRequestDispatcher getRequestDispatcher(String path) {
-		return new MockRequestDispatcher(path);
-	}
+    public MockRequestDispatcher getRequestDispatcher(String path) {
+        return new MockRequestDispatcher(path);
+    }
 
-	public MockServletContext getServletContext() {
-		return this.servletContext;
-	}
+    public MockServletContext getServletContext() {
+        return this.servletContext;
+    }
 
-	public void removeAttribute(String key) {
-		requestMap.remove(key);
-	}
+    public void removeAttribute(String key) {
+        requestMap.remove(key);
+    }
 
-	public void setAttribute(String key, Object value) {
-		requestMap.put(key, value);
-	}
+    public void setAttribute(String key, Object value) {
+        requestMap.put(key, value);
+    }
 
-	public Object getAttribute(String key) {
-		return requestMap.get(key);
-	}
+    public Object getAttribute(String key) {
+        return requestMap.get(key);
+    }
 
-	public Enumeration<String> getAttributeNames() {
-		return new Vector<String>(requestMap.keySet()).elements();
-	}
+    public Enumeration<String> getAttributeNames() {
+        return new Vector<String>(requestMap.keySet()).elements();
+    }
 
-	public String getParameter(String key) {
-		String[] params = parameterMap.get(key);
-		return null == params ? null : params[0];
-	}
+    public String getParameter(String key) {
+        String[] params = parameterMap.get(key);
+        return null == params ? null : params[0];
+    }
 
-	public Map<String, String[]> getParameterMap() {
-		return this.parameterMap;
-	}
+    public Map<String, String[]> getParameterMap() {
+        return this.parameterMap;
+    }
 
-	public Enumeration<String> getParameterNames() {
-		return new Vector<String>(parameterMap.keySet()).elements();
-	}
+    public Enumeration<String> getParameterNames() {
+        return new Vector<String>(parameterMap.keySet()).elements();
+    }
 
-	public String[] getParameterValues(String key) {
-		return parameterMap.get(key);
-	}
+    public String[] getParameterValues(String key) {
+        return parameterMap.get(key);
+    }
 
-	public void setParameter(Map<String, String[]> parameterMap) {
-		this.parameterMap = parameterMap;
-	}
+    public void setParameter(Map<String, String[]> parameterMap) {
+        this.parameterMap = parameterMap;
+    }
 
-	public void setParameter(String key, String value) {
-		parameterMap.put(key, new String[] { value });
-	}
+    public void setParameter(String key, String value) {
+        parameterMap.put(key, new String[] { value });
+    }
 
-	public void setParameter(String key, String[] value) {
-		parameterMap.put(key, value);
-	}
+    public void setParameter(String key, String[] value) {
+        parameterMap.put(key, value);
+    }
 
-	public String getCharacterEncoding() {
-		return this.encoding;
-	}
+    public String getCharacterEncoding() {
+        return this.encoding;
+    }
 
-	public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
-		System.err.println("set encoding " + encoding + " calling by " + Tool.stackTrace());
-		this.encoding = encoding;
-	}
+    public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
+        System.err.println("set encoding " + encoding + " calling by " + Tool.stackTrace());
+        this.encoding = encoding;
+    }
 
-	public String getContentType() {
-		return this.contentType;
-	}
+    public String getContentType() {
+        return this.contentType;
+    }
 
-	public void setContentType(String contentType) {
-		System.err.println("set contentType " + contentType + " calling by " + Tool.stackTrace());
-		this.contentType = contentType;
-	}
+    public void setContentType(String contentType) {
+        System.err.println("set contentType " + contentType + " calling by " + Tool.stackTrace());
+        this.contentType = contentType;
+    }
 
-	public AsyncContext getAsyncContext() {
-		return null;
-	}
+    public AsyncContext getAsyncContext() {
+        return null;
+    }
 
-	public int getContentLength() {
-		return 0;
-	}
+    public int getContentLength() {
+        return 0;
+    }
 
-	public DispatcherType getDispatcherType() {
-		return null;
-	}
+    public DispatcherType getDispatcherType() {
+        return null;
+    }
 
-	public ServletInputStream getInputStream() throws IOException {
-		return null;
-	}
+    public ServletInputStream getInputStream() throws IOException {
+        return null;
+    }
 
-	public String getLocalAddr() {
-		return null;
-	}
+    public String getLocalAddr() {
+        return null;
+    }
 
-	public String getLocalName() {
-		return null;
-	}
+    public String getLocalName() {
+        return null;
+    }
 
-	public int getLocalPort() {
-		return 0;
-	}
+    public int getLocalPort() {
+        return 0;
+    }
 
-	public Locale getLocale() {
-		return null;
-	}
+    public Locale getLocale() {
+        return null;
+    }
 
-	public Enumeration<Locale> getLocales() {
-		return null;
-	}
+    public Enumeration<Locale> getLocales() {
+        return null;
+    }
 
-	public String getProtocol() {
-		return null;
-	}
+    public String getProtocol() {
+        return null;
+    }
 
-	public BufferedReader getReader() throws IOException {
-		return null;
-	}
+    public BufferedReader getReader() throws IOException {
+        return null;
+    }
 
-	public String getRealPath(String path) {
-		return null;
-	}
+    public String getRealPath(String path) {
+        return null;
+    }
 
-	public String getRemoteAddr() {
-		return null;
-	}
+    public String getRemoteAddr() {
+        return null;
+    }
 
-	public String getRemoteHost() {
-		return null;
-	}
+    public String getRemoteHost() {
+        return null;
+    }
 
-	public int getRemotePort() {
-		return 0;
-	}
+    public int getRemotePort() {
+        return 0;
+    }
 
-	public String getScheme() {
-		return null;
-	}
+    public String getScheme() {
+        return null;
+    }
 
-	public String getServerName() {
-		return null;
-	}
+    public String getServerName() {
+        return null;
+    }
 
-	public int getServerPort() {
-		return 0;
-	}
+    public int getServerPort() {
+        return 0;
+    }
 
-	public boolean isAsyncStarted() {
-		return false;
-	}
+    public boolean isAsyncStarted() {
+        return false;
+    }
 
-	public boolean isAsyncSupported() {
-		return false;
-	}
+    public boolean isAsyncSupported() {
+        return false;
+    }
 
-	public boolean isSecure() {
-		return false;
-	}
+    public boolean isSecure() {
+        return false;
+    }
 
-	public AsyncContext startAsync() {
-		return null;
-	}
+    public AsyncContext startAsync() {
+        return null;
+    }
 
-	public AsyncContext startAsync(ServletRequest arg0, ServletResponse arg1) {
-		return null;
-	}
+    public AsyncContext startAsync(ServletRequest arg0, ServletResponse arg1) {
+        return null;
+    }
 }

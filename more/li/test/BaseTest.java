@@ -14,22 +14,22 @@ import li.util.Reflect;
  * @version 0.1.1 (2012-07-21)
  */
 public class BaseTest {
-	/**
-	 * 模拟的 li.dao.Page
-	 */
-	protected Page page;
+    /**
+     * 模拟的 li.dao.Page
+     */
+    protected Page page;
 
-	/**
-	 * 初始化时为每一个@Inject注解的属性设值
-	 */
-	public BaseTest() {
-		page = new Page();
+    /**
+     * 初始化时为每一个@Inject注解的属性设值
+     */
+    public BaseTest() {
+        page = new Page();
 
-		for (Field field : getClass().getDeclaredFields()) {
-			Inject inject = field.getAnnotation(Inject.class);
-			if (null != inject) {
-				Reflect.set(this, field.getName(), Ioc.get(field.getType(), inject.value()));
-			}
-		}
-	}
+        for (Field field : getClass().getDeclaredFields()) {
+            Inject inject = field.getAnnotation(Inject.class);
+            if (null != inject) {
+                Reflect.set(this, field.getName(), Ioc.get(field.getType(), inject.value()));
+            }
+        }
+    }
 }

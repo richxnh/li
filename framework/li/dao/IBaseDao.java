@@ -11,28 +11,28 @@ import li.util.Page;
  * @version 0.1.2 (2012-06-26)
  */
 public interface IBaseDao<T> {
-	/**
-	 * 删除
-	 */
-	public Boolean delete(Number id);
+    /**
+     * 删除
+     */
+    public Boolean delete(Number id);
 
-	/**
-	 * 查找
-	 */
-	public T find(Number id);
+    /**
+     * 查找
+     */
+    public T find(Number id);
 
-	/**
-	 * 列表
-	 */
-	public List<T> list(Page page);
+    /**
+     * 列表
+     */
+    public List<T> list(Page page);
 
-	/**
-	 * 保存
-	 */
-	public Boolean save(T t);
+    /**
+     * 保存
+     */
+    public Boolean save(T t);
 
-	/**
-	 * 更新
-	 */
-	public Boolean update(T t);
+    /**
+     * 更新
+     */
+    public Boolean update(T t);
 }

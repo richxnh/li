@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface Arg {
-	/**
-	 * 基本类型parameter的Key或者对象的parameter的Key前缀
-	 */
-	public String value();
+    /**
+     * 基本类型parameter的Key或者对象的parameter的Key前缀
+     */
+    public String value();
 }

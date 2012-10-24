@@ -6,8 +6,8 @@ import li.test.BaseTest;
 import org.junit.Test;
 
 public class BeanTest extends BaseTest {
-	@Test
-	public void test() {
-		assertNotNull(page);
-	}
+    @Test
+    public void test() {
+        assertNotNull(page);
+    }
 }

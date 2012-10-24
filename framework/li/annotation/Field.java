@@ -14,13 +14,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Field {
-	/**
-	 * 此Field是否ID,默认为false
-	 */
-	public boolean id() default false;
+    /**
+     * 此Field是否ID,默认为false
+     */
+    public boolean id() default false;
 
-	/**
-	 * 此Field对应于数据库中数据表的字段名,默认为Field名
-	 */
-	public String value() default "";
+    /**
+     * 此Field对应于数据库中数据表的字段名,默认为Field名
+     */
+    public String value() default "";
 }

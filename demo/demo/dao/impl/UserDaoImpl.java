@@ -11,11 +11,11 @@ import demo.model.User;
  */
 @Bean
 public class UserDaoImpl extends AbstractDao<User> implements IUserDao {
-	public User findByEmail(String email) {
-		return super.find("WHERE email=?", email);// 问号占位符的查询参数
-	}
+    public User findByEmail(String email) {
+        return super.find("WHERE email=?", email);// 问号占位符的查询参数
+    }
 
-	public User findByUsername(String username) {
-		return super.find("WHERE username=:username", Convert.toMap(":username", username));// 具名占位符的查询参数
-	}
+    public User findByUsername(String username) {
+        return super.find("WHERE username=:username", Convert.toMap(":username", username));// 具名占位符的查询参数
+    }
 }

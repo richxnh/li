@@ -15,17 +15,17 @@ import javax.servlet.ServletResponse;
  */
 class MockRequestDispatcher implements RequestDispatcher {
 
-	private String path;
+    private String path;
 
-	public MockRequestDispatcher(String path) {
-		this.path = path;
-	}
+    public MockRequestDispatcher(String path) {
+        this.path = path;
+    }
 
-	public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		System.err.println("forward to : " + path + " calling by " + Tool.stackTrace());
-	}
+    public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+        System.err.println("forward to : " + path + " calling by " + Tool.stackTrace());
+    }
 
-	public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		System.err.println("include : " + path + " calling by " + Tool.stackTrace());
-	}
+    public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+        System.err.println("include : " + path + " calling by " + Tool.stackTrace());
+    }
 }

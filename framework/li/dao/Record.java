@@ -16,109 +16,109 @@ import li.util.Page;
  * @version 0.1.1 (2012-06-25)
  */
 public class Record<T extends Record> extends AbstractDao<T> implements Map<String, Object>, Serializable {
-	/**
-	 * 存储对象属性值的Map
-	 */
-	private Map<String, Object> fields = new HashMap<String, Object>();
+    /**
+     * 存储对象属性值的Map
+     */
+    private Map<String, Object> fields = new HashMap<String, Object>();
 
-	/**
-	 * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
-	 * 
-	 * @see li.dao.AbstractDao#query(Page, String, Object...)
-	 */
-	public List<T> list(Page page, String sql, Object... args) {
-		return (List<T>) query(page, sql, args);
-	}
+    /**
+     * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
+     * 
+     * @see li.dao.AbstractDao#query(Page, String, Object...)
+     */
+    public List<T> list(Page page, String sql, Object... args) {
+        return (List<T>) query(page, sql, args);
+    }
 
-	/**
-	 * 得到名为key的属性
-	 */
-	public Object get(Object key) {
-		return fields.get(key);
-	}
+    /**
+     * 得到名为key的属性
+     */
+    public Object get(Object key) {
+        return fields.get(key);
+    }
 
-	/**
-	 * 设置名为key的属性的值为value
-	 */
-	public Object put(String key, Object value) {
-		return fields.put(key, value);
-	}
+    /**
+     * 设置名为key的属性的值为value
+     */
+    public Object put(String key, Object value) {
+        return fields.put(key, value);
+    }
 
-	/**
-	 * 设置名为key的属性的值为value
-	 */
-	public T set(String key, Object value) {
-		fields.put(key, value);
-		return (T) this;
-	}
+    /**
+     * 设置名为key的属性的值为value
+     */
+    public T set(String key, Object value) {
+        fields.put(key, value);
+        return (T) this;
+    }
 
-	/**
-	 * 返回Record的属性个数
-	 */
-	public int size() {
-		return fields.size();
-	}
+    /**
+     * 返回Record的属性个数
+     */
+    public int size() {
+        return fields.size();
+    }
 
-	/**
-	 * 是否为空,即是否属性个数为0
-	 */
-	public boolean isEmpty() {
-		return fields.isEmpty();
-	}
+    /**
+     * 是否为空,即是否属性个数为0
+     */
+    public boolean isEmpty() {
+        return fields.isEmpty();
+    }
 
-	/**
-	 * 是否包含名为key的属性
-	 */
-	public boolean containsKey(Object key) {
-		return fields.containsKey(key);
-	}
+    /**
+     * 是否包含名为key的属性
+     */
+    public boolean containsKey(Object key) {
+        return fields.containsKey(key);
+    }
 
-	/**
-	 * 是否包含值为value的属性
-	 */
-	public boolean containsValue(Object value) {
-		return fields.containsValue(value);
-	}
+    /**
+     * 是否包含值为value的属性
+     */
+    public boolean containsValue(Object value) {
+        return fields.containsValue(value);
+    }
 
-	/**
-	 * 移除名为key的属性
-	 */
-	public Object remove(Object key) {
-		return fields.remove(key);
-	}
+    /**
+     * 移除名为key的属性
+     */
+    public Object remove(Object key) {
+        return fields.remove(key);
+    }
 
-	/**
-	 * 批量设置属性值
-	 */
-	public void putAll(Map<? extends String, ? extends Object> map) {
-		fields.putAll(map);
-	}
+    /**
+     * 批量设置属性值
+     */
+    public void putAll(Map<? extends String, ? extends Object> map) {
+        fields.putAll(map);
+    }
 
-	/**
-	 * 清空所有属性
-	 */
-	public void clear() {
-		fields.clear();
-	}
+    /**
+     * 清空所有属性
+     */
+    public void clear() {
+        fields.clear();
+    }
 
-	/**
-	 * 返回属性的Set集合
-	 */
-	public Set<String> keySet() {
-		return fields.keySet();
-	}
+    /**
+     * 返回属性的Set集合
+     */
+    public Set<String> keySet() {
+        return fields.keySet();
+    }
 
-	/**
-	 * 返回属性值得Collection集合
-	 */
-	public Collection<Object> values() {
-		return fields.values();
-	}
+    /**
+     * 返回属性值得Collection集合
+     */
+    public Collection<Object> values() {
+        return fields.values();
+    }
 
-	/**
-	 * 返回属性值的Set集合
-	 */
-	public Set<Entry<String, Object>> entrySet() {
-		return fields.entrySet();
-	}
+    /**
+     * 返回属性值的Set集合
+     */
+    public Set<Entry<String, Object>> entrySet() {
+        return fields.entrySet();
+    }
 }

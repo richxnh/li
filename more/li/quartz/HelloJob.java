@@ -10,14 +10,14 @@ import org.quartz.JobExecutionException;
 
 @Bean
 public class HelloJob extends QuartzJob {
-	@Inject("${trigger.HelloJob}")
-	private String trgger;
+    @Inject("${trigger.HelloJob}")
+    private String trgger;
 
-	public String getTrigger() {
-		return this.trgger;
-	}
+    public String getTrigger() {
+        return this.trgger;
+    }
 
-	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.out.println(Thread.currentThread() + "\t" + new Date() + "\t" + "BBB");
-	}
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        System.out.println(Thread.currentThread() + "\t" + new Date() + "\t" + "BBB");
+    }
 }

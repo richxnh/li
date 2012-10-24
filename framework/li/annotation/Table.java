@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Table {
-	/**
-	 * 与所标记的类对应的数据表的表名,留空则使用类名
-	 */
-	public String value() default "";
+    /**
+     * 与所标记的类对应的数据表的表名,留空则使用类名
+     */
+    public String value() default "";
 }

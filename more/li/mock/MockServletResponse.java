@@ -15,60 +15,60 @@ import javax.servlet.ServletResponse;
  */
 class MockServletResponse implements ServletResponse {
 
-	public PrintWriter getWriter() throws IOException {
-		System.err.println("li.mock.MockServletResponse.getWriter() calling by " + Tool.stackTrace());
+    public PrintWriter getWriter() throws IOException {
+        System.err.println("li.mock.MockServletResponse.getWriter() calling by " + Tool.stackTrace());
 
-		return new PrintWriter(System.err) {
-			public void write(char[] buf, int off, int len) {
-			}
-		};
-	}
+        return new PrintWriter(System.err) {
+            public void write(char[] buf, int off, int len) {
+            }
+        };
+    }
 
-	public ServletOutputStream getOutputStream() throws IOException {
-		return null;
-	}
+    public ServletOutputStream getOutputStream() throws IOException {
+        return null;
+    }
 
-	public void flushBuffer() throws IOException {
-	}
+    public void flushBuffer() throws IOException {
+    }
 
-	public int getBufferSize() {
-		return 0;
-	}
+    public int getBufferSize() {
+        return 0;
+    }
 
-	public String getCharacterEncoding() {
-		return null;
-	}
+    public String getCharacterEncoding() {
+        return null;
+    }
 
-	public String getContentType() {
-		return null;
-	}
+    public String getContentType() {
+        return null;
+    }
 
-	public Locale getLocale() {
-		return null;
-	}
+    public Locale getLocale() {
+        return null;
+    }
 
-	public boolean isCommitted() {
-		return false;
-	}
+    public boolean isCommitted() {
+        return false;
+    }
 
-	public void reset() {
-	}
+    public void reset() {
+    }
 
-	public void resetBuffer() {
-	}
+    public void resetBuffer() {
+    }
 
-	public void setBufferSize(int arg0) {
-	}
+    public void setBufferSize(int arg0) {
+    }
 
-	public void setCharacterEncoding(String arg0) {
-	}
+    public void setCharacterEncoding(String arg0) {
+    }
 
-	public void setContentLength(int arg0) {
-	}
+    public void setContentLength(int arg0) {
+    }
 
-	public void setContentType(String arg0) {
-	}
+    public void setContentType(String arg0) {
+    }
 
-	public void setLocale(Locale arg0) {
-	}
+    public void setLocale(Locale arg0) {
+    }
 }

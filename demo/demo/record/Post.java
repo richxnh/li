@@ -10,14 +10,14 @@ import li.util.Page;
 @Bean
 @Table("t_post")
 public class Post extends Record<Post> {
-	private static final long serialVersionUID = -7438329457522666306L;
+    private static final long serialVersionUID = -7438329457522666306L;
 
-	public List<Post> listByThreadId(Integer threadId, Page page) {
-		String sql = "SELECT t_post.#,t_member.name AS member_name FROM t_post,t_member WHERE t_post.thread_id=? AND t_member.id=t_post.member_id";
-		return list(page, sql, threadId);
-	}
+    public List<Post> listByThreadId(Integer threadId, Page page) {
+        String sql = "SELECT t_post.#,t_member.name AS member_name FROM t_post,t_member WHERE t_post.thread_id=? AND t_member.id=t_post.member_id";
+        return list(page, sql, threadId);
+    }
 
-	public Integer deleteByThreadId(Integer threadId) {
-		return delete("WHERE thread_id=?", threadId);
-	}
+    public Integer deleteByThreadId(Integer threadId) {
+        return delete("WHERE thread_id=?", threadId);
+    }
 }

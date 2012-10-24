@@ -10,68 +10,68 @@ import org.junit.Test;
 import demo.record.Account;
 
 public class AccountActionTest extends ActionTest {
-	@Inject
-	AccountAction accountAction;
-	private Account account = new Account();
+    @Inject
+    AccountAction accountAction;
+    private Account account = new Account();
 
-	@Before
-	public void before() {
-		assertNotNull(accountAction);
-		account.set("id", "1").set("username", "uname").set("password", "pwd").set("email", "eml").set("status", 1);
-	}
+    @Before
+    public void before() {
+        assertNotNull(accountAction);
+        account.set("id", "1").set("username", "uname").set("password", "pwd").set("email", "eml").set("status", 1);
+    }
 
-	@Test
-	public void add() {
-		accountAction.add();
-	}
+    @Test
+    public void add() {
+        accountAction.add();
+    }
 
-	@Test
-	public void delete() {
-		accountAction.delete(1);
-	}
+    @Test
+    public void delete() {
+        accountAction.delete(1);
+    }
 
-	@Test
-	public void edit() {
-		accountAction.edit(1);
-	}
+    @Test
+    public void edit() {
+        accountAction.edit(1);
+    }
 
-	@Test
-	public void list() {
-		accountAction.list(page);
-	}
+    @Test
+    public void list() {
+        accountAction.list(page);
+    }
 
-	@Test
-	public void loginView() {
-		accountAction.login();
-	}
+    @Test
+    public void loginView() {
+        accountAction.login();
+    }
 
-	@Test
-	public void login() {
-		accountAction.login(account);
-	}
+    @Test
+    public void login() {
+        accountAction.login(account);
+    }
 
-	@Test
-	public void logout() {
-		accountAction.logout();
-	}
+    @Test
+    public void logout() {
+        accountAction.logout();
+    }
 
-	@Test
-	public void save() {
-		accountAction.save(account.set("username", System.currentTimeMillis()));
-	}
+    @Test
+    public void save() {
+        accountAction.save(account.set("username", System.currentTimeMillis()));
+    }
 
-	@Test
-	public void signupView() {
-		accountAction.signup();
-	}
+    @Test
+    public void signupView() {
+        accountAction.signup();
+    }
 
-	@Test
-	public void signup() {
-		accountAction.signup(account);
-	}
+    @Test
+    public void signup() {
+        accountAction.signup(account);
+    }
 
-	@Test
-	public void update() {
-		accountAction.update(account);
-	}
+    @Test
+    public void update() {
+        accountAction.update(account);
+    }
 }
