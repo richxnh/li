@@ -9,15 +9,16 @@ public abstract class Part {
 
     public static List<Part> from(String template) {
         List<Part> parts = new ArrayList<Part>();
-        String[] strs = template.split(Config.getPlaceHolderStart() + Config.getStatementStart());
+        String regex = "(?=<!---|-->)";
+        String[] strs = template.split(regex);
         for (String str : strs) {
-            if (str == "") {
-                parts.add(new ReplacePart());
-            } else if (str == "") {
-                parts.add(new StatementPart());
-            } else {
-                parts.add(new StaticPart());
-            }
+            // if (str == "") {
+            // parts.add(new ReplacePart(str));
+            // } else if (str == "") {
+            parts.add(new StatementPart(str));
+            // } else {
+            // parts.add(new StaticPart(str));
+            // }
         }
         return parts;
     }

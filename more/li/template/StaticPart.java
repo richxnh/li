@@ -3,11 +3,13 @@ package li.template;
 import java.util.Map;
 
 public class StaticPart extends Part {
+    private String content;
 
-    @Override
-    public String process(Map<String, Object> map) {
-        // TODO Auto-generated method stub
-        return null;
+    public StaticPart(String content) {
+        this.content = content;
     }
 
+    public String process(Map<String, Object> map) {
+        return this.content;
+    }
 }
