@@ -1,13 +1,14 @@
 package li.template;
 
+import java.util.List;
 import java.util.Map;
 
 public class Template {
-    public String template;
-    public Map<String, Object> map;
+    private Map<String, Object> map;
+    private List<Part> parts;
 
-    public void setTemplate(String template) {
-        this.template = template;
+    public Template(String template) {
+        this.parts = Part.from(template);
     }
 
     public void setMap(Map<String, Object> map) {
@@ -15,6 +16,10 @@ public class Template {
     }
 
     public String merge() {
-        return template;
+        String result = "";
+        for (Part part : parts) {
+            result += part.process(map);
+        }
+        return result;
     }
 }
