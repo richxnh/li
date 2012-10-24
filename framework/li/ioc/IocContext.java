@@ -74,7 +74,7 @@ public class IocContext {
 			for (Bean bean : IOC_CONTEXT.BEANS) {
 				if (!AopFilter.class.isAssignableFrom(bean.type)) {
 					try {
-						bean.instance = AopEnhancer.create(bean.type);// 如果有cglib-nodep-2.2.3.jar
+						bean.instance = AopEnhancer.create(bean.type);// 如果有cglib-nodep-2.2.3.jar,这里每次都进入异常程序,影响性能
 					} catch (Throwable e) {
 						bean.instance = Reflect.born(bean.type);// 如没有cglib,则没有Aop功效
 					}
