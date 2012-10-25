@@ -10,6 +10,6 @@ public class ReplacePart extends Part {
     }
 
     public String process(Map<String, Object> map) {
-        return "占位符内容,直接替换掉," + content;
+        return map.get(content).toString();
     }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Demo {
     public static void main(String[] args) {
-        Template template = new Template(read(new File("D:\\workspace\\li\\more\\li\\template\\template.htm")));
+        Template template = new Template(read(new File("E:\\workspace\\li\\more\\li\\template\\demo.htm")));
         template.setMap(toMap("message", "你好"));
         String text = template.merge();
         System.out.println(text);
