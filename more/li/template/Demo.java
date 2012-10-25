@@ -25,7 +25,6 @@ public class Demo {
             bufferedReader.close();
         } catch (Exception e) {
             throw new RuntimeException("Exception in li.util.Files.read(File)", e);
-
         }
         return stringBuffer.toString();
     }
