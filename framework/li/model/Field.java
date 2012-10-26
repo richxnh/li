@@ -1,5 +1,6 @@
 package li.model;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -95,7 +96,8 @@ public class Field {
             log.info("Field.list() by table " + table);
             try {
                 fields = new ArrayList<Field>();
-                QueryRunner queryRunner = new QueryRunner(dataSource.getConnection());
+                Connection connection = dataSource.getConnection();
+                QueryRunner queryRunner = new QueryRunner(connection);
                 ResultSet resultSet = queryRunner.executeQuery("DESC " + table);
 
                 while (null != resultSet && resultSet.next()) {
@@ -107,7 +109,8 @@ public class Field {
                 if (null != resultSet) {
                     resultSet.close();// 关闭resultSet
                 }
-                queryRunner.close();// 关闭QueryRunner
+                queryRunner.close();// 关闭QueryRunner,主要是关闭PrerparedStatement
+                connection.close();// 关闭connection,QueryRunner中可能因为事务没有关闭之
                 FIELDS_MAP.put("table#" + table, fields); // 加入缓存
             } catch (Exception e) {
                 throw new RuntimeException("Exception in li.model.Field.list(DataSource, String)", e);
