@@ -7,20 +7,6 @@ import org.junit.Test;
 
 public class AopTest extends BaseTest {
 
-    public static void main(String[] args) throws Exception {
-        final Account account = Ioc.get(Account.class);
-
-        for (int i = 0; i < 1000; i++) {
-            new Thread() {
-                public void run() {
-                    for (; true;) {
-                        account.update("SET password=password");
-                    }
-                }
-            }.start();
-        }
-    }
-
     @Test
     public void testAop() {
         final Account account = Ioc.get(Account.class);
