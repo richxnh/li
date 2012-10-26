@@ -8,6 +8,8 @@ import java.util.Map;
 
 import li.annotation.Aop;
 import li.ioc.Ioc;
+import net.sf.cglib.core.NamingPolicy;
+import net.sf.cglib.core.Predicate;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
@@ -29,6 +31,23 @@ public class AopEnhancer {
                     chain.doFilter();
                 }
             };
+        }
+    };
+    /**
+     * 自定义的NamingPolicy,使Aop子类类名以$Aop结尾
+     */
+    private static final NamingPolicy NAMING_POLICY = new NamingPolicy() {
+        public String getClassName(String prefix, String source, Object key, Predicate names) {
+            if (prefix == null) {
+                prefix = "net.sf.cglib.empty.Object";
+            } else if (prefix.startsWith("java")) {
+                prefix = "$" + prefix;
+            }
+            if (source.endsWith("Enhancer")) {
+                return prefix + "$Aop";
+            } else {
+                return prefix + "$FastClass";
+            }
         }
     };
 
@@ -58,6 +77,7 @@ public class AopEnhancer {
                 return new AopChain(target, method, args, filtersMap.get(method), proxy).doFilter().getResult();
             }// 使用AopChian代理执行这个方法并返回值
         });
+        enhancer.setNamingPolicy(NAMING_POLICY);
         return enhancer.create();// 创建代理对象
     }
 }
