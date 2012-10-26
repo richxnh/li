@@ -17,4 +17,10 @@ public class Account extends Record<Account> {
     public List<Account> list(Page page) {
         return super.list(page);
     }
+
+    @Trans
+    @Aop({ LogFilter.class })
+    public Integer update(String sql, Object... args) {
+        return super.update(sql, args);
+    }
 }

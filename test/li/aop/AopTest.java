@@ -8,17 +8,13 @@ import org.junit.Test;
 public class AopTest extends BaseTest {
 
     public static void main(String[] args) throws Exception {
-
         final Account account = Ioc.get(Account.class);
-        account.list(null);
 
-        for (int i = 0; i < 100; i++) {
-            Thread.sleep(300);
+        for (int i = 0; i < 1000; i++) {
             new Thread() {
                 public void run() {
                     for (; true;) {
-                        final Account account = Ioc.get(Account.class);
-                        account.list(null);
+                        account.update("SET password=password");
                     }
                 }
             }.start();
