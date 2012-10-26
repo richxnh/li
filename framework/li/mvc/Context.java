@@ -37,7 +37,12 @@ import li.util.Verify;
  */
 public class Context {
     private static final Log log = Log.init();
-
+    /**
+     * 默认视图类型,如果未在config.properties中配置则为forward
+     */
+    private static final String VIEW_TYPE = Files.load("config.properties").getProperty("view.type", "forward");
+    private static final String VIEW_PREFIX = Files.load("config.properties").getProperty("view.prefix", "");
+    private static final String VIEW_SUFFIX = Files.load("config.properties").getProperty("view.suffix", "");
     /**
      * 存储HttpServletRequest的ThreadLocal
      */
@@ -269,22 +274,17 @@ public class Context {
      * @see #write(String)
      */
     public static String view(String path) {
-        // 默认视图类型,如果未在config.properties中配置则为forward
-        String view_type = Files.load("config.properties").getProperty("view.type", "forward");
-        String view_prefix = Files.load("config.properties").getProperty("view.prefix", "");
-        String view_suffix = Files.load("config.properties").getProperty("view.suffix", "");
-
-        String viewType = path.contains(":") ? path.split(":")[0] : view_type;// 视图类型
+        String viewType = path.contains(":") ? path.split(":")[0] : VIEW_TYPE;// 视图类型
         String viewPath = path.startsWith(viewType + ":") ? path.split(viewType + ":")[1] : path;// path冒号后的部分或者path
 
         if ("forward".equals(viewType) || "fw".equals(viewType)) {// forward视图
-            forward(view_prefix + viewPath + view_suffix);
+            forward(VIEW_PREFIX + viewPath + VIEW_SUFFIX);
         } else if ("freemarker".equals(viewType) || "fm".equals(viewType)) {// freemarker视图
-            freemarker(view_prefix + viewPath + view_suffix);
+            freemarker(VIEW_PREFIX + viewPath + VIEW_SUFFIX);
         } else if ("velocity".equals(viewType) || "vl".equals(viewType)) {// velocity视图
-            velocity(view_prefix + viewPath + view_suffix);
+            velocity(VIEW_PREFIX + viewPath + VIEW_SUFFIX);
         } else if ("beetl".equals(viewType) || "bt".equals(viewType)) {// beetl视图
-            beetl(view_prefix + viewPath + view_suffix);
+            beetl(VIEW_PREFIX + viewPath + VIEW_SUFFIX);
         } else if ("redirect".equals(viewType) || "rd".equals(viewType)) {// redirect跳转
             redirect(viewPath);
         } else if ("write".equals(viewType) || "wt".equals(viewType)) {// 向页面write数据

@@ -30,6 +30,10 @@ import li.util.Verify;
 public class ActionFilter implements Filter {
     private static final Log log = Log.init();
     /**
+     * Servlet编码,可在配置文件中配置
+     */
+    private static final String ENCODING = Files.load("config.properties").getProperty("servlet.encoding", "UTF-8");
+    /**
      * 是否使用国际化
      */
     private static final String USE_I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");
@@ -54,9 +58,8 @@ public class ActionFilter implements Filter {
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // 设置编码
-        String encoding = Files.load("config.properties").getProperty("servlet.encoding", "UTF-8");
-        request.setCharacterEncoding(encoding);
-        response.setCharacterEncoding(encoding);
+        request.setCharacterEncoding(ENCODING);
+        response.setCharacterEncoding(ENCODING);
 
         if ("true".equals(USE_I18N.trim().toLowerCase())) {
             // 根据Parameter参数设置国际化,存到session

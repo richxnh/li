@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import li.ioc.Ioc;
 import li.model.Bean;
 import li.model.Field;
+import li.util.Files;
 import li.util.Log;
 import li.util.Page;
 import li.util.Reflect;
@@ -21,7 +22,10 @@ import li.util.Reflect;
  */
 public class AbstractDao<T> implements IBaseDao<T> {
     private static final Log log = Log.init();
-
+    /**
+     * 默认PageSize为20,可以在配置文件中修改
+     */
+    private static final Integer DEFAULT_PAGESIZE = Integer.valueOf(Files.load("config.properties").getProperty("pageSize", "20"));
     /**
      * 泛型参数的实际类型,即是数据对象类型
      */
@@ -203,7 +207,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
         if (null != resultSet && null != page) {
             page.setRecordCount(count(sql));
         }
-        Integer count = null == page ? 18 : page.getPageSize();
+        Integer count = null == page ? DEFAULT_PAGESIZE : page.getPageSize();
         return modelBuilder.list(getType(), getBeanMeta().fields, count, true);
     }
 
@@ -221,7 +225,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
             page.setRecordCount(count(sql));
         }
         Class<?> type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
-        Integer count = null == page ? 18 : page.getPageSize();
+        Integer count = null == page ? DEFAULT_PAGESIZE : page.getPageSize();
         return (List<Record>) modelBuilder.list(type, Field.list(resultSet), count, true);
     }
 

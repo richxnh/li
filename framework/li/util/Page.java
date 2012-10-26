@@ -8,6 +8,11 @@ package li.util;
  */
 public class Page {
     /**
+     * 默认PageSize为20,可以在配置文件中修改
+     */
+    private static final Integer DEFAULT_PAGESIZE = Integer.valueOf(Files.load("config.properties").getProperty("pageSize", "20"));
+
+    /**
      * 当前页数
      */
     private Integer pageNumber = 1;
@@ -15,7 +20,7 @@ public class Page {
     /**
      * 单页记录数
      */
-    private Integer pageSize = Integer.valueOf(Files.load("config.properties").getProperty("pageSize", "20"));;
+    private Integer pageSize = DEFAULT_PAGESIZE;
     /**
      * 总记录数
      */
