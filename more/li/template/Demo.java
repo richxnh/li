@@ -1,35 +1,19 @@
 package li.template;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.Map;
+
+import li.template.util.Files;
 
 public class Demo {
     public static void main(String[] args) {
-        Template template = new Template(read(new File("E:\\workspace\\li\\more\\li\\template\\demo.htm")));
-        template.setMap(toMap("message", "你好"));
-        String text = template.merge();
-        System.out.println(text);
-    }
-
-    public static String read(File file) {
-        StringBuffer stringBuffer = new StringBuffer();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append("\n");
-            }
-            bufferedReader.close();
-        } catch (Exception e) {
-            throw new RuntimeException("Exception in li.util.Files.read(File)", e);
-        }
-        return stringBuffer.toString();
-    }
-
-    public static Map<String, Object> toMap(Object... objects) {
-        return null;
+        Template template = new Template(Files.read(new File("E:\\workspace\\li\\more\\li\\template\\demo.htm")));
+        Map<Object, Object> map = new HashMap<Object, Object>();
+        template.setMap(map);
+        Writer writer = new OutputStreamWriter(System.out);
+        template.merge(writer);
     }
 }
