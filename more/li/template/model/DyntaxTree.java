@@ -1,5 +1,8 @@
 package li.template.model;
 
-public class DyntaxTree {
+import java.util.List;
 
+public class DyntaxTree {
+    private String value;
+    private List<DyntaxTree> childs;
 }

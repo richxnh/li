@@ -11,7 +11,6 @@ import li.template.core.LexicalAnalyzer;
 import li.template.core.SemanticAnalyzer;
 import li.template.core.SyntacticAnalyzer;
 import li.template.model.DyntaxTree;
-import li.template.model.Word;
 
 public class Template {
     static LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();// 词法分析器
@@ -34,11 +33,11 @@ public class Template {
     }
 
     public void merge(Writer writer) {
-
+        compile();
     }
 
     public void compile() {
-        List<Word> words = lexicalAnalyzer.process(this.content);
+        List<String> words = lexicalAnalyzer.process(this.content);
         DyntaxTree dyntaxTree = syntacticAnalyzer.process(words);
     }
 }

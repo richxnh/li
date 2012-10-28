@@ -3,7 +3,6 @@ package li.template.core;
 import java.util.List;
 
 import li.template.model.DyntaxTree;
-import li.template.model.Word;
 
 /**
  * 2. 语法分析器
@@ -11,7 +10,14 @@ import li.template.model.Word;
  * @author li
  */
 public class SyntacticAnalyzer {
-    public DyntaxTree process(List<Word> words) {
+    public DyntaxTree process(List<String> words) {
+        for (String word : words) {            
+            if(word.startsWith("<!---")&&word.endsWith("-->")){
+                System.out.println("STATEMENT: "+word);
+            }else{
+                System.out.println("TEXT: "+word);
+            }
+        }
         return null;
     }
 }
