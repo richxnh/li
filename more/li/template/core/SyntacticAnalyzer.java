@@ -11,11 +11,11 @@ import li.template.model.DyntaxTree;
  */
 public class SyntacticAnalyzer {
     public DyntaxTree process(List<String> words) {
-        for (String word : words) {            
-            if(word.startsWith("<!---")&&word.endsWith("-->")){
-                System.out.println("STATEMENT: "+word);
-            }else{
-                System.out.println("TEXT: "+word);
+        for (String word : words) {
+            if (word.startsWith("<!---") && word.endsWith("-->")) {
+                System.out.println("STATEMENT: " + word);
+            } else {
+                System.out.println("TEXT: " + word);
             }
         }
         return null;
