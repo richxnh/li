@@ -29,7 +29,7 @@ public abstract class Trans {
     /**
      * 实例变量,用于存放一些值,可用于Trans内外通信
      */
-    private final Map map = new HashMap();
+    private Map map;
 
     /**
      * 定义一个事务,并执行run()中包裹的数据操作方法
@@ -42,7 +42,7 @@ public abstract class Trans {
      * 定义并执行一个事务,并传入一些参数
      */
     public Trans(Map map) {
-        this.map.putAll(map);
+        this.map = map;
         try {
             begin(); // 开始事务
             run(); // 执行事务内方法
