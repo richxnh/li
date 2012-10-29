@@ -54,7 +54,7 @@ public class AopEnhancer {
     /**
      * 生成一个Aop增强的对象
      */
-    public static Object create(Class<?> type) {
+    public static Object create(Class type) {
         // 构造这个类型所有方法的AopFilter的集合
         final Map<Method, List<AopFilter>> filtersMap = new HashMap<Method, List<AopFilter>>();
         Method[] methods = type.getDeclaredMethods();

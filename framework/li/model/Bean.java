@@ -24,7 +24,7 @@ public class Bean {
     /**
      * 缓存Bean结构的Map
      */
-    private static final Map<Class<?>, Bean> BEAN_MAP = new HashMap<Class<?>, Bean>();
+    private static final Map<Class, Bean> BEAN_MAP = new HashMap<Class, Bean>();
 
     /**
      * Bean的一个实例
@@ -39,7 +39,7 @@ public class Bean {
     /**
      * Bean的类型
      */
-    public Class<?> type;
+    public Class type;
 
     /**
      * Bean的属性集合

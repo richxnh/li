@@ -93,7 +93,7 @@ public class Files {
     public static Properties load(String name) {
         Properties properties = (Properties) Log.get("prop_" + name);// 从缓存中查找properties
         if (null == properties) {
-            List<?> propertyFiles = (List<?>) Log.get("PROPERTIE_FILES");// 从缓存中查找propertyFiles
+            List propertyFiles = (List) Log.get("PROPERTIE_FILES");// 从缓存中查找propertyFiles
             if (null == propertyFiles) {
                 String PROPERTIES_REGEX = "^.*.properties$";// 搜索以.properties结尾的文件
                 propertyFiles = list(root(), PROPERTIES_REGEX, true);

@@ -224,7 +224,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
         if (null != resultSet && null != page) {
             page.setRecordCount(count(sql));
         }
-        Class<?> type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
+        Class type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
         Integer count = null == page ? DEFAULT_PAGESIZE : page.getPageSize();
         return (List<Record>) modelBuilder.list(type, Field.list(resultSet), count, true);
     }

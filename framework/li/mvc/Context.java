@@ -76,8 +76,8 @@ public class Context {
     /**
      * 从request,sesstion,servletContext中取出Attributes转为Map
      */
-    private static Map<String, Object> getAttributes() {
-        Map<String, Object> map = new HashMap<String, Object>();
+    private static Map getAttributes() {
+        Map map = new HashMap();
         map.put("application", getServletContext());
         map.put("servletContext", getServletContext());
         map.put("request", getRequest());
@@ -437,7 +437,7 @@ public class Context {
         try {
             Object factory = Reflect.born("org.apache.commons.fileupload.disk.DiskFileItemFactory");
             Object upload = Reflect.born("org.apache.commons.fileupload.servlet.ServletFileUpload", new Class[] { Reflect.getType("org.apache.commons.fileupload.FileItemFactory") }, factory);
-            List<?> fileItems = (List<?>) Reflect.invoke(upload, "parseRequest", getRequest());
+            List fileItems = (List) Reflect.invoke(upload, "parseRequest", getRequest());
             for (Object fileItem : fileItems) {
                 File saveFile = new File(uploadPath, Reflect.invoke(fileItem, "getName").toString());
                 Reflect.invoke(fileItem, "write", saveFile);

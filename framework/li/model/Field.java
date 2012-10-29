@@ -36,7 +36,7 @@ public class Field {
     /**
      * 属性的JAVA类型
      */
-    public Class<?> type;
+    public Class type;
 
     /**
      * 这个属性的值
@@ -59,7 +59,7 @@ public class Field {
      * @param targetType 目标对象
      * @param annotated 是否只列出有Field注解的字段
      */
-    public static List<Field> list(Class<?> targetType, Boolean annotated) {
+    public static List<Field> list(Class targetType, Boolean annotated) {
         List<Field> fields = FIELDS_MAP.get("class#" + targetType.getName() + "#annotated#" + annotated);
         if (null == fields) { // 如果缓存中没有
             log.info("Field.list() by type " + targetType.getName());

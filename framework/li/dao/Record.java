@@ -15,11 +15,11 @@ import li.util.Page;
  * @author li (limw@w.cn)
  * @version 0.1.1 (2012-06-25)
  */
-public class Record<T extends Record> extends AbstractDao<T> implements Map<String, Object>, Serializable {
+public class Record<T extends Record> extends AbstractDao<T> implements Map, Serializable {
     /**
      * 存储对象属性值的Map
      */
-    private Map<String, Object> fields = new HashMap<String, Object>();
+    private Map fields = new HashMap();
 
     /**
      * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
@@ -40,14 +40,14 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
     /**
      * 设置名为key的属性的值为value
      */
-    public Object put(String key, Object value) {
+    public Object put(Object key, Object value) {
         return fields.put(key, value);
     }
 
     /**
      * 设置名为key的属性的值为value
      */
-    public T set(String key, Object value) {
+    public T set(Object key, Object value) {
         fields.put(key, value);
         return (T) this;
     }
@@ -90,7 +90,7 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
     /**
      * 批量设置属性值
      */
-    public void putAll(Map<? extends String, ? extends Object> map) {
+    public void putAll(Map map) {
         fields.putAll(map);
     }
 
@@ -104,21 +104,21 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map<Stri
     /**
      * 返回属性的Set集合
      */
-    public Set<String> keySet() {
+    public Set keySet() {
         return fields.keySet();
     }
 
     /**
-     * 返回属性值得Collection集合
+     * 返回属性值的Collection集合
      */
-    public Collection<Object> values() {
+    public Collection values() {
         return fields.values();
     }
 
     /**
      * 返回属性值的Set集合
      */
-    public Set<Entry<String, Object>> entrySet() {
+    public Set entrySet() {
         return fields.entrySet();
     }
 }

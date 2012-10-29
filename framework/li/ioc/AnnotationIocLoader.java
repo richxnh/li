@@ -29,7 +29,7 @@ public class AnnotationIocLoader {
         List<li.model.Bean> beans = new ArrayList<li.model.Bean>();
         for (String classFile : fileList) {
             String className = classFile.split("\\\\classes\\\\")[1].replaceAll("\\\\", ".").replace(".class", "");// 取/classes/之后的字符串,替换/为.,去掉.class
-            Class<?> type = Reflect.getType(className);
+            Class type = Reflect.getType(className);
             li.annotation.Bean beanAnnotation = (li.annotation.Bean) type.getAnnotation(li.annotation.Bean.class);
             if (beanAnnotation != null) {
                 li.model.Bean iocBean = new li.model.Bean();// 一个新的Bean

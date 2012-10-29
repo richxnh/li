@@ -40,7 +40,7 @@ public class SimpleDataSource implements DataSource {
         return null;
     }
 
-    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    public boolean isWrapperFor(Class iface) throws SQLException {
         return false;
     }
 

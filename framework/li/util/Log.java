@@ -15,7 +15,7 @@ public abstract class Log {
     /**
      * Log初始化方法,自动适配Log4j或Console
      */
-    public static Log init(final Class<?> type) {
+    public static Log init(final Class type) {
         try {
             return new Log() {// 尝试初始化Log4J
                 Logger logger = Logger.getLogger(type);
@@ -107,7 +107,7 @@ public abstract class Log {
     /**
      * 一个缓存,可用于暂时保存一个值
      */
-    private static final Map<String, Object> LOG_MAP = new HashMap<String, Object>();
+    private static final Map LOG_MAP = new HashMap();
 
     /**
      * 向LOG_MAP中设值,synchronized方法

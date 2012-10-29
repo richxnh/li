@@ -29,7 +29,7 @@ public class Convert {
      */
     public static String toJson(Object target) {
         if (target instanceof Collection) {// 如果是集合,转换成数组处理
-            return toJson(((Collection<?>) target).toArray());
+            return toJson(((Collection) target).toArray());
         }
         if (target.getClass().isArray()) {// 如果是数组
             String json = "[";
@@ -40,7 +40,7 @@ public class Convert {
         }
         String json = "{";// 处理单个对象
         if (Record.class.isAssignableFrom(target.getClass())) {// 如果是Record
-            Set<Entry<String, Object>> entries = ((Record<?>) target).entrySet();
+            Set<Entry<String, Object>> entries = ((Record) target).entrySet();
             for (Entry<String, Object> entry : entries) {// Record的每个属性
                 json += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
             }
@@ -81,8 +81,8 @@ public class Convert {
     /**
      * 将数组转换为Map,奇数位为key,偶数位为value; items必须为偶数个
      */
-    public static Map<Object, Object> toMap(Object... items) {
-        Map<Object, Object> map = new HashMap<Object, Object>();
+    public static Map toMap(Object... items) {
+        Map map = new HashMap();
         if (null != items && items.length > 0) {// 非空判断
             if (items.length % 2 != 0) {
                 throw new RuntimeException("Count of items must be even !!!");// 个数为奇数,抛出异常

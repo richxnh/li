@@ -40,7 +40,7 @@ public class Action {
     /**
      * Action方法参数类型列表
      */
-    public Class<?>[] argTypes;
+    public Class[] argTypes;
 
     /**
      * Action方法参数注解列表

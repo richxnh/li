@@ -19,7 +19,7 @@ public abstract class Trans {
     /**
      * 存储当前事务中使用到的Connection,为null意味不在事务中
      */
-    public static final ThreadLocal<Map<Class<?>, Connection>> CONNECTION_MAP = new ThreadLocal<Map<Class<?>, Connection>>();
+    public static final ThreadLocal<Map<Class, Connection>> CONNECTION_MAP = new ThreadLocal<Map<Class, Connection>>();
 
     /**
      * 存储数据操作异常,不为null则代表出错,需要回滚
@@ -29,19 +29,19 @@ public abstract class Trans {
     /**
      * 实例变量,用于存放一些值,可用于Trans内外通信
      */
-    private final Map<Object, Object> map = new HashMap<Object, Object>();
+    private final Map map = new HashMap();
 
     /**
      * 定义一个事务,并执行run()中包裹的数据操作方法
      */
     public Trans() {
-        this(new HashMap<Object, Object>());
+        this(new HashMap());
     }
 
     /**
      * 定义一个事务,并传入一些参数
      */
-    public Trans(Map<Object, Object> map) {
+    public Trans(Map map) {
         this.map.putAll(map);
         if (null == this.map.get(hashCode() + "~!@#done")) {// 如果未被执行
             try {
@@ -65,7 +65,7 @@ public abstract class Trans {
     /**
      * 返回map引用
      */
-    public Map<Object, Object> map() {
+    public Map map() {
         return this.map;
     }
 
@@ -88,7 +88,7 @@ public abstract class Trans {
         StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
         if (null == CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
             log.debug("Trans.begin() in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
-            CONNECTION_MAP.set(new HashMap<Class<?>, Connection>());
+            CONNECTION_MAP.set(new HashMap<Class, Connection>());
         } else {
             this.map.put(hashCode() + "~!@#in_trans", true);
         }
@@ -99,9 +99,9 @@ public abstract class Trans {
      */
     private void end() throws Exception {
         StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-        Map<Class<?>, Connection> connectionMap = CONNECTION_MAP.get();
+        Map<Class, Connection> connectionMap = CONNECTION_MAP.get();
         if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) { // Trans in Trans 时候不会重复执行
-            for (Entry<Class<?>, Connection> entry : connectionMap.entrySet()) {
+            for (Entry<Class, Connection> entry : connectionMap.entrySet()) {
                 entry.getValue().close();
             }
             CONNECTION_MAP.set(null);
@@ -115,9 +115,9 @@ public abstract class Trans {
      */
     private void commit() throws Exception {
         StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-        Map<Class<?>, Connection> connectionMap = CONNECTION_MAP.get();
+        Map<Class, Connection> connectionMap = CONNECTION_MAP.get();
         if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) {
-            for (Entry<Class<?>, Connection> connection : connectionMap.entrySet()) {
+            for (Entry<Class, Connection> connection : connectionMap.entrySet()) {
                 connection.getValue().commit();
                 log.debug("Trans.commit() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
             }
@@ -129,9 +129,9 @@ public abstract class Trans {
      */
     private void rollback() throws Exception {
         StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
-        Map<Class<?>, Connection> connectionMap = CONNECTION_MAP.get();
+        Map<Class, Connection> connectionMap = CONNECTION_MAP.get();
         if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) {
-            for (Entry<Class<?>, Connection> connection : connectionMap.entrySet()) {
+            for (Entry<Class, Connection> connection : connectionMap.entrySet()) {
                 connection.getValue().rollback();
                 log.debug("Trans.rollback() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
             }

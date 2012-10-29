@@ -200,8 +200,8 @@ public class QueryBuilder {
     public String setArgs(String sql, Object[] args) {
         if (null != sql && sql.length() > 0 && null != args && args.length > 0) {// 非空判断
             for (int i = 0; i < args.length; i++) {
-                if (args[i] instanceof Map<?, ?>) {
-                    sql = setArgMap(sql, (Map<?, ?>) args[i]);// 替换具名参数
+                if (args[i] instanceof Map) {
+                    sql = setArgMap(sql, (Map) args[i]);// 替换具名参数
                 } else {
                     sql = sql.replaceFirst("[?]", "'" + args[i] + "'");// 为参数加上引号后替换问号
                 }

@@ -32,7 +32,7 @@ public class Reflect {
     /**
      * 构造一个新的实例,根据类型,参数类型列表和参数列表
      */
-    public static <T> T born(Class<T> type, Class<?>[] argTypes, Object[] args) {
+    public static <T> T born(Class<T> type, Class[] argTypes, Object[] args) {
         try {
             return type.getConstructor(argTypes).newInstance(args);
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class Reflect {
     /**
      * 得到一个方法,根据对象类型,方法名和参数类型列表
      */
-    public static Method getMethod(Class<?> targetType, String methodName, Class<?>... argTypes) {
+    public static Method getMethod(Class targetType, String methodName, Class... argTypes) {
         try {
             Method method = targetType.getDeclaredMethod(methodName, argTypes);// 在当前类型中查找方法
             method.setAccessible(true);// 设置可见性为true
@@ -104,7 +104,7 @@ public class Reflect {
     /**
      * 执行targetType类型的methodName静态方法,args类型需要顺序匹配于argTypes
      */
-    public static Object call(String targetType, String methodName, Class<?>[] argTypes, Object[] args) {
+    public static Object call(String targetType, String methodName, Class[] argTypes, Object[] args) {
         return invoke(null, getMethod(getType(targetType), methodName, argTypes), args);
     }
 
@@ -118,7 +118,7 @@ public class Reflect {
     /**
      * 得到一个targetType的名为fieldName的属性,或者它的超类的
      */
-    public static Field getField(Class<?> targetType, String fieldName) {
+    public static Field getField(Class targetType, String fieldName) {
         try {
             Field field = targetType.getDeclaredField(fieldName);// 在当前类型中得到属性
             field.setAccessible(true);// 设置可操作性为true
@@ -131,7 +131,7 @@ public class Reflect {
     /**
      * 探测一个属性的类型,从Field或者Getter
      */
-    public static Class<?> fieldType(Class<?> targetType, String fieldName) {
+    public static Class fieldType(Class targetType, String fieldName) {
         Field field = getField(targetType, fieldName);
         if (null != field) { // 从field探测
             return field.getType();
@@ -156,8 +156,8 @@ public class Reflect {
             try {
                 return getField(target.getClass(), fieldName).get(target);// 通过属性访问
             } catch (Exception ex) {
-                if (target instanceof Record<?>) {
-                    return ((Record<?>) target).get(fieldName);// 通过Record.get()方法
+                if (target instanceof Record) {
+                    return ((Record) target).get(fieldName);// 通过Record.get()方法
                 } else {
                     throw new RuntimeException("Reflect.get() target=" + target + ",fieldName=" + fieldName);
                 }
@@ -178,8 +178,8 @@ public class Reflect {
                 Field field = getField(target.getClass(), fieldName);
                 field.set(target, Convert.toType(field.getType(), value));// 通过属性访问,这里有做类型转换
             } catch (Exception ex) {
-                if (target instanceof Record<?>) {
-                    ((Record<?>) target).set(fieldName, value);// 通过Record.set()方法,这里也没做类型转换
+                if (target instanceof Record) {
+                    ((Record) target).set(fieldName, value);// 通过Record.set()方法,这里也没做类型转换
                 } else {
                     throw new RuntimeException("Reflect.set() target=" + target + ",fieldName=" + fieldName + ",value=" + value);
                 }
@@ -190,8 +190,8 @@ public class Reflect {
     /**
      * 返回一些对象的类型数组
      */
-    public static Class<?>[] typesOf(Object... objects) {
-        Class<?>[] types = new Class<?>[objects.length];
+    public static Class[] typesOf(Object... objects) {
+        Class[] types = new Class[objects.length];
         for (int i = 0; i < objects.length; i++) {
             types[i] = objects[i].getClass();
         }
@@ -222,7 +222,7 @@ public class Reflect {
      * @param subType 子类类型
      * @param index 泛型参数索引
      */
-    public static Type actualType(Class<?> subType, Integer index) {
+    public static Type actualType(Class subType, Integer index) {
         try {
             return ((ParameterizedType) subType.getGenericSuperclass()).getActualTypeArguments()[index];
         } catch (Exception e) {// 不能转换为ParameterizedType或者数组越界的异常,探测他的超类
