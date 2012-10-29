@@ -10,7 +10,11 @@ public class User extends Record<User> {
 
     @li.annotation.Trans
     public void testMultipleTrans2() {
-        testMultipleTrans3();
+        new Trans() {
+            public void run() {
+                testMultipleTrans3();
+            }
+        };
     }
 
     @li.annotation.Trans
