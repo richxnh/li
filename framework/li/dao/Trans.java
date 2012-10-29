@@ -35,26 +35,31 @@ public abstract class Trans {
      * 定义一个事务,并执行run()中包裹的数据操作方法
      */
     public Trans() {
-        go();
+        this(new HashMap<Object, Object>());
     }
 
     /**
-     * 定义一个事务,可以指定是否自动执行,如果不,则定义后调用go()以执行
-     * 
-     * @param auto_run 标记此事务是否自动执行
+     * 定义一个事务,并传入一些参数
      */
-    public Trans(Boolean auto_run) {
-        if (auto_run) {
-            go();
-        }
-    }
-
-    /**
-     * 批量设置map,采用putAll方式
-     */
-    public Trans set(Map<Object, Object> map) {
+    public Trans(Map<Object, Object> map) {
         this.map.putAll(map);
-        return this;
+        if (null == this.map.get(hashCode() + "~!@#done")) {// 如果未被执行
+            try {
+                begin(); // 开始事务
+                run(); // 执行事务内方法
+                if (null == EXCEPTION.get()) { // 如果没有出现错误
+                    commit(); // 提交事务
+                    this.map.put(hashCode() + "~!@#success", true);
+                } else {// 如果出现错误
+                    rollback(); // 回滚事务
+                    this.map.put(hashCode() + "~!@#success", false);
+                }
+                end(); // 结束事务
+                this.map.put(hashCode() + "~!@#done", true);// 加标记,避免重复执行
+            } catch (Exception e) {
+                throw new RuntimeException("Exception in trans", e);
+            }
+        }
     }
 
     /**
@@ -75,30 +80,6 @@ public abstract class Trans {
      * 抽象方法,包裹需要事务控制的Dao方法
      */
     public abstract void run();
-
-    /**
-     * 执行这个事务,自动执行的Trans不需调用这个方法
-     */
-    public Trans go() {
-        if (null == this.map.get(hashCode() + "~!@#done")) {// 如果未被执行
-            try {
-                begin(); // 开始事务
-                run(); // 执行事务内方法
-                if (null == EXCEPTION.get()) { // 如果没有出现错误
-                    commit(); // 提交事务
-                    this.map.put(hashCode() + "~!@#success", true);
-                } else {// 如果出现错误
-                    rollback(); // 回滚事务
-                    this.map.put(hashCode() + "~!@#success", false);
-                }
-                end(); // 结束事务
-                this.map.put(hashCode() + "~!@#done", true);// 加标记,避免重复执行
-            } catch (Exception e) {
-                throw new RuntimeException("Exception in trans", e);
-            }
-        }
-        return this;
-    }
 
     /**
      * 开始事务,初始化CONNECTION_MAP,或者标记这个事务已被其他事务包裹融化

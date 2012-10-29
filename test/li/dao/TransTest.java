@@ -17,14 +17,14 @@ public class TransTest extends BaseTest {
 
     @Test
     public void test1() {
-        System.err.println(new Trans(false) {
+        System.err.println(new Trans(Convert.toMap("inpar", "inpar---", "1", "2", "3", "4")) {
             public void run() {
                 userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
                 userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-                map().put("outpar", "outpar");
+                map().put("outpar", "outpar---");
                 System.err.println(map().get("inpar"));
             }
-        }.set(Convert.toMap("inpar", "inpar", "1", "2", "3", "4")).go().map().get("outpar"));
+        }.map().get("outpar"));
     }
 
     @Test
@@ -34,20 +34,19 @@ public class TransTest extends BaseTest {
 
     @Test
     public void testPassValue() {
-        User user = (User) new Trans(false) {
+        User user = (User) new Trans(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")) {
             public void run() {
                 userDao.update("SET email=:email WHERE username=:username", map());
-                map().put("user", userDao.find("WHERE username=?", map().get(":username")));
+                map().put("user", userDao.find("WHERE username!=?", map().get(":username")));
             }
-        }.set(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")).go().map().get("user");
+        }.map().get("user");
+        System.err.println(user);
 
         Boolean flag = new Trans() {
             public void run() {
                 userDao.update("SET email='li@w.cn' WHERE 1=2", map());
             }
         }.success();
-
-        System.err.println(user);
         System.err.println(flag);
     }
 
@@ -76,16 +75,5 @@ public class TransTest extends BaseTest {
                 System.err.println("trans 1 end");
             }
         };
-    }
-
-    @Test
-    public void testTrans2() {
-        new Trans(false) {
-            public void run() {
-                System.err.println("trans 4 start");
-                accountDao.list(null);
-                System.err.println("trans 4 end");
-            }
-        }.go().go().go().go().go();
     }
 }
