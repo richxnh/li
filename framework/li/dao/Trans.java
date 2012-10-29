@@ -39,26 +39,23 @@ public abstract class Trans {
     }
 
     /**
-     * 定义一个事务,并传入一些参数
+     * 定义并执行一个事务,并传入一些参数
      */
     public Trans(Map map) {
         this.map.putAll(map);
-        if (null == this.map.get(hashCode() + "~!@#done")) {// 如果未被执行
-            try {
-                begin(); // 开始事务
-                run(); // 执行事务内方法
-                if (null == EXCEPTION.get()) { // 如果没有出现错误
-                    commit(); // 提交事务
-                    this.map.put(hashCode() + "~!@#success", true);
-                } else {// 如果出现错误
-                    rollback(); // 回滚事务
-                    this.map.put(hashCode() + "~!@#success", false);
-                }
-                end(); // 结束事务
-                this.map.put(hashCode() + "~!@#done", true);// 加标记,避免重复执行
-            } catch (Exception e) {
-                throw new RuntimeException("Exception in trans", e);
+        try {
+            begin(); // 开始事务
+            run(); // 执行事务内方法
+            if (null == EXCEPTION.get()) { // 如果没有出现错误
+                commit(); // 提交事务
+                this.map.put(hashCode() + "~!@#success", true);
+            } else {// 如果出现错误
+                rollback(); // 回滚事务
+                this.map.put(hashCode() + "~!@#success", false);
             }
+            end(); // 结束事务
+        } catch (Exception e) {
+            throw new RuntimeException("Exception in trans", e);
         }
     }
 
