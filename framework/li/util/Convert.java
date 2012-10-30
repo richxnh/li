@@ -40,7 +40,7 @@ public class Convert {
         }
         String json = "{";// 处理单个对象
         if (Record.class.isAssignableFrom(target.getClass())) {// 如果是Record
-            Set<Entry<String, Object>> entries = ((Record) target).entrySet();
+            Set<Entry> entries = ((Record) target).entrySet();
             for (Entry<String, Object> entry : entries) {// Record的每个属性
                 json += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
             }
