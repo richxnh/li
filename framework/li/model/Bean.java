@@ -58,7 +58,7 @@ public class Bean {
      */
     public Field getId() {
         if (null == this.id) {
-            throw new RuntimeException("As a POJO," + type + " must has a primary key field which annotationed by @Field(id=true)");
+            throw new RuntimeException("no primary key for " + table);
         }
         return this.id;
     }
