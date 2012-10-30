@@ -20,12 +20,15 @@ import demo.model.User;
 public class QueryBuilderTest extends BaseTest {
     DataSource dataSource = Ioc.get(DataSource.class);
 
-    QueryBuilder queryBuilder = new QueryBuilder(dataSource, Bean.getMeta(dataSource, User.class));
+    QueryBuilder queryBuilder = new QueryBuilder();
 
     User user = new User();
 
     @Before
     public void before() throws Exception {
+        queryBuilder.setDataSource(dataSource);
+        queryBuilder.setBeanMeta(Bean.getMeta(dataSource, User.class));
+
         user.setId(1);
         user.setUsername("username-1");
         user.setPassword("password-1");

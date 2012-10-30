@@ -3,6 +3,7 @@ package li.sqlite;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 import li.ioc.Ioc;
@@ -19,12 +20,11 @@ public class Demo {
         Connection connection = DriverManager.getConnection("jdbc:sqlite://e:/program files/sqlite/db/forum.db");
         Statement statement = connection.createStatement();
 
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
-        while (resultSet.next()) {
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                System.out.print(resultSet.getString(i) + "\t");
-            }
-            System.out.println();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM user where 1=2");
+
+        ResultSetMetaData meta = resultSet.getMetaData();
+        for (int columnCount = (null == meta ? -1 : meta.getColumnCount()), i = 1; i <= columnCount; i++) {
+            System.out.println(meta.getColumnName(i));
         }
     }
 }

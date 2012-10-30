@@ -18,4 +18,9 @@ public @interface Table {
      * 与所标记的类对应的数据表的表名,留空则使用类名
      */
     public String value() default "";
+
+    /**
+     * 标记表的id列名,默认为id
+     */
+    public String id() default "id";
 }

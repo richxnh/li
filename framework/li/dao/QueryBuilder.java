@@ -30,11 +30,17 @@ public class QueryBuilder {
     private DataSource dataSource;
 
     /**
-     * 初始化方法
+     * 设置beanMeta
      */
-    public QueryBuilder(DataSource dataSource, Bean beanMeta) {
-        this.dataSource = dataSource;
+    public void setBeanMeta(Bean beanMeta) {
         this.beanMeta = beanMeta;
+    }
+
+    /**
+     * 设置数据源
+     */
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /**

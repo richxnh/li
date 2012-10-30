@@ -7,8 +7,6 @@
 		</bean>
 		<bean class="li.sqlite.User">
 			<property name="dataSource" value="druid_sqlite" />
-			<property name="queryBuilder" value="sqliteQueryBuilder"/>
 		</bean>
-		<bean name="sqliteQueryBuilder" class="li.sqlite.SqliteQueryBuilder"/>
 	</beans>
 </config>

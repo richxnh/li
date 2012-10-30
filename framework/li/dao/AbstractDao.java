@@ -72,7 +72,9 @@ public class AbstractDao<T> implements IBaseDao<T> {
      */
     protected QueryBuilder getQueryBuilder() {
         if (null == this.queryBuilder) {
-            this.queryBuilder = new QueryBuilder(getDataSource(), getBeanMeta());
+            this.queryBuilder = new QueryBuilder();
+            this.queryBuilder.setDataSource(getDataSource());
+            this.queryBuilder.setBeanMeta(getBeanMeta());
         }
         return this.queryBuilder;
     }

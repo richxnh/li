@@ -5,7 +5,7 @@ import li.annotation.Table;
 
 @Table("t_account")
 public class User {
-    @Field(id = true)
+    @Field
     private Integer id;
     @Field
     private String username;

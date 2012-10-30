@@ -51,7 +51,7 @@ public class Field {
     /**
      * 这个属性是否一个ID
      */
-    public Boolean isId;
+    public Boolean isId = false;
 
     /**
      * 通过扫描对象结构及注解的方式得到一个类型的属性列表 List<Field>,根据类名缓存
@@ -71,7 +71,6 @@ public class Field {
                     li.model.Field attribute = new li.model.Field();
                     attribute.name = field.getName();
                     attribute.column = (null == column || Verify.isEmpty(column.value())) ? field.getName() : column.value();
-                    attribute.isId = (null == column) ? false : column.id();
                     fields.add(attribute);
                 }
             }
@@ -98,14 +97,8 @@ public class Field {
                 fields = new ArrayList<Field>();
                 Connection connection = dataSource.getConnection();
                 QueryRunner queryRunner = new QueryRunner(connection);
-                ResultSet resultSet = queryRunner.executeQuery("DESC " + table);
-
-                while (null != resultSet && resultSet.next()) {
-                    Field attribute = new Field();
-                    attribute.name = attribute.column = resultSet.getString("Field");
-                    attribute.isId = resultSet.getString("Key").toUpperCase().equals("PRI");// Key的值为PRI的字段即为ID字段
-                    fields.add(attribute);
-                }
+                ResultSet resultSet = queryRunner.executeQuery("SELECT * FROM " + table + " WHERE 1=2");
+                fields = list(resultSet);
                 if (null != resultSet) {
                     resultSet.close();// 关闭resultSet
                 }
@@ -113,7 +106,7 @@ public class Field {
                 connection.close();// 关闭connection,QueryRunner中可能因为事务没有关闭之
                 FIELDS_MAP.put("table#" + table, fields); // 加入缓存
             } catch (Exception e) {
-                throw new RuntimeException("Exception in li.model.Field.list(DataSource, String)", e);
+                throw new RuntimeException("Exception in li.model.Field.list(DataSource, String) " + e.getMessage(), e);
             }
         }
         return fields;
