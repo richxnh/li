@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ioc.xsd">
+	<beans>
+		<bean name="druid_sqlite" class="com.alibaba.druid.pool.DruidDataSource">
+			<property name="url" value="jdbc:sqlite://e:/program files/sqlite/db/forum.db" />
+		</bean>
+		<bean class="li.sqlite.User">
+			<property name="dataSource" value="druid_sqlite" />
+			<property name="queryBuilder" value="sqliteQueryBuilder"/>
+		</bean>
+		<bean name="sqliteQueryBuilder" class="li.sqlite.SqliteQueryBuilder"/>
+	</beans>
+</config>
