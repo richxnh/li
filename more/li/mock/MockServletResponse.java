@@ -19,8 +19,7 @@ class MockServletResponse implements ServletResponse {
         System.err.println("li.mock.MockServletResponse.getWriter() calling by " + Tool.stackTrace());
 
         return new PrintWriter(System.err) {
-            public void write(char[] buf, int off, int len) {
-            }
+            public void write(char[] buf, int off, int len) {}
         };
     }
 
@@ -28,8 +27,7 @@ class MockServletResponse implements ServletResponse {
         return null;
     }
 
-    public void flushBuffer() throws IOException {
-    }
+    public void flushBuffer() throws IOException {}
 
     public int getBufferSize() {
         return 0;
@@ -51,24 +49,17 @@ class MockServletResponse implements ServletResponse {
         return false;
     }
 
-    public void reset() {
-    }
+    public void reset() {}
 
-    public void resetBuffer() {
-    }
+    public void resetBuffer() {}
 
-    public void setBufferSize(int arg0) {
-    }
+    public void setBufferSize(int arg0) {}
 
-    public void setCharacterEncoding(String arg0) {
-    }
+    public void setCharacterEncoding(String arg0) {}
 
-    public void setContentLength(int arg0) {
-    }
+    public void setContentLength(int arg0) {}
 
-    public void setContentType(String arg0) {
-    }
+    public void setContentType(String arg0) {}
 
-    public void setLocale(Locale arg0) {
-    }
+    public void setLocale(Locale arg0) {}
 }

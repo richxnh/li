@@ -61,8 +61,7 @@ public class Context {
     /**
      * 一个static final的AbstractAction,作为某些方法的返回值,目的是方便链式调用
      */
-    private static final AbstractAction ABSTRACT_ACTION = new AbstractAction() {
-    };
+    private static final AbstractAction ABSTRACT_ACTION = new AbstractAction() {};
 
     /**
      * 视图层异常处理,为了安全,页面上没有异常信息

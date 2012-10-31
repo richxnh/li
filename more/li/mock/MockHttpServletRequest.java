@@ -152,9 +152,7 @@ public class MockHttpServletRequest extends MockServletRequest implements HttpSe
         return false;
     }
 
-    public void login(String username, String pawssword) throws ServletException {
-    }
+    public void login(String username, String pawssword) throws ServletException {}
 
-    public void logout() throws ServletException {
-    }
+    public void logout() throws ServletException {}
 }

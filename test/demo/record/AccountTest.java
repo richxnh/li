@@ -17,6 +17,5 @@ public class AccountTest extends BaseTest {
     }
 
     @Test
-    public void testList() {
-    }
+    public void testList() {}
 }

@@ -17,6 +17,5 @@ public class ForumTest extends BaseTest {
     }
 
     @Test
-    public void testList() {
-    }
+    public void testList() {}
 }

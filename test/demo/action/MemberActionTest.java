@@ -22,15 +22,12 @@ public class MemberActionTest extends ActionTest {
     }
 
     @Test
-    public void test1() {
-    }
+    public void test1() {}
 
     @Test
-    public void testFreemarker() {
-    }
+    public void testFreemarker() {}
 
     @Test
-    public void testVelocity() {
-    }
+    public void testVelocity() {}
 
 }

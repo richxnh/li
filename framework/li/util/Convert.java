@@ -166,8 +166,7 @@ public class Convert {
                 }
                 try {// 日期时间转换
                     return (T) new SimpleDateFormat(pattern).parse(value.toString());
-                } catch (ParseException e) {
-                }
+                } catch (ParseException e) {}
             }
         }
         return (T) value;// 缺省的返回方式

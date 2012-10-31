@@ -29,8 +29,7 @@ public class Page {
     /**
      * 默认构造函数
      */
-    public Page() {
-    }
+    public Page() {}
 
     /**
      * 带有pageNumber,pageSize两个参数的构造函数

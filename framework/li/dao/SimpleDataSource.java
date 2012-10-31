@@ -25,8 +25,7 @@ public class SimpleDataSource implements DataSource {
         for (String driver : drivers) {
             try {
                 Class.forName(driver);
-            } catch (Throwable e) {
-            }
+            } catch (Throwable e) {}
         }
     }
 
@@ -54,11 +53,9 @@ public class SimpleDataSource implements DataSource {
         return false;
     }
 
-    public void setLoginTimeout(int seconds) throws SQLException {
-    }
+    public void setLoginTimeout(int seconds) throws SQLException {}
 
-    public void setLogWriter(PrintWriter out) throws SQLException {
-    }
+    public void setLogWriter(PrintWriter out) throws SQLException {}
 
     public <T> T unwrap(Class<T> iface) throws SQLException {
         return null;

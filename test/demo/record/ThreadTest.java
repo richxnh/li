@@ -33,6 +33,5 @@ public class ThreadTest extends BaseTest {
     }
 
     @Test
-    public void testList() {
-    }
+    public void testList() {}
 }

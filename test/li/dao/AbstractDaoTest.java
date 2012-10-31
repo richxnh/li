@@ -19,8 +19,7 @@ public class AbstractDaoTest extends BaseTest {
 
     @Test
     public void testQuery() {
-        for (Record record : userDao.query(null, "select * from t_account")) {
-        }
+        for (Record record : userDao.query(null, "select * from t_account")) {}
     }
 
     @Test

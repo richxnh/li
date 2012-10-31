@@ -17,6 +17,5 @@ public class PostTest extends BaseTest {
     }
 
     @Test
-    public void testList() {
-    }
+    public void testList() {}
 }

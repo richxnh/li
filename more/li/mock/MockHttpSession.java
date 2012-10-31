@@ -59,8 +59,7 @@ public class MockHttpSession implements HttpSession {
         sessionMap.put(key, value);
     }
 
-    public void removeValue(String value) {
-    }
+    public void removeValue(String value) {}
 
     public long getCreationTime() {
         return 0;
@@ -82,13 +81,11 @@ public class MockHttpSession implements HttpSession {
         return null;
     }
 
-    public void invalidate() {
-    }
+    public void invalidate() {}
 
     public boolean isNew() {
         return false;
     }
 
-    public void setMaxInactiveInterval(int arg0) {
-    }
+    public void setMaxInactiveInterval(int arg0) {}
 }

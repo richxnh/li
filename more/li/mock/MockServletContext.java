@@ -68,14 +68,11 @@ public class MockServletContext implements ServletContext {
         return null;
     }
 
-    public void addListener(Class<? extends EventListener> listener) {
-    }
+    public void addListener(Class<? extends EventListener> listener) {}
 
-    public void addListener(String arg0) {
-    }
+    public void addListener(String arg0) {}
 
-    public <T extends EventListener> void addListener(T arg0) {
-    }
+    public <T extends EventListener> void addListener(T arg0) {}
 
     public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0, String arg1) {
         return null;
@@ -101,8 +98,7 @@ public class MockServletContext implements ServletContext {
         return null;
     }
 
-    public void declareRoles(String... arg0) {
-    }
+    public void declareRoles(String... arg0) {}
 
     public ClassLoader getClassLoader() {
         return null;
@@ -216,20 +212,17 @@ public class MockServletContext implements ServletContext {
         return null;
     }
 
-    public void log(String arg0) {
-    }
+    public void log(String arg0) {}
 
     public void log(Exception arg0, String arg1) {
 
     }
 
-    public void log(String arg0, Throwable arg1) {
-    }
+    public void log(String arg0, Throwable arg1) {}
 
     public boolean setInitParameter(String arg0, String arg1) {
         return false;
     }
 
-    public void setSessionTrackingModes(Set<SessionTrackingMode> arg0) throws IllegalStateException, IllegalArgumentException {
-    }
+    public void setSessionTrackingModes(Set<SessionTrackingMode> arg0) throws IllegalStateException, IllegalArgumentException {}
 }

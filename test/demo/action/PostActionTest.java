@@ -17,6 +17,5 @@ public class PostActionTest extends ActionTest {
     }
 
     @Test
-    public void testList() {
-    }
+    public void testList() {}
 }

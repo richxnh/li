@@ -33,26 +33,19 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
         setStatus(status);
     }
 
-    public void addCookie(Cookie cookie) {
-    }
+    public void addCookie(Cookie cookie) {}
 
-    public void addDateHeader(String arg0, long arg1) {
-    }
+    public void addDateHeader(String arg0, long arg1) {}
 
-    public void setIntHeader(String arg0, int arg1) {
-    }
+    public void setIntHeader(String arg0, int arg1) {}
 
-    public void addHeader(String key, String value) {
-    }
+    public void addHeader(String key, String value) {}
 
-    public void setHeader(String arg0, String arg1) {
-    }
+    public void setHeader(String arg0, String arg1) {}
 
-    public void addIntHeader(String key, int value) {
-    }
+    public void addIntHeader(String key, int value) {}
 
-    public void setDateHeader(String arg0, long arg1) {
-    }
+    public void setDateHeader(String arg0, long arg1) {}
 
     public boolean containsHeader(String arg0) {
         return false;
@@ -86,9 +79,7 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
         return null;
     }
 
-    public void sendError(int status) throws IOException {
-    }
+    public void sendError(int status) throws IOException {}
 
-    public void sendError(int status, String arg1) throws IOException {
-    }
+    public void sendError(int status, String arg1) throws IOException {}
 }
