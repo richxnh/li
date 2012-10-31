@@ -67,8 +67,6 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
     /**
      * 得到SQL构造器,可以覆盖这个方法来配置QueryBuilder
-     * 
-     * @see li.dao.QueryBuilder#QueryBuilder(DataSource, Bean)
      */
     protected QueryBuilder getQueryBuilder() {
         if (null == this.queryBuilder) {
