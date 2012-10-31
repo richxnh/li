@@ -92,7 +92,6 @@ public class QueryRunner {
             } catch (Exception e) {
                 Trans.EXCEPTION.set(e); // 出现异常,记录起来
                 log.error(e);
-                e.printStackTrace();
             }
         }
         this.close();// 更新类SQL,在这里关闭
