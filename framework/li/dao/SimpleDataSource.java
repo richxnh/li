@@ -25,8 +25,7 @@ public class SimpleDataSource implements DataSource {
         for (String driver : drivers) {
             try {
                 Class.forName(driver);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (Throwable e) {
             }
         }
     }
