@@ -140,7 +140,7 @@ public class QueryBuilder {
         String sets = " SET ";
         for (Field field : beanMeta.fields) {
             Object fieldValue = Reflect.get(object, field.name);
-            if (!field.isId) {// 更新所有属性,fieldValue可能为null
+            if (!beanMeta.getId().name.equals(field.name)) {// 更新所有属性,fieldValue可能为null
                 sets += field.column + "='" + fieldValue + "',";
             }
         }
@@ -156,7 +156,7 @@ public class QueryBuilder {
         String sets = " SET ";
         for (Field field : beanMeta.fields) {
             Object fieldValue = Reflect.get(object, field.name);
-            if (!field.isId && null != fieldValue) {// 不更新fieldValue为null的属性
+            if (!beanMeta.getId().name.equals(field.name) && null != fieldValue) {// 不更新fieldValue为null的属性
                 sets += field.column + "='" + fieldValue + "',";
             }
         }
@@ -185,7 +185,7 @@ public class QueryBuilder {
     public String save(Object object) {
         String columns = " (", values = " VALUES (";
         for (Field field : beanMeta.fields) {
-            if (!field.isId) {
+            if (!beanMeta.getId().name.equals(field.name)) {
                 Object fieldValue = Reflect.get(object, field.name);
                 columns += field.column + ",";
                 values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";

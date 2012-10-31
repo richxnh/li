@@ -49,11 +49,6 @@ public class Field {
     public String column;
 
     /**
-     * 这个属性是否一个ID
-     */
-    public Boolean isId = false;
-
-    /**
      * 通过扫描对象结构及注解的方式得到一个类型的属性列表 List<Field>,根据类名缓存
      * 
      * @param targetType 目标对象

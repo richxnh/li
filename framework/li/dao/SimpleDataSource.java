@@ -20,6 +20,17 @@ public class SimpleDataSource implements DataSource {
     private String username;
     private String password;
 
+    static {
+        String[] drivers = { "org.sqlite.JDBC" };
+        for (String driver : drivers) {
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public Connection getConnection() throws SQLException {
         return getConnection(this.username, this.password);
     }

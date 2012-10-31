@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import li.util.Log;
+import li.util.Verify;
 
 /**
  * Dao的辅助类,用于构建PreparedStatement,执行SQL查询
@@ -16,6 +17,8 @@ import li.util.Log;
 public class QueryRunner {
     private static final Log log = Log.init();
 
+    private String lastInsertIdRowName;
+
     /**
      * 当前QueryRunner实例的connection
      */
@@ -25,6 +28,22 @@ public class QueryRunner {
      * 当前QueryRunner实例的preparedStatement
      */
     private PreparedStatement preparedStatement;
+
+    private String getLastInsertIdRowName() {
+        if (Verify.isEmpty(lastInsertIdRowName)) {
+            try {
+                String databaseProductName = connection.getMetaData().getDatabaseProductName();
+                if (databaseProductName.toLowerCase().contains("sqlite")) {
+                    this.lastInsertIdRowName = "last_insert_rowid()";
+                } else {
+                    this.lastInsertIdRowName = "GENERATED_KEY";
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return this.lastInsertIdRowName;
+    }
 
     /**
      * 初始化一个QueryRunner
@@ -65,16 +84,15 @@ public class QueryRunner {
         if (null == Trans.CONNECTION_MAP.get() || null == Trans.EXCEPTION.get()) {
             try { // 如果未进入事务或事务中未出现异常,则执行后面的语句
                 log.info(sql + " -> " + connection.getClass().getName() + "@" + Integer.toHexString(connection.hashCode()));
-
                 preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);// 构建要返回GeneratedKeys的Statement
                 count = preparedStatement.executeUpdate();
-
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();// 获得主键结果集
-                this.LAST_INSERT_ID = new ModelBuilder(null, generatedKeys).value("GENERATED_KEY", true, false);// 设置最后更新的主键的值
+                this.LAST_INSERT_ID = new ModelBuilder(null, generatedKeys).value(getLastInsertIdRowName(), true, false);// 设置最后更新的主键的值
                 generatedKeys.close();// 关闭主键结果集
             } catch (Exception e) {
                 Trans.EXCEPTION.set(e); // 出现异常,记录起来
                 log.error(e);
+                e.printStackTrace();
             }
         }
         this.close();// 更新类SQL,在这里关闭
