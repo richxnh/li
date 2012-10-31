@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import li.util.Log;
-import li.util.Verify;
 
 /**
  * Dao的辅助类,用于构建PreparedStatement,执行SQL查询
@@ -17,8 +16,6 @@ import li.util.Verify;
 public class QueryRunner {
     private static final Log log = Log.init();
 
-    private String lastInsertIdRowName;
-
     /**
      * 当前QueryRunner实例的connection
      */
@@ -28,22 +25,6 @@ public class QueryRunner {
      * 当前QueryRunner实例的preparedStatement
      */
     private PreparedStatement preparedStatement;
-
-    private String getLastInsertIdRowName() {
-        if (Verify.isEmpty(lastInsertIdRowName)) {
-            try {
-                String databaseProductName = connection.getMetaData().getDatabaseProductName();
-                if (databaseProductName.toLowerCase().contains("sqlite")) {
-                    this.lastInsertIdRowName = "last_insert_rowid()";
-                } else {
-                    this.lastInsertIdRowName = "GENERATED_KEY";
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return this.lastInsertIdRowName;
-    }
 
     /**
      * 初始化一个QueryRunner
@@ -66,7 +47,7 @@ public class QueryRunner {
             try { // 如果未进入事务或事务中未出现异常,则执行后面的语句
                 log.info(sql + "-> " + connection.getClass().getName() + "@" + Integer.toHexString(connection.hashCode()));
 
-                preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement = connection.prepareStatement(sql);
                 resultSet = preparedStatement.executeQuery();
             } catch (Exception e) {
                 Trans.EXCEPTION.set(e);// 出现异常,记录起来
@@ -86,8 +67,11 @@ public class QueryRunner {
                 log.info(sql + " -> " + connection.getClass().getName() + "@" + Integer.toHexString(connection.hashCode()));
                 preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);// 构建要返回GeneratedKeys的Statement
                 count = preparedStatement.executeUpdate();
+
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();// 获得主键结果集
-                this.LAST_INSERT_ID = new ModelBuilder(null, generatedKeys).value(getLastInsertIdRowName(), true, false);// 设置最后更新的主键的值
+                if (null != generatedKeys && generatedKeys.next()) {
+                    this.LAST_INSERT_ID = generatedKeys.getString(1);// 设置最后更新的主键的值
+                }
                 generatedKeys.close();// 关闭主键结果集
             } catch (Exception e) {
                 Trans.EXCEPTION.set(e); // 出现异常,记录起来
