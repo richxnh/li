@@ -69,9 +69,7 @@ public class QueryRunner {
                 count = preparedStatement.executeUpdate();
 
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();// 获得主键结果集
-                if (null != generatedKeys && generatedKeys.next()) {
-                    this.LAST_INSERT_ID = generatedKeys.getString(1);// 设置最后更新的主键的值
-                }
+                this.LAST_INSERT_ID = null != generatedKeys && generatedKeys.next() ? generatedKeys.getString(1) : "-1";// 设置最后更新的主键的值
                 generatedKeys.close();// 关闭主键结果集
             } catch (Exception e) {
                 Trans.EXCEPTION.set(e); // 出现异常,记录起来

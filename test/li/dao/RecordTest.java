@@ -86,7 +86,7 @@ public class RecordTest extends BaseTest {
     public void save2() {
         User user = new User().set("username", "u-3" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1);
         userDao.save(user);
-        System.out.println(user.get("id"));
+        System.out.println("user id = " + user.get("id"));
     }
 
     @Test
