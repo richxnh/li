@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ioc.xsd">
 	<beans>
-		<!-- <bean name="sqlite" class="li.dao.SimpleDataSource">
-			<property name="url" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" />
-		</bean> -->
-		<bean name="sqlite" class="com.alibaba.druid.pool.DruidDataSource">
+		<bean name="sqlite" class="li.dao.SimpleDataSource">
 			<property name="url" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" />
 		</bean>
+		<!-- <bean name="sqlite" class="com.alibaba.druid.pool.DruidDataSource">
+			<property name="url" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" />
+		</bean> -->
 		<!-- <bean name="sqlite" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 			<property name="jdbcUrl" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" />
 		</bean> -->
