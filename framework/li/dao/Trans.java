@@ -84,7 +84,7 @@ public abstract class Trans {
     private void begin() {
         StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
         if (null == CONNECTION_MAP.get()) { // Trans in Trans 时候不会重复执行
-            log.debug("Trans.begin() in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
+            log.debug("Trans@" + hashCode() + " begin in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
             CONNECTION_MAP.set(new HashMap<Class, Connection>());
         } else {
             this.map.put(hashCode() + "~!@#in_trans", true);
@@ -103,7 +103,7 @@ public abstract class Trans {
             }
             CONNECTION_MAP.set(null);
             EXCEPTION.set(null);
-            log.debug("Trans.end() in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
+            log.debug("Trans@" + hashCode() + " end in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
         }
     }
 
@@ -116,7 +116,7 @@ public abstract class Trans {
         if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) {
             for (Entry<Class, Connection> connection : connectionMap.entrySet()) {
                 connection.getValue().commit();
-                log.debug("Trans.commit() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
+                log.debug("Trans@" + hashCode() + " commit " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
             }
         }
     }
@@ -130,7 +130,7 @@ public abstract class Trans {
         if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) {
             for (Entry<Class, Connection> connection : connectionMap.entrySet()) {
                 connection.getValue().rollback();
-                log.debug("Trans.rollback() " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
+                log.debug("Trans@" + hashCode() + " rollback " + connection.getValue() + " in " + trace.getClassName() + "." + trace.getMethodName() + "() #" + trace.getLineNumber());
             }
         }
     }
