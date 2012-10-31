@@ -35,12 +35,16 @@ public class MonitoringDataSource implements DataSource {
     public Connection getConnection(String username, String password) throws SQLException {
         Connection connection = new MonitoringConnection(this, DriverManager.getConnection(this.url, username, password));
         connections.add(connection);
+        System.err.println("getConnection : 还有未关闭的链接" + connections.size() + "个");
+        for (Connection con : connections) {
+            System.err.println(con + "\t");
+        }
         return connection;
     }
 
     public void removeConnection(Connection connection) {
         connections.remove(connection);
-        System.err.println("还有未关闭的链接" + connections.size() + "个");
+        System.err.println("removeConnection : 还有未关闭的链接" + connections.size() + "个");
         for (Connection con : connections) {
             System.err.println(con + "\t");
         }
