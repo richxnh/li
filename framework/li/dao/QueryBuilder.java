@@ -130,6 +130,9 @@ public class QueryBuilder {
         if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
             sql = "SELECT * FROM " + beanMeta.table + " " + sql;
         }
+        if (null == page) {
+            page = new Page();
+        }
         return setPage(setArgs(setAlias(sql), args), page);// 先处理别名,再处理args,最后处理page
     }
 
@@ -235,9 +238,6 @@ public class QueryBuilder {
      * 为SQL添加分页语句
      */
     public String setPage(String sql, Page page) {
-        if (null == page) {
-            page = new Page();
-        }
         if (!Verify.contain(sql, "LIMIT")) {// 分页
             return sql + " LIMIT " + page.getFrom() + "," + page.getPageSize();
         }
