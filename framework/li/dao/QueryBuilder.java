@@ -22,26 +22,12 @@ public class QueryBuilder {
     /**
      * 私有实例变量,表示对象结构的beanMeta
      */
-    private Bean beanMeta;
+    public Bean beanMeta;
 
     /**
      * 私有实例变量,数据源,用以探测数据表结构
      */
-    private DataSource dataSource;
-
-    /**
-     * 设置beanMeta
-     */
-    public void setBeanMeta(Bean beanMeta) {
-        this.beanMeta = beanMeta;
-    }
-
-    /**
-     * 设置数据源
-     */
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    public DataSource dataSource;
 
     /**
      * 根据传入的ID,构建一个用于删除单条记录的SQL
