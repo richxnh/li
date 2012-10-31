@@ -23,9 +23,13 @@ public class Demo {
 
         System.out.println("user id = " + user.get("id"));
 
-        for (User u : userDao.list(new Page(1, 1000))) {
+        Page page = new Page(1, 5);
+
+        for (User u : userDao.list(page, "ORDER BY id DESC")) {
             System.out.println(u.get("id") + "\t" + u.get("username") + "\t" + u.get("password") + "\t" + u.get("email"));
         }
+
+        System.out.println("RecordCount = " + page.getRecordCount());
     }
 
     public static void main3(String[] args) throws Throwable {
