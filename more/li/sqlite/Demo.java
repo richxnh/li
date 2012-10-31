@@ -21,7 +21,7 @@ public class Demo {
         user = new User().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
         userDao.save(user);
 
-        System.out.println(user.get("id"));
+        System.out.println("user id = " + user.get("id"));
 
         for (User u : userDao.list(new Page(1, 1000))) {
             System.out.println(u.get("id") + "\t" + u.get("username") + "\t" + u.get("password") + "\t" + u.get("email"));
