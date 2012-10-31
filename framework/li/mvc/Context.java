@@ -201,8 +201,10 @@ public class Context {
     public static String[] pathParams() {
         Matcher matcher = Pattern.compile(".*" + getAction().path + ".*").matcher(getRequest().getRequestURL().toString());
         String[] params = new String[matcher.groupCount()];
-        for (int groupCount = matcher.groupCount(), i = 0; i < groupCount; i++) {
-            params[i] = matcher.group(i + 1);
+        if (matcher.matches()) {
+            for (int groupCount = matcher.groupCount(), i = 0; i < groupCount; i++) {
+                params[i] = matcher.group(i + 1);
+            }
         }
         return params;
     }
