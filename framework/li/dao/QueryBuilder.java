@@ -235,7 +235,10 @@ public class QueryBuilder {
      * 为SQL添加分页语句
      */
     public String setPage(String sql, Page page) {
-        if (!Verify.contain(sql, "LIMIT") && null != page) {// 分页
+        if (null == page) {
+            page = new Page();
+        }
+        if (!Verify.contain(sql, "LIMIT")) {// 分页
             return sql + " LIMIT " + page.getFrom() + "," + page.getPageSize();
         }
         return sql;
