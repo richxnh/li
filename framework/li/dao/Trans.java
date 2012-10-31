@@ -98,8 +98,8 @@ public abstract class Trans {
         StackTraceElement trace = Thread.currentThread().getStackTrace()[5];
         Map<Class, Connection> connectionMap = CONNECTION_MAP.get();
         if (null == this.map.get(hashCode() + "~!@#in_trans") && null != connectionMap) { // Trans in Trans 时候不会重复执行
-            for (Entry<Class, Connection> entry : connectionMap.entrySet()) {
-                entry.getValue().close();
+            for (Entry<Class, Connection> connection : connectionMap.entrySet()) {
+                connection.getValue().close();
             }
             CONNECTION_MAP.set(null);
             EXCEPTION.set(null);

@@ -53,11 +53,11 @@ public class SimpleDataSource implements DataSource {
         return false;
     }
 
-    public void setLoginTimeout(int seconds) throws SQLException {}
-
-    public void setLogWriter(PrintWriter out) throws SQLException {}
-
     public <T> T unwrap(Class<T> iface) throws SQLException {
         return null;
     }
+
+    public void setLoginTimeout(int seconds) throws SQLException {}
+
+    public void setLogWriter(PrintWriter out) throws SQLException {}
 }

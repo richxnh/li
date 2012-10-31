@@ -79,6 +79,7 @@ public class Bean {
             for (Field attribute : bean.fields) {
                 if (table.id().equals(attribute.name) || table.id().equals(attribute.column)) {
                     bean.id = attribute;
+                    break;
                 }
             }
             BEAN_MAP.put(type, bean);
