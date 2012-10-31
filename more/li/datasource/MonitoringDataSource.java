@@ -18,6 +18,8 @@ public class MonitoringDataSource implements DataSource {
 
     private List<Connection> connections = new ArrayList<Connection>();
 
+    private int times = 0;
+
     static {
         String[] drivers = { "org.sqlite.JDBC" };
         for (String driver : drivers) {
@@ -35,18 +37,19 @@ public class MonitoringDataSource implements DataSource {
     public Connection getConnection(String username, String password) throws SQLException {
         Connection connection = new MonitoringConnection(this, DriverManager.getConnection(this.url, username, password));
         connections.add(connection);
-        System.err.println("getConnection : 还有未关闭的链接" + connections.size() + "个");
+        times++;
+        System.out.println("正在获取一个链接, 共获取链接" + times + "次, 还有未关闭的链接" + connections.size() + "个");
         for (Connection con : connections) {
-            System.err.println(con + "\t");
+            System.out.println(con + "\t");
         }
         return connection;
     }
 
     public void removeConnection(Connection connection) {
         connections.remove(connection);
-        System.err.println("removeConnection : 还有未关闭的链接" + connections.size() + "个");
+        System.out.println("正在关闭一个链接, 共获取链接" + times + "次, 还有未关闭的链接" + connections.size() + "个");
         for (Connection con : connections) {
-            System.err.println(con + "\t");
+            System.out.println(con + "\t");
         }
     }
 
