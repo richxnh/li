@@ -6,5 +6,7 @@ import org.junit.Test;
 
 public class FilesTest extends BaseTest {
     @Test
-    public void test() {}
+    public void root() {
+        Files.root();
+    }
 }
