@@ -1,21 +1,19 @@
 package li.h2;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import li.ioc.Ioc;
 
 public class Demo {
 
     public static void main(String[] args) {
-        final Account dao = Ioc.get(Account.class);
+        Account dao = Ioc.get(Account.class);
 
         List<Account> list = dao.list(null);
-        // for (Account account : list) {
-        // System.out.println(account.get("ID") + "\t" + account.get("USERNAME") + "\t" + account.get("PASSWORD") + "\t" + account.get("EMAIL") + "\t" + account.get("STATUS"));
-        // }
+        System.out.println(list);
     }
 
     public static void insert() {
@@ -28,21 +26,17 @@ public class Demo {
         }
     }
 
-    static String url = "jdbc:h2:E:/Program Files/h2/db/forum";
-    static String username = "sa";
-    static String password = "";
-    private static final String sql = "CREATE TABLE t_account" + //
-            "(id int PRIMARY KEY AUTO_INCREMENT," + //
-            "username varchar(255) UNIQUE NOT NULL ," + //
-            "password varchar(255) NOT NULL," + //
-            "email varchar(255) NOT NULL," + //
-            "status int NOT NULL DEFAULT 1)";
-
-    public static void main2(String[] args) throws Exception {
-        Class.forName("org.h2.Driver");
-        Connection connection = DriverManager.getConnection(url, username, password);
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-        System.out.println(preparedStatement.executeUpdate());
+    public static void create_table() {
+        String sql = "CREATE TABLE t_account" + //
+                "(id int PRIMARY KEY AUTO_INCREMENT," + //
+                "username varchar(255) UNIQUE NOT NULL ," + //
+                "password varchar(255) NOT NULL," + //
+                "email varchar(255) NOT NULL," + //
+                "status int NOT NULL DEFAULT 1)";
+        try {
+            System.out.println(Ioc.get(DataSource.class, "h2").getConnection().prepareStatement(sql).executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
