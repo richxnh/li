@@ -2,7 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ioc.xsd">
 	<beans>
 		<bean name="h2" class="li.datasource.MonitoringDataSource">
-			<!-- <property name="url" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" /> -->
 			<property name="url" value="jdbc:h2:E:/Program Files/h2/db/forum" />
 			<property name="username" value="sa" />
 			<property name="password" value="" />

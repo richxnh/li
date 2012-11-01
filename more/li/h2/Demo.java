@@ -8,9 +8,10 @@ import java.util.List;
 import li.ioc.Ioc;
 
 public class Demo {
-    static final Account dao = Ioc.get(Account.class);
 
     public static void main(String[] args) {
+        final Account dao = Ioc.get(Account.class);
+
         List<Account> list = dao.list(null);
         // for (Account account : list) {
         // System.out.println(account.get("ID") + "\t" + account.get("USERNAME") + "\t" + account.get("PASSWORD") + "\t" + account.get("EMAIL") + "\t" + account.get("STATUS"));
@@ -18,6 +19,8 @@ public class Demo {
     }
 
     public static void insert() {
+        final Account dao = Ioc.get(Account.class);
+
         for (int i = 0; i < 1000; i++) {
             Account account = new Account().set("USERNAME", "li" + System.currentTimeMillis()).set("PASSWORD", "wode").set("EMAIL", "limingwei@mail.com");
             System.out.println(dao.save(account));
