@@ -169,15 +169,17 @@ public class QueryBuilder {
     }
 
     /**
-     * 根据传入的对象构建一个插入一条记录的SQL
+     * 根据传入的对象构建一个插入一条记录的SQL,会略过为null的属性
      */
     public String save(Object object) {
         String columns = " (", values = " VALUES (";
         for (Field field : beanMeta.fields) {
             if (!beanMeta.getId().name.equals(field.name)) {
                 Object fieldValue = Reflect.get(object, field.name);
-                columns += field.column + ",";
-                values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";
+                if (null != fieldValue) {
+                    columns += field.column + ",";
+                    values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";
+                }
             }
         }
         columns = columns.substring(0, columns.length() - 1) + ")";
