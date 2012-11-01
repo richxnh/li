@@ -11,4 +11,14 @@ public class LogTest extends BaseTest {
     public void test() {
         LOG.info("LOG测试信息");
     }
+
+    @Test
+    public void put() {
+        Log.put("123", "123");
+    }
+
+    @Test
+    public void get() {
+        Log.get("123");
+    }
 }

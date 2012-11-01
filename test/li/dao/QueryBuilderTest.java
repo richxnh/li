@@ -75,7 +75,7 @@ public class QueryBuilderTest extends BaseTest {
 
     @Test
     public void setAlias() {
-        String expected = "SELECT t_account.id,t_account.username,t_account.password,t_account.email FROM t_account";
+        String expected = "SELECT t_account.id,t_account.username,t_account.password,t_account.email,t_account.status FROM t_account";
         String actual = queryBuilder.setAlias("SELECT t_account.# FROM t_account");
         assertEquals(expected, actual);
     }
@@ -103,10 +103,10 @@ public class QueryBuilderTest extends BaseTest {
     public void testSetAlias() {
         String sql = "SELECT t_account.#,t_forum.# as f_#,t_member.#,t_post.# AS p_# FROM t_account";
         String expected = "SELECT t_account.id,t_account.username,t_account.password,t_account.email," + //
-                "t_forum.id as f_id,t_forum.name as f_name," + //
-                "t_member.id,t_member.name,t_member.account_id," + //
-                "t_post.id AS p_id,t_post.subject AS p_subject,t_post.content AS p_content,t_post.member_id AS p_member_id,t_post.thread_id AS p_thread_id " + //
-                "FROM t_account";
+                "t_account.status,t_forum.id as f_id,t_forum.name as f_name,t_forum.status as f_status,t_member.id," + //
+                "t_member.status,t_member.name,t_member.account_id,t_post.id AS p_id,t_post.status AS p_status," + //
+                "t_post.subject AS p_subject,t_post.content AS p_content,t_post.member_id AS p_member_id," + //
+                "t_post.thread_id AS p_thread_id FROM t_account";
         assertEquals(expected, queryBuilder.setAlias(sql));
     }
 

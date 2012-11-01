@@ -8,6 +8,7 @@ public class PageTest {
     @Test
     public void test() {
         Page page = new Page();
+        page.setRecordCount(100);
         assertEquals(20 + "", page.getPageSize() + "");
     }
 }
