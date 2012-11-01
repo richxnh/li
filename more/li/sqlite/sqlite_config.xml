@@ -2,7 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ioc.xsd">
 	<beans>
 		<bean name="sqlite" class="li.datasource.MonitoringDataSource">
-			<property name="url" value="jdbc:sqlite://e:/program files/sqlite/db/forum.db" />
+			<property name="url" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" />
+			<!-- <property name="url" value="jdbc:sqlite://e:/program files/sqlite/db/forum.db" /> -->
 		</bean>
 		<!-- <bean name="sqlite" class="com.alibaba.druid.pool.DruidDataSource">
 			<property name="url" value="jdbc:sqlite://d:/program files/sqlite/db/forum.db" />

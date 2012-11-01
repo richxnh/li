@@ -20,12 +20,12 @@ import li.util.Verify;
  */
 public class QueryBuilder {
     /**
-     * 私有实例变量,表示对象结构的beanMeta
+     * 表示对象结构的beanMeta
      */
     protected Bean beanMeta;
 
     /**
-     * 私有实例变量,数据源,用以探测数据表结构
+     * 数据源,用以探测数据表结构
      */
     protected DataSource dataSource;
 

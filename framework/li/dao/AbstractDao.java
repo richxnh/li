@@ -32,12 +32,12 @@ public class AbstractDao<T> implements IBaseDao<T> {
     private Bean beanMeta;
 
     /**
-     * QueryBuilder,你可以通过Ioc配置
+     * QueryBuilder,SQL构造器
      */
     private QueryBuilder queryBuilder;
 
     /**
-     * 当前Dao的DataSource,可以通过Ioc配置
+     * 当前Dao的DataSource
      */
     private DataSource dataSource;
 
@@ -66,7 +66,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
     }
 
     /**
-     * 得到SQL构造器,可以覆盖这个方法来配置QueryBuilder
+     * 得到SQL构造器
      */
     protected QueryBuilder getQueryBuilder() {
         if (null == this.queryBuilder) {
@@ -82,7 +82,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
     }
 
     /**
-     * 如果还没有注入dataSource,则尝试次从Ioc中搜索DataSource类型的Bean, 可覆盖这个方法来配置DataSource
+     * 如果还没有注入dataSource,则尝试次从Ioc中搜索DataSource类型的Bean
      */
     protected DataSource getDataSource() {
         if (null == this.dataSource) {
