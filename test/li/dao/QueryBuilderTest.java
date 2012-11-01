@@ -19,9 +19,7 @@ import demo.model.User;
 
 public class QueryBuilderTest extends BaseTest {
     DataSource dataSource = Ioc.get(DataSource.class);
-
     QueryBuilder queryBuilder = new QueryBuilder();
-
     User user = new User();
 
     @Before
@@ -36,7 +34,7 @@ public class QueryBuilderTest extends BaseTest {
     }
 
     @Test
-    public void count() {
+    public void countAll() {
         assertEquals("SELECT COUNT(*) FROM t_account", queryBuilder.countAll());
     }
 
@@ -46,7 +44,7 @@ public class QueryBuilderTest extends BaseTest {
     }
 
     @Test
-    public void delete() {
+    public void deleteBySql() {
         assertEquals("DELETE FROM t_account WHERE id='1'", queryBuilder.deleteBySql("WHERE id=?", new Object[] { "1" }));
     }
 
@@ -79,7 +77,7 @@ public class QueryBuilderTest extends BaseTest {
     public void setAlias() {
         String expected = "SELECT t_account.id,t_account.username,t_account.password,t_account.email FROM t_account";
         String actual = queryBuilder.setAlias("SELECT t_account.# FROM t_account");
-        // assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -104,18 +102,20 @@ public class QueryBuilderTest extends BaseTest {
     @Test
     public void testSetAlias() {
         String sql = "SELECT t_account.#,t_forum.# as f_#,t_member.#,t_post.# AS p_# FROM t_account";
-        sql = queryBuilder.setAlias(sql);
-        System.err.println(sql);
+        String expected = "SELECT t_account.id,t_account.username,t_account.password,t_account.email," + //
+                "t_forum.id as f_id,t_forum.name as f_name," + //
+                "t_member.id,t_member.name,t_member.account_id," + //
+                "t_post.id AS p_id,t_post.subject AS p_subject,t_post.content AS p_content,t_post.member_id AS p_member_id,t_post.thread_id AS p_thread_id " + //
+                "FROM t_account";
+        assertEquals(expected, queryBuilder.setAlias(sql));
     }
 
     @Test
     public void testSetArgs() {
         String sql = "SELECT * FROM t_account where username=?";
         Object[] args = { "uuu" };
-
         sql = queryBuilder.setArgs(sql, args);
-
-        System.out.println(sql);
+        assertEquals("SELECT * FROM t_account where username='uuu'", sql);
     }
 
     @Test
@@ -123,15 +123,14 @@ public class QueryBuilderTest extends BaseTest {
         String sql = "SELECT * FROM t_account where username=#username";
         Map<Object, Object> args = Convert.toMap("#username", "uuu");
         sql = queryBuilder.setArgMap(sql, args);
-
-        System.out.println(sql);
+        assertEquals("SELECT * FROM t_account where username='uuu'", sql);
     }
 
     @Test
     public void testSetPage() {
         String sql = "SELECT * FROM t_account";
         sql = queryBuilder.setPage(sql, new Page(1, 1));
-        System.err.println(sql);
+        assertEquals("SELECT * FROM t_account LIMIT 0,1", sql);
     }
 
     @Test
@@ -142,6 +141,7 @@ public class QueryBuilderTest extends BaseTest {
 
     @Test
     public void updateBySql() {
-        assertEquals("UPDATE t_account SET email='eml' WHERE id>'3'", queryBuilder.updateBySql("SET email=? WHERE id>?", new Object[] { "eml", 3 }));
+        String sql = queryBuilder.updateBySql("SET email=? WHERE id>?", new Object[] { "eml", 3 });
+        assertEquals("UPDATE t_account SET email='eml' WHERE id>'3'", sql);
     }
 }
