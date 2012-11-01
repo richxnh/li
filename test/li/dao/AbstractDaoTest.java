@@ -15,7 +15,7 @@ public class AbstractDaoTest extends BaseTest {
     Account dao;
 
     @Inject
-    UserDao userDao;
+    _UserDao userDao;
 
     @Test
     public void testQuery() {

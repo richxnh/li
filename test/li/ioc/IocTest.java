@@ -12,10 +12,10 @@ public class IocTest {
 
     @Test
     public void getByTypeAndName() {
-        assertNotNull(Ioc.get(A.class, "beanA"));
+        assertNotNull(Ioc.get(_A.class, "beanA"));
     }
 
     public void getByType() {
-        assertNotNull(Ioc.get(A.class));
+        assertNotNull(Ioc.get(_A.class));
     }
 }

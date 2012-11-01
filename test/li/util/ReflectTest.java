@@ -7,15 +7,15 @@ import org.junit.Test;
 public class ReflectTest {
     @Test
     public void copy() {
-        Model2 attr = new Model2();
+        _Model2 attr = new _Model2();
         attr.attr1 = "Model2.attr.attr1";
 
-        Model1 model1 = new Model1();
+        _Model1 model1 = new _Model1();
         model1.attr1 = "123123";
         model1.attr2 = false;
         model1.model2 = attr;
 
-        Model2 model2 = new Model2();
+        _Model2 model2 = new _Model2();
         Reflect.copy(model1, model2);
 
         assertEquals("123123", model2.attr1);

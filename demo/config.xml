@@ -27,7 +27,7 @@
 			<property name="username" value="${db.username}" />
 			<property name="password" value="${db.password}" />
 		</bean> -->
-		<bean class="li.aop.Account">
+		<bean class="li.aop._Account">
 			<property name="dataSource" />
 		</bean>
 	</beans>

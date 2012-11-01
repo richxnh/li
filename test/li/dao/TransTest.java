@@ -13,14 +13,14 @@ public class TransTest extends BaseTest {
     Account accountDao;
 
     @Inject
-    User userDao;
+    _User userDao;
 
     @Test
     public void test1() {
         System.err.println(new Trans(Convert.toMap("inpar", "inpar---", "1", "2", "3", "4")) {
             public void run() {
-                userDao.update(new User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
-                userDao.update(new User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+                userDao.update(new _User().set("id", 2).set("username", "u-5" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
+                userDao.update(new _User().set("username", "u-4" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1"));
                 map().put("outpar", "outpar---");
                 System.err.println(map().get("inpar"));
             }
@@ -34,7 +34,7 @@ public class TransTest extends BaseTest {
 
     @Test
     public void testPassValue() {
-        User user = (User) new Trans(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")) {
+        _User user = (_User) new Trans(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")) {
             public void run() {
                 userDao.update("SET email=:email WHERE username=:username", map());
                 map().put("user", userDao.find("WHERE username!=?", map().get(":username")));

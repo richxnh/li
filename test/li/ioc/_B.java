@@ -4,10 +4,10 @@ import li.annotation.Bean;
 import li.annotation.Inject;
 
 @Bean
-public class B {
+public class _B {
     @Inject
-    private A a;
+    private _A a;
 
     @Inject
-    private B b;
+    private _B b;
 }

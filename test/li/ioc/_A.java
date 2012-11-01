@@ -4,11 +4,11 @@ import li.annotation.Bean;
 import li.annotation.Inject;
 
 @Bean("beanA")
-public class A {
+public class _A {
     @Inject
-    public A a;
+    public _A a;
     @Inject
-    public B b;
+    public _B b;
     @Inject("123")
     public int num;
 

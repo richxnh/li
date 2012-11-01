@@ -7,13 +7,11 @@ import java.io.FileOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import li.annotation.Aop;
 import li.annotation.Arg;
 import li.annotation.At;
 import li.annotation.Bean;
 import li.annotation.Inject;
 import li.annotation.Trans;
-import li.aop.LogFilter;
 import li.mvc.AbstractAction;
 import li.mvc.Context;
 import li.util.Page;
@@ -141,7 +139,6 @@ public class DemoAction extends AbstractAction {
      */
     @At("fm")
     @Trans
-    @Aop({ LogFilter.class })
     public void testFreemarker() {
         setRequest("str1", "床前明月光 testFreemarker");
         Page page = new Page();

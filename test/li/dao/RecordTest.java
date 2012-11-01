@@ -9,12 +9,12 @@ import org.junit.Test;
 
 public class RecordTest extends BaseTest {
     @Inject
-    User userDao;
+    _User userDao;
 
     @Inject
-    UserDao userDao2;
+    _UserDao userDao2;
 
-    User user = new User().set("id", 1).set("username", "u-4-1" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1");
+    _User user = new _User().set("id", 1).set("username", "u-4-1" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1");
 
     @Test
     public void count() {
@@ -73,18 +73,18 @@ public class RecordTest extends BaseTest {
     @Test
     public void list3() {
         System.err.println("li.dao.test.RecordTest.list3()");
-        List<User> users = userDao.list(page.setPageSize(5), "select t_account.username as uname,t_forum.name as fname from t_account,t_forum");
+        List<_User> users = userDao.list(page.setPageSize(5), "select t_account.username as uname,t_forum.name as fname from t_account,t_forum");
         System.out.println(users);
     }
 
     @Test
     public void save() {
-        userDao.save(new User().set("username", "u-2" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
+        userDao.save(new _User().set("username", "u-2" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1));
     }
 
     @Test
     public void save2() {
-        User user = new User().set("username", "u-3" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1);
+        _User user = new _User().set("username", "u-3" + System.currentTimeMillis()).set("password", "p-1").set("email", "e-1").set("status", 1);
         userDao.save(user);
         System.out.println("user id = " + user.get("id"));
     }

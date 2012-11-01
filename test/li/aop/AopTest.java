@@ -9,13 +9,13 @@ public class AopTest extends BaseTest {
 
     @Test
     public void testAop() {
-        final Account account = Ioc.get(Account.class);
+        final _Account account = Ioc.get(_Account.class);
         account.list(null);
     }
 
     @Test
     public void testAop2() {
-        User user = Ioc.get(User.class);
+        _User user = Ioc.get(_User.class);
         System.out.println(user.sayHi("abc", "xyz"));
     }
 }
