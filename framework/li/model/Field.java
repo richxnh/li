@@ -79,9 +79,9 @@ public class Field {
     }
 
     /**
-     * 通过 DESC tableName的方式得到一个类型(表)的属性(字段)列表 List<Field>,根据表名缓存
+     * 通过ResultSetMetaData的方式得到一个类型(表)的属性(字段)列表 List<Field>,根据表名缓存
      * 
-     * @param dataSource 通过desc tableName解析表结构时候需要用到的数据源
+     * @param dataSource 通过ResultSetMetaData解析表结构时候需要用到的数据源
      * @param table 需要探测表结构的数据表名称
      */
     public static List<Field> list(DataSource dataSource, String table) {
@@ -108,7 +108,7 @@ public class Field {
     }
 
     /**
-     * 通过 resultSet.getMetaData()的方式得到一个结果集的列的列表
+     * 通过ResultSetMetaData的方式得到一个结果集的列的列表
      */
     public static List<Field> list(ResultSet resultSet) {
         List<Field> fields = new ArrayList<Field>();
