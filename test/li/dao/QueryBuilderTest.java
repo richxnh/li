@@ -37,7 +37,7 @@ public class QueryBuilderTest extends BaseTest {
 
     @Test
     public void count() {
-        assertEquals("SELECT COUNT(*) FROM t_account", queryBuilder.count());
+        assertEquals("SELECT COUNT(*) FROM t_account", queryBuilder.countAll());
     }
 
     @Test
@@ -52,12 +52,12 @@ public class QueryBuilderTest extends BaseTest {
 
     @Test
     public void deleteById() {
-        assertEquals("DELETE FROM t_account WHERE id=1", queryBuilder.deleteById("1"));
+        assertEquals("DELETE FROM t_account WHERE id=1", queryBuilder.deleteById(1));
     }
 
     @Test
     public void findById() {
-        assertEquals("SELECT * FROM t_account WHERE id=123 LIMIT 0,1", queryBuilder.findById("123"));
+        assertEquals("SELECT * FROM t_account WHERE id=123 LIMIT 0,1", queryBuilder.findById(123));
     }
 
     @Test

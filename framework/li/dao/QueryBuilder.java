@@ -32,7 +32,7 @@ public class QueryBuilder {
     /**
      * 根据传入的ID,构建一个用于删除单条记录的SQL
      */
-    public String deleteById(String id) {
+    public String deleteById(Number id) {
         return "DELETE FROM " + beanMeta.table + " WHERE " + beanMeta.getId().column + "=" + id;
     }
 
@@ -53,7 +53,7 @@ public class QueryBuilder {
     /**
      * 构造默认的COUNT(*)查询的SQL,查询表中的总记录数
      */
-    public String count() {
+    public String countAll() {
         return "SELECT COUNT(*) FROM " + beanMeta.table;
     }
 
@@ -79,7 +79,7 @@ public class QueryBuilder {
     /**
      * 使用传入的ID,构造一个用于查询一条记录的SQL
      */
-    public String findById(String id) {
+    public String findById(Number id) {
         String sql = "SELECT * FROM " + beanMeta.table + " WHERE " + beanMeta.getId().column + "=" + id;
         return setPage(sql, new Page(1, 1));
     }
@@ -87,7 +87,7 @@ public class QueryBuilder {
     /**
      * 使用传入的SQL和参数,构造一个用于查询一条记录的SQL
      */
-    public String find(String sql, Object[] args) {
+    public String findBySql(String sql, Object[] args) {
         if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
             sql = "SELECT * FROM " + beanMeta.table + " " + sql;
         }
@@ -235,34 +235,34 @@ public class QueryBuilder {
      */
     public String setAlias(final String sql) {
         int index = sql.indexOf(".#");
-        if (index > 5) {// 如果有替换字符,则开始处理,否则直接返回
-            final int end = index + 2;// end为第一个#的位置
+        if (index < 6) {
+            return sql;// 如果SQL中不包含#,则直接返回
+        } else {// 如果有替换字符,则开始处理
+            final int sign_end = index + 2;// end为第一个#的位置
 
-            int s1 = sql.substring(0, end).lastIndexOf(" ") + 1;// #之前最后一个空格的位置
-            int s2 = sql.substring(0, end).lastIndexOf(",") + 1;// #之前最后一个,的位置
-            final int start = s1 > s2 ? s1 : s2;// table.#部分开始位置
+            int old_part_start_1 = sql.substring(0, sign_end).lastIndexOf(" ") + 1;// #之前最后一个空格的位置
+            int old_part_start_2 = sql.substring(0, sign_end).lastIndexOf(",") + 1;// #之前最后一个,的位置
+            final int old_part_start = old_part_start_1 > old_part_start_2 ? old_part_start_1 : old_part_start_2;// table.#部分开始位置
 
-            int asIndex = sql.toUpperCase().indexOf(" AS ", end);// end之后第一个AS的位置
+            int as_index = sql.toUpperCase().indexOf(" AS ", sign_end);// sign_end之后第一个AS的位置
+            int old_part_end = (as_index > 0 && as_index - sign_end < 3) ? sql.indexOf("#", as_index) + 1 : sign_end;// 如果有AS,截取到AS后的第一个#,如果没有AS,截取到end
+            String old_part = sql.substring(old_part_start, old_part_end);// 求出被替换部分字符串
+            String new_part = "";// 申明替换部分字符串
 
-            String replacement = "";// 申明替换部分字符串
-            int toreplaceEnd = (asIndex > 0 && asIndex - end < 3) ? sql.indexOf("#", asIndex) + 1 : end;// 如果有AS,截取到AS后的第一个#,如果没有AS,截取到end
-            String toreplace = sql.substring(start, toreplaceEnd);// 求出被替换部分字符串
-            final String table = sql.substring(start, end - 2);// 求得表名
-            List<Field> fields = Field.list(dataSource, table);
+            final String table_name = sql.substring(old_part_start, sign_end - 2);// 求得表名
+            List<Field> fields = Field.list(dataSource, table_name);
             for (Field field : fields) {// 构造替换字符串
-                if (asIndex > 0 && asIndex - end < 3) {// 如果有AS
-                    String fix = toreplace.substring(asIndex - start, toreplace.length() - 1);// 取得AS+别名前缀,如AS member_
-                    replacement = replacement + (table + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS
+                if (as_index > 0 && as_index - sign_end < 3) {// 如果有AS
+                    String fix = old_part.substring(as_index - old_part_start, old_part.length() - 1);// 取得AS+别名前缀,如AS member_
+                    new_part = new_part + (table_name + "." + field.column) + (fix + field.column) + ",";// 构造一列加AS
                 } else {
-                    replacement = replacement + table + "." + field.column + ",";// 构造一列不加AS
+                    new_part = new_part + table_name + "." + field.column + ",";// 构造一列不加AS
                 }
             }
 
             // 替换,去掉最后一个逗号
-            String result = sql.replaceFirst(toreplace, replacement.substring(0, replacement.length() - 1));
-
+            String result = sql.replaceFirst(old_part, new_part.substring(0, new_part.length() - 1));
             return setAlias(result);// 处理下一个
         }
-        return sql;// 如果SQL中不包含#,则直接返回
     }
 }

@@ -122,7 +122,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#count(String, Object...)
      */
     public Integer count() {
-        return count(getQueryBuilder().count());
+        return count(getQueryBuilder().countAll());
     }
 
     /**
@@ -143,7 +143,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#delete(String, Object...)
      */
     public Boolean delete(Number id) {
-        return 1 == delete(getQueryBuilder().deleteById(id.toString()));
+        return 1 == delete(getQueryBuilder().deleteById(id));
     }
 
     /**
@@ -165,7 +165,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#find(String, Object...)
      */
     public T find(Number id) {
-        return find(getQueryBuilder().findById(id.toString()));
+        return find(getQueryBuilder().findById(id));
     }
 
     /**
@@ -177,7 +177,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#list(Page, String, Object...)
      */
     public T find(String sql, Object... args) {
-        List<T> list = list(null, getQueryBuilder().find(sql, args));
+        List<T> list = list(null, getQueryBuilder().findBySql(sql, args));
         return null != list && list.size() > 0 ? list.get(0) : null;
     }
 
