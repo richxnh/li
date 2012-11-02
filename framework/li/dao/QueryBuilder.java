@@ -176,7 +176,7 @@ public class QueryBuilder {
         for (Field field : beanMeta.fields) {
             if (!beanMeta.getId().name.equals(field.name)) {
                 Object fieldValue = Reflect.get(object, field.name);
-                if (null != fieldValue) {
+                if (null != fieldValue) {// 略过为null的属性
                     columns += field.column + ",";
                     values += (null == fieldValue ? "NULL" : "'" + fieldValue + "'") + ",";
                 }
