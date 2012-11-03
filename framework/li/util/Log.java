@@ -63,45 +63,45 @@ public abstract class Log {
     protected abstract void log(String method, Object msg);
 
     /**
-     * 输出INFO级别的日志
-     */
-    public void info(Object msg) {
-        log("info", msg);
-    }
-
-    /**
-     * 输出ERROR级别的日志
-     */
-    public void error(Object msg) {
-        log("error", msg);
-    }
-
-    /**
-     * 输出DEBUG级别的日志
-     */
-    public void debug(Object msg) {
-        log("debug", msg);
-    }
-
-    /**
-     * 输出FATAL级别的日志
-     */
-    public void fatal(Object msg) {
-        log("fatal", msg);
-    }
-
-    /**
-     * 输出TRACE级别的日志
+     * 输出TRACE级别的日志 Level 1
      */
     public void trace(Object msg) {
         log("trace", msg);
     }
 
     /**
-     * 输出WARN级别的日志
+     * 输出DEBUG级别的日志 Level 2
+     */
+    public void debug(Object msg) {
+        log("debug", msg);
+    }
+
+    /**
+     * 输出INFO级别的日志 Level 3
+     */
+    public void info(Object msg) {
+        log("info", msg);
+    }
+
+    /**
+     * 输出WARN级别的日志 Level 4
      */
     public void warn(Object msg) {
         log("warn", msg);
+    }
+
+    /**
+     * 输出ERROR级别的日志 Level 5
+     */
+    public void error(Object msg) {
+        log("error", msg);
+    }
+
+    /**
+     * 输出FATAL级别的日志 Level 6
+     */
+    public void fatal(Object msg) {
+        log("fatal", msg);
     }
 
     /**
