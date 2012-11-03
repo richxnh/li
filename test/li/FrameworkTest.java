@@ -26,10 +26,15 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AopTest.class, AbstractDaoTest.class, QueryRunnerTest.class, PageTest.class, RecordTest.class, //
-        QueryBuilderTest.class, ModelBuilderTest.class, TransTest.class, IocTest.class, BeanTest.class, FieldTest.class, //
-        ContextTest.class, AbstractServiceTest.class, ConvertTest.class, ReflectTest.class, FilesTest.class, LogTest.class, VerifyTest.class, //
-        SqliteTest.class, H2Test.class })
+@SuiteClasses({ SqliteTest.class, H2Test.class,//
+        ContextTest.class,//
+        AbstractServiceTest.class, //
+        IocTest.class, AopTest.class, //
+        BeanTest.class, FieldTest.class, //
+        AbstractDaoTest.class, QueryRunnerTest.class, RecordTest.class, //
+        QueryBuilderTest.class, ModelBuilderTest.class, TransTest.class,//
+        ConvertTest.class, ReflectTest.class, FilesTest.class, LogTest.class, VerifyTest.class, PageTest.class //
+})
 public class FrameworkTest {
 
 }
