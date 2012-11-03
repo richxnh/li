@@ -19,7 +19,8 @@ public class H2Test extends BaseTest {
         System.out.println(list);
     }
 
-    public static void insert() {
+    // @Test
+    public void insert() {
         final Account dao = Ioc.get(Account.class);
 
         for (int i = 0; i < 1000; i++) {

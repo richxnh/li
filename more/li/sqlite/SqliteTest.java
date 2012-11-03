@@ -36,6 +36,16 @@ public class SqliteTest extends BaseTest {
         System.out.println("RecordCount = " + page.getRecordCount());
     }
 
+    // @Test
+    public void insert() {
+        final User dao = Ioc.get(User.class);
+
+        for (int i = 0; i < 1000; i++) {
+            User user = new User().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
+            System.out.println(dao.save(user) + "\t" + user.get("id"));
+        }
+    }
+
     public void connection() throws Throwable {
         Class.forName("org.sqlite.JDBC");
         Connection connection = DriverManager.getConnection("jdbc:sqlite:../../Program Files/sqlite/db/forum.db");
