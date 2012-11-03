@@ -15,7 +15,7 @@ public class H2Test extends BaseTest {
 
     @Test
     public void test() {
-        List<Account> list = dao.list(page);
+        List<Account> list = dao.list(page.setPageSize(3));
         for (Account account : list) {
             System.out.println(account.get("id") + "\t" + account.get("USERNAME") + "\t" + account.get("PASSWORD") + "\t" + account.get("EMAIL"));
         }
@@ -23,7 +23,7 @@ public class H2Test extends BaseTest {
 
     @Test
     public void insert() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             Account account = new Account().set("USERNAME", "li" + System.currentTimeMillis()).set("PASSWORD", "wode").set("EMAIL", "limingwei@mail.com");
             System.out.println(dao.save(account) + "\t" + account.get("ID"));
         }

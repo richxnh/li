@@ -21,14 +21,10 @@ public class SqliteTest extends BaseTest {
     public void test() {
         Account user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
         userDao.save(user);
-        userDao.save(user);
-
-        user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
-        userDao.save(user);
 
         System.out.println("user id = " + user.get("id"));
 
-        for (Account u : userDao.list(page, "ORDER BY id DESC")) {
+        for (Account u : userDao.list(page.setPageSize(3), "ORDER BY id DESC")) {
             System.out.println(u.get("id") + "\t" + u.get("username") + "\t" + u.get("password") + "\t" + u.get("email"));
         }
 
@@ -37,7 +33,7 @@ public class SqliteTest extends BaseTest {
 
     @Test
     public void insert() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             Account user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
             System.out.println(userDao.save(user) + "\t" + user.get("id"));
         }
