@@ -19,14 +19,13 @@ public class H2Test extends BaseTest {
         System.out.println(list);
     }
 
-    @Test
+    // @Test
     public void insert() {
         final Account dao = Ioc.get(Account.class);
 
         for (int i = 0; i < 10; i++) {
             Account account = new Account().set("USERNAME", "li" + System.currentTimeMillis()).set("PASSWORD", "wode").set("EMAIL", "limingwei@mail.com");
-            System.out.println(dao.save(account));
-            System.out.println(account.get("ID"));
+            System.out.println(dao.save(account) + "\t" + account.get("ID"));
         }
     }
 

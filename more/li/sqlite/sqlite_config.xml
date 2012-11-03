@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ioc.xsd">
 	<beans>
-		<bean name="sqlite" class="li.datasource.MonitoringDataSource">
+		<bean name="sqlite" class="li.dao.SimpleDataSource">
 			<property name="url" value="jdbc:sqlite:../../Program Files/sqlite/db/forum/forum.db" />
 		</bean>
 		<bean class="li.sqlite.Account">
