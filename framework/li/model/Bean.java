@@ -75,7 +75,7 @@ public class Bean {
             bean = new Bean();
             Table table = type.getAnnotation(Table.class);
             bean.table = (null == table || Verify.isEmpty(table.value())) ? type.getSimpleName() : table.value();
-            bean.fields = Record.class.isAssignableFrom(type) ? Field.list(dataSource, bean.table) : Field.list(type, true);// 若type为Record的子类型,则用DESC方式,否则用扫描对象方式
+            bean.fields = Record.class.isAssignableFrom(type) ? Field.list(dataSource, bean.table) : Field.list(type, true);// 若type为Record的子类型,则用扫描数据表方式,否则用扫描对象方式
             for (Field attribute : bean.fields) {
                 if (table.id().equals(attribute.name) || table.id().equals(attribute.column)) {
                     bean.id = attribute;
