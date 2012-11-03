@@ -39,11 +39,11 @@ public class SqliteTest extends BaseTest {
         System.out.println("RecordCount = " + page.getRecordCount());
     }
 
-    // @Test
+    @Test
     public void insert() {
         final Account dao = Ioc.get(Account.class);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             Account user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
             System.out.println(dao.save(user) + "\t" + user.get("id"));
         }
