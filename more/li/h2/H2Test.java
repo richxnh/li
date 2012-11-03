@@ -30,7 +30,8 @@ public class H2Test extends BaseTest {
         }
     }
 
-    public static void create_table() {
+    // @Test
+    public void create_table() {
         String sql = "CREATE TABLE t_account" + //
                 "(id int PRIMARY KEY AUTO_INCREMENT," + //
                 "username varchar(255) UNIQUE NOT NULL ," + //
