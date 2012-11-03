@@ -11,26 +11,22 @@ import javax.sql.DataSource;
 
 import li.ioc.Ioc;
 import li.test.BaseTest;
-import li.util.Page;
 
 import org.junit.Test;
 
 public class SqliteTest extends BaseTest {
+    Account userDao = Ioc.get(Account.class);
+
     @Test
     public void test() {
-        Account userDao = Ioc.get(Account.class);
-
         Account user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
         userDao.save(user);
-
         userDao.save(user);
 
         user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
         userDao.save(user);
 
         System.out.println("user id = " + user.get("id"));
-
-        Page page = new Page(1, 5);
 
         for (Account u : userDao.list(page, "ORDER BY id DESC")) {
             System.out.println(u.get("id") + "\t" + u.get("username") + "\t" + u.get("password") + "\t" + u.get("email"));
@@ -41,11 +37,9 @@ public class SqliteTest extends BaseTest {
 
     @Test
     public void insert() {
-        final Account dao = Ioc.get(Account.class);
-
         for (int i = 0; i < 10; i++) {
             Account user = new Account().set("username", "li" + System.currentTimeMillis()).set("password", "wode").set("email", "limw@w.cn");
-            System.out.println(dao.save(user) + "\t" + user.get("id"));
+            System.out.println(userDao.save(user) + "\t" + user.get("id"));
         }
     }
 

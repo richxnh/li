@@ -94,12 +94,14 @@ public class Field {
                 QueryRunner queryRunner = new QueryRunner(connection);
                 ResultSet resultSet = queryRunner.executeQuery("SELECT * FROM " + table + " WHERE 1=2");
                 fields = list(resultSet);
-                resultSet.close();// 关闭resultSet
+                if (null != resultSet) {
+                    resultSet.close();// 关闭resultSet
+                }
                 queryRunner.close();// 关闭QueryRunner,主要是关闭PrerparedStatement
                 connection.close();// 关闭connection,QueryRunner中可能因为事务没有关闭之
                 FIELDS_MAP.put("dataSource#" + dataSource + "#table#" + table, fields); // 加入缓存
             } catch (Exception e) {
-                throw new RuntimeException("Exception in li.model.Field.list(DataSource, String) " + e.getMessage(), e);
+                throw new RuntimeException("Exception in li.model.Field.list(DataSource, String) ", e);
             }
         }
         return fields;

@@ -11,18 +11,18 @@ import li.test.BaseTest;
 import org.junit.Test;
 
 public class H2Test extends BaseTest {
+    Account dao = Ioc.get(Account.class);
+
     @Test
     public void test() {
-        Account dao = Ioc.get(Account.class);
-
-        List<Account> list = dao.list(null);
-        System.out.println(list);
+        List<Account> list = dao.list(page);
+        for (Account account : list) {
+            System.out.println(account.get("id") + "\t" + account.get("USERNAME") + "\t" + account.get("PASSWORD") + "\t" + account.get("EMAIL"));
+        }
     }
 
     @Test
     public void insert() {
-        final Account dao = Ioc.get(Account.class);
-
         for (int i = 0; i < 10; i++) {
             Account account = new Account().set("USERNAME", "li" + System.currentTimeMillis()).set("PASSWORD", "wode").set("EMAIL", "limingwei@mail.com");
             System.out.println(dao.save(account) + "\t" + account.get("ID"));
