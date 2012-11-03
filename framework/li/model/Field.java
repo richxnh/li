@@ -94,9 +94,7 @@ public class Field {
                 QueryRunner queryRunner = new QueryRunner(connection);
                 ResultSet resultSet = queryRunner.executeQuery("SELECT * FROM " + table + " WHERE 1=2");
                 fields = list(resultSet);
-                if (null != resultSet) {
-                    resultSet.close();// 关闭resultSet
-                }
+                resultSet.close();// 关闭resultSet
                 queryRunner.close();// 关闭QueryRunner,主要是关闭PrerparedStatement
                 connection.close();// 关闭connection,QueryRunner中可能因为事务没有关闭之
                 FIELDS_MAP.put("table#" + table, fields); // 加入缓存
