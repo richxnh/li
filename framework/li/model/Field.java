@@ -85,7 +85,7 @@ public class Field {
      * @param table 需要探测表结构的数据表名称
      */
     public static List<Field> list(DataSource dataSource, String table) {
-        List<Field> fields = FIELDS_MAP.get("table#" + table);
+        List<Field> fields = FIELDS_MAP.get("dataSource#" + dataSource + "#table#" + table);
         if (null == fields && null != dataSource) { // 如果缓存中没有
             log.info("Field.list() by table " + table);
             try {
@@ -97,7 +97,7 @@ public class Field {
                 resultSet.close();// 关闭resultSet
                 queryRunner.close();// 关闭QueryRunner,主要是关闭PrerparedStatement
                 connection.close();// 关闭connection,QueryRunner中可能因为事务没有关闭之
-                FIELDS_MAP.put("table#" + table, fields); // 加入缓存
+                FIELDS_MAP.put("dataSource#" + dataSource + "#table#" + table, fields); // 加入缓存
             } catch (Exception e) {
                 throw new RuntimeException("Exception in li.model.Field.list(DataSource, String) " + e.getMessage(), e);
             }

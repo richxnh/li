@@ -97,7 +97,9 @@ public class ModelBuilder {
      */
     protected void close() {
         try {
-            resultSet.close();// 关闭ResultSet
+            if (null != resultSet) {
+                resultSet.close();// 关闭ResultSet
+            }
             queryRunner.close();// 关闭QueryRunner,他会关闭PreparedStatement和Connection
         } catch (Exception e) {
             throw new RuntimeException("Exception at li.dao.ModelBuilder.close()", e);
