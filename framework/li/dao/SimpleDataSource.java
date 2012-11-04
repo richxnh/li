@@ -41,23 +41,23 @@ public class SimpleDataSource implements DataSource {
         return 0;
     }
 
+    public void setLoginTimeout(int seconds) throws SQLException {}
+
     public PrintWriter getLogWriter() throws SQLException {
         return new PrintWriter(System.out);
     }
+
+    public void setLogWriter(PrintWriter out) throws SQLException {}
 
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         return null;
     }
 
-    public boolean isWrapperFor(Class iface) throws SQLException {
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return false;
     }
 
     public <T> T unwrap(Class<T> iface) throws SQLException {
         return null;
     }
-
-    public void setLoginTimeout(int seconds) throws SQLException {}
-
-    public void setLogWriter(PrintWriter out) throws SQLException {}
 }
