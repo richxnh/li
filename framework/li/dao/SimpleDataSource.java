@@ -21,7 +21,7 @@ public class SimpleDataSource implements DataSource {
     private String password;
 
     static {
-        String[] drivers = { "com.mysql.jdbc.Driver", "org.sqlite.JDBC", "org.h2.Driver" };
+        String[] drivers = { "com.mysql.jdbc.Driver", "org.sqlite.JDBC", "org.h2.Driver", "org.apache.derby.jdbc.EmbeddedDriver", "org.hsqldb.jdbcDriver" };
         for (String driver : drivers) {
             try {
                 Class.forName(driver);
