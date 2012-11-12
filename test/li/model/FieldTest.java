@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FieldTest extends BaseTest {
-    private Class targetType;
+    private Class<?> targetType;
     private Boolean annotated;
     private DataSource dataSource;
     private String table;
