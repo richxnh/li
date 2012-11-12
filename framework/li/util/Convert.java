@@ -81,7 +81,7 @@ public class Convert {
     /**
      * 将数组转换为Map,奇数位为key,偶数位为value; items必须为偶数个
      */
-    public static Map toMap(Object... items) {
+    public static Map<Object, Object> toMap(Object... items) {
         Map map = new HashMap();
         if (null != items && items.length > 0) {// 非空判断
             if (items.length % 2 != 0) {

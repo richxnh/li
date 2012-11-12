@@ -62,7 +62,7 @@ public abstract class Trans {
     /**
      * 返回map引用
      */
-    public Map map() {
+    public Map<Object, Object> map() {
         return this.map;
     }
 
