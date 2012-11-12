@@ -17,6 +17,15 @@ import li.util.Page;
  * @see li.mvc.Context
  */
 public abstract class AbstractAction {
+
+    protected static final String GET = "GET";
+    protected static final String HEAD = "HEAD";
+    protected static final String POST = "POST";
+    protected static final String PUT = "PUT";
+    protected static final String DELETE = "DELETE";
+    protected static final String OPTIONS = "OPTIONS";
+    protected static final String TRACE = "TRACE";
+
     /**
      * 得到Action引用
      */

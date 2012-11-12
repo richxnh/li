@@ -105,7 +105,7 @@ public class DemoAction extends AbstractAction {
     /**
      * 这个跳过,研究文件上传的
      */
-    @At(value = "upload", method = "POST")
+    @At(value = "upload", method = POST)
     public void testUpload() {
         DataOutputStream dataOutputStream = null;
         try {
@@ -230,7 +230,7 @@ public class DemoAction extends AbstractAction {
     /**
      * 测试HTTP Method
      */
-    @At(value = "testPost", method = "POST")
+    @At(value = "testPost", method = POST)
     public void testPost() {
         write("POST");
     }
@@ -238,7 +238,7 @@ public class DemoAction extends AbstractAction {
     /**
      * 测试HTTP Method
      */
-    @At(value = "testGet", method = "GET")
+    @At(value = "testGet", method = GET)
     public void testGet() {
         write("GET");
     }

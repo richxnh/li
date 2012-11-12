@@ -25,7 +25,7 @@ public class PostAction extends AbstractAction {
         view("WEB-INF/view/post_get.jsp");
     }
 
-    @At(value = "post.save", method = "POST")
+    @At(value = "post.save", method = POST)
     public void save(Post post) {
         postDao.save(post);
         redirect(getRequest().getHeader("referer"));
@@ -37,7 +37,7 @@ public class PostAction extends AbstractAction {
         view("WEB-INF/view/post_edit.jsp");
     }
 
-    @At(value = "post_update", method = "POST")
+    @At(value = "post_update", method = POST)
     public void update(Post post) {
         postDao.update(post);
         redirect("thread?id=" + post.get("thread_id"));

@@ -32,7 +32,7 @@ public class ThreadAction extends AbstractAction {
         view("thread_show");
     }
 
-    @At(value = "thread_save", method = "POST")
+    @At(value = "thread_save", method = POST)
     public void save(Thread thread) {
         threadDao.save(thread);
         redirect(getRequest().getHeader("referer"));
@@ -44,7 +44,7 @@ public class ThreadAction extends AbstractAction {
         view("WEB-INF/view/thread_edit.jsp");
     }
 
-    @At(value = "thread_update", method = "POST")
+    @At(value = "thread_update", method = POST)
     public void update(Thread thread) {
         threadDao.update(thread);
         redirect("thread?id=" + thread.get("id"));

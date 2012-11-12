@@ -32,7 +32,7 @@ public class AccountAction extends AbstractAction {
         redirect("account_list?pn=" + getParameter("pn"));
     }
 
-    @At(value = "account_save", method = "POST")
+    @At(value = "account_save", method = POST)
     public void save(Account account) {
         accountDao.save(account.set("password", Convert.toMD5(account.get("password"))));
         redirect("account_list?pn=" + getParameter("pn"));
@@ -44,7 +44,7 @@ public class AccountAction extends AbstractAction {
         forward("WEB-INF/view_jsp/account_edit.jsp");
     }
 
-    @At(value = "account_update", method = "post")
+    @At(value = "account_update", method = POST)
     public void update(Account account) {
         accountDao.update(account.set("password", Convert.toMD5(account.get("password"))));
         redirect("account_list?pn=" + getParameter("pn"));
@@ -55,7 +55,7 @@ public class AccountAction extends AbstractAction {
         forward("WEB-INF/view_jsp/account_login.jsp");
     }
 
-    @At(value = { "account_login", "login" }, method = "POST")
+    @At(value = { "account_login", "login" }, method = POST)
     public void login(Account account) {
         Account ac = account.login(account);
         if (null != ac) {
@@ -69,7 +69,7 @@ public class AccountAction extends AbstractAction {
         forward("WEB-INF/view_jsp/account_signup.jsp");
     }
 
-    @At(value = "account_signup", method = "POST")
+    @At(value = "account_signup", method = POST)
     public void signup(Account account) {
         String password2 = getParameter("password2");
         if (account.get("password").equals(password2)) {
