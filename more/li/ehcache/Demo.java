@@ -7,8 +7,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 public class Demo {
-    
-    
+
     /**
      * 请求路径加QueryString为key,缓存request中的每一个属性
      */
