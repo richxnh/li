@@ -6,6 +6,6 @@ import li.dao.Record;
 
 @Bean
 @Table("t_people")
-public class People extends Record<People>{
+public class People extends Record<People> {
 
 }
