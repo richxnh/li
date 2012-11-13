@@ -16,6 +16,7 @@
 		</div>
 		<br/>
 		<h2>welcome</h2>
+		<a href="people_list.do">people_list.do</a>
 		<a href="fm">fm</a>
 		<a href="fm2">fm2</a>
 		<a href="vl">vl</a>

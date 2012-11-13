@@ -12,7 +12,7 @@ public class PeopleAction extends AbstractAction {
     @Inject
     People peopleDao;
 
-    @At("people_list.do")
+    @At(value = "people_list.do", method = GET)
     public void list(Page page) {
         setRequest("peoples", peopleDao.list(page)).view("people/list");
     }
