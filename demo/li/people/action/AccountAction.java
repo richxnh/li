@@ -21,7 +21,7 @@ public class AccountAction extends AbstractAction {
         if (accountDao.login(account)) {
             view("");
         } else {
-            redirect(getRequest().getHeader("refer"));
+            redirect("people_list.do");
         }
     }
 
