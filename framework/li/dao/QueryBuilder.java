@@ -216,7 +216,7 @@ public class QueryBuilder {
     public String setArgMap(String sql, Map<?, ?> argMap) {
         if (null != sql && sql.length() > 0 && null != argMap && argMap.size() > 0) {// 非空判断
             for (Entry<?, ?> arg : argMap.entrySet()) {
-                sql = sql.replaceFirst(arg.getKey() + "", "'" + arg.getValue() + "'");// 为参数加上引号后替换问号
+                sql = sql.replaceFirst("#" + arg.getKey() + "", "'" + arg.getValue() + "'");// 为参数加上引号后替换问号
             }
         }
         return sql;
