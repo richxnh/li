@@ -82,8 +82,8 @@ public class QueryBuilderTest extends BaseTest {
 
     @Test
     public void setArgMap() {
-        String sql = "SELECT * FROM WHERE id=:id OR username LIKE :username";
-        Map<Object, Object> map = Convert.toMap(":id", 1, ":username", "%li%");
+        String sql = "SELECT * FROM WHERE id=#id OR username LIKE #username";
+        Map<Object, Object> map = Convert.toMap("id", 1, "username", "%li%");
         assertEquals("SELECT * FROM WHERE id='1' OR username LIKE '%li%'", queryBuilder.setArgMap(sql, map));
     }
 
@@ -121,7 +121,7 @@ public class QueryBuilderTest extends BaseTest {
     @Test
     public void testSetArgs2() {
         String sql = "SELECT * FROM t_account where username=#username";
-        Map<Object, Object> args = Convert.toMap("#username", "uuu");
+        Map<Object, Object> args = Convert.toMap("username", "uuu");
         sql = queryBuilder.setArgMap(sql, args);
         assertEquals("SELECT * FROM t_account where username='uuu'", sql);
     }
