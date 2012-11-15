@@ -16,9 +16,9 @@ public class PeopleAction extends AbstractAction {
     public void list(Page page) {
         setRequest("peoples", peopleDao.list(page)).view("people/list");
     }
-    
+
     @At("index.do")
-    public void index(){
+    public void index() {
         view("index");
     }
 }
