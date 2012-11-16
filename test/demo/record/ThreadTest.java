@@ -27,8 +27,8 @@ public class ThreadTest extends BaseTest {
 
     @Test
     public void testArgs() {
-        String sql = "SELECT * FROM t_thread WHERE id=? OR id=:id1 OR id=? OR id=:id2";
-        Map<?, ?> argMap = Convert.toMap(":id1", 11, ":id2", 12);
+        String sql = "SELECT * FROM t_thread WHERE id=? OR id=#id1 OR id=? OR id=#id2";
+        Map<?, ?> argMap = Convert.toMap("id1", 11, "id2", 12);
         thread.list(page, sql, 1, 2, 3, argMap);
     }
 

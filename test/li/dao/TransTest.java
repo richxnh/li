@@ -34,10 +34,10 @@ public class TransTest extends BaseTest {
 
     @Test
     public void testPassValue() {
-        _User user = (_User) new Trans(Convert.toMap(":email", "tom@w.cn", ":username", "xiaoming")) {
+        _User user = (_User) new Trans(Convert.toMap("email", "tom@w.cn", "username", "xiaoming")) {
             public void run() {
-                userDao.update("SET email=:email WHERE username=:username", map());
-                map().put("user", userDao.find("WHERE username!=?", map().get(":username")));
+                userDao.update("SET email=#email WHERE username=#username", map());
+                map().put("user", userDao.find("WHERE username!=?", map().get("username")));
             }
         }.map().get("user");
         System.err.println(user);
