@@ -2,7 +2,6 @@ package demo.dao.impl;
 
 import li.annotation.Bean;
 import li.dao.AbstractDao;
-import li.util.Convert;
 import demo.dao.IUserDao;
 import demo.model.User;
 
@@ -16,6 +15,6 @@ public class UserDaoImpl extends AbstractDao<User> implements IUserDao {
     }
 
     public User findByUsername(String username) {
-        return super.find("WHERE username=:username", Convert.toMap(":username", username));// 具名占位符的查询参数
+        return super.find("WHERE username=?", username);// 具名占位符的查询参数
     }
 }
