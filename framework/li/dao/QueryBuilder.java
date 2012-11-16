@@ -210,8 +210,8 @@ public class QueryBuilder {
     /**
      * 用Map中的值替换SQL中的具名参数
      * 
-     * @param sql 传入的sql语句,可以包含':name'占位符
-     * @param argMap 替换sql中 ':key' 的键值Map
+     * @param sql 传入的sql语句,可以包含#key占位符
+     * @param argMap 替换sql中#key 的键值Map
      */
     public String setArgMap(String sql, Map<?, ?> argMap) {
         if (null != sql && sql.length() > 0 && null != argMap && argMap.size() > 0) {// 非空判断
