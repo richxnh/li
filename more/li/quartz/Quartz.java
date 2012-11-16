@@ -64,8 +64,8 @@ public class Quartz {
     private static Map<Class<? extends Job>, String> getJobs() {
         Map<Class<? extends Job>, String> jobs = new HashMap<Class<? extends Job>, String>();
 
-        List<String> files = Files.list(Files.root(), "^.*qutarz.xml$", true);// 搜索以quarts配置文件
-        for (String filePath : files) {
+        List<String> fileList = Files.list(Files.root(), "^.*config.xml$", true);// 搜索以config.xml结尾的文件
+        for (String filePath : fileList) {
             NodeList beanNodes = (NodeList) Files.xpath(Files.build(filePath), "//task", XPathConstants.NODESET);
             for (int length = (null == beanNodes ? -1 : beanNodes.getLength()), i = 0; i < length; i++) {
                 String type = (String) Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING);

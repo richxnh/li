@@ -4,4 +4,7 @@
 		<task class="li.quartz.HahaJob" trigger="0/3 * * * * ? *" />
 		<task class="li.quartz.HelloJob" trigger="0/1 * * * * ? *" />
 	</tasks>
+	<beans>
+		<bean class="li.quartz.Quartz" />
+	</beans>
 </config>
