@@ -123,29 +123,29 @@ public class Convert {
      */
     public static <T> T toType(Class<T> type, Object value) {
         if (null != type && null != value && value.toString().length() > 0) {// 两参数均不为空
-            if (type.equals(Integer.TYPE) || type.equals(Integer.class)) {// 基本类型数据转换
+            if ((type.equals(Integer.TYPE) || type.equals(Integer.class)) && !(value instanceof Integer)) {// 基本类型数据转换
                 return (T) Integer.valueOf(value.toString().trim());
-            } else if (type.equals(Boolean.TYPE) || type.equals(Boolean.class)) {
+            } else if ((type.equals(Boolean.TYPE) || type.equals(Boolean.class)) && !(value instanceof Boolean)) {
                 return (T) Boolean.valueOf(value.toString().trim());
-            } else if (type.equals(Long.TYPE) || type.equals(Long.class)) {
+            } else if ((type.equals(Long.TYPE) || type.equals(Long.class)) && !(value instanceof Long)) {
                 return (T) Long.valueOf(value.toString().trim());
-            } else if (type.equals(Float.TYPE) || type.equals(Float.class)) {
+            } else if ((type.equals(Float.TYPE) || type.equals(Float.class)) && !(value instanceof Float)) {
                 return (T) Float.valueOf(value.toString().trim());
-            } else if (type.equals(Double.TYPE) || type.equals(Double.class)) {
+            } else if ((type.equals(Double.TYPE) || type.equals(Double.class)) && !(value instanceof Double)) {
                 return (T) Double.valueOf(value.toString().trim());
-            } else if (type.equals(Short.TYPE) || type.equals(Short.class)) {
+            } else if ((type.equals(Short.TYPE) || type.equals(Short.class)) && !(value instanceof Short)) {
                 return (T) Short.valueOf(value.toString().trim());
-            } else if (type.equals(Byte.TYPE) || type.equals(Byte.class)) {
+            } else if ((type.equals(Byte.TYPE) || type.equals(Byte.class)) && !(value instanceof Byte)) {
                 return (T) Byte.valueOf(value.toString().trim());
-            } else if (type.equals(Character.TYPE) || type.equals(Character.class)) {
+            } else if ((type.equals(Character.TYPE) || type.equals(Character.class)) && !(value instanceof Character)) {
                 return (T) Character.valueOf(value.toString().trim().charAt(0));
-            } else if (type.equals(Time.class)) {
+            } else if (type.equals(Time.class) && !(value instanceof Time)) {
                 return (T) new Time(toType(java.util.Date.class, value).getTime());// 日期时间类型数据转换
-            } else if (type.equals(Timestamp.class)) {
+            } else if (type.equals(Timestamp.class) && !(value instanceof Timestamp)) {
                 return (T) new Timestamp(toType(java.util.Date.class, value).getTime());
-            } else if (type.equals(java.sql.Date.class)) {
+            } else if (type.equals(java.sql.Date.class) && !(value instanceof java.sql.Date)) {
                 return (T) new java.sql.Date(toType(java.util.Date.class, value).getTime());
-            } else if (type.equals(java.util.Date.class)) {
+            } else if (type.equals(java.util.Date.class) && !(value instanceof java.util.Date)) {
                 String pattern = "";
                 if (Verify.regex(value.toString().trim(), "^[0-2]{0,1}[0-9]{1}:[0-6]{0,1}[0-9]{1}$")) {// 表达式匹配
                     pattern = "HH:mm";
