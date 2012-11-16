@@ -36,7 +36,7 @@ public class QueryRunner {
     /**
      * 实例变量,保存最后一条被插入记录被设置的自增ID
      */
-    public String LAST_INSERT_ID;
+    public Integer LAST_INSERT_ID;
 
     /**
      * 执行查询类SQL,返回ResultSet结果集
@@ -70,7 +70,7 @@ public class QueryRunner {
                 count = preparedStatement.executeUpdate();
 
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();// 获得主键结果集
-                this.LAST_INSERT_ID = null != generatedKeys && generatedKeys.next() ? generatedKeys.getString(1) : "-1";// 设置最后更新的主键的值
+                this.LAST_INSERT_ID = null != generatedKeys && generatedKeys.next() ? generatedKeys.getInt(1) : -1;// 设置最后更新的主键的值
                 generatedKeys.close();// 关闭主键结果集
             } catch (Exception e) {
                 Trans.EXCEPTION.set(e); // 出现异常,记录起来
