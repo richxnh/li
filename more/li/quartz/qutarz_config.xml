@@ -5,6 +5,6 @@
 		<task class="li.quartz.HelloJob" trigger="0/3 * * * * ? *" />
 	</tasks>
 	<beans>
-		<bean class="li.quartz.Quartz" />
+		<!-- <bean class="li.quartz.Quartz" /> -->
 	</beans>
 </config>
