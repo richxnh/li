@@ -26,7 +26,7 @@ import org.w3c.dom.NodeList;
 
 public class Quartz {
     /**
-     * 初始化此类的时候启动Quartz
+     * 初始化此类的时候启动Quartz,唯一的public方法
      */
     public Quartz() {
         start();
@@ -38,7 +38,7 @@ public class Quartz {
     private static boolean started = false;
 
     /**
-     * 启动Quartz,启动所有任务
+     * 启动Quartz,启动所有任务,synchronized方法
      */
     private synchronized static void start() {
         if (!started) {
@@ -46,8 +46,9 @@ public class Quartz {
                 Scheduler scheduler = getScheduler();
                 Set<Entry<Class<? extends Job>, String>> jobs = getJobs().entrySet();
                 for (Entry<Class<? extends Job>, String> entry : jobs) {
-                    JobDetail jobDetail = new JobDetailImpl("job_" + entry.getKey().getName(), entry.getKey());
-                    CronTrigger cronTrigger = new CronTriggerImpl("trigger_" + entry.getKey().getName(), Scheduler.DEFAULT_GROUP, entry.getValue());
+                    String name = entry.getKey().getName();// 类名作为name,使用默认的GROUP
+                    JobDetail jobDetail = new JobDetailImpl(name, Scheduler.DEFAULT_GROUP, entry.getKey());
+                    CronTrigger cronTrigger = new CronTriggerImpl(name, Scheduler.DEFAULT_GROUP, entry.getValue());
                     scheduler.scheduleJob(jobDetail, cronTrigger);
                 }
                 scheduler.start();
@@ -82,11 +83,11 @@ public class Quartz {
      */
     private static Scheduler getScheduler() throws SchedulerException {
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-        scheduler.setJobFactory(new SimpleJobFactory() {
-            public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) throws SchedulerException {
-                return Ioc.get(bundle.getJobDetail().getJobClass());
-            }
-        });
+        scheduler.setJobFactory(new SimpleJobFactory() {// 设置自定义的job生成工厂
+                    public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) throws SchedulerException {
+                        return Ioc.get(bundle.getJobDetail().getJobClass());// 通过IOC生成job
+                    }
+                });
         return scheduler;
     }
 }

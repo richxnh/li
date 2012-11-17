@@ -11,6 +11,6 @@ import org.quartz.JobExecutionException;
 @Bean
 public class HahaJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.err.println(Thread.currentThread() + "\t" + new Date() + "\t" + "AAA");
+        System.out.println(Thread.currentThread() + "\t" + new Date() + "\t" + "AAA");
     }
 }
