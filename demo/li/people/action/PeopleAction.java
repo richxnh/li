@@ -14,6 +14,8 @@ public class PeopleAction extends AbstractAction {
 
     @At(value = "people_list.do", method = GET)
     public void list(Page page) {
-        setRequest("peoples", peopleDao.list(page)).view("people/list");
+        setRequest("list", peopleDao.list(page));
+        setRequest("page", page);
+        view("people/list");
     }
 }

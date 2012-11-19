@@ -5,7 +5,7 @@ import li.annotation.Bean;
 import li.mvc.AbstractAction;
 
 @Bean
-public class IndexAction extends AbstractAction {
+public class MainAction extends AbstractAction {
 
     @At("index.do")
     public void index() {
@@ -25,5 +25,10 @@ public class IndexAction extends AbstractAction {
     @At("right.do")
     public void right() {
         view("right");
+    }
+    
+    @At("page.do")
+    public void page(){
+        view("page");
     }
 }
