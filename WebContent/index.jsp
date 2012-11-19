@@ -17,6 +17,7 @@
 		<br/>
 		<h2>welcome</h2>
 		<a href="login.do">login.do</a>
+		<a href="index.do">index.do</a>
 		<br/>
 		<a href="fm">fm</a>
 		<a href="fm2">fm2</a>
