@@ -60,7 +60,7 @@ public class Quartz {
     }
 
     /**
-     * 扫描以qutarz.xml结尾的Quartz配置文件返回所有任务
+     * 扫描以config.xml结尾的Quartz配置文件返回所有任务
      */
     private static Map<Class<? extends Job>, String> getJobs() {
         Map<Class<? extends Job>, String> jobs = new HashMap<Class<? extends Job>, String>();
@@ -82,10 +82,10 @@ public class Quartz {
      * 返回使用Ioc方式生成Job对象的Scheduler
      */
     private static Scheduler getScheduler() throws SchedulerException {
-        Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.setJobFactory(new SimpleJobFactory() {// 设置自定义的job生成工厂
                     public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) throws SchedulerException {
-                        return Ioc.get(bundle.getJobDetail().getJobClass());// 通过IOC生成job
+                        return Ioc.get(bundle.getJobDetail().getJobClass());// 通过Io生成job
                     }
                 });
         return scheduler;
