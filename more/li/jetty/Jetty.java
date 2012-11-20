@@ -15,12 +15,13 @@ import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.management.MBeanContainer;
 import org.mortbay.util.Scanner;
+import org.mortbay.util.Scanner.BulkListener;
 
 public class Jetty {
-    static String webAppDir = "WebContent";// 项目文件系统路径
-    static String context = "/";// 项目web相对
-    static Integer port = 81;
-    static Integer scanIntervalSeconds = 5;
+    static String WEB_ROOT_DIR = "WebContent";// 项目文件系统路径
+    static String CONTEXT = "/";// 项目web相对
+    static Integer PORT = 8001;
+    static Integer SCAN_INTERVAL_SECONDS = 5;
 
     public static void main(String[] args) throws Exception {
         start();
@@ -30,13 +31,14 @@ public class Jetty {
         Server server = new Server();
 
         SelectChannelConnector connector = new SelectChannelConnector();
-        connector.setPort(port);
+        connector.setPort(PORT);
         server.addConnector(connector);
-        final WebAppContext web = new WebAppContext();
-        web.setContextPath(context);
-        web.setWar(webAppDir);
-        web.setInitParams(Collections.singletonMap("org.mortbay.jetty.servlet.Default.useFileMappedBuffer", "false"));
-        server.addHandler(web);
+
+        final WebAppContext webAppContext = new WebAppContext();
+        webAppContext.setContextPath(CONTEXT);
+        webAppContext.setWar(WEB_ROOT_DIR);
+        webAppContext.setInitParams(Collections.singletonMap("org.mortbay.jetty.servlet.Default.useFileMappedBuffer", "false"));
+        server.addHandler(webAppContext);
 
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
         MBeanContainer mBeanContainer = new MBeanContainer(mBeanServer);
@@ -47,14 +49,14 @@ public class Jetty {
         scanList.add(Files.root());
         Scanner scanner = new Scanner();
         scanner.setReportExistingFilesOnStartup(false);
-        scanner.setScanInterval(scanIntervalSeconds);
+        scanner.setScanInterval(SCAN_INTERVAL_SECONDS);
         scanner.setScanDirs(scanList);
-        scanner.addListener(new Scanner.BulkListener() {
+        scanner.addListener(new BulkListener() {
             public void filesChanged(List changes) {
                 try {
                     System.err.println("Loading changes ......");
-                    web.stop();
-                    web.start();
+                    webAppContext.stop();
+                    webAppContext.start();
                     System.err.println("Loading complete.\n");
                 } catch (Exception e) {
                     System.err.println("Error reconfiguring/restarting webapp after change in watched files");
