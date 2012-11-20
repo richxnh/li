@@ -18,4 +18,9 @@ public class PeopleAction extends AbstractAction {
         setRequest("page", page);
         view("people/list");
     }
+    
+    @At("hot.do")
+    public void hot(){
+        view("people/hot");
+    }
 }
