@@ -1,59 +1,69 @@
 package li.jetty;
 
 import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import org.mortbay.jetty.Connector;
+import javax.management.MBeanServer;
+
+import li.util.Files;
+
 import org.mortbay.jetty.Server;
-import org.mortbay.jetty.bio.SocketConnector;
-import org.mortbay.jetty.handler.ContextHandlerCollection;
+import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
+import org.mortbay.management.MBeanContainer;
+import org.mortbay.util.Scanner;
 
 public class Demo {
-    private static final int DEFAULT_PORT = 8003;
-    private static final int DEFAULT_SCANINTERVALSECONDS = 5;
+    static String context = "/";// 项目web相对
+    static String webAppDir = "D:/workspace/li/WebContent";// 项目文件系统路径
+    static Integer port = 8003;
+    static Integer scanIntervalSeconds = 5;
 
-    public static void main(String[] args) {
-
-        new JettyServer(detectWebAppDir(), DEFAULT_PORT, "/", DEFAULT_SCANINTERVALSECONDS).start();
+    public static void main(String[] args) throws Exception {
+        start();
     }
 
-    private static String detectWebAppDir() {
-        // String rootClassPath = getRootClassPath();
-        //
-        // System.out.println(rootClassPath);
-        //
-        // String[] temp = null;
-        // if (rootClassPath.indexOf("\\WEB-INF\\") != -1)
-        // temp = rootClassPath.split("\\\\");
-        // else
-        // temp = rootClassPath.split("/"); // linux support, need test!!!
-        // return temp[temp.length - 3];
+    public static void start() throws Exception {
+        Server server = new Server();
 
-        return "D:\\workspace\\li\\WebContent";
-    }
+        SelectChannelConnector connector = new SelectChannelConnector();
+        connector.setPort(port);
+        server.addConnector(connector);
+        final WebAppContext web = new WebAppContext();
+        web.setContextPath(context);
+        web.setWar(webAppDir);
+        web.setInitParams(Collections.singletonMap("org.mortbay.jetty.servlet.Default.useFileMappedBuffer", "false"));
+        server.addHandler(web);
 
-    public static String getRootClassPath() {
-        String path = Demo.class.getClassLoader().getResource("").getPath();
-        return new File(path).getAbsolutePath();
-    }
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        MBeanContainer mBeanContainer = new MBeanContainer(mBeanServer);
+        server.getContainer().addEventListener(mBeanContainer);
+        mBeanContainer.start();
 
-    public static void main2(String[] args) {
-        try {
-            Server server = new Server();
-            Connector connector = new SocketConnector();
-            connector.setPort(8002);
-            server.addConnector(connector);
-
-            ContextHandlerCollection handler = new ContextHandlerCollection();
-
-            WebAppContext webapp = new WebAppContext();
-            webapp.setResourceBase("D:/workspace/li/WebContent");
-            handler.addHandler(webapp);
-
-            server.setHandler(handler);
-            server.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        final ArrayList<File> scanList = new ArrayList<File>();
+        scanList.add(Files.root());
+        Scanner scanner = new Scanner();
+        scanner.setReportExistingFilesOnStartup(false);
+        scanner.setScanInterval(scanIntervalSeconds);
+        scanner.setScanDirs(scanList);
+        scanner.addListener(new Scanner.BulkListener() {
+            public void filesChanged(List changes) {
+                try {
+                    System.err.println("Loading changes ......");
+                    web.stop();
+                    web.start();
+                    System.err.println("Loading complete.\n");
+                } catch (Exception e) {
+                    System.err.println("Error reconfiguring/restarting webapp after change in watched files");
+                    e.printStackTrace();
+                }
+            }
+        });
+        scanner.start();
+        server.start();
+        server.join();
     }
 }
