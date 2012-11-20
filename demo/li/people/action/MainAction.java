@@ -26,9 +26,9 @@ public class MainAction extends AbstractAction {
     public void right() {
         view("right");
     }
-    
+
     @At("page.do")
-    public void page(){
+    public void page() {
         view("page");
     }
 }
