@@ -17,8 +17,8 @@ import org.mortbay.management.MBeanContainer;
 import org.mortbay.util.Scanner;
 
 public class Demo {
+    static String webAppDir = "WebContent";// 项目文件系统路径
     static String context = "/";// 项目web相对
-    static String webAppDir = "D:/workspace/li/WebContent";// 项目文件系统路径
     static Integer port = 8003;
     static Integer scanIntervalSeconds = 5;
 
