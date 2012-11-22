@@ -1,23 +1,17 @@
 package li.jetty;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import javax.management.MBeanServer;
-
-import li.util.Files;
 
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.management.MBeanContainer;
-import org.mortbay.util.Scanner;
 
 public class Jetty {
     static String WEB_ROOT_DIR = "WebContent";// 项目文件系统路径
@@ -106,30 +100,30 @@ public class Jetty {
         mBeanContainer.start();
 
         // configureScanner
-        if (enablescanner) {
-            final ArrayList<File> scanList = new ArrayList<File>();
-            scanList.add(Files.root());
-            Scanner scanner = new Scanner();
-            scanner.setReportExistingFilesOnStartup(false);
-            scanner.setScanInterval(scanIntervalSeconds);
-            scanner.setScanDirs(scanList);
-            scanner.addListener(new Scanner.BulkListener() {
-
-                public void filesChanged(@SuppressWarnings("rawtypes") List changes) {
-                    try {
-                        System.err.println("Loading changes ......");
-                        web.stop();
-                        web.start();
-                        System.err.println("Loading complete.\n");
-                    } catch (Exception e) {
-                        System.err.println("Error reconfiguring/restarting webapp after change in watched files");
-                        e.printStackTrace();
-                    }
-                }
-            });
-            System.err.println("Starting scanner at interval of " + scanIntervalSeconds + " seconds.");
-            scanner.start();
-        }
+        // if (enablescanner) {
+        // final ArrayList<File> scanList = new ArrayList<File>();
+        // scanList.add(Files.root());
+        // Scanner scanner = new Scanner();
+        // scanner.setReportExistingFilesOnStartup(false);
+        // scanner.setScanInterval(scanIntervalSeconds);
+        // scanner.setScanDirs(scanList);
+        // scanner.addListener(new Scanner.BulkListener() {
+        //
+        // public void filesChanged(@SuppressWarnings("rawtypes") List changes) {
+        // try {
+        // System.err.println("Loading changes ......");
+        // web.stop();
+        // web.start();
+        // System.err.println("Loading complete.\n");
+        // } catch (Exception e) {
+        // System.err.println("Error reconfiguring/restarting webapp after change in watched files");
+        // e.printStackTrace();
+        // }
+        // }
+        // });
+        // System.err.println("Starting scanner at interval of " + scanIntervalSeconds + " seconds.");
+        // scanner.start();
+        // }
 
         try {
             server.start();

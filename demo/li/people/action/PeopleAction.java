@@ -19,6 +19,11 @@ public class PeopleAction extends AbstractAction {
         view("people/list");
     }
 
+    @At("people_edit.do")
+    public void edit(Integer id) {
+        view("people/edit");
+    }
+
     @At("hot.do")
     public void hot() {
         view("people/hot");
