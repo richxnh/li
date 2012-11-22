@@ -35,12 +35,18 @@ public class QueryBuilderTest extends BaseTest {
 
     @Test
     public void countAll() {
-        assertEquals("SELECT COUNT(*) FROM t_account", queryBuilder.countAll());
+        assertEquals("SELECT COUNT(*) AS COUNT FROM t_account", queryBuilder.countAll());
     }
 
     @Test
     public void countBySql() {
-        assertEquals("SELECT COUNT(*) FROM t_account WHERE id>'1'", queryBuilder.countBySql("WHERE id>?", new Object[] { "1" }));
+        assertEquals("SELECT COUNT(*) AS COUNT FROM t_account WHERE id>'1'", queryBuilder.countBySql("WHERE id>?", new Object[] { "1" }));
+
+        assertEquals("SELECT COUNT(1) AS COUNT FROM t_account", queryBuilder.countBySql("SELECT COUNT(1) AS COUNT FROM t_account", new Object[] {}));
+
+        assertEquals("SELECT COUNT(id) AS COUNT FROM t_account", queryBuilder.countBySql("SELECT COUNT(id) AS COUNT FROM t_account", new Object[] {}));
+
+        assertEquals("SELECT COUNT(DISTINCT id) AS COUNT FROM t_account", queryBuilder.countBySql("SELECT COUNT(DISTINCT id) AS COUNT FROM t_account", new Object[] {}));
     }
 
     @Test
