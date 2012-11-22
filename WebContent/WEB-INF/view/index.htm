@@ -47,30 +47,34 @@
 		<script src="source/bootstrap/js/bootstrap-typeahead.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$("#top").load("top.do");
-				$("#left").load("left.do");
-				$("#right").load("right.do");
+				$("a.frame_url").each(function(index,element){
+					$.ajax({
+						url : $(this).attr("href"),
+						dataType : "html"
+					}).done(function(data) {
+						$(element).replaceWith(data);
+					});
+				});
 			});
 		</script>
 	</head>
 	<body>
 		<!-- 顶部导航 -->
-		<div id="top"></div>
+		<a class="frame_url" href="top.do"></a>
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span3">
 					<!-- 左侧导航 -->
-					<div id="left"></div>
+					<a class="frame_url" href="left.do"></a>
 				</div>
 				<div class="span9">
 					<!-- 右侧内容 -->
-					<div id="right"></div>
+					<a class="frame_url" href="right.do"></a>
 				</div>
 			</div>
 			<hr>
-			<footer>
-				<p>&copy; 中国共产党铁血忠义青年团 2012</p>
-			</footer>
+			<!-- 底部 -->
+			<a class="frame_url" href="foot.do"></a>
 		</div>
 	</body>
 </html>

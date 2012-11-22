@@ -31,4 +31,9 @@ public class MainAction extends AbstractAction {
     public void page() {
         view("page");
     }
+
+    @At("foot.do")
+    public void foot() {
+        view("foot");
+    }
 }
