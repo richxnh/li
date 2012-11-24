@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import li.model.Field;
-import li.util.Log;
 import li.util.Reflect;
 
 /**
@@ -16,8 +15,6 @@ import li.util.Reflect;
  * @see li.util.Reflect
  */
 public class ModelBuilder {
-    protected static final Log log = Log.init();
-
     /**
      * 保存当前查询的QueryRunner,为了回调以关闭Connection
      */
