@@ -121,4 +121,8 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map, Ser
     public Set entrySet() {
         return fields.entrySet();
     }
+
+    public String toString() {
+        return fields.toString();
+    }
 }

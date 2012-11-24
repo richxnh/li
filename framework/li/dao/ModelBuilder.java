@@ -73,20 +73,10 @@ public class ModelBuilder {
      */
     public String value(Object column, Boolean next, Boolean close) {
         try {
-            if (null != resultSet && next) { // 若next==true,则resultSet.next()
-                if (resultSet.next()) { // 若resultSet.next()返回true,则从resultSet中读值
-                    if (column instanceof String) {
-                        return resultSet.getString((String) column);
-                    } else if (column instanceof Integer) {
-                        return resultSet.getString((Integer) column);
-                    } else {
-                        throw new RuntimeException("column must be String or Integer");
-                    }
-                }
-            } else if (null != resultSet && !next) { // 若next==false,则直接从resultSet中取值
-                if (column instanceof String) {
+            if ((null != resultSet) && ((next && resultSet.next()) || true)) { // 若next==true,则resultSet.next()
+                if (column instanceof String) {// 按列名查找
                     return resultSet.getString((String) column);
-                } else if (column instanceof Integer) {
+                } else if (column instanceof Integer) {// 按index查找
                     return resultSet.getString((Integer) column);
                 } else {
                     throw new RuntimeException("column must be String or Integer");
