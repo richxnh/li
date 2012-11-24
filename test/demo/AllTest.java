@@ -17,11 +17,9 @@ import demo.record.ForumTest;
 import demo.record.MemberTest;
 import demo.record.PostTest;
 import demo.record.ThreadTest;
-import demo.service.UserServiceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ FrameworkTest.class, //
-        UserServiceTest.class,//
         AccountTest.class, ForumTest.class, MemberTest.class, PostTest.class, ThreadTest.class,//
         DemoActionTest.class, AccountActionTest.class, MemberActionTest.class, ForumActionTest.class,//
         PostActionTest.class, ThreadActionTest.class })
