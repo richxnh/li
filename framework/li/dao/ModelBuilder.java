@@ -67,18 +67,30 @@ public class ModelBuilder {
     /**
      * 辅助方法,封装后的resultSet.getString(column);
      * 
-     * @param column 数据所在的列名
+     * @param column 数据所在的列名或者顺序,String或者Integer类型
      * @param next 读取前是否 resultSet.next()
      * @param close 是否于读取后关闭resultSet
      */
-    public String value(String column, Boolean next, Boolean close) {
+    public String value(Object column, Boolean next, Boolean close) {
         try {
             if (null != resultSet && next) { // 若next==true,则resultSet.next()
                 if (resultSet.next()) { // 若resultSet.next()返回true,则从resultSet中读值
-                    return resultSet.getString(column);
+                    if (column instanceof String) {
+                        return resultSet.getString((String) column);
+                    } else if (column instanceof Integer) {
+                        return resultSet.getString((Integer) column);
+                    } else {
+                        throw new RuntimeException("column must be String or Integer");
+                    }
                 }
             } else if (null != resultSet && !next) { // 若next==false,则直接从resultSet中取值
-                return resultSet.getString(column);
+                if (column instanceof String) {
+                    return resultSet.getString((String) column);
+                } else if (column instanceof Integer) {
+                    return resultSet.getString((Integer) column);
+                } else {
+                    throw new RuntimeException("column must be String or Integer");
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException("Exception at li.dao.ModelBuilder.value()", e);

@@ -54,7 +54,7 @@ public class QueryBuilder {
      * 构造默认的COUNT(*)查询的SQL,查询表中的总记录数
      */
     public String countAll() {
-        return "SELECT COUNT(*) AS COUNT FROM " + beanMeta.table;
+        return "SELECT COUNT(*) FROM " + beanMeta.table;
     }
 
     /**
@@ -66,9 +66,9 @@ public class QueryBuilder {
      */
     public String countBySql(String sql, Object[] args) {
         if (!Verify.startWith(sql, "SELECT")) {
-            sql = "SELECT COUNT(*) AS COUNT FROM " + beanMeta.table + " " + sql;
+            sql = "SELECT COUNT(*) FROM " + beanMeta.table + " " + sql;
         } else if (!Verify.regex(sql, "COUNT(.*)")) {
-            sql = "SELECT COUNT(*) AS COUNT FROM " + sql.substring(sql.toUpperCase().indexOf("FROM") + 4, sql.length()).trim();
+            sql = "SELECT COUNT(*) FROM " + sql.substring(sql.toUpperCase().indexOf("FROM") + 4, sql.length()).trim();
         }
         if (Verify.contain(sql, "LIMIT")) {
             sql = sql.substring(0, sql.toUpperCase().indexOf("LIMIT"));// 去掉limit部分

@@ -134,7 +134,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
     public Integer count(String sql, Object... args) {
         QueryRunner queryRunner = new QueryRunner(getConnection());
         ModelBuilder modelBuilder = new ModelBuilder(queryRunner, queryRunner.executeQuery(getQueryBuilder().countBySql(sql, args)));
-        return Integer.valueOf(modelBuilder.value("COUNT", true, true));
+        return Integer.valueOf(modelBuilder.value(1, true, true));
     }
 
     /**
