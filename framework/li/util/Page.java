@@ -21,10 +21,16 @@ public class Page {
      * 单页记录数
      */
     private Integer pageSize = DEFAULT_SIZE;
+
     /**
      * 总记录数
      */
     private Integer recordCount = 0;
+
+    /**
+     * 是否进行count查询
+     */
+    private Boolean count = true;
 
     /**
      * 默认构造函数
@@ -37,6 +43,21 @@ public class Page {
     public Page(Integer pageNumber, Integer pageSize) {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
+    }
+
+    /**
+     * 是否进行count查询
+     */
+    public Boolean count() {
+        return this.count;
+    }
+
+    /**
+     * 设置是否进行count查询
+     */
+    public Page count(Boolean flag) {
+        this.count = flag;
+        return this;
     }
 
     /**

@@ -203,7 +203,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
         ResultSet resultSet = queryRunner.executeQuery(sql);
         ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
-        if (null != resultSet && null != page) {
+        if (null != resultSet && null != page && page.count()) {
             page.setRecordCount(count(sql));
         }
         Integer count = null == page ? Page.DEFAULT_SIZE : page.getPageSize();
@@ -220,7 +220,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
         ResultSet resultSet = queryRunner.executeQuery(sql);
         ModelBuilder modelBuilder = new ModelBuilder(queryRunner, resultSet);
 
-        if (null != resultSet && null != page) {
+        if (null != resultSet && null != page && page.count()) {
             page.setRecordCount(count(sql));
         }
         Class type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
