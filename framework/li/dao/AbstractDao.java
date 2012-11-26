@@ -21,25 +21,14 @@ import li.util.Reflect;
  */
 public class AbstractDao<T> implements IBaseDao<T> {
     private static final Log log = Log.init();
-    /**
-     * 泛型参数的实际类型,即是数据对象类型
-     */
-    private Class<T> modelType;
 
-    /**
-     * 存储数据对象结构
-     */
-    private Bean beanMeta;
+    private Class<T> modelType;// 泛型参数的实际类型,即是数据对象类型
 
-    /**
-     * QueryBuilder,SQL构造器
-     */
-    private QueryBuilder queryBuilder;
+    private Bean beanMeta;// 存储数据对象结构
 
-    /**
-     * 当前Dao的DataSource
-     */
-    private DataSource dataSource;
+    private QueryBuilder queryBuilder;// QueryBuilder,SQL构造器
+
+    private DataSource dataSource;// 当前Dao的DataSource
 
     /**
      * 通过泛型参数得到modelType
@@ -72,11 +61,11 @@ public class AbstractDao<T> implements IBaseDao<T> {
         if (null == this.queryBuilder) {
             this.queryBuilder = new QueryBuilder();
         }
-        if (null == queryBuilder.dataSource) {
-            queryBuilder.dataSource = getDataSource();
+        if (null == this.queryBuilder.dataSource) {
+            this.queryBuilder.dataSource = getDataSource();
         }
-        if (null == queryBuilder.beanMeta) {
-            queryBuilder.beanMeta = getBeanMeta();
+        if (null == this.queryBuilder.beanMeta) {
+            this.queryBuilder.beanMeta = getBeanMeta();
         }
         return this.queryBuilder;
     }
@@ -143,7 +132,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#delete(String, Object...)
      */
     public Boolean delete(Number id) {
-        return 1 == delete(getQueryBuilder().deleteById(id));
+        return 0 < delete(getQueryBuilder().deleteById(id));
     }
 
     /**
@@ -223,7 +212,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
         if (null != resultSet && null != page && page.count()) {
             page.setRecordCount(count(sql));
         }
-        Class type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
+        Class<?> type = Record.class.isAssignableFrom(getType()) ? getType() : Record.class;// Record类型或其子类
         Integer count = null == page ? Page.DEFAULT_SIZE : page.getPageSize();
         return (List<Record>) modelBuilder.list(type, Field.list(resultSet), count, true);
     }
@@ -237,7 +226,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
 
         Reflect.set(t, getBeanMeta().getId().name, queryRunner.LAST_INSERT_ID);// 设置对象ID为最后主键值
 
-        return 1 == updateCount;
+        return 0 < updateCount;
     }
 
     /**
@@ -257,7 +246,7 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#update(String, Object...)
      */
     public Boolean update(T t) {
-        return 1 == update(getQueryBuilder().update(t));
+        return 0 < update(getQueryBuilder().update(t));
     }
 
     /**
@@ -266,6 +255,6 @@ public class AbstractDao<T> implements IBaseDao<T> {
      * @see li.dao.AbstractDao#update(String, Object...)
      */
     public Boolean updateIgnoreNull(T t) {
-        return 1 == update(getQueryBuilder().updateIgnoreNull(t));
+        return 0 < update(getQueryBuilder().updateIgnoreNull(t));
     }
 }

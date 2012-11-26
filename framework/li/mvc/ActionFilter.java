@@ -29,24 +29,18 @@ import li.util.Verify;
  */
 public class ActionFilter implements Filter {
     private static final Log log = Log.init();
-    /**
-     * Servlet编码,可在配置文件中配置
-     */
-    private static final String ENCODING = Files.load("config.properties").getProperty("servlet.encoding", "UTF-8");
-    /**
-     * 是否使用国际化
-     */
-    private static final String USE_I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");
+
+    private static final String ENCODING = Files.load("config.properties").getProperty("servlet.encoding", "UTF-8");// Servlet编码,可在配置文件中配置
+
+    private static final String USE_I18N = Files.load("config.properties").getProperty("servlet.i18n", "false");// 是否使用国际化
 
     /**
      * 初始化Filter,设置一些环境变量,只执行一次
      */
     public void init(FilterConfig config) throws ServletException {
         if ("true".equals(USE_I18N.trim().toLowerCase())) {
-            // 默认的环境变量
-            config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");
-            // 根据Locale.getDefault()初始化国际化,存到servletContext
-            config.getServletContext().setAttribute("lang", Files.load(Locale.getDefault().toString()));
+            config.getServletContext().setAttribute("root", config.getServletContext().getContextPath() + "/");// 默认的环境变量
+            config.getServletContext().setAttribute("lang", Files.load(Locale.getDefault().toString()));// 根据Locale.getDefault()初始化国际化,存到servletContext
             log.info("Setting default language as " + Locale.getDefault());
         }
     }
@@ -57,13 +51,11 @@ public class ActionFilter implements Filter {
      * @see li.util.Reflect#invoke(Object, String, Object...)
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 设置编码
-        request.setCharacterEncoding(ENCODING);
+        request.setCharacterEncoding(ENCODING);// 设置编码
         response.setCharacterEncoding(ENCODING);
 
         if ("true".equals(USE_I18N.trim().toLowerCase())) {
-            // 根据Parameter参数设置国际化,存到session
-            String lang = request.getParameter("lang");
+            String lang = request.getParameter("lang");// 根据Parameter参数设置国际化,存到session
             if (!Verify.isEmpty(lang)) {
                 ((HttpServletRequest) request).getSession().setAttribute("lang", Files.load(lang));
                 log.info("Setting language for " + lang);
@@ -73,13 +65,11 @@ public class ActionFilter implements Filter {
         // 请求路径路由
         Action action = ActionContext.getInstance().getAction(((HttpServletRequest) request).getServletPath(), ((HttpServletRequest) request).getMethod());
         if (null != action) {
-            // 初始化Context
-            Context.init(request, response, action);
+            Context.init(request, response, action);// 初始化Context
             log.info("ACTION FOUND: path=\"" + Context.getRequest().getServletPath() + "\",method=\"" + Context.getRequest().getMethod() + "\" action=" + action.actionInstance.getClass().getName() + "." + action.actionMethod.getName() + "()");
 
-            // Action方法参数适配
             Object[] args = new Object[action.argTypes.length]; // Action方法参数值列表
-            for (int i = 0; i < action.argTypes.length; i++) {
+            for (int i = 0; i < action.argTypes.length; i++) {// Action方法参数适配
                 String key = (null == action.argAnnotations[i]) ? action.argNames[i] : action.argAnnotations[i].value();// ParameterKey
                 if (Verify.basicType(action.argTypes[i]) && !action.argTypes[i].isArray()) { // 单个基本类型
                     args[i] = Convert.toType(action.argTypes[i], Context.getParameter(key));
@@ -97,8 +87,7 @@ public class ActionFilter implements Filter {
                 }
             }
 
-            // 执行Action方法,根据返回值,处理视图
-            Object result = Reflect.invoke(action.actionInstance, action.actionMethod, args);
+            Object result = Reflect.invoke(action.actionInstance, action.actionMethod, args);// 执行Action方法
             if (result instanceof String && !result.equals("~!@#DONE")) {// 返回值为String且未调用视图方法
                 Context.view(result.toString());// 则Context.view返回视图
             }

@@ -33,30 +33,26 @@ public class AopEnhancer {
             };
         }
     };
+
     /**
      * 自定义的NamingPolicy,使Aop子类类名以$Aop结尾
      */
     private static final NamingPolicy NAMING_POLICY = new NamingPolicy() {
         public String getClassName(String prefix, String source, Object key, Predicate names) {
-            if (prefix == null) {
+            if (null == prefix) {
                 prefix = "net.sf.cglib.empty.Object";
             } else if (prefix.startsWith("java")) {
                 prefix = "$" + prefix;
             }
-            if (source.endsWith("Enhancer")) {
-                return prefix + "$Aop";
-            } else {
-                return prefix + "$FastClass";
-            }
+            return source.endsWith("Enhancer") ? prefix + "$Aop" : prefix + "$FastClass";
         }
     };
 
     /**
      * 生成一个Aop增强的对象
      */
-    public static Object create(Class type) {
-        // 构造这个类型所有方法的AopFilter的集合
-        final Map<Method, List<AopFilter>> filtersMap = new HashMap<Method, List<AopFilter>>();
+    public static Object create(Class<?> type) {
+        final Map<Method, List<AopFilter>> filtersMap = new HashMap<Method, List<AopFilter>>();// 构造这个类型所有方法的AopFilter的集合
         Method[] methods = type.getDeclaredMethods();
         for (Method method : methods) {// 对每一个方法
             List<AopFilter> filters = new ArrayList<AopFilter>();
@@ -69,15 +65,14 @@ public class AopEnhancer {
             }
             filtersMap.put(method, filters);
         }
-        // 创建代理
-        Enhancer enhancer = new Enhancer();
+        Enhancer enhancer = new Enhancer(); // 创建代理
+        enhancer.setNamingPolicy(NAMING_POLICY);
         enhancer.setSuperclass(type);
         enhancer.setCallback(new MethodInterceptor() {// 设置callback,使用AopChain代理执行方法
             public Object intercept(Object target, Method method, Object[] args, MethodProxy proxy) throws Throwable {
                 return new AopChain(target, method, args, filtersMap.get(method), proxy).doFilter().getResult();
             }// 使用AopChian代理执行这个方法并返回值
         });
-        enhancer.setNamingPolicy(NAMING_POLICY);
         return enhancer.create();// 创建代理对象
     }
 }

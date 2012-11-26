@@ -26,10 +26,7 @@ public abstract class Trans {
      */
     public static final ThreadLocal<Exception> EXCEPTION = new ThreadLocal<Exception>();
 
-    /**
-     * 实例变量,用于存放一些值,可用于Trans内外通信
-     */
-    private Map map;
+    private Map map;// 实例变量,用于存放一些值,可用于Trans内外通信
 
     /**
      * 定义一个事务,并执行run()中包裹的数据操作方法

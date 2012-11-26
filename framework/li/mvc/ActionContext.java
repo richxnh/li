@@ -23,20 +23,11 @@ import li.util.Verify;
 public class ActionContext {
     private static final Log log = Log.init();
 
-    /**
-     * 保存所有Action的List
-     */
-    private final List<Action> ACTIONS = new ArrayList<Action>();
+    private final List<Action> ACTIONS = new ArrayList<Action>();// 保存所有Action的List
 
-    /**
-     * ActionContext的一个实例,用于单例地得到ActionContext的实例
-     */
-    private static ActionContext ACTION_CONTEXT = null;
+    private static ActionContext ACTION_CONTEXT = null;// ActionContext的一个实例,用于单例地得到ActionContext的实例
 
-    /**
-     * 私有构造器,保障ActionContext是单例的
-     */
-    private ActionContext() {
+    private ActionContext() {// 私有构造器,保障ActionContext是单例的
         log.debug("new ActionContext()");
     }
 
@@ -54,8 +45,7 @@ public class ActionContext {
                     At at = method.getAnnotation(At.class);
                     if (null != at) {
                         for (String path : at.value()) {
-                            Action action = new Action();
-                            // Action请求路径,如果不以斜杠开始会被加上斜杠,如果注解value值为空则直接使用方法名
+                            Action action = new Action();// Action请求路径,如果不以斜杠开始会被加上斜杠,如果注解value值为空则直接使用方法名
                             action.path = Verify.isEmpty(path) ? "/" + method.getName() : Verify.startWith(path, "/") ? path : "/" + path;
                             action.httpMethod = at.method().toUpperCase(); // HTTP请求类型,这里转换为大写
                             action.actionInstance = bean.instance;

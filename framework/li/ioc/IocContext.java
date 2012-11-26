@@ -23,22 +23,16 @@ import li.util.Verify;
 public class IocContext {
     private static final Log log = Log.init();
 
+    private static IocContext IOC_CONTEXT = null;// 存储IocContext的实例,它会是单例的
+
+    private IocContext() {// 私有的构造方法,保证IocContext是单例的
+        log.debug("new IocContext()");
+    }
+
     /**
      * List,用于保存所有的BEAN
      */
     public final List<Bean> BEANS = new ArrayList<Bean>();
-
-    /**
-     * 存储IocContext的实例,它会是单例的
-     */
-    private static IocContext IOC_CONTEXT = null;
-
-    /**
-     * 私有的构造方法,保证IocContext是单例的
-     */
-    private IocContext() {
-        log.debug("new IocContext()");
-    }
 
     /**
      * 得到一个单例的IocContext对象,包含通过不同方式配置的Bean集合,在List<Bean> BEANS里面

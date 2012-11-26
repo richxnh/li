@@ -18,10 +18,7 @@ import li.util.Verify;
  * @version 0.1.6 (2012-05-08)
  */
 public class Bean {
-    /**
-     * 缓存Bean结构的Map
-     */
-    private static final Map<Class, Bean> BEAN_MAP = new HashMap<Class, Bean>();
+    private static final Map<Class, Bean> BEAN_MAP = new HashMap<Class, Bean>();// 缓存Bean结构的Map
 
     /**
      * Bean的一个实例

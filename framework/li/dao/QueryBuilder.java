@@ -116,10 +116,7 @@ public class QueryBuilder {
         if (!Verify.startWith(sql, "SELECT")) {// 添加SELECT * FROM table 部分
             sql = "SELECT * FROM " + beanMeta.table + " " + sql;
         }
-        if (null == page) {
-            page = new Page();
-        }
-        return setPage(setArgs(setAlias(sql), args), page);// 先处理别名,再处理args,最后处理page
+        return setPage(setArgs(setAlias(sql), args), null == page ? new Page() : page);// 先处理别名,再处理args,最后处理page
     }
 
     /**
@@ -216,7 +213,7 @@ public class QueryBuilder {
     public String setArgMap(String sql, Map<?, ?> argMap) {
         if (null != sql && sql.length() > 0 && null != argMap && argMap.size() > 0) {// 非空判断
             for (Entry<?, ?> arg : argMap.entrySet()) {
-                sql = sql.replaceFirst("#" + arg.getKey() + "", "'" + arg.getValue() + "'");// 为参数加上引号后替换问号
+                sql = sql.replaceFirst("#" + arg.getKey(), "'" + arg.getValue() + "'");// 为参数加上引号后替换问号
             }
         }
         return sql;

@@ -16,10 +16,7 @@ import li.util.Page;
  * @version 0.1.1 (2012-06-25)
  */
 public class Record<T extends Record> extends AbstractDao<T> implements Map, Serializable {
-    /**
-     * 存储对象属性值的Map
-     */
-    private Map fields = new HashMap();
+    private Map fields = new HashMap();// 存储对象属性值的Map
 
     /**
      * 重写AbstractDao中的list方法,使Record的find和 list方法 支持多表查询
@@ -122,6 +119,9 @@ public class Record<T extends Record> extends AbstractDao<T> implements Map, Ser
         return fields.entrySet();
     }
 
+    /**
+     * 转调用HashMap的toString方法
+     */
     public String toString() {
         return fields.toString();
     }

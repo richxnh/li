@@ -37,30 +37,15 @@ import li.util.Verify;
  */
 public class Context {
     private static final Log log = Log.init();
-    /**
-     * 默认视图类型,如果未在config.properties中配置则为forward
-     */
+
     private static final String VIEW_TYPE = Files.load("config.properties").getProperty("view.type", "forward");
     private static final String VIEW_PREFIX = Files.load("config.properties").getProperty("view.prefix", "");
     private static final String VIEW_SUFFIX = Files.load("config.properties").getProperty("view.suffix", "");
-    /**
-     * 存储HttpServletRequest的ThreadLocal
-     */
+
     private static final ThreadLocal<HttpServletRequest> REQUEST = new ThreadLocal<HttpServletRequest>();
-
-    /**
-     * 存储HttpServletResponse的ThreadLocal
-     */
     private static final ThreadLocal<HttpServletResponse> RESPONSE = new ThreadLocal<HttpServletResponse>();
-
-    /**
-     * 存储Action的ThreadLocal
-     */
     private static final ThreadLocal<Action> ACTION = new ThreadLocal<Action>();
 
-    /**
-     * 一个static final的AbstractAction,作为某些方法的返回值,目的是方便链式调用
-     */
     private static final AbstractAction ABSTRACT_ACTION = new AbstractAction() {};
 
     /**
@@ -82,21 +67,18 @@ public class Context {
         map.put("request", getRequest());
         map.put("response", getResponse());
         map.put("session", getSession());
-        // 1. 存入servletContext的值
         Enumeration<String> servletContextEnumeration = getServletContext().getAttributeNames();
-        while (servletContextEnumeration.hasMoreElements()) {
+        while (servletContextEnumeration.hasMoreElements()) {// 1. 存入servletContext的值
             String name = servletContextEnumeration.nextElement();
             map.put(name, getServletContext().getAttribute(name));
         }
-        // 2. 存入session的值
         Enumeration<String> sessionEnumeration = getSession().getAttributeNames();
-        while (sessionEnumeration.hasMoreElements()) {
+        while (sessionEnumeration.hasMoreElements()) {// 2. 存入session的值
             String name = sessionEnumeration.nextElement();
             map.put(name, getSession().getAttribute(name));
         }
-        // 3. 存入request的值
         Enumeration<String> requestEnumeration = getRequest().getAttributeNames();
-        while (requestEnumeration.hasMoreElements()) {// request
+        while (requestEnumeration.hasMoreElements()) {// 3. 存入request的值
             String name = requestEnumeration.nextElement();
             map.put(name, getRequest().getAttribute(name));
         }
@@ -265,7 +247,7 @@ public class Context {
     }
 
     /**
-     * 主视图方法,以冒号分割前缀表示视图类型,支持 forward:路径,redirect:路径,write:内容,freemarker:路径,velocity:路径,beetl:路径
+     * 主视图方法,以冒号分割前缀表示视图类型
      * 
      * @see #forward(String)
      * @see #redirect(String)
@@ -277,7 +259,6 @@ public class Context {
     public static String view(String path) {
         String viewType = path.contains(":") ? path.split(":")[0] : VIEW_TYPE;// 视图类型
         String viewPath = path.startsWith(viewType + ":") ? path.split(viewType + ":")[1] : path;// path冒号后的部分或者path
-
         if ("forward".equals(viewType) || "fw".equals(viewType)) {// forward视图
             forward(VIEW_PREFIX + viewPath + VIEW_SUFFIX);
         } else if ("freemarker".equals(viewType) || "fm".equals(viewType)) {// freemarker视图

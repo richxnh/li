@@ -17,7 +17,6 @@ import li.util.Page;
  * @see li.mvc.Context
  */
 public abstract class AbstractAction {
-
     protected static final String GET = "GET";
     protected static final String HEAD = "HEAD";
     protected static final String POST = "POST";
@@ -148,7 +147,7 @@ public abstract class AbstractAction {
     }
 
     /**
-     * 主视图方法,以冒号分割前缀表示视图类型,支持 forward:路径 redirect:路径 write:内容 freemarker:路径 velocity:路径 beetl:路径
+     * 主视图方法,以冒号分割前缀表示视图类型
      * 
      * @see li.mvc.Context#view(String)
      */

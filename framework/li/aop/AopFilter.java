@@ -8,7 +8,7 @@ package li.aop;
  */
 public interface AopFilter {
     /**
-     * AopFilter的子类需要实现的方法
+     * AopFilter的实现类需要实现的方法
      */
     public void doFilter(AopChain chain);
 }

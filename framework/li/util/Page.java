@@ -12,25 +12,13 @@ public class Page {
      */
     public static final Integer DEFAULT_SIZE = Integer.valueOf(Files.load("config.properties").getProperty("pageSize", "20"));
 
-    /**
-     * 当前页数
-     */
-    private Integer pageNumber = 1;
+    private Integer pageNumber = 1;// 当前页数
 
-    /**
-     * 单页记录数
-     */
-    private Integer pageSize = DEFAULT_SIZE;
+    private Integer pageSize = DEFAULT_SIZE;// 单页记录数
 
-    /**
-     * 总记录数
-     */
-    private Integer recordCount = 0;
+    private Integer recordCount = 0;// 总记录数
 
-    /**
-     * 是否进行count查询
-     */
-    private Boolean count = true;
+    private Boolean count = true;// 是否进行count查询
 
     /**
      * 默认构造函数

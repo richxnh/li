@@ -16,15 +16,9 @@ import li.util.Log;
 public class QueryRunner {
     private static final Log log = Log.init();
 
-    /**
-     * 当前QueryRunner实例的connection
-     */
-    private Connection connection;
+    private Connection connection;// 当前QueryRunner实例的connection
 
-    /**
-     * 当前QueryRunner实例的preparedStatement
-     */
-    private PreparedStatement preparedStatement;
+    private PreparedStatement preparedStatement;// 当前QueryRunner实例的preparedStatement
 
     /**
      * 初始化一个QueryRunner
@@ -36,7 +30,7 @@ public class QueryRunner {
     /**
      * 实例变量,保存最后一条被插入记录被设置的自增ID
      */
-    public Integer LAST_INSERT_ID;
+    protected Integer LAST_INSERT_ID;
 
     /**
      * 执行查询类SQL,返回ResultSet结果集

@@ -273,14 +273,13 @@ public class Reflect {
          * @param method 需要解析的方法
          * @return 形参名称列表,如果没有调试信息,将返回null
          */
-        private static String[] getParameterNames(Method method) {/* default method */
+        private static String[] getParameterNames(Method method) {
             try {
                 int size = method.getParameterTypes().length;
                 if (size == 0) {
                     return new String[0];
                 }
-                // ----- 1 getDescriptor
-                StringBuilder key = new StringBuilder();
+                StringBuilder key = new StringBuilder();// getDescriptor
                 key.append(method.getName()).append(',');
                 key.append('(');
                 Class<?>[] types = method.getParameterTypes();
@@ -289,10 +288,10 @@ public class Reflect {
                 }
                 key.append(')');
                 getDescriptor(key, method.getReturnType());
-                // ----- 2 得到类文件的Stream
+
                 InputStream inputStream = method.getDeclaringClass().getResourceAsStream("/" + method.getDeclaringClass().getName().replace('.', '/') + ".class");
-                // ----- 3 getParameterNames
-                List<String> list = getParamNameMap(inputStream).get(key.toString());
+
+                List<String> list = getParamNameMap(inputStream).get(key.toString());// getParameterNames
                 if (list != null && list.size() != size) {
                     return list.subList(0, size).toArray(new String[0]);
                 }
@@ -313,8 +312,7 @@ public class Reflect {
             dis.skipBytes(2);// 副版本号
             dis.skipBytes(2);// 主版本号
 
-            // 读取常量池
-            int constant_pool_count = dis.readUnsignedShort();
+            int constant_pool_count = dis.readUnsignedShort();// 读取常量池
             for (int i = 0; i < (constant_pool_count - 1); i++) {
                 byte flag = dis.readByte();
                 switch (flag) {

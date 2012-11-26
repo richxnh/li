@@ -23,10 +23,7 @@ import li.util.Verify;
 public class Field {
     private static final Log log = Log.init();
 
-    /**
-     * Map,用于缓存对象的属性列表
-     */
-    private static final Map<String, List<Field>> FIELDS_MAP = new HashMap<String, List<Field>>();
+    private static final Map<String, List<Field>> FIELDS_MAP = new HashMap<String, List<Field>>();// Map,用于缓存对象的属性列表
 
     /**
      * 属性名
@@ -36,7 +33,7 @@ public class Field {
     /**
      * 属性的JAVA类型
      */
-    public Class type;
+    public Class<?> type;
 
     /**
      * 这个属性的值
@@ -54,7 +51,7 @@ public class Field {
      * @param targetType 目标对象
      * @param annotated 是否只列出有Field注解的字段
      */
-    public static List<Field> list(Class targetType, Boolean annotated) {
+    public static List<Field> list(Class<?> targetType, Boolean annotated) {
         List<Field> fields = FIELDS_MAP.get("class#" + targetType.getName() + "#annotated#" + annotated);
         if (null == fields) { // 如果缓存中没有
             log.info("Field.list() by type " + targetType.getName());
@@ -69,8 +66,7 @@ public class Field {
                     fields.add(attribute);
                 }
             }
-            // 扫描这个类的超类中的Field加入到当前类的List<Field>中,使@Field注解支持继承
-            if (Object.class != targetType.getSuperclass()) {
+            if (Object.class != targetType.getSuperclass()) {// 扫描超类的Field
                 fields.addAll(list(targetType.getSuperclass(), annotated));
             }
             FIELDS_MAP.put("class#" + targetType.getName() + "#annotated#" + annotated, fields); // 加入缓存
