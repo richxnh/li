@@ -37,16 +37,16 @@
 
 <p>Action代码示例</p>
 
-<div class="highlight"><pre><span class="nd">@Bean</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PeopleAction</span> <span class="kd">extends</span> <span class="n">AbstractAction</span> <span class="o">{</span>
-    <span class="nd">@Inject</span>
+<div class="highlight"><pre><span class="nd">@Bean</span> <span class="c1">//注解一个类使之成为一个Ioc Bean</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PeopleAction</span> <span class="kd">extends</span> <span class="n">AbstractAction</span> <span class="o">{</span><span class="c1">//可以选择使你的Action继承于AbstractAction</span>
+    <span class="nd">@Inject</span> <span class="c1">//Ioc注入属性</span>
     <span class="n">People</span> <span class="n">peopleDao</span><span class="o">;</span>
 
-    <span class="nd">@At</span><span class="o">(</span><span class="s">"people_list.do"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">list</span><span class="o">(</span><span class="n">Page</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nd">@At</span><span class="o">(</span><span class="s">"people_list.do"</span><span class="o">)</span> <span class="c1">//注解一个Action方法</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">list</span><span class="o">(</span><span class="n">Page</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//方法参数适配</span>
         <span class="n">setRequest</span><span class="o">(</span><span class="s">"list"</span><span class="o">,</span> <span class="n">peopleDao</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="n">page</span><span class="o">));</span>
         <span class="n">setRequest</span><span class="o">(</span><span class="s">"page"</span><span class="o">,</span> <span class="n">page</span><span class="o">);</span>
-        <span class="n">view</span><span class="o">(</span><span class="s">"people/list"</span><span class="o">);</span>
+        <span class="n">view</span><span class="o">(</span><span class="s">"people/list"</span><span class="o">);</span> <span class="c1">//展现视图</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
@@ -54,30 +54,24 @@
 <p>ActiveRecord代码示例</p>
 
 <div class="highlight"><pre><span class="nd">@Bean</span>
-<span class="nd">@Table</span><span class="o">(</span><span class="s">"t_account"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="kd">extends</span> <span class="n">Record</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="s">"t_account"</span><span class="o">)</span> <span class="c1">//注解这个类对应的数据表</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="kd">extends</span> <span class="n">Record</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="o">{</span> <span class="c1">//数据对象继承于Record</span>
     <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">login</span><span class="o">(</span><span class="n">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"WHERE username=#username AND password=#password"</span><span class="o">;</span>
-        <span class="k">return</span> <span class="kc">null</span> <span class="o">!=</span> <span class="n">find</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">account</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">null</span> <span class="o">!=</span> <span class="n">find</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">account</span><span class="o">);</span> <span class="c1">//利用超类中的方法</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>More</h3>
 
-<h3>Designer Templates</h3>
+<p>好了,就这点儿了吧先.这当然不是全部,有什么疑问来页面底部的Issue列表或者QQ群交流吧,我们后面再吧必要的内容逐步添加上去.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
+<h3>Authors</h3>
 
 <p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>Support or Contact</h3>
+<h3>Support</h3>
 
 <ul>
 <li>GitHub项目链接 <a href="https://github.com/limingwei/li">https://github.com/limingwei/li</a> </li>
