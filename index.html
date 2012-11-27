@@ -33,12 +33,35 @@
       <section id="main_content" class="inner">
         <h3>li's framework,一个简单轻量的java web开发框架.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>li,这是一个简单轻量的javaweb开发框架,包含了Mvc Dao ActiveRecord Ioc Aop等功能的极其小巧的实现.</p>
+
+<p>Action代码示例</p>
 
 <pre><code>[前后由三个点号包裹的示例代码]
-$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+@Bean
+public class PeopleAction extends AbstractAction {
+    @Inject
+    People peopleDao;
+
+    @At("people_list.do")
+    public void list(Page page) {
+        setRequest("list", peopleDao.list(page));
+        setRequest("page", page);
+        view("people/list");
+    }
+}
+</code></pre>
+
+<p>ActiveRecord</p>
+
+<pre><code>@Bean
+@Table("t_account")
+public class Account extends Record&lt;Account&gt; {
+    public Boolean login(Account account) {
+        String sql = "WHERE username=#username AND password=#password";
+        return null != find(sql, account);
+    }
+}
 </code></pre>
 
 <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
