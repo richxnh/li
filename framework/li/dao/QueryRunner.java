@@ -21,16 +21,16 @@ public class QueryRunner {
     private PreparedStatement preparedStatement;// 当前QueryRunner实例的preparedStatement
 
     /**
+     * 实例变量,保存最后一条被插入记录被设置的自增ID
+     */
+    protected Integer LAST_INSERT_ID;
+
+    /**
      * 初始化一个QueryRunner
      */
     public QueryRunner(Connection connection) {
         this.connection = connection;
     }
-
-    /**
-     * 实例变量,保存最后一条被插入记录被设置的自增ID
-     */
-    protected Integer LAST_INSERT_ID;
 
     /**
      * 执行查询类SQL,返回ResultSet结果集

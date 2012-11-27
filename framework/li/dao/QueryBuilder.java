@@ -259,8 +259,7 @@ public class QueryBuilder {
                 }
             }
 
-            // 替换,去掉最后一个逗号
-            String result = sql.replaceFirst(old_part, new_part.substring(0, new_part.length() - 1));
+            String result = sql.replaceFirst(old_part, new_part.substring(0, new_part.length() - 1));// 替换,去掉最后一个逗号
             return setAlias(result);// 处理下一个
         }
     }

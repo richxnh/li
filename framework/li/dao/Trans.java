@@ -16,6 +16,8 @@ import li.util.Log;
 public abstract class Trans {
     private static final Log log = Log.init();
 
+    private Map map;// 实例变量,用于存放一些值,可用于Trans内外通信
+
     /**
      * 存储当前事务中使用到的Connection,为null意味不在事务中
      */
@@ -25,8 +27,6 @@ public abstract class Trans {
      * 存储数据操作异常,不为null则代表出错,需要回滚
      */
     public static final ThreadLocal<Exception> EXCEPTION = new ThreadLocal<Exception>();
-
-    private Map map;// 实例变量,用于存放一些值,可用于Trans内外通信
 
     /**
      * 定义一个事务,并执行run()中包裹的数据操作方法
@@ -57,6 +57,11 @@ public abstract class Trans {
     }
 
     /**
+     * 抽象方法,包裹需要事务控制的Dao方法
+     */
+    public abstract void run();
+
+    /**
      * 返回map引用
      */
     public Map<Object, Object> map() {
@@ -69,11 +74,6 @@ public abstract class Trans {
     public Boolean success() {
         return (Boolean) this.map.get(hashCode() + "~!@#success");
     }
-
-    /**
-     * 抽象方法,包裹需要事务控制的Dao方法
-     */
-    public abstract void run();
 
     /**
      * 开始事务,初始化CONNECTION_MAP,或者标记这个事务已被其他事务包裹融化
