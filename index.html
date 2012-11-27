@@ -37,31 +37,31 @@
 
 <p>Action代码示例</p>
 
-<pre><code>@Bean
-public class PeopleAction extends AbstractAction {
-    @Inject
-    People peopleDao;
+<div class="highlight"><pre><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PeopleAction</span> <span class="kd">extends</span> <span class="n">AbstractAction</span> <span class="o">{</span>
+    <span class="nd">@Inject</span>
+    <span class="n">People</span> <span class="n">peopleDao</span><span class="o">;</span>
 
-    @At("people_list.do")
-    public void list(Page page) {
-        setRequest("list", peopleDao.list(page));
-        setRequest("page", page);
-        view("people/list");
-    }
-}
-</code></pre>
+    <span class="nd">@At</span><span class="o">(</span><span class="s">"people_list.do"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">list</span><span class="o">(</span><span class="n">Page</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">setRequest</span><span class="o">(</span><span class="s">"list"</span><span class="o">,</span> <span class="n">peopleDao</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="n">page</span><span class="o">));</span>
+        <span class="n">setRequest</span><span class="o">(</span><span class="s">"page"</span><span class="o">,</span> <span class="n">page</span><span class="o">);</span>
+        <span class="n">view</span><span class="o">(</span><span class="s">"people/list"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
 
 <p>ActiveRecord代码示例</p>
 
-<pre><code>@Bean
-@Table("t_account")
-public class Account extends Record&lt;Account&gt; {
-    public Boolean login(Account account) {
-        String sql = "WHERE username=#username AND password=#password";
-        return null != find(sql, account);
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span class="nd">@Bean</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="s">"t_account"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="kd">extends</span> <span class="n">Record</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">login</span><span class="o">(</span><span class="n">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"WHERE username=#username AND password=#password"</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">null</span> <span class="o">!=</span> <span class="n">find</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">account</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
 
 <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
