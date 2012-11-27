@@ -60,7 +60,7 @@ public class Context {
     /**
      * 从request,sesstion,servletContext中取出Attributes转为Map
      */
-    private static Map getAttributes() {
+    public static Map getAttributes() {
         Map map = new HashMap();
         map.put("application", getServletContext());
         map.put("servletContext", getServletContext());
