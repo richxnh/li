@@ -23,7 +23,7 @@ public class BaseTest {
      * 初始化时为每一个@Inject注解的属性设值
      */
     public BaseTest() {
-        page = new Page();
+        this.page = new Page();
 
         for (Field field : getClass().getDeclaredFields()) {
             Inject inject = field.getAnnotation(Inject.class);

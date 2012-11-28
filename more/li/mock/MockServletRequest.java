@@ -34,9 +34,12 @@ class MockServletRequest implements ServletRequest {
     private String contentType;
 
     public MockServletRequest() {
-        this.servletContext = new MockServletContext();
         this.requestMap = new HashMap<String, Object>();
         this.parameterMap = new HashMap<String, String[]>();
+    }
+
+    public void setServletContext(MockServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 
     public MockRequestDispatcher getRequestDispatcher(String path) {
