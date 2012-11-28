@@ -14,7 +14,7 @@ public class Verify {
      * 
      * @see li.util.Reflect#set(Object, String, Object)
      */
-    public static Boolean basicType(Class type) {
+    public static Boolean basicType(Class<?> type) {
         if (type.isArray()) {// 如是数组
             return basicType(type.getComponentType());// 判断元素类型
         } else {

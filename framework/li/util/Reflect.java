@@ -138,7 +138,7 @@ public class Reflect {
     /**
      * 探测一个属性的类型,从Field或者Getter
      */
-    public static Class fieldType(Class targetType, String fieldName) {
+    public static Class<?> fieldType(Class<?> targetType, String fieldName) {
         Field field = getField(targetType, fieldName);
         if (null != field) { // 从field探测
             return field.getType();
