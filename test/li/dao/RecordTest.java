@@ -46,7 +46,7 @@ public class RecordTest extends BaseTest {
 
     @Test
     public void find2() {
-        System.out.println("li.dao.test.RecordTest.find2()" + userDao.find("where true limit 1"));
+        System.out.println("li.dao.test.RecordTest.find2()" + userDao.find("where 1=1 limit 1"));
     }
 
     @Test
@@ -66,8 +66,6 @@ public class RecordTest extends BaseTest {
     @Test
     public void list2() {
         System.err.println("li.dao.test.RecordTest.list2()");
-        // assertNotNull(userDao.list(page, "where true"));
-        // System.out.println(userDao.list(page, "where true"));
     }
 
     @Test

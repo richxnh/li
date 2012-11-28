@@ -1,13 +1,11 @@
 package demo;
 
+import li.dao._User;
 import li.ioc.Ioc;
-
-import com.alibaba.druid.pool.DruidDataSource;
 
 public class T {
     public static void main(String[] args) throws Exception {
-        DruidDataSource druidDataSource = Ioc.get(DruidDataSource.class);
-
-        System.out.println(druidDataSource.getConnection());
+        _User userDao = Ioc.get(_User.class);
+        System.out.println(userDao.query(null, "select version()"));
     }
 }

@@ -7,10 +7,11 @@
 			<property name="username" value="${db.username}" />
 			<property name="password" value="${db.password}" />
 		</bean> -->
-		<bean name="druid" class="com.alibaba.druid.pool.DruidDataSource">
+		<bean name="druid" class="li.datasource.Druid">
 			<property name="url" value="${db.url}" />
 			<property name="username" value="${db.username}" />
 			<property name="password" value="${db.password}" />
+			<property name="filters" value="wall" />
 		</bean>
 		<!-- <bean name="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 			<property name="jdbcUrl" value="${db.url}" />
