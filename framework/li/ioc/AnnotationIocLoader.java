@@ -49,7 +49,7 @@ public class AnnotationIocLoader {
                 }
                 beans.add(iocBean);
 
-                log.info("ADD BEAN: @Bean " + type.getName() + " " + iocBean.name);
+                log.debug("ADD BEAN: @Bean " + type.getName() + " " + iocBean.name);
             }
         }
         return beans;

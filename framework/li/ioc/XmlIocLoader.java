@@ -47,7 +47,7 @@ public class XmlIocLoader {
                 }
                 beans.add(iocBean);
 
-                log.info("ADD BEAN: Xml " + iocBean.type.getName() + " " + iocBean.name);
+                log.debug("ADD BEAN: Xml " + iocBean.type.getName() + " " + iocBean.name);
             }
         }
         return beans;
