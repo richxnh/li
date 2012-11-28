@@ -7,6 +7,8 @@ import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
 
+import li.util.Log;
+
 /**
  * MockServletResponse
  * 
@@ -14,11 +16,12 @@ import javax.servlet.ServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 class MockServletResponse implements ServletResponse {
+    private static final Log log = Log.init();
 
     public PrintWriter getWriter() throws IOException {
-        System.err.println("li.mock.MockServletResponse.getWriter() calling by " + Tool.stackTrace());
+        log.debug("li.mock.MockServletResponse.getWriter() calling by " + Tool.stackTrace());
 
-        return new PrintWriter(System.err) {
+        return new PrintWriter(System.out) {
             public void write(char[] buf, int off, int len) {}
         };
     }

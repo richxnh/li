@@ -83,9 +83,11 @@ public class QueryRunner {
         try {
             if (null != preparedStatement) {
                 preparedStatement.close();
+                log.debug("Closing PreparedStatement " + preparedStatement);
             }
             if (null != connection && null == Trans.CONNECTION_MAP.get()) {
                 connection.close();// Trans.CONNECTION_MAP.get()为空表示未进入事务,若已进入事务,则由事务关闭连接
+                log.debug("Closing Connection " + connection);
             }
         } catch (Exception e) {
             throw new RuntimeException("Exception at li.dao.QueryRunner.close()", e);

@@ -15,6 +15,8 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import li.util.Log;
+
 /**
  * MockServletRequest
  * 
@@ -22,6 +24,7 @@ import javax.servlet.ServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 class MockServletRequest implements ServletRequest {
+    private static final Log log = Log.init();
 
     private MockServletContext servletContext;
 
@@ -100,8 +103,8 @@ class MockServletRequest implements ServletRequest {
     }
 
     public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
-        System.err.println("set encoding " + encoding + " calling by " + Tool.stackTrace());
         this.encoding = encoding;
+        log.debug("set encoding " + encoding + " calling by " + Tool.stackTrace());
     }
 
     public String getContentType() {
@@ -109,8 +112,8 @@ class MockServletRequest implements ServletRequest {
     }
 
     public void setContentType(String contentType) {
-        System.err.println("set contentType " + contentType + " calling by " + Tool.stackTrace());
         this.contentType = contentType;
+        log.debug("set contentType " + contentType + " calling by " + Tool.stackTrace());
     }
 
     public AsyncContext getAsyncContext() {

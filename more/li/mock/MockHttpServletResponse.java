@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import li.util.Log;
+
 /**
  * MockHttpServletResponse
  * 
@@ -13,11 +15,12 @@ import javax.servlet.http.HttpServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 public class MockHttpServletResponse extends MockServletResponse implements HttpServletResponse {
+    private static final Log log = Log.init();
 
     private Integer status;
 
     public void sendRedirect(String path) throws IOException {
-        System.err.println("rederect to : " + path + " calling by " + Tool.stackTrace());
+        log.debug("rederect to : " + path + " calling by " + Tool.stackTrace());
     }
 
     public int getStatus() {
@@ -26,7 +29,7 @@ public class MockHttpServletResponse extends MockServletResponse implements Http
 
     public void setStatus(int status) {
         this.status = status;
-        System.err.println("set status " + status + " calling by " + Tool.stackTrace());
+        log.debug("set status " + status + " calling by " + Tool.stackTrace());
     }
 
     public void setStatus(int status, String arg1) {

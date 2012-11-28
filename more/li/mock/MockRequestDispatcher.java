@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import li.util.Log;
+
 /**
  * MockRequestDispatcher
  * 
@@ -14,6 +16,7 @@ import javax.servlet.ServletResponse;
  * @version 0.1.1 (2012-09-27)
  */
 class MockRequestDispatcher implements RequestDispatcher {
+    private static final Log log = Log.init();
 
     private String path;
 
@@ -22,10 +25,10 @@ class MockRequestDispatcher implements RequestDispatcher {
     }
 
     public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-        System.err.println("forward to : " + path + " calling by " + Tool.stackTrace());
+        log.debug("forward to : " + path + " calling by " + Tool.stackTrace());
     }
 
     public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-        System.err.println("include : " + path + " calling by " + Tool.stackTrace());
+        log.debug("include : " + path + " calling by " + Tool.stackTrace());
     }
 }

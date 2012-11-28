@@ -9,6 +9,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
+import li.util.Log;
+
 /**
  * MockHttpSession
  * 
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpSessionContext;
  * @version 0.1.1 (2012-09-27)
  */
 public class MockHttpSession implements HttpSession {
+    private static final Log log = Log.init();
 
     private ServletContext servletContext;
 
@@ -51,8 +54,8 @@ public class MockHttpSession implements HttpSession {
     }
 
     public void removeAttribute(String key) {
-        System.err.println("remove session " + key + " calling by " + Tool.stackTrace());
         sessionMap.remove(key);
+        log.debug("remove session " + key + " calling by " + Tool.stackTrace());
     }
 
     public void setAttribute(String key, Object value) {
