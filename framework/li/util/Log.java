@@ -15,7 +15,7 @@ public abstract class Log {
     /**
      * Log初始化方法,自动适配Log4j或Console
      */
-    public static Log init(final Class type) {
+    public static Log init(final Class<?> type) {
         try {
             return new Log() {// 尝试初始化Log4J
                 Logger logger = Logger.getLogger(type);
@@ -112,14 +112,14 @@ public abstract class Log {
     /**
      * 向LOG_MAP中设值,synchronized方法
      */
-    public synchronized static void put(String key, Object value) {
+    public synchronized static void put(Object key, Object value) {
         LOG_MAP.put(key, value);
     }
 
     /**
      * 从LOG_MAP中取值,synchronized方法
      */
-    public synchronized static Object get(String key) {
+    public synchronized static Object get(Object key) {
         return LOG_MAP.get(key);
     }
 }
