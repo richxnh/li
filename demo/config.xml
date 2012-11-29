@@ -2,12 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="ioc.xsd">
 	<beans>
-		<!-- <bean name="monitoring" class="li.datasource.MonitoringDataSource">
+		<!-- <bean name="monitoring" class="li.dao.MonitoringDataSource">
 			<property name="url" value="${db.url}" />
 			<property name="username" value="${db.username}" />
 			<property name="password" value="${db.password}" />
 		</bean> -->
-		<bean name="druid" class="li.datasource.Druid">
+		<bean name="druid" class="li.dao.Druid">
 			<property name="url" value="${db.url}" />
 			<property name="username" value="${db.username}" />
 			<property name="password" value="${db.password}" />
