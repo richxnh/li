@@ -34,8 +34,13 @@ public class XmlIocLoader {
             NodeList beanNodes = (NodeList) Files.xpath(Files.build(filePath), "//bean", XPathConstants.NODESET);
             for (int length = (null == beanNodes ? -1 : beanNodes.getLength()), i = 0; i < length; i++) {
                 Bean iocBean = new Bean();// 一个新的Bean
-                iocBean.type = Reflect.getType(Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING).toString());
                 iocBean.name = Files.xpath(beanNodes.item(i), "@name", XPathConstants.STRING).toString();
+                String type = Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING).toString();
+                try {
+                    iocBean.type = Class.forName(type);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException("Class " + type + " not found , which is configured in " + filePath, e);
+                }
 
                 NodeList propertyNodes = (NodeList) Files.xpath(beanNodes.item(i), "property", XPathConstants.NODESET);
                 for (int len = (null == propertyNodes ? -1 : propertyNodes.getLength()), m = 0; m < len; m++) {
