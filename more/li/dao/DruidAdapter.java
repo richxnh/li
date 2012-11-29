@@ -45,7 +45,7 @@ public class DruidAdapter extends DruidDataSource {
     }
 
     /**
-     * 加在WallConfig配置
+     * 加载WallConfig配置
      */
     private WallConfig loadWallConfig() {
         WallConfig wallConfig = new WallConfig();
