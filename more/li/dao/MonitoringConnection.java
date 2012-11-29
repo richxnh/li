@@ -1,4 +1,4 @@
-package li.datasource;
+package li.dao;
 
 import java.sql.Array;
 import java.sql.Blob;

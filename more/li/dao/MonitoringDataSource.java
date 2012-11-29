@@ -1,11 +1,10 @@
-package li.datasource;
+package li.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import li.dao.SimpleDataSource;
 import li.util.Log;
 
 public class MonitoringDataSource extends SimpleDataSource {
