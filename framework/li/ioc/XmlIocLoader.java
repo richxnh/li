@@ -38,15 +38,17 @@ public class XmlIocLoader {
                 String type = Files.xpath(beanNodes.item(i), "@class", XPathConstants.STRING).toString();
                 try {
                     iocBean.type = Class.forName(type);
-                } catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException e) {// 配置文件中把类名写错了
                     throw new RuntimeException("Class " + type + " not found , which is configured in " + filePath, e);
                 }
-
                 NodeList propertyNodes = (NodeList) Files.xpath(beanNodes.item(i), "property", XPathConstants.NODESET);
                 for (int len = (null == propertyNodes ? -1 : propertyNodes.getLength()), m = 0; m < len; m++) {
                     Field field = new Field();// 一个新的Field
                     field.name = (String) Files.xpath(propertyNodes.item(m), "@name", XPathConstants.STRING);
                     field.type = Reflect.fieldType(iocBean.type, field.name);
+                    if (null == field.type) {// 配置文件中把属性名写错了
+                        throw new RuntimeException("Field " + field.name + " not found" + " in class " + type + " , which is configured in " + filePath);
+                    }
                     field.value = (String) Files.xpath(propertyNodes.item(m), "@value", XPathConstants.STRING);
                     iocBean.fields.add(field);
                 }
